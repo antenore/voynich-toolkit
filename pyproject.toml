@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "voynich-toolkit"
+version = "0.2.0"
+description = "Computational analysis toolkit for the Voynich Manuscript (Beinecke MS 408)"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Antenore Gatta" },
+]
+keywords = ["voynich", "manuscript", "cryptanalysis", "decipherment", "computational-linguistics"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "click>=8.1.0",
+    "tqdm>=4.66.0",
+    "pymupdf>=1.24.0",
+    "opencv-python-headless>=4.9.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
+    "scipy>=1.12.0",
+    "scikit-image>=0.22.0",
+    "pandas>=2.2.0",
+    "requests>=2.31.0",
+    "Pillow>=10.2.0",
+    "rapidfuzz>=3.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/antenore/voynich-toolkit"
+Repository = "https://github.com/antenore/voynich-toolkit"
+Issues = "https://github.com/antenore/voynich-toolkit/issues"
+
+[project.scripts]
+voynich = "voynich_toolkit.cli:main"

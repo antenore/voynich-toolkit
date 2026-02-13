@@ -1,0 +1,2076 @@
+{
+  "direction": "rtl",
+  "n_folio_plant_pairs": 57,
+  "n_folii_in_eva": 55,
+  "n_folii_total": 129,
+  "n_hypotheses": 250,
+  "n_constraints_total": 212,
+  "n_constraints_valid": 13,
+  "mapping_greedy": {
+    "a": {
+      "hebrew": "y",
+      "hebrew_name": "yod",
+      "italian": "i"
+    },
+    "c": {
+      "hebrew": "A",
+      "hebrew_name": "aleph",
+      "italian": "a"
+    },
+    "d": {
+      "hebrew": "r",
+      "hebrew_name": "resh",
+      "italian": "r"
+    },
+    "e": {
+      "hebrew": "p",
+      "hebrew_name": "pe",
+      "italian": "p"
+    },
+    "h": {
+      "hebrew": "E",
+      "hebrew_name": "ayin",
+      "italian": "e"
+    },
+    "k": {
+      "hebrew": "t",
+      "hebrew_name": "tav",
+      "italian": "t"
+    },
+    "l": {
+      "hebrew": "m",
+      "hebrew_name": "mem",
+      "italian": "m"
+    },
+    "o": {
+      "hebrew": "w",
+      "hebrew_name": "vav",
+      "italian": "o"
+    },
+    "p": {
+      "hebrew": "l",
+      "hebrew_name": "lamed",
+      "italian": "l"
+    },
+    "r": {
+      "hebrew": "h",
+      "hebrew_name": "he",
+      "italian": "e"
+    },
+    "s": {
+      "hebrew": "n",
+      "hebrew_name": "nun",
+      "italian": "n"
+    },
+    "t": {
+      "hebrew": "J",
+      "hebrew_name": "tet",
+      "italian": "t"
+    },
+    "y": {
+      "hebrew": "S",
+      "hebrew_name": "shin",
+      "italian": "s"
+    }
+  },
+  "mapping_extended": {
+    "a": {
+      "hebrew": "y",
+      "hebrew_name": "yod",
+      "italian": "i",
+      "source": "greedy"
+    },
+    "c": {
+      "hebrew": "A",
+      "hebrew_name": "aleph",
+      "italian": "a",
+      "source": "greedy"
+    },
+    "d": {
+      "hebrew": "r",
+      "hebrew_name": "resh",
+      "italian": "r",
+      "source": "greedy"
+    },
+    "e": {
+      "hebrew": "p",
+      "hebrew_name": "pe",
+      "italian": "p",
+      "source": "greedy"
+    },
+    "h": {
+      "hebrew": "E",
+      "hebrew_name": "ayin",
+      "italian": "e",
+      "source": "greedy"
+    },
+    "k": {
+      "hebrew": "t",
+      "hebrew_name": "tav",
+      "italian": "t",
+      "source": "greedy"
+    },
+    "l": {
+      "hebrew": "m",
+      "hebrew_name": "mem",
+      "italian": "m",
+      "source": "greedy"
+    },
+    "m": {
+      "hebrew": "g",
+      "hebrew_name": "gimel",
+      "italian": "g",
+      "source": "completion"
+    },
+    "n": {
+      "hebrew": "d",
+      "hebrew_name": "dalet",
+      "italian": "d",
+      "source": "completion"
+    },
+    "o": {
+      "hebrew": "w",
+      "hebrew_name": "vav",
+      "italian": "o",
+      "source": "greedy"
+    },
+    "p": {
+      "hebrew": "l",
+      "hebrew_name": "lamed",
+      "italian": "l",
+      "source": "greedy"
+    },
+    "r": {
+      "hebrew": "h",
+      "hebrew_name": "he",
+      "italian": "e",
+      "source": "greedy"
+    },
+    "s": {
+      "hebrew": "n",
+      "hebrew_name": "nun",
+      "italian": "n",
+      "source": "greedy"
+    },
+    "t": {
+      "hebrew": "J",
+      "hebrew_name": "tet",
+      "italian": "t",
+      "source": "greedy"
+    },
+    "y": {
+      "hebrew": "S",
+      "hebrew_name": "shin",
+      "italian": "s",
+      "source": "greedy"
+    }
+  },
+  "completion_additions": [
+    {
+      "eva": "m",
+      "hebrew": "g",
+      "italian": "g",
+      "n_folii": 1,
+      "source": "fallback"
+    },
+    {
+      "eva": "n",
+      "hebrew": "d",
+      "italian": "d",
+      "n_folii": 1,
+      "source": "fallback"
+    }
+  ],
+  "accepted_constraints": [
+    {
+      "eva": "c",
+      "hebrew": "A",
+      "hebrew_name": "aleph",
+      "italian": "a",
+      "n_folii": 7,
+      "weight": 133.0,
+      "folii": [
+        "f36r",
+        "f37r",
+        "f40r",
+        "f41r",
+        "f48v",
+        "f96r",
+        "f9v"
+      ]
+    },
+    {
+      "eva": "o",
+      "hebrew": "w",
+      "hebrew_name": "vav",
+      "italian": "o",
+      "n_folii": 7,
+      "weight": 80.0,
+      "folii": [
+        "f22r",
+        "f25r",
+        "f47r",
+        "f49r",
+        "f94r",
+        "f95r1",
+        "f96r"
+      ]
+    },
+    {
+      "eva": "h",
+      "hebrew": "E",
+      "hebrew_name": "ayin",
+      "italian": "e",
+      "n_folii": 7,
+      "weight": 36.0,
+      "folii": [
+        "f23r",
+        "f35r",
+        "f37r",
+        "f40r",
+        "f44v",
+        "f47r",
+        "f95r1"
+      ]
+    },
+    {
+      "eva": "t",
+      "hebrew": "J",
+      "hebrew_name": "tet",
+      "italian": "t",
+      "n_folii": 4,
+      "weight": 19.0,
+      "folii": [
+        "f37r",
+        "f47r",
+        "f48v",
+        "f90r1"
+      ]
+    },
+    {
+      "eva": "d",
+      "hebrew": "r",
+      "hebrew_name": "resh",
+      "italian": "r",
+      "n_folii": 4,
+      "weight": 19.0,
+      "folii": [
+        "f41r",
+        "f48v",
+        "f90r1",
+        "f95r1"
+      ]
+    },
+    {
+      "eva": "r",
+      "hebrew": "h",
+      "hebrew_name": "he",
+      "italian": "e",
+      "n_folii": 4,
+      "weight": 15.0,
+      "folii": [
+        "f23r",
+        "f27r",
+        "f36r",
+        "f37r"
+      ]
+    },
+    {
+      "eva": "a",
+      "hebrew": "y",
+      "hebrew_name": "yod",
+      "italian": "i",
+      "n_folii": 3,
+      "weight": 12.0,
+      "folii": [
+        "f25r",
+        "f90r1",
+        "f93r"
+      ]
+    },
+    {
+      "eva": "y",
+      "hebrew": "S",
+      "hebrew_name": "shin",
+      "italian": "s",
+      "n_folii": 3,
+      "weight": 10.0,
+      "folii": [
+        "f22r",
+        "f44v",
+        "f51v"
+      ]
+    },
+    {
+      "eva": "k",
+      "hebrew": "t",
+      "hebrew_name": "tav",
+      "italian": "t",
+      "n_folii": 3,
+      "weight": 6.0,
+      "folii": [
+        "f37r",
+        "f47r",
+        "f48v"
+      ]
+    },
+    {
+      "eva": "s",
+      "hebrew": "n",
+      "hebrew_name": "nun",
+      "italian": "n",
+      "n_folii": 2,
+      "weight": 16.0,
+      "folii": [
+        "f37r",
+        "f40r"
+      ]
+    },
+    {
+      "eva": "l",
+      "hebrew": "m",
+      "hebrew_name": "mem",
+      "italian": "m",
+      "n_folii": 2,
+      "weight": 14.0,
+      "folii": [
+        "f37r",
+        "f90r1"
+      ]
+    },
+    {
+      "eva": "e",
+      "hebrew": "p",
+      "hebrew_name": "pe",
+      "italian": "p",
+      "n_folii": 2,
+      "weight": 14.0,
+      "folii": [
+        "f40r",
+        "f93r"
+      ]
+    },
+    {
+      "eva": "p",
+      "hebrew": "l",
+      "hebrew_name": "lamed",
+      "italian": "l",
+      "n_folii": 2,
+      "weight": 7.0,
+      "folii": [
+        "f36r",
+        "f9v"
+      ]
+    }
+  ],
+  "plant_hits_greedy": [],
+  "plant_hits_extended": [],
+  "n_plant_hits_greedy": 0,
+  "n_plant_hits_extended": 0,
+  "partial_matches": [
+    {
+      "folio": "f37r",
+      "plant": "menta",
+      "best": {
+        "eva_word": "cthol",
+        "n_mapped": 5,
+        "n_match": 3,
+        "n_total": 5,
+        "match_ratio": 0.6,
+        "chars": [
+          "c->OK",
+          "t->OK",
+          "h->MISS(att:n)",
+          "o->MISS(att:e)",
+          "l->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f36r",
+      "plant": "enula",
+      "best": {
+        "eva_word": "cphor",
+        "n_mapped": 5,
+        "n_match": 3,
+        "n_total": 5,
+        "match_ratio": 0.6,
+        "chars": [
+          "c->OK",
+          "p->OK",
+          "h->MISS(att:o)",
+          "o->MISS(att:n)",
+          "r->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f2r",
+      "plant": "eleboro",
+      "best": {
+        "eva_word": "otochor",
+        "n_mapped": 7,
+        "n_match": 4,
+        "n_total": 7,
+        "match_ratio": 0.571,
+        "chars": [
+          "o->OK",
+          "t->MISS(att:r)",
+          "o->OK",
+          "c->MISS(att:b)",
+          "h->OK",
+          "o->MISS(att:l)",
+          "r->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f25r",
+      "plant": "timo",
+      "best": {
+        "eva_word": "okal",
+        "n_mapped": 4,
+        "n_match": 2,
+        "n_total": 4,
+        "match_ratio": 0.5,
+        "chars": [
+          "o->OK",
+          "k->MISS(att:m)",
+          "a->OK",
+          "l->MISS(att:t)"
+        ]
+      }
+    },
+    {
+      "folio": "f44v",
+      "plant": "sedano",
+      "best": {
+        "eva_word": "chcthy",
+        "n_mapped": 6,
+        "n_match": 3,
+        "n_total": 6,
+        "match_ratio": 0.5,
+        "chars": [
+          "c->MISS(att:o)",
+          "h->MISS(att:n)",
+          "c->OK",
+          "t->MISS(att:d)",
+          "h->OK",
+          "y->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f34r",
+      "plant": "akilea",
+      "best": {
+        "eva_word": "chdain",
+        "n_mapped": 5,
+        "n_match": 3,
+        "n_total": 6,
+        "match_ratio": 0.5,
+        "chars": [
+          "c->OK",
+          "h->OK",
+          "d->MISS(att:l)",
+          "a->OK",
+          "i->?",
+          "n->MISS(att:a)"
+        ]
+      }
+    },
+    {
+      "folio": "f87r",
+      "plant": "ninfea",
+      "best": {
+        "eva_word": "chekol",
+        "n_mapped": 6,
+        "n_match": 3,
+        "n_total": 6,
+        "match_ratio": 0.5,
+        "chars": [
+          "c->OK",
+          "h->OK",
+          "e->OK",
+          "k->MISS(att:n)",
+          "o->MISS(att:i)",
+          "l->MISS(att:n)"
+        ]
+      }
+    },
+    {
+      "folio": "f22r",
+      "plant": "sambuko",
+      "best": {
+        "eva_word": "olotchy",
+        "n_mapped": 7,
+        "n_match": 3,
+        "n_total": 7,
+        "match_ratio": 0.429,
+        "chars": [
+          "o->OK",
+          "l->MISS(att:k)",
+          "o->OK",
+          "t->MISS(att:b)",
+          "c->MISS(att:m)",
+          "h->MISS(att:a)",
+          "y->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f93r",
+      "plant": "ginepro",
+      "best": {
+        "eva_word": "cheodam",
+        "n_mapped": 7,
+        "n_match": 3,
+        "n_total": 7,
+        "match_ratio": 0.429,
+        "chars": [
+          "c->MISS(att:o)",
+          "h->MISS(att:r)",
+          "e->OK",
+          "o->MISS(att:e)",
+          "d->MISS(att:n)",
+          "a->OK",
+          "m->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f9v",
+      "plant": "viola",
+      "best": {
+        "eva_word": "cphol",
+        "n_mapped": 5,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "c->OK",
+          "p->OK",
+          "h->MISS(att:o)",
+          "o->MISS(att:i)",
+          "l->MISS(att:b)"
+        ]
+      }
+    },
+    {
+      "folio": "f39r",
+      "plant": "kroko",
+      "best": {
+        "eva_word": "otedy",
+        "n_mapped": 5,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "o->OK",
+          "t->MISS(att:k)",
+          "e->MISS(att:o)",
+          "d->OK",
+          "y->MISS(att:k)"
+        ]
+      }
+    },
+    {
+      "folio": "f23r",
+      "plant": "edera",
+      "best": {
+        "eva_word": "dchar",
+        "n_mapped": 5,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "d->MISS(att:a)",
+          "c->MISS(att:r)",
+          "h->OK",
+          "a->MISS(att:d)",
+          "r->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f47r",
+      "plant": "aneto",
+      "best": {
+        "eva_word": "ckhey",
+        "n_mapped": 5,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "c->MISS(att:o)",
+          "k->OK",
+          "h->OK",
+          "e->MISS(att:n)",
+          "y->MISS(att:a)"
+        ]
+      }
+    },
+    {
+      "folio": "f65r",
+      "plant": "ricino",
+      "best": {
+        "eva_word": "otaim",
+        "n_mapped": 4,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "o->OK",
+          "t->MISS(att:n)",
+          "a->OK",
+          "i->?",
+          "m->MISS(att:r)"
+        ]
+      }
+    },
+    {
+      "folio": "f90r1",
+      "plant": "mirto",
+      "best": {
+        "eva_word": "qodar",
+        "n_mapped": 4,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "q->?",
+          "o->MISS(att:t)",
+          "d->OK",
+          "a->OK",
+          "r->MISS(att:m)"
+        ]
+      }
+    },
+    {
+      "folio": "f94r",
+      "plant": "aloro",
+      "best": {
+        "eva_word": "otody",
+        "n_mapped": 5,
+        "n_match": 2,
+        "n_total": 5,
+        "match_ratio": 0.4,
+        "chars": [
+          "o->OK",
+          "t->MISS(att:r)",
+          "o->OK",
+          "d->MISS(att:l)",
+          "y->MISS(att:a)"
+        ]
+      }
+    },
+    {
+      "folio": "f51v",
+      "plant": "salvia",
+      "best": {
+        "eva_word": "ckhody",
+        "n_mapped": 6,
+        "n_match": 2,
+        "n_total": 6,
+        "match_ratio": 0.333,
+        "chars": [
+          "c->OK",
+          "k->MISS(att:i)",
+          "h->MISS(att:b)",
+          "o->MISS(att:l)",
+          "d->MISS(att:a)",
+          "y->OK"
+        ]
+      }
+    },
+    {
+      "folio": "f13r",
+      "plant": "ninfea",
+      "best": {
+        "eva_word": "chckhy",
+        "n_mapped": 6,
+        "n_match": 2,
+        "n_total": 6,
+        "match_ratio": 0.333,
+        "chars": [
+          "c->OK",
+          "h->OK",
+          "c->MISS(att:p)",
+          "k->MISS(att:n)",
+          "h->MISS(att:i)",
+          "y->MISS(att:n)"
+        ]
+      }
+    },
+    {
+      "folio": "f43r",
+      "plant": "cikoria",
+      "best": {
+        "eva_word": "cheody",
+        "n_mapped": 6,
+        "n_match": 2,
+        "n_total": 6,
+        "match_ratio": 0.333,
+        "chars": [
+          "c->OK",
+          "h->MISS(att:i)",
+          "e->MISS(att:r)",
+          "o->OK",
+          "d->MISS(att:k)",
+          "y->MISS(att:i)"
+        ]
+      }
+    },
+    {
+      "folio": "f49r",
+      "plant": "kumino",
+      "best": {
+        "eva_word": "opchor",
+        "n_mapped": 6,
+        "n_match": 2,
+        "n_total": 6,
+        "match_ratio": 0.333,
+        "chars": [
+          "o->OK",
+          "p->MISS(att:n)",
+          "c->MISS(att:i)",
+          "h->MISS(att:m)",
+          "o->OK",
+          "r->MISS(att:k)"
+        ]
+      }
+    }
+  ],
+  "validation_greedy": {
+    "n_chars_mapped": 13,
+    "n_chars_total": 19,
+    "coverage_pct": 68.4,
+    "vowel_mapped": 5,
+    "consonant_mapped": 8,
+    "vowel_ratio_mapped": 0.385,
+    "expected_vowel_ratio": 0.47,
+    "plausible": true
+  },
+  "validation_extended": {
+    "n_chars_mapped": 15,
+    "n_chars_total": 19,
+    "coverage_pct": 78.9,
+    "vowel_mapped": 5,
+    "consonant_mapped": 10,
+    "vowel_ratio_mapped": 0.333,
+    "expected_vowel_ratio": 0.47,
+    "plausible": true
+  },
+  "constraints_by_eva": {
+    "a": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 3,
+        "weight": 34.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 3,
+        "weight": 12.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "g",
+        "italian": "g",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ],
+    "c": [
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 7,
+        "weight": 133.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 6,
+        "weight": 39.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 3,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 2,
+        "weight": 12.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 1,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 9.0
+      }
+    ],
+    "d": [
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 5,
+        "weight": 17.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 4,
+        "weight": 19.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 3,
+        "weight": 13.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 2,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 2,
+        "weight": 15.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 2,
+        "weight": 15.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 12.0
+      }
+    ],
+    "e": [
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 3,
+        "weight": 42.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 3,
+        "weight": 42.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 2,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "g",
+        "italian": "g",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ],
+    "f": [
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 2.0
+      }
+    ],
+    "g": [
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      }
+    ],
+    "h": [
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 7,
+        "weight": 36.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 7,
+        "weight": 36.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 5,
+        "weight": 72.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 4,
+        "weight": 23.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 4,
+        "weight": 23.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 3,
+        "weight": 28.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 3,
+        "weight": 17.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 2,
+        "weight": 20.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 2,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 2,
+        "weight": 24.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 2,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "g",
+        "italian": "g",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 1,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      }
+    ],
+    "i": [
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 3,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 3,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ],
+    "k": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 4,
+        "weight": 24.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 3,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 3,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 2,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "X",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "k",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "q",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 1,
+        "weight": 18.0
+      }
+    ],
+    "l": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 2,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 2,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 2,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 2,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 2,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "X",
+        "italian": "k",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "k",
+        "italian": "k",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "q",
+        "italian": "k",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 2,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 2,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ],
+    "m": [
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "g",
+        "italian": "g",
+        "n_folii": 1,
+        "weight": 2.0
+      }
+    ],
+    "n": [
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ],
+    "o": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 7,
+        "weight": 80.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 6,
+        "weight": 25.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 6,
+        "weight": 25.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 5,
+        "weight": 45.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 5,
+        "weight": 60.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 4,
+        "weight": 25.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 3,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 3,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 2,
+        "weight": 26.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 12.0
+      }
+    ],
+    "p": [
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 2,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 1,
+        "weight": 36.0
+      }
+    ],
+    "q": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 3,
+        "weight": 20.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      }
+    ],
+    "r": [
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 15.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 4,
+        "weight": 15.0
+      },
+      {
+        "hebrew": "X",
+        "italian": "k",
+        "n_folii": 3,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "k",
+        "italian": "k",
+        "n_folii": 3,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "q",
+        "italian": "k",
+        "n_folii": 3,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 2,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 1,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "g",
+        "italian": "g",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 12.0
+      }
+    ],
+    "s": [
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 3,
+        "weight": 12.0
+      },
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 3,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 2,
+        "weight": 16.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 12.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "X",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "k",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "q",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 6.0
+      }
+    ],
+    "t": [
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 4,
+        "weight": 19.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 4,
+        "weight": 19.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 4,
+        "weight": 19.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 3,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "l",
+        "italian": "l",
+        "n_folii": 2,
+        "weight": 8.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 1,
+        "weight": 6.0
+      },
+      {
+        "hebrew": "C",
+        "italian": "ts",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "z",
+        "italian": "z",
+        "n_folii": 1,
+        "weight": 4.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 3.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 1,
+        "weight": 8.0
+      }
+    ],
+    "y": [
+      {
+        "hebrew": "A",
+        "italian": "a",
+        "n_folii": 5,
+        "weight": 27.0
+      },
+      {
+        "hebrew": "S",
+        "italian": "s",
+        "n_folii": 3,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "s",
+        "italian": "s",
+        "n_folii": 3,
+        "weight": 10.0
+      },
+      {
+        "hebrew": "w",
+        "italian": "o",
+        "n_folii": 3,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "b",
+        "italian": "b",
+        "n_folii": 2,
+        "weight": 7.0
+      },
+      {
+        "hebrew": "m",
+        "italian": "m",
+        "n_folii": 2,
+        "weight": 24.0
+      },
+      {
+        "hebrew": "r",
+        "italian": "r",
+        "n_folii": 1,
+        "weight": 14.0
+      },
+      {
+        "hebrew": "J",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "t",
+        "italian": "t",
+        "n_folii": 1,
+        "weight": 1.0
+      },
+      {
+        "hebrew": "X",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "k",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "q",
+        "italian": "k",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "E",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "h",
+        "italian": "e",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "p",
+        "italian": "p",
+        "n_folii": 1,
+        "weight": 20.0
+      },
+      {
+        "hebrew": "n",
+        "italian": "n",
+        "n_folii": 1,
+        "weight": 12.0
+      },
+      {
+        "hebrew": "d",
+        "italian": "d",
+        "n_folii": 1,
+        "weight": 2.0
+      },
+      {
+        "hebrew": "y",
+        "italian": "i",
+        "n_folii": 1,
+        "weight": 4.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "entropy_cascade": {
+    "orders": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "voynichese": [
+      3.861,
+      2.3683,
+      2.1244,
+      2.0326,
+      1.8804
+    ],
+    "references": {
+      "Latin": [
+        3.9,
+        3.2,
+        2.7,
+        null,
+        null
+      ],
+      "Italian": [
+        3.88,
+        3.1,
+        2.5,
+        null,
+        null
+      ],
+      "English": [
+        4.0,
+        3.3,
+        2.8,
+        null,
+        null
+      ],
+      "German": [
+        3.85,
+        3.05,
+        2.45,
+        null,
+        null
+      ],
+      "Arabic": [
+        3.95,
+        3.15,
+        2.55,
+        null,
+        null
+      ],
+      "Hebrew": [
+        3.82,
+        3.1,
+        2.5,
+        null,
+        null
+      ],
+      "Random": [
+        4.7,
+        4.7,
+        4.7,
+        null,
+        null
+      ]
+    }
+  },
+  "index_of_coincidence": {
+    "voynichese": 0.077101,
+    "references": {
+      "Latin": 0.0725,
+      "Italian": 0.0738,
+      "English": 0.0667,
+      "German": 0.0762,
+      "Arabic": 0.0758,
+      "Hebrew": 0.0768,
+      "Random": 0.0385
+    }
+  },
+  "kl_divergence": {
+    "Latin": 0.008419,
+    "Italian": 0.006519,
+    "English": 0.004481,
+    "German": 0.016611,
+    "Arabic": 0.019612,
+    "Hebrew": 0.005668
+  },
+  "word_level_stats": {
+    "type_token_ratio": 0.2294,
+    "hapax_ratio": 0.7101,
+    "hapax_count": 6031,
+    "unique_words": 8493,
+    "total_words": 37025,
+    "heaps_k": 1.7908,
+    "heaps_beta": 0.8143
+  },
+  "repeat_density": {
+    "avg_repeat_density": 0.3261,
+    "avg_line_overlap": 0.0246,
+    "pages": [
+      {
+        "folio": "f1r",
+        "density": 0.3667,
+        "total_words": 210
+      },
+      {
+        "folio": "f1v",
+        "density": 0.3625,
+        "total_words": 80
+      },
+      {
+        "folio": "f2r",
+        "density": 0.2051,
+        "total_words": 78
+      },
+      {
+        "folio": "f2v",
+        "density": 0.2909,
+        "total_words": 55
+      },
+      {
+        "folio": "f3r",
+        "density": 0.3964,
+        "total_words": 111
+      },
+      {
+        "folio": "f3v",
+        "density": 0.1928,
+        "total_words": 83
+      },
+      {
+        "folio": "f4r",
+        "density": 0.4,
+        "total_words": 60
+      },
+      {
+        "folio": "f4v",
+        "density": 0.2436,
+        "total_words": 78
+      },
+      {
+        "folio": "f5r",
+        "density": 0.3214,
+        "total_words": 56
+      },
+      {
+        "folio": "f5v",
+        "density": 0.3111,
+        "total_words": 45
+      },
+      {
+        "folio": "f6r",
+        "density": 0.3418,
+        "total_words": 79
+      },
+      {
+        "folio": "f6v",
+        "density": 0.3628,
+        "total_words": 113
+      },
+      {
+        "folio": "f7r",
+        "density": 0.0769,
+        "total_words": 52
+      },
+      {
+        "folio": "f7v",
+        "density": 0.2857,
+        "total_words": 70
+      },
+      {
+        "folio": "f8r",
+        "density": 0.2868,
+        "total_words": 129
+      },
+      {
+        "folio": "f8v",
+        "density": 0.3235,
+        "total_words": 102
+      },
+      {
+        "folio": "f9r",
+        "density": 0.0959,
+        "total_words": 73
+      },
+      {
+        "folio": "f9v",
+        "density": 0.3056,
+        "total_words": 72
+      },
+      {
+        "folio": "f10r",
+        "density": 0.3256,
+        "total_words": 86
+      },
+      {
+        "folio": "f10v",
+        "density": 0.3774,
+        "total_words": 53
+      }
+    ]
+  }
+}

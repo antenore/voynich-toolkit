@@ -1,0 +1,153 @@
+# Fuzzy Decode Results
+# Direction: rtl, max_dist=2
+# Score: 65022, matched types: 4593
+
+============================================================
+  COMPLETE MAPPING (EVA -> Hebrew -> Italian)
+============================================================
+
+  a -> y (yod     ) -> i  [champollion]
+  c -> A (aleph   ) -> a  [champollion]
+  d -> r (resh    ) -> r  [champollion]
+  e -> p (pe      ) -> p  [champollion]
+ *f -> b (bet     ) -> b  [completion]
+ *g -> X (chet    ) -> k  [completion]
+  h -> E (ayin    ) -> e  [champollion]
+ *i -> s (samekh  ) -> s  [completion]
+  k -> t (tav     ) -> t  [champollion]
+  l -> m (mem     ) -> m  [champollion]
+  m -> g (gimel   ) -> g  [champollion]
+  n -> d (dalet   ) -> d  [champollion]
+  o -> w (vav     ) -> o  [champollion]
+  p -> l (lamed   ) -> l  [champollion]
+ *q -> k (kaf     ) -> k  [completion]
+  r -> h (he      ) -> e  [champollion]
+  s -> n (nun     ) -> n  [champollion]
+  t -> J (tet     ) -> t  [champollion]
+  y -> S (shin    ) -> s  [champollion]
+
+============================================================
+  TOP 50 FUZZY MATCHES
+============================================================
+
+Decoded         Target          Dist  Count   Score  Gloss
+---------------------------------------------------------------------------
+dssir           disir              1    805    2415  disir (Dante, freq=3)
+dssi            disi               1    457    1371  dissi (Dante, freq=39)
+sea             sea                0    136    1360  scea (agg.)
+moea            mea                1    381    1143  mea (Dante, freq=2)
+sto             sto                0    110    1100  sto (Dante, freq=2)
+seta            seta               0    105    1050  setta (s.f.)
+spea            sea                1    339    1017  scea (agg.)
+sen             sen                0     93     930  sen (Dante, freq=45)
+eir             dir                1    297     891  dir (Dante, freq=67)
+gir             gir                0     89     890  gir (Dante, freq=6)
+sto             sto                0     88     880  sto (Dante, freq=2)
+spen            sen                1    276     828  sen (Dante, freq=45)
+moto            moto               0     81     810  moto (s.m.)
+moto            moto               0     79     790  moto (s.m.)
+esi             esi                0     73     730  essi (Dante, freq=14)
+mir             dir                1    243     729  dir (Dante, freq=67)
+eoea            enea               1    206     618  enea (Dante, freq=2)
+dsir            dir                1    189     567  dir (Dante, freq=67)
+moen            men                1    175     525  men (Dante, freq=66)
+sppto           speto              1    174     522  spetto (prep.)
+mopea           kopea              1    167     501  copea (s.f.)
+srpea           ardea              2    496     496  ardea (s.f.)
+gito            gito               0     47     470  gito (agg.)
+mok             lok                1    148     444  loc (s.i.)
+speta           speta              0     44     440  spetta (s.f.)
+srea            area               1    145     435  aria
+srpen           arpe               2    425     425  arpe (s.f.)
+dsito           asito              1    141     423  assito (s.m.)
+stok            sto                1    139     417  sto (Dante, freq=2)
+eito            aito               1    139     417  aito (s.m.)
+mito            aito               1    137     411  aito (s.m.)
+sppto           speto              1    135     405  spetto (prep.)
+setaea          setata             1    134     402  setata (s.f.)
+mito            aito               1    133     399  aito (s.m.)
+eito            aito               1    124     372  aito (s.m.)
+seta            seta               0     37     370  setta (s.f.)
+oen             ben                1    121     363  been (s.m.)
+mor             amor               1    111     333  amor (Dante, freq=91)
+speta           speta              0     31     310  spetta (s.f.)
+spptok          speto              2    308     308  spetto (prep.)
+motok           moto               1    102     306  moto (s.m.)
+esir            eser               1    100     300  esser (Dante, freq=162)
+eopea           kopea              1     98     294  copea (s.f.)
+dsito           asito              1     95     285  assito (s.m.)
+dsitok          asito              2    277     277  assito (s.m.)
+dsi             asi                1     90     270  assi (avv.)
+gito            gito               0     26     260  gito (agg.)
+ein             ei                 1     83     249  ei (Dante, freq=62)
+stok            sto                1     82     246  sto (Dante, freq=2)
+sei             sei                0     24     240  sei
+
+============================================================
+  SECTION BREAKDOWN
+============================================================
+
+
+  Section A (expected: general):
+    Words: 839, decoded: 603, matched: 10, score: 1435
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+    eir          -> dir          (d=1) dir (Dante, freq=67)
+    sppto        -> speto        (d=1) spetto (prep.)
+    spen         -> sen          (d=1) sen (Dante, freq=45)
+
+  Section B (expected: medical):
+    Words: 6866, decoded: 1540, matched: 10, score: 10536
+    srpen        -> arpe         (d=2) arpe (s.f.)
+    srpea        -> ardea        (d=2) ardea (s.f.)
+    dsitok       -> asito        (d=2) assito (s.m.)
+    mok          -> lok          (d=1) loc (s.i.)
+    mitok        -> aito         (d=2) aito (s.m.)
+
+  Section C (expected: general):
+    Words: 2469, decoded: 1103, matched: 10, score: 4410
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+    eir          -> dir          (d=1) dir (Dante, freq=67)
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+    mir          -> dir          (d=1) dir (Dante, freq=67)
+    srpea        -> ardea        (d=2) ardea (s.f.)
+
+  Section H (expected: botanical):
+    Words: 10723, decoded: 3562, matched: 10, score: 22107
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+    moea         -> mea          (d=1) mea (Dante, freq=2)
+    eoea         -> enea         (d=1) enea (Dante, freq=2)
+    moen         -> men          (d=1) men (Dante, freq=66)
+    eir          -> dir          (d=1) dir (Dante, freq=67)
+
+  Section P (expected: medical):
+    Words: 2505, decoded: 1125, matched: 10, score: 4860
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+    moea         -> mea          (d=1) mea (Dante, freq=2)
+    mopea        -> kopea        (d=1) copea (s.f.)
+    mopto        -> molto        (d=1) molto
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+
+  Section S (expected: astronomical):
+    Words: 10679, decoded: 3029, matched: 10, score: 16228
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+    srpea        -> ardea        (d=2) ardea (s.f.)
+    spptok       -> speto        (d=2) spetto (prep.)
+    spea         -> sea          (d=1) scea (agg.)
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+
+  Section T (expected: general):
+    Words: 1622, decoded: 884, matched: 10, score: 2869
+    dssir        -> disir        (d=1) disir (Dante, freq=3)
+    mir          -> dir          (d=1) dir (Dante, freq=67)
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+    moea         -> mea          (d=1) mea (Dante, freq=2)
+    eir          -> dir          (d=1) dir (Dante, freq=67)
+
+  Section Z (expected: astronomical):
+    Words: 1322, decoded: 790, matched: 10, score: 2577
+    dssi         -> disi         (d=1) dissi (Dante, freq=39)
+    sppto        -> speto        (d=1) spetto (prep.)
+    sropto       -> arosto       (d=2) arrosto (agg./avv./s.m.)
+    nopto        -> norto        (d=1) norto (s.m.)
+    mito         -> aito         (d=1) aito (s.m.)

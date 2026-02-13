@@ -1,0 +1,691 @@
+{
+  "params": {
+    "min_freq": 2,
+    "max_dist": 2
+  },
+  "n_eligible_words": 2462,
+  "n_pairs": 76840,
+  "error_types": {
+    "other": {
+      "count": 36369,
+      "pct": 47.3,
+      "top_examples": [
+        {
+          "word_a": "daiin",
+          "word_b": "okaiin",
+          "freq_a": 805,
+          "freq_b": 209,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "otaiin",
+          "freq_a": 805,
+          "freq_b": 150,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "dair",
+          "word_b": "daiin",
+          "freq_a": 100,
+          "freq_b": 805,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "sain",
+          "word_b": "daiin",
+          "freq_a": 66,
+          "freq_b": 805,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "olaiin",
+          "freq_a": 805,
+          "freq_b": 52,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "lkaiin",
+          "freq_a": 805,
+          "freq_b": 49,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "kain",
+          "word_b": "daiin",
+          "freq_a": 46,
+          "freq_b": 805,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "ykaiin",
+          "freq_a": 805,
+          "freq_b": 44,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "chaiin",
+          "freq_a": 805,
+          "freq_b": 41,
+          "detail": "dist=2"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "ytaiin",
+          "freq_a": 805,
+          "freq_b": 41,
+          "detail": "dist=2"
+        }
+      ]
+    },
+    "substitution": {
+      "count": 25904,
+      "pct": 33.7,
+      "top_examples": [
+        {
+          "word_a": "chedy",
+          "word_b": "shedy",
+          "freq_a": 496,
+          "freq_b": 425,
+          "detail": "pos 0: c->s"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "raiin",
+          "freq_a": 805,
+          "freq_b": 75,
+          "detail": "pos 0: d->r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "kaiin",
+          "freq_a": 805,
+          "freq_b": 65,
+          "detail": "pos 0: d->k"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "taiin",
+          "freq_a": 805,
+          "freq_b": 41,
+          "detail": "pos 0: d->t"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "aiiin",
+          "freq_a": 805,
+          "freq_b": 41,
+          "detail": "pos 0: d->a, pos 1: a->i"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "oaiin",
+          "freq_a": 805,
+          "freq_b": 25,
+          "detail": "pos 0: d->o"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "laiin",
+          "freq_a": 805,
+          "freq_b": 13,
+          "detail": "pos 0: d->l"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "oiiin",
+          "freq_a": 805,
+          "freq_b": 10,
+          "detail": "pos 0: d->o, pos 1: a->i"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "paiin",
+          "freq_a": 805,
+          "freq_b": 8,
+          "detail": "pos 0: d->p"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "yaiin",
+          "freq_a": 805,
+          "freq_b": 6,
+          "detail": "pos 0: d->y"
+        }
+      ]
+    },
+    "length_diff_2": {
+      "count": 8012,
+      "pct": 10.4,
+      "top_examples": [
+        {
+          "word_a": "ol",
+          "word_b": "chol",
+          "freq_a": 525,
+          "freq_b": 381,
+          "detail": "|2| vs |4|"
+        },
+        {
+          "word_a": "ain",
+          "word_b": "daiin",
+          "freq_a": 90,
+          "freq_b": 805,
+          "detail": "|3| vs |5|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "qodaiin",
+          "freq_a": 805,
+          "freq_b": 41,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "dan",
+          "word_b": "daiin",
+          "freq_a": 16,
+          "freq_b": 805,
+          "detail": "|3| vs |5|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "chdaiin",
+          "freq_a": 805,
+          "freq_b": 16,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "oldaiin",
+          "freq_a": 805,
+          "freq_b": 9,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "todaiin",
+          "freq_a": 805,
+          "freq_b": 9,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "dchaiin",
+          "freq_a": 805,
+          "freq_b": 5,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "podaiin",
+          "freq_a": 805,
+          "freq_b": 5,
+          "detail": "|5| vs |7|"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "odaiiin",
+          "freq_a": 805,
+          "freq_b": 4,
+          "detail": "|5| vs |7|"
+        }
+      ]
+    },
+    "deletion": {
+      "count": 4026,
+      "pct": 5.2,
+      "top_examples": [
+        {
+          "word_a": "aiin",
+          "word_b": "daiin",
+          "freq_a": 457,
+          "freq_b": 805,
+          "detail": "pos 0: -d"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "odaiin",
+          "freq_a": 805,
+          "freq_b": 58,
+          "detail": "pos 0: -o"
+        },
+        {
+          "word_a": "chey",
+          "word_b": "chedy",
+          "freq_a": 339,
+          "freq_b": 496,
+          "detail": "pos 3: -d"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "ydaiin",
+          "freq_a": 805,
+          "freq_b": 19,
+          "detail": "pos 0: -y"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "doaiin",
+          "freq_a": 805,
+          "freq_b": 3,
+          "detail": "pos 1: -o"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "dairin",
+          "freq_a": 805,
+          "freq_b": 3,
+          "detail": "pos 3: -r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "pdaiin",
+          "freq_a": 805,
+          "freq_b": 3,
+          "detail": "pos 0: -p"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "ldaiin",
+          "freq_a": 805,
+          "freq_b": 3,
+          "detail": "pos 0: -l"
+        },
+        {
+          "word_a": "shey",
+          "word_b": "shedy",
+          "freq_a": 276,
+          "freq_b": 425,
+          "detail": "pos 3: -d"
+        },
+        {
+          "word_a": "ol",
+          "word_b": "qol",
+          "freq_a": 525,
+          "freq_b": 148,
+          "detail": "pos 0: -q"
+        }
+      ]
+    },
+    "visual_confusion": {
+      "count": 1966,
+      "pct": 2.6,
+      "top_examples": [
+        {
+          "word_a": "daiin",
+          "word_b": "saiin",
+          "freq_a": 805,
+          "freq_b": 136,
+          "detail": "pos 0: d<->s"
+        },
+        {
+          "word_a": "ol",
+          "word_b": "or",
+          "freq_a": 525,
+          "freq_b": 350,
+          "detail": "pos 1: l<->r"
+        },
+        {
+          "word_a": "ol",
+          "word_b": "ar",
+          "freq_a": 525,
+          "freq_b": 346,
+          "detail": "pos 0: o<->a, pos 1: l<->r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "daiir",
+          "freq_a": 805,
+          "freq_b": 22,
+          "detail": "pos 4: n<->r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "soiin",
+          "freq_a": 805,
+          "freq_b": 19,
+          "detail": "pos 0: d<->s, pos 1: a<->o"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "doiin",
+          "freq_a": 805,
+          "freq_b": 18,
+          "detail": "pos 1: a<->o"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "doiir",
+          "freq_a": 805,
+          "freq_b": 8,
+          "detail": "pos 1: a<->o, pos 4: n<->r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "saiir",
+          "freq_a": 805,
+          "freq_b": 6,
+          "detail": "pos 0: d<->s, pos 4: n<->r"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "daiim",
+          "freq_a": 805,
+          "freq_b": 5,
+          "detail": "pos 4: n<->m"
+        },
+        {
+          "word_a": "ol",
+          "word_b": "al",
+          "freq_a": 525,
+          "freq_b": 253,
+          "detail": "pos 0: o<->a"
+        }
+      ]
+    },
+    "haplography": {
+      "count": 378,
+      "pct": 0.5,
+      "top_examples": [
+        {
+          "word_a": "dain",
+          "word_b": "daiin",
+          "freq_a": 189,
+          "freq_b": 805,
+          "detail": "pos 2: i dropped"
+        },
+        {
+          "word_a": "daiin",
+          "word_b": "daiiin",
+          "freq_a": 805,
+          "freq_b": 16,
+          "detail": "pos 2: i dropped"
+        },
+        {
+          "word_a": "qokedy",
+          "word_b": "qokeedy",
+          "freq_a": 265,
+          "freq_b": 301,
+          "detail": "pos 3: e dropped"
+        },
+        {
+          "word_a": "chedy",
+          "word_b": "cheedy",
+          "freq_a": 496,
+          "freq_b": 59,
+          "detail": "pos 2: e dropped"
+        },
+        {
+          "word_a": "ain",
+          "word_b": "aiin",
+          "freq_a": 90,
+          "freq_b": 457,
+          "detail": "pos 1: i dropped"
+        },
+        {
+          "word_a": "qokain",
+          "word_b": "qokaiin",
+          "freq_a": 277,
+          "freq_b": 262,
+          "detail": "pos 4: i dropped"
+        },
+        {
+          "word_a": "ol",
+          "word_b": "oll",
+          "freq_a": 525,
+          "freq_b": 2,
+          "detail": "pos 1: l dropped"
+        },
+        {
+          "word_a": "chey",
+          "word_b": "cheey",
+          "freq_a": 339,
+          "freq_b": 174,
+          "detail": "pos 2: e dropped"
+        },
+        {
+          "word_a": "shedy",
+          "word_b": "sheedy",
+          "freq_a": 425,
+          "freq_b": 83,
+          "detail": "pos 2: e dropped"
+        },
+        {
+          "word_a": "aiin",
+          "word_b": "aiiin",
+          "freq_a": 457,
+          "freq_b": 41,
+          "detail": "pos 1: i dropped"
+        }
+      ]
+    },
+    "metathesis": {
+      "count": 185,
+      "pct": 0.2,
+      "top_examples": [
+        {
+          "word_a": "ol",
+          "word_b": "lo",
+          "freq_a": 525,
+          "freq_b": 13,
+          "detail": "pos 0-1: ol<->lo"
+        },
+        {
+          "word_a": "or",
+          "word_b": "ro",
+          "freq_a": 350,
+          "freq_b": 10,
+          "detail": "pos 0-1: or<->ro"
+        },
+        {
+          "word_a": "qokeedy",
+          "word_b": "qoekedy",
+          "freq_a": 301,
+          "freq_b": 2,
+          "detail": "pos 2-3: ke<->ek"
+        },
+        {
+          "word_a": "dy",
+          "word_b": "yd",
+          "freq_a": 226,
+          "freq_b": 2,
+          "detail": "pos 0-1: dy<->yd"
+        },
+        {
+          "word_a": "okaiin",
+          "word_b": "koaiin",
+          "freq_a": 209,
+          "freq_b": 3,
+          "detail": "pos 0-1: ok<->ko"
+        },
+        {
+          "word_a": "okeey",
+          "word_b": "oekey",
+          "freq_a": 174,
+          "freq_b": 3,
+          "detail": "pos 1-2: ke<->ek"
+        },
+        {
+          "word_a": "otaiin",
+          "word_b": "toaiin",
+          "freq_a": 150,
+          "freq_b": 2,
+          "detail": "pos 0-1: ot<->to"
+        },
+        {
+          "word_a": "otar",
+          "word_b": "toar",
+          "freq_a": 139,
+          "freq_b": 3,
+          "detail": "pos 0-1: ot<->to"
+        },
+        {
+          "word_a": "chckhy",
+          "word_b": "chkchy",
+          "freq_a": 134,
+          "freq_b": 4,
+          "detail": "pos 2-3: ck<->kc"
+        },
+        {
+          "word_a": "cthy",
+          "word_b": "tchy",
+          "freq_a": 105,
+          "freq_b": 24,
+          "detail": "pos 0-1: ct<->tc"
+        }
+      ]
+    }
+  },
+  "confusion_matrix": [
+    {
+      "char_a": "a",
+      "char_b": "o",
+      "count": 2771,
+      "is_visual": true
+    },
+    {
+      "char_a": "e",
+      "char_b": "o",
+      "count": 2302,
+      "is_visual": false
+    },
+    {
+      "char_a": "c",
+      "char_b": "s",
+      "count": 2176,
+      "is_visual": false
+    },
+    {
+      "char_a": "l",
+      "char_b": "r",
+      "count": 1977,
+      "is_visual": true
+    },
+    {
+      "char_a": "o",
+      "char_b": "y",
+      "count": 1863,
+      "is_visual": false
+    },
+    {
+      "char_a": "k",
+      "char_b": "t",
+      "count": 1639,
+      "is_visual": true
+    },
+    {
+      "char_a": "d",
+      "char_b": "e",
+      "count": 1300,
+      "is_visual": false
+    },
+    {
+      "char_a": "l",
+      "char_b": "o",
+      "count": 1040,
+      "is_visual": false
+    },
+    {
+      "char_a": "l",
+      "char_b": "y",
+      "count": 1001,
+      "is_visual": false
+    },
+    {
+      "char_a": "d",
+      "char_b": "k",
+      "count": 971,
+      "is_visual": false
+    },
+    {
+      "char_a": "d",
+      "char_b": "l",
+      "count": 964,
+      "is_visual": false
+    },
+    {
+      "char_a": "d",
+      "char_b": "o",
+      "count": 920,
+      "is_visual": false
+    },
+    {
+      "char_a": "e",
+      "char_b": "h",
+      "count": 879,
+      "is_visual": false
+    },
+    {
+      "char_a": "s",
+      "char_b": "y",
+      "count": 814,
+      "is_visual": false
+    },
+    {
+      "char_a": "k",
+      "char_b": "l",
+      "count": 811,
+      "is_visual": false
+    }
+  ],
+  "section_analysis": {
+    "A": {
+      "n_words": 839,
+      "n_unique": 752,
+      "n_pair_words": 363,
+      "error_rate_pct": 48.3
+    },
+    "B": {
+      "n_words": 6866,
+      "n_unique": 3750,
+      "n_pair_words": 953,
+      "error_rate_pct": 25.4
+    },
+    "C": {
+      "n_words": 2469,
+      "n_unique": 1743,
+      "n_pair_words": 719,
+      "error_rate_pct": 41.3
+    },
+    "H": {
+      "n_words": 10723,
+      "n_unique": 8844,
+      "n_pair_words": 1576,
+      "error_rate_pct": 17.8
+    },
+    "P": {
+      "n_words": 2505,
+      "n_unique": 1942,
+      "n_pair_words": 661,
+      "error_rate_pct": 34.0
+    },
+    "S": {
+      "n_words": 10679,
+      "n_unique": 6799,
+      "n_pair_words": 1587,
+      "error_rate_pct": 23.3
+    },
+    "T": {
+      "n_words": 1622,
+      "n_unique": 1181,
+      "n_pair_words": 611,
+      "error_rate_pct": 51.7
+    },
+    "Z": {
+      "n_words": 1322,
+      "n_unique": 1149,
+      "n_pair_words": 447,
+      "error_rate_pct": 38.9
+    }
+  },
+  "positional_bias": {
+    "n_samples": 5601,
+    "avg_position": 0.429,
+    "start_pct": 45.3,
+    "middle_pct": 23.9,
+    "end_pct": 30.8
+  }
+}

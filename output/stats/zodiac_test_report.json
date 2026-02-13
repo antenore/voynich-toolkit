@@ -1,0 +1,2404 @@
+{
+  "zodiac_pages": [
+    "f70v1",
+    "f70v2",
+    "f71r",
+    "f71v",
+    "f72r1",
+    "f72r2",
+    "f72r3",
+    "f72v1",
+    "f72v2",
+    "f72v3",
+    "f73r",
+    "f73v"
+  ],
+  "n_zodiac_pages": 12,
+  "total_zodiac_words": 1322,
+  "vocabulary_searched": 110,
+  "results": {
+    "signs": {
+      "label": "Zodiac signs",
+      "n_matched": 8,
+      "matches": [
+        {
+          "word": "shor",
+          "canonical": "Taurus",
+          "language": "hebrew",
+          "normalized": "Swr",
+          "zodiac_hits": [
+            {
+              "folio": "f70v2",
+              "decoded": "SIr",
+              "eva": "diy",
+              "distance": 1
+            },
+            {
+              "folio": "f73v",
+              "decoded": "Slr",
+              "eva": "dpy",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 2,
+          "total_manuscript_count": 230,
+          "section_distribution": {
+            "herbal": 107,
+            "balneological": 45,
+            "pharmaceutical": 40,
+            "astronomical": 19,
+            "text": 8,
+            "A": 6,
+            "cosmological": 3,
+            "zodiac": 2
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "aryeh",
+          "canonical": "Leo",
+          "language": "hebrew",
+          "normalized": "Aryh",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 1,
+          "section_distribution": {
+            "pharmaceutical": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "gdi",
+          "canonical": "Capricorn",
+          "language": "hebrew",
+          "normalized": "gdy",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 6,
+          "section_distribution": {
+            "cosmological": 2,
+            "astronomical": 2,
+            "herbal": 1,
+            "text": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "dli",
+          "canonical": "Aquarius",
+          "language": "hebrew",
+          "normalized": "dly",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 91,
+          "section_distribution": {
+            "astronomical": 50,
+            "balneological": 17,
+            "herbal": 10,
+            "pharmaceutical": 8,
+            "cosmological": 4,
+            "A": 1,
+            "text": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "dagim",
+          "canonical": "Pisces",
+          "language": "hebrew",
+          "normalized": "dgym",
+          "zodiac_hits": [
+            {
+              "folio": "f73v",
+              "decoded": "gym",
+              "eva": "lam",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 1,
+          "total_manuscript_count": 11,
+          "section_distribution": {
+            "astronomical": 7,
+            "herbal": 1,
+            "zodiac": 1,
+            "balneological": 1,
+            "text": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "toro",
+          "canonical": "Taurus",
+          "language": "italian",
+          "normalized": "toro",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 10,
+          "section_distribution": {
+            "herbal": 6,
+            "pharmaceutical": 2,
+            "text": 1,
+            "astronomical": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "pesci",
+          "canonical": "Pisces",
+          "language": "italian",
+          "normalized": "pesi",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 1,
+          "section_distribution": {
+            "text": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "leo",
+          "canonical": "Leo",
+          "language": "latin",
+          "normalized": "leo",
+          "zodiac_hits": [
+            {
+              "folio": "f72r3",
+              "decoded": "oeo",
+              "eva": "oro",
+              "distance": 1
+            },
+            {
+              "folio": "f72r3",
+              "decoded": "seo",
+              "eva": "ory",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 2,
+          "total_manuscript_count": 25,
+          "section_distribution": {
+            "balneological": 8,
+            "herbal": 5,
+            "pharmaceutical": 4,
+            "text": 3,
+            "zodiac": 2,
+            "astronomical": 2,
+            "cosmological": 1
+          },
+          "exact_match_in_zodiac": false
+        }
+      ]
+    },
+    "months": {
+      "label": "Month names",
+      "n_matched": 7,
+      "matches": [
+        {
+          "word": "nisan",
+          "canonical": "Nisan",
+          "language": "hebrew",
+          "normalized": "nysn",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 2,
+          "section_distribution": {
+            "herbal": 1,
+            "cosmological": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "iyyar",
+          "canonical": "Iyyar",
+          "language": "hebrew",
+          "normalized": "yyyr",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 4,
+          "section_distribution": {
+            "herbal": 2,
+            "text": 1,
+            "astronomical": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "elul",
+          "canonical": "Elul",
+          "language": "hebrew",
+          "normalized": "lwl",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 38,
+          "section_distribution": {
+            "balneological": 15,
+            "astronomical": 14,
+            "herbal": 5,
+            "cosmological": 2,
+            "pharmaceutical": 2
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "shevat",
+          "canonical": "Shevat",
+          "language": "hebrew",
+          "normalized": "Sbt",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 14,
+          "section_distribution": {
+            "astronomical": 4,
+            "herbal": 3,
+            "cosmological": 2,
+            "balneological": 2,
+            "pharmaceutical": 2,
+            "text": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "giugno",
+          "canonical": "June",
+          "language": "italian",
+          "normalized": "dnio",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 12,
+          "section_distribution": {
+            "astronomical": 7,
+            "herbal": 3,
+            "balneological": 1,
+            "pharmaceutical": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "maius",
+          "canonical": "May",
+          "language": "latin",
+          "normalized": "mais",
+          "zodiac_hits": [
+            {
+              "folio": "f72v3",
+              "decoded": "mis",
+              "eva": "yal",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 1,
+          "total_manuscript_count": 1,
+          "section_distribution": {
+            "zodiac": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "junius",
+          "canonical": "June",
+          "language": "latin",
+          "normalized": "inis",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 1,
+          "section_distribution": {
+            "A": 1
+          },
+          "exact_match_in_zodiac": false
+        }
+      ]
+    },
+    "planets": {
+      "label": "Planet names",
+      "n_matched": 7,
+      "matches": [
+        {
+          "word": "shemesh",
+          "canonical": "Sun",
+          "language": "hebrew",
+          "normalized": "SmS",
+          "zodiac_hits": [
+            {
+              "folio": "f70v1",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f71v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f71v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f72r2",
+              "decoded": "SmS",
+              "eva": "yly",
+              "distance": 0
+            },
+            {
+              "folio": "f72v3",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f72v3",
+              "decoded": "SJS",
+              "eva": "yty",
+              "distance": 1
+            },
+            {
+              "folio": "f72v2",
+              "decoded": "SmS",
+              "eva": "yly",
+              "distance": 0
+            },
+            {
+              "folio": "f73r",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f73v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 9,
+          "total_manuscript_count": 136,
+          "section_distribution": {
+            "herbal": 43,
+            "balneological": 37,
+            "astronomical": 19,
+            "cosmological": 14,
+            "zodiac": 9,
+            "text": 7,
+            "A": 5,
+            "pharmaceutical": 2
+          },
+          "exact_match_in_zodiac": true
+        },
+        {
+          "word": "maadim",
+          "canonical": "Mars",
+          "language": "hebrew",
+          "normalized": "mdym",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 7,
+          "section_distribution": {
+            "balneological": 3,
+            "astronomical": 3,
+            "cosmological": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "shabtai",
+          "canonical": "Saturn",
+          "language": "hebrew",
+          "normalized": "Sbty",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 2,
+          "section_distribution": {
+            "astronomical": 2
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "giove",
+          "canonical": "Jupiter",
+          "language": "italian",
+          "normalized": "doe",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 43,
+          "section_distribution": {
+            "balneological": 22,
+            "astronomical": 16,
+            "herbal": 3,
+            "A": 1,
+            "pharmaceutical": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "sol",
+          "canonical": "Sun",
+          "language": "latin",
+          "normalized": "sol",
+          "zodiac_hits": [],
+          "zodiac_count": 0,
+          "total_manuscript_count": 55,
+          "section_distribution": {
+            "astronomical": 19,
+            "balneological": 15,
+            "herbal": 13,
+            "pharmaceutical": 5,
+            "cosmological": 2,
+            "A": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "mars",
+          "canonical": "Mars",
+          "language": "latin",
+          "normalized": "mars",
+          "zodiac_hits": [
+            {
+              "folio": "f72r1",
+              "decoded": "mirs",
+              "eva": "ydal",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 1,
+          "total_manuscript_count": 4,
+          "section_distribution": {
+            "herbal": 3,
+            "zodiac": 1
+          },
+          "exact_match_in_zodiac": false
+        },
+        {
+          "word": "venus",
+          "canonical": "Venus",
+          "language": "latin",
+          "normalized": "ens",
+          "zodiac_hits": [
+            {
+              "folio": "f72v1",
+              "decoded": "sens",
+              "eva": "ysry",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 1,
+          "total_manuscript_count": 18,
+          "section_distribution": {
+            "herbal": 10,
+            "astronomical": 4,
+            "balneological": 2,
+            "cosmological": 1,
+            "zodiac": 1
+          },
+          "exact_match_in_zodiac": false
+        }
+      ]
+    },
+    "astro_terms": {
+      "label": "Astrological terms",
+      "n_matched": 0,
+      "matches": []
+    },
+    "hebrew_days": {
+      "label": "Hebrew days",
+      "n_matched": 1,
+      "matches": [
+        {
+          "word": "sheni",
+          "canonical": "Monday",
+          "language": "hebrew",
+          "normalized": "Sny",
+          "zodiac_hits": [
+            {
+              "folio": "f70v1",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f71v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f71v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f72r1",
+              "decoded": "Shy",
+              "eva": "ary",
+              "distance": 1
+            },
+            {
+              "folio": "f72r1",
+              "decoded": "Shy",
+              "eva": "ary",
+              "distance": 1
+            },
+            {
+              "folio": "f72r2",
+              "decoded": "Shy",
+              "eva": "ary",
+              "distance": 1
+            },
+            {
+              "folio": "f72v3",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f73r",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            },
+            {
+              "folio": "f73v",
+              "decoded": "Smy",
+              "eva": "aly",
+              "distance": 1
+            }
+          ],
+          "zodiac_count": 9,
+          "exact_match_in_zodiac": false
+        }
+      ]
+    }
+  },
+  "exact_matches_in_zodiac": [
+    {
+      "word": "shemesh",
+      "canonical": "Sun",
+      "language": "hebrew",
+      "normalized": "SmS",
+      "hits": [
+        {
+          "folio": "f70v1",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        },
+        {
+          "folio": "f71v",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        },
+        {
+          "folio": "f71v",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        },
+        {
+          "folio": "f72r2",
+          "decoded": "SmS",
+          "eva": "yly",
+          "distance": 0
+        },
+        {
+          "folio": "f72v3",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        },
+        {
+          "folio": "f72v3",
+          "decoded": "SJS",
+          "eva": "yty",
+          "distance": 1
+        },
+        {
+          "folio": "f72v2",
+          "decoded": "SmS",
+          "eva": "yly",
+          "distance": 0
+        },
+        {
+          "folio": "f73r",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        },
+        {
+          "folio": "f73v",
+          "decoded": "Smy",
+          "eva": "aly",
+          "distance": 1
+        }
+      ]
+    }
+  ],
+  "all_zodiac_section_hits": [
+    {
+      "word": "shor",
+      "canonical": "Taurus",
+      "language": "hebrew",
+      "zodiac_count": 2,
+      "total_count": 230
+    },
+    {
+      "word": "dagim",
+      "canonical": "Pisces",
+      "language": "hebrew",
+      "zodiac_count": 1,
+      "total_count": 11
+    },
+    {
+      "word": "leo",
+      "canonical": "Leo",
+      "language": "latin",
+      "zodiac_count": 2,
+      "total_count": 25
+    },
+    {
+      "word": "maius",
+      "canonical": "May",
+      "language": "latin",
+      "zodiac_count": 1,
+      "total_count": 1
+    },
+    {
+      "word": "shemesh",
+      "canonical": "Sun",
+      "language": "hebrew",
+      "zodiac_count": 9,
+      "total_count": 136
+    },
+    {
+      "word": "mars",
+      "canonical": "Mars",
+      "language": "latin",
+      "zodiac_count": 1,
+      "total_count": 4
+    },
+    {
+      "word": "venus",
+      "canonical": "Venus",
+      "language": "latin",
+      "zodiac_count": 1,
+      "total_count": 18
+    },
+    {
+      "word": "sheni",
+      "canonical": "Monday",
+      "language": "hebrew",
+      "zodiac_count": 9,
+      "total_count": 0
+    }
+  ],
+  "label_candidates": {
+    "f70v2": [
+      {
+        "eva": "okcheo",
+        "decoded_italian": "opeato",
+        "decoded_hebrew": "wpEAtw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dar",
+        "decoded_italian": "eir",
+        "decoded_hebrew": "hyr",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otey",
+        "decoded_italian": "spto",
+        "decoded_hebrew": "SpJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykeey",
+        "decoded_italian": "sppts",
+        "decoded_hebrew": "SpptS",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "tchy",
+        "decoded_italian": "seat",
+        "decoded_hebrew": "SEAJ",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otsheo",
+        "decoded_italian": "opento",
+        "decoded_hebrew": "wpEnJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteotey",
+        "decoded_italian": "sptopto",
+        "decoded_hebrew": "SpJwpJw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shey",
+        "decoded_italian": "spen",
+        "decoded_hebrew": "SpEn",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sheckh",
+        "decoded_italian": "etapen",
+        "decoded_hebrew": "EtApEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "opcheol",
+        "decoded_italian": "mopealo",
+        "decoded_hebrew": "mwpEAlw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dair",
+        "decoded_italian": "eIir",
+        "decoded_hebrew": "hIyr",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "dateey",
+        "decoded_italian": "spptir",
+        "decoded_hebrew": "SppJyr",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sal",
+        "decoded_italian": "min",
+        "decoded_hebrew": "myn",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ody",
+        "decoded_italian": "sro",
+        "decoded_hebrew": "Srw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "choteey",
+        "decoded_italian": "spptoea",
+        "decoded_hebrew": "SppJwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "yteos",
+        "decoded_italian": "nopts",
+        "decoded_hebrew": "nwpJS",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alain",
+        "decoded_italian": "dIimi",
+        "decoded_hebrew": "dIymy",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "ckho",
+        "decoded_italian": "oeta",
+        "decoded_hebrew": "wEtA",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "cholkal",
+        "decoded_italian": "mitmoea",
+        "decoded_hebrew": "mytmwEA",
+        "length": 7,
+        "has_unknowns": false
+      }
+    ],
+    "f70v1": [
+      {
+        "eva": "sheal",
+        "decoded_italian": "mipen",
+        "decoded_hebrew": "mypEn",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shokey",
+        "decoded_italian": "sptoen",
+        "decoded_hebrew": "SptwEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "raiin",
+        "decoded_italian": "dIIie",
+        "decoded_hebrew": "dIIyh",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "otor",
+        "decoded_italian": "eoto",
+        "decoded_hebrew": "hwJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ochy",
+        "decoded_italian": "seao",
+        "decoded_hebrew": "SEAw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sais",
+        "decoded_italian": "nIin",
+        "decoded_hebrew": "nIyn",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "cheody",
+        "decoded_italian": "sropea",
+        "decoded_hebrew": "SrwpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheey",
+        "decoded_italian": "sppea",
+        "decoded_hebrew": "SppEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteoeey",
+        "decoded_italian": "sppopto",
+        "decoded_hebrew": "SppwpJw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oamr",
+        "decoded_italian": "egio",
+        "decoded_hebrew": "hgyw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chcthy",
+        "decoded_italian": "setaea",
+        "decoded_hebrew": "SEJAEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dlal",
+        "decoded_italian": "mimr",
+        "decoded_hebrew": "mymr",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykeody",
+        "decoded_italian": "sropts",
+        "decoded_hebrew": "SrwptS",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sheo",
+        "decoded_italian": "open",
+        "decoded_hebrew": "wpEn",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "daiin",
+        "decoded_italian": "dIIir",
+        "decoded_hebrew": "dIIyr",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "oteedy",
+        "decoded_italian": "srppto",
+        "decoded_hebrew": "SrppJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dar",
+        "decoded_italian": "eir",
+        "decoded_hebrew": "hyr",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeeo",
+        "decoded_italian": "oppto",
+        "decoded_hebrew": "wpptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dal",
+        "decoded_italian": "mir",
+        "decoded_hebrew": "myr",
+        "length": 3,
+        "has_unknowns": false
+      }
+    ],
+    "f71r": [
+      {
+        "eva": "okody",
+        "decoded_italian": "sroto",
+        "decoded_hebrew": "Srwtw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okchedy",
+        "decoded_italian": "srpeato",
+        "decoded_hebrew": "SrpEAtw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oky",
+        "decoded_italian": "sto",
+        "decoded_hebrew": "Stw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "eey",
+        "decoded_italian": "spp",
+        "decoded_hebrew": "Spp",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeodar",
+        "decoded_italian": "eiropto",
+        "decoded_hebrew": "hyrwptw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeoky",
+        "decoded_italian": "stopto",
+        "decoded_hebrew": "Stwptw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oto",
+        "decoded_italian": "oto",
+        "decoded_hebrew": "wJw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otol",
+        "decoded_italian": "moto",
+        "decoded_hebrew": "mwJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "SppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykooar",
+        "decoded_italian": "eioots",
+        "decoded_hebrew": "hywwtS",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "aekeeey",
+        "decoded_italian": "sppptpi",
+        "decoded_hebrew": "Sppptpy",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeodar",
+        "decoded_italian": "eiropto",
+        "decoded_hebrew": "hyrwptw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chy",
+        "decoded_italian": "sea",
+        "decoded_hebrew": "SEA",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "otol",
+        "decoded_italian": "moto",
+        "decoded_hebrew": "mwJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shckhey",
+        "decoded_italian": "spetaen",
+        "decoded_hebrew": "SpEtAEn",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otol",
+        "decoded_italian": "moto",
+        "decoded_hebrew": "mwJw",
+        "length": 4,
+        "has_unknowns": false
+      }
+    ],
+    "f71v": [
+      {
+        "eva": "osheo",
+        "decoded_italian": "openo",
+        "decoded_hebrew": "wpEnw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "parar",
+        "decoded_italian": "eieil",
+        "decoded_hebrew": "hyhyl",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "she",
+        "decoded_italian": "pen",
+        "decoded_hebrew": "pEn",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ateey",
+        "decoded_italian": "sppti",
+        "decoded_hebrew": "SppJy",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "daiin",
+        "decoded_italian": "dIIir",
+        "decoded_hebrew": "dIIyr",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "dal",
+        "decoded_italian": "mir",
+        "decoded_hebrew": "myr",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "SppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "teey",
+        "decoded_italian": "sppt",
+        "decoded_hebrew": "SppJ",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otchy",
+        "decoded_italian": "seato",
+        "decoded_hebrew": "SEAJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "keey",
+        "decoded_italian": "sppt",
+        "decoded_hebrew": "Sppt",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shseor",
+        "decoded_italian": "eopnen",
+        "decoded_hebrew": "hwpnEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ochey",
+        "decoded_italian": "speao",
+        "decoded_hebrew": "SpEAw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "eodal",
+        "decoded_italian": "mirop",
+        "decoded_hebrew": "myrwp",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alody",
+        "decoded_italian": "sromi",
+        "decoded_hebrew": "Srwmy",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheol",
+        "decoded_italian": "mopea",
+        "decoded_hebrew": "mwpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otar",
+        "decoded_italian": "eito",
+        "decoded_hebrew": "hyJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otam",
+        "decoded_italian": "gito",
+        "decoded_hebrew": "gyJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteodar",
+        "decoded_italian": "eiropto",
+        "decoded_hebrew": "hyrwpJw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chpchy",
+        "decoded_italian": "sealea",
+        "decoded_hebrew": "SEAlEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cpar",
+        "decoded_italian": "eila",
+        "decoded_hebrew": "hylA",
+        "length": 4,
+        "has_unknowns": false
+      }
+    ],
+    "f72r1": [
+      {
+        "eva": "okoiin",
+        "decoded_italian": "dIIoto",
+        "decoded_hebrew": "dIIwtw",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "oteeo",
+        "decoded_italian": "oppto",
+        "decoded_hebrew": "wppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ckhey",
+        "decoded_italian": "speta",
+        "decoded_hebrew": "SpEtA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cholo",
+        "decoded_italian": "omoea",
+        "decoded_hebrew": "wmwEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheol",
+        "decoded_italian": "mopea",
+        "decoded_hebrew": "mwpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "olchear",
+        "decoded_italian": "eipeamo",
+        "decoded_hebrew": "hypEAmw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "SppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chedal",
+        "decoded_italian": "mirpea",
+        "decoded_hebrew": "myrpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteedy",
+        "decoded_italian": "srppto",
+        "decoded_hebrew": "SrppJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheol",
+        "decoded_italian": "mopea",
+        "decoded_hebrew": "mwpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chokeol",
+        "decoded_italian": "moptoea",
+        "decoded_hebrew": "mwptwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheolky",
+        "decoded_italian": "stmopea",
+        "decoded_hebrew": "StmwpEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okaiis",
+        "decoded_italian": "nIIito",
+        "decoded_hebrew": "nIIytw",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okeedy",
+        "decoded_italian": "srppto",
+        "decoded_hebrew": "Srpptw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheor",
+        "decoded_italian": "eopea",
+        "decoded_hebrew": "hwpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "ydal",
+        "decoded_italian": "mirs",
+        "decoded_hebrew": "myrS",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okochey",
+        "decoded_italian": "speaoto",
+        "decoded_hebrew": "SpEAwtw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sho",
+        "decoded_italian": "oen",
+        "decoded_hebrew": "wEn",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shol",
+        "decoded_italian": "moen",
+        "decoded_hebrew": "mwEn",
+        "length": 4,
+        "has_unknowns": false
+      }
+    ],
+    "f72r2": [
+      {
+        "eva": "okaram",
+        "decoded_italian": "gieito",
+        "decoded_hebrew": "gyhytw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okairy",
+        "decoded_italian": "seIito",
+        "decoded_hebrew": "ShIytw",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okeolar",
+        "decoded_italian": "eimopto",
+        "decoded_hebrew": "hymwptw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otais",
+        "decoded_italian": "nIito",
+        "decoded_hebrew": "nIyJw",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "otees",
+        "decoded_italian": "nppto",
+        "decoded_hebrew": "nppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okeo",
+        "decoded_italian": "opto",
+        "decoded_hebrew": "wptw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "daiin",
+        "decoded_italian": "dIIir",
+        "decoded_hebrew": "dIIyr",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okeey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "Spptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheol",
+        "decoded_italian": "mopea",
+        "decoded_hebrew": "mwpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeol",
+        "decoded_italian": "mopto",
+        "decoded_hebrew": "mwptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "olcthhy",
+        "decoded_italian": "seetamo",
+        "decoded_hebrew": "SEEJAmw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "tey",
+        "decoded_italian": "spt",
+        "decoded_hebrew": "SpJ",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheyal",
+        "decoded_italian": "mispea",
+        "decoded_hebrew": "mySpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "Spptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "daiin",
+        "decoded_italian": "dIIir",
+        "decoded_hebrew": "dIIyr",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "otar",
+        "decoded_italian": "eito",
+        "decoded_hebrew": "hyJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chtaiin",
+        "decoded_italian": "dIIitea",
+        "decoded_hebrew": "dIIyJEA",
+        "length": 7,
+        "has_unknowns": true
+      },
+      {
+        "eva": "otseey",
+        "decoded_italian": "sppnto",
+        "decoded_hebrew": "SppnJw",
+        "length": 6,
+        "has_unknowns": false
+      }
+    ],
+    "f72r3": [
+      {
+        "eva": "okeey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "Spptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheky",
+        "decoded_italian": "stpea",
+        "decoded_hebrew": "StpEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteo",
+        "decoded_italian": "opto",
+        "decoded_hebrew": "wpJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykeey",
+        "decoded_italian": "sppts",
+        "decoded_hebrew": "SpptS",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeeol",
+        "decoded_italian": "moppto",
+        "decoded_hebrew": "mwpptw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheeor",
+        "decoded_italian": "eoppea",
+        "decoded_hebrew": "hwppEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteedy",
+        "decoded_italian": "srppto",
+        "decoded_hebrew": "SrppJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "SppJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okarar",
+        "decoded_italian": "eieito",
+        "decoded_hebrew": "hyhytw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dysheol",
+        "decoded_italian": "mopensr",
+        "decoded_hebrew": "mwpEnSr",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alaiiin",
+        "decoded_italian": "dIIIimi",
+        "decoded_hebrew": "dIIIymy",
+        "length": 7,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okeos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "olaiin",
+        "decoded_italian": "dIIimo",
+        "decoded_hebrew": "dIIymw",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "okos",
+        "decoded_italian": "noto",
+        "decoded_hebrew": "nwtw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeoar",
+        "decoded_italian": "eiopto",
+        "decoded_hebrew": "hywptw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otes",
+        "decoded_italian": "npto",
+        "decoded_hebrew": "npJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sar",
+        "decoded_italian": "ein",
+        "decoded_hebrew": "hyn",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "aiin",
+        "decoded_italian": "dIIi",
+        "decoded_hebrew": "dIIy",
+        "length": 4,
+        "has_unknowns": true
+      },
+      {
+        "eva": "chokees",
+        "decoded_italian": "npptoea",
+        "decoded_hebrew": "npptwEA",
+        "length": 7,
+        "has_unknowns": false
+      }
+    ],
+    "f72v3": [
+      {
+        "eva": "soees",
+        "decoded_italian": "nppon",
+        "decoded_hebrew": "nppwn",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otchs",
+        "decoded_italian": "neato",
+        "decoded_hebrew": "nEAJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otedar",
+        "decoded_italian": "eirpto",
+        "decoded_hebrew": "hyrpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteodal",
+        "decoded_italian": "miropto",
+        "decoded_hebrew": "myrwpJw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otek",
+        "decoded_italian": "tpto",
+        "decoded_hebrew": "tpJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "eody",
+        "decoded_italian": "srop",
+        "decoded_hebrew": "Srwp",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sheokay",
+        "decoded_italian": "sitopen",
+        "decoded_hebrew": "SytwpEn",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sheody",
+        "decoded_italian": "sropen",
+        "decoded_hebrew": "SrwpEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "eteodys",
+        "decoded_italian": "nsroptp",
+        "decoded_hebrew": "nSrwpJp",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeey",
+        "decoded_italian": "sppto",
+        "decoded_hebrew": "Spptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shedy",
+        "decoded_italian": "srpen",
+        "decoded_hebrew": "SrpEn",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otey",
+        "decoded_italian": "spto",
+        "decoded_hebrew": "SpJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sho",
+        "decoded_italian": "oen",
+        "decoded_hebrew": "wEn",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shol",
+        "decoded_italian": "moen",
+        "decoded_hebrew": "mwEn",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "teody",
+        "decoded_italian": "sropt",
+        "decoded_hebrew": "SrwpJ",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okol",
+        "decoded_italian": "moto",
+        "decoded_hebrew": "mwtw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykledey",
+        "decoded_italian": "sprpmts",
+        "decoded_hebrew": "SprpmtS",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okechly",
+        "decoded_italian": "smeapto",
+        "decoded_hebrew": "SmEAptw",
+        "length": 7,
+        "has_unknowns": false
+      }
+    ],
+    "f72v2": [
+      {
+        "eva": "ataseos",
+        "decoded_italian": "nopniti",
+        "decoded_hebrew": "nwpnyJy",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oty",
+        "decoded_italian": "sto",
+        "decoded_hebrew": "SJw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oty",
+        "decoded_italian": "sto",
+        "decoded_hebrew": "SJw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chotey",
+        "decoded_italian": "sptoea",
+        "decoded_hebrew": "SpJwEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dchy",
+        "decoded_italian": "sear",
+        "decoded_hebrew": "SEAr",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chopchy",
+        "decoded_italian": "sealoea",
+        "decoded_hebrew": "SEAlwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otycoyl",
+        "decoded_italian": "msoasto",
+        "decoded_hebrew": "mSwASJw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ctheol",
+        "decoded_italian": "mopeta",
+        "decoded_hebrew": "mwpEJA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shey",
+        "decoded_italian": "spen",
+        "decoded_hebrew": "SpEn",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "tchols",
+        "decoded_italian": "nmoeat",
+        "decoded_hebrew": "nmwEAJ",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteeos",
+        "decoded_italian": "noppto",
+        "decoded_hebrew": "nwppJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "yly",
+        "decoded_italian": "sms",
+        "decoded_hebrew": "SmS",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oksedy",
+        "decoded_italian": "srpnto",
+        "decoded_hebrew": "Srpntw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cseo",
+        "decoded_italian": "opna",
+        "decoded_hebrew": "wpnA",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cthey",
+        "decoded_italian": "speta",
+        "decoded_hebrew": "SpEJA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ecky",
+        "decoded_italian": "stap",
+        "decoded_hebrew": "StAp",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "geeem",
+        "decoded_italian": "gpppk",
+        "decoded_hebrew": "gpppX",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cths",
+        "decoded_italian": "neta",
+        "decoded_hebrew": "nEJA",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okeeel",
+        "decoded_italian": "mpppto",
+        "decoded_hebrew": "mppptw",
+        "length": 6,
+        "has_unknowns": false
+      }
+    ],
+    "f72v1": [
+      {
+        "eva": "otar",
+        "decoded_italian": "eito",
+        "decoded_hebrew": "hyJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "air",
+        "decoded_italian": "eIi",
+        "decoded_hebrew": "hIy",
+        "length": 3,
+        "has_unknowns": true
+      },
+      {
+        "eva": "chpaly",
+        "decoded_italian": "smilea",
+        "decoded_hebrew": "SmylEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otear",
+        "decoded_italian": "eipto",
+        "decoded_hebrew": "hypJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alshey",
+        "decoded_italian": "spenmi",
+        "decoded_hebrew": "SpEnmy",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oleealy",
+        "decoded_italian": "smippmo",
+        "decoded_hebrew": "Smyppmw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shetey",
+        "decoded_italian": "sptpen",
+        "decoded_hebrew": "SpJpEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alal",
+        "decoded_italian": "mimi",
+        "decoded_hebrew": "mymy",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "dals",
+        "decoded_italian": "nmir",
+        "decoded_hebrew": "nmyr",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alchol",
+        "decoded_italian": "moeami",
+        "decoded_hebrew": "mwEAmy",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ydaiin",
+        "decoded_italian": "dIIirs",
+        "decoded_hebrew": "dIIyrS",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "chotar",
+        "decoded_italian": "eitoea",
+        "decoded_hebrew": "hyJwEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ytal",
+        "decoded_italian": "mits",
+        "decoded_hebrew": "myJS",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oto",
+        "decoded_italian": "oto",
+        "decoded_hebrew": "wJw",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shoty",
+        "decoded_italian": "stoen",
+        "decoded_hebrew": "SJwEn",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otey",
+        "decoded_italian": "spto",
+        "decoded_hebrew": "SpJw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shdary",
+        "decoded_italian": "seiren",
+        "decoded_hebrew": "ShyrEn",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "sar",
+        "decoded_italian": "ein",
+        "decoded_hebrew": "hyn",
+        "length": 3,
+        "has_unknowns": false
+      }
+    ],
+    "f73r": [
+      {
+        "eva": "otoly",
+        "decoded_italian": "smoto",
+        "decoded_hebrew": "SmwJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chockhy",
+        "decoded_italian": "setaoea",
+        "decoded_hebrew": "SEtAwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okedy",
+        "decoded_italian": "srpto",
+        "decoded_hebrew": "Srptw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "yteeody",
+        "decoded_italian": "sroppts",
+        "decoded_hebrew": "SrwppJS",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "daraly",
+        "decoded_italian": "smieir",
+        "decoded_hebrew": "Smyhyr",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteos",
+        "decoded_italian": "nopto",
+        "decoded_hebrew": "nwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "air",
+        "decoded_italian": "eIi",
+        "decoded_hebrew": "hIy",
+        "length": 3,
+        "has_unknowns": true
+      },
+      {
+        "eva": "chotchy",
+        "decoded_italian": "seatoea",
+        "decoded_hebrew": "SEAJwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "soteees",
+        "decoded_italian": "npppton",
+        "decoded_hebrew": "npppJwn",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "alshey",
+        "decoded_italian": "spenmi",
+        "decoded_hebrew": "SpEnmy",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ches",
+        "decoded_italian": "npea",
+        "decoded_hebrew": "npEA",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chees",
+        "decoded_italian": "nppea",
+        "decoded_hebrew": "nppEA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheoly",
+        "decoded_italian": "smopea",
+        "decoded_hebrew": "SmwpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "leiir",
+        "decoded_italian": "eIIpm",
+        "decoded_hebrew": "hIIpm",
+        "length": 5,
+        "has_unknowns": true
+      },
+      {
+        "eva": "choteey",
+        "decoded_italian": "spptoea",
+        "decoded_hebrew": "SppJwEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheteey",
+        "decoded_italian": "spptpea",
+        "decoded_hebrew": "SppJpEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "chedar",
+        "decoded_italian": "eirpea",
+        "decoded_hebrew": "hyrpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheteey",
+        "decoded_italian": "spptpea",
+        "decoded_hebrew": "SppJpEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteor",
+        "decoded_italian": "eopto",
+        "decoded_hebrew": "hwpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "air",
+        "decoded_italian": "eIi",
+        "decoded_hebrew": "hIy",
+        "length": 3,
+        "has_unknowns": true
+      }
+    ],
+    "f73v": [
+      {
+        "eva": "okol",
+        "decoded_italian": "moto",
+        "decoded_hebrew": "mwtw",
+        "length": 4,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "cheody",
+        "decoded_italian": "sropea",
+        "decoded_hebrew": "SrwpEA",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otoar",
+        "decoded_italian": "eioto",
+        "decoded_hebrew": "hywJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "ykeody",
+        "decoded_italian": "sropts",
+        "decoded_hebrew": "SrwptS",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okodeey",
+        "decoded_italian": "spproto",
+        "decoded_hebrew": "Spprwtw",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "qopchey",
+        "decoded_italian": "spealoQ",
+        "decoded_hebrew": "SpEAlwQ",
+        "length": 7,
+        "has_unknowns": true
+      },
+      {
+        "eva": "opaiin",
+        "decoded_italian": "dIIilo",
+        "decoded_hebrew": "dIIylw",
+        "length": 6,
+        "has_unknowns": true
+      },
+      {
+        "eva": "qoteedy",
+        "decoded_italian": "srpptoQ",
+        "decoded_hebrew": "SrppJwQ",
+        "length": 7,
+        "has_unknowns": true
+      },
+      {
+        "eva": "dpy",
+        "decoded_italian": "slr",
+        "decoded_hebrew": "Slr",
+        "length": 3,
+        "has_unknowns": false
+      },
+      {
+        "eva": "otedy",
+        "decoded_italian": "srpto",
+        "decoded_hebrew": "SrpJw",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "csedy",
+        "decoded_italian": "srpna",
+        "decoded_hebrew": "SrpnA",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "qokeody",
+        "decoded_italian": "sroptoQ",
+        "decoded_hebrew": "SrwptwQ",
+        "length": 7,
+        "has_unknowns": true
+      },
+      {
+        "eva": "cheoral",
+        "decoded_italian": "mieopea",
+        "decoded_hebrew": "myhwpEA",
+        "length": 7,
+        "has_unknowns": false
+      },
+      {
+        "eva": "okedal",
+        "decoded_italian": "mirpto",
+        "decoded_hebrew": "myrptw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "oteody",
+        "decoded_italian": "sropto",
+        "decoded_hebrew": "SrwpJw",
+        "length": 6,
+        "has_unknowns": false
+      },
+      {
+        "eva": "shedy",
+        "decoded_italian": "srpen",
+        "decoded_hebrew": "SrpEn",
+        "length": 5,
+        "has_unknowns": false
+      },
+      {
+        "eva": "air",
+        "decoded_italian": "eIi",
+        "decoded_hebrew": "hIy",
+        "length": 3,
+        "has_unknowns": true
+      },
+      {
+        "eva": "chy",
+        "decoded_italian": "sea",
+        "decoded_hebrew": "SEA",
+        "length": 3,
+        "has_unknowns": false
+      }
+    ]
+  }
+}

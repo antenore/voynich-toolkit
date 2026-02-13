@@ -1,0 +1,1039 @@
+{
+  "verdict": "SIGNIFICATIVO",
+  "best_direction": "rtl",
+  "best_score": 72409,
+  "baseline": {
+    "mean": 500.5,
+    "std": 679.2,
+    "max": 4764.0,
+    "threshold": 3217.2,
+    "n_trials": 200
+  },
+  "score_vs_threshold": 22.51,
+  "n_distinct_matches": 65,
+  "n_words_scored": 1000,
+  "mapping": {
+    "indices": [
+      14,
+      5,
+      15,
+      19,
+      2,
+      1,
+      7,
+      16,
+      4,
+      8,
+      12,
+      3,
+      20,
+      6,
+      0,
+      21,
+      9,
+      11,
+      17
+    ],
+    "readable": {
+      "a": {
+        "hebrew_char": "s",
+        "hebrew_name": "samekh",
+        "italian_phoneme": "s"
+      },
+      "c": {
+        "hebrew_char": "w",
+        "hebrew_name": "vav",
+        "italian_phoneme": "o"
+      },
+      "d": {
+        "hebrew_char": "E",
+        "hebrew_name": "ayin",
+        "italian_phoneme": "e"
+      },
+      "e": {
+        "hebrew_char": "r",
+        "hebrew_name": "resh",
+        "italian_phoneme": "r"
+      },
+      "f": {
+        "hebrew_char": "g",
+        "hebrew_name": "gimel",
+        "italian_phoneme": "g"
+      },
+      "g": {
+        "hebrew_char": "b",
+        "hebrew_name": "bet",
+        "italian_phoneme": "b"
+      },
+      "h": {
+        "hebrew_char": "X",
+        "hebrew_name": "chet",
+        "italian_phoneme": "k"
+      },
+      "i": {
+        "hebrew_char": "p",
+        "hebrew_name": "pe",
+        "italian_phoneme": "p"
+      },
+      "k": {
+        "hebrew_char": "h",
+        "hebrew_name": "he",
+        "italian_phoneme": "e"
+      },
+      "l": {
+        "hebrew_char": "J",
+        "hebrew_name": "tet",
+        "italian_phoneme": "t"
+      },
+      "m": {
+        "hebrew_char": "m",
+        "hebrew_name": "mem",
+        "italian_phoneme": "m"
+      },
+      "n": {
+        "hebrew_char": "d",
+        "hebrew_name": "dalet",
+        "italian_phoneme": "d"
+      },
+      "o": {
+        "hebrew_char": "S",
+        "hebrew_name": "shin",
+        "italian_phoneme": "s"
+      },
+      "p": {
+        "hebrew_char": "z",
+        "hebrew_name": "zayin",
+        "italian_phoneme": "z"
+      },
+      "q": {
+        "hebrew_char": "A",
+        "hebrew_name": "aleph",
+        "italian_phoneme": "a"
+      },
+      "r": {
+        "hebrew_char": "t",
+        "hebrew_name": "tav",
+        "italian_phoneme": "t"
+      },
+      "s": {
+        "hebrew_char": "y",
+        "hebrew_name": "yod",
+        "italian_phoneme": "i"
+      },
+      "t": {
+        "hebrew_char": "l",
+        "hebrew_name": "lamed",
+        "italian_phoneme": "l"
+      },
+      "y": {
+        "hebrew_char": "C",
+        "hebrew_name": "tsade",
+        "italian_phoneme": "ts"
+      }
+    }
+  },
+  "criteria": {
+    "significant_vs_random": true,
+    "enough_matches_50": true,
+    "domain_congruence": {
+      "tlio": {
+        "congruent": 0,
+        "total": 42,
+        "ratio": 0.0,
+        "sample_words": []
+      },
+      "kaikki": {
+        "congruent": 0,
+        "total": 21,
+        "ratio": 0.0,
+        "sample_words": []
+      },
+      "dante": {
+        "congruent": 0,
+        "total": 28,
+        "ratio": 0.0,
+        "sample_words": []
+      }
+    },
+    "letter_frequency_correlation": {
+      "correlation": 0.4159,
+      "decoded_top10": {
+        "s": 0.26500300333096705,
+        "e": 0.20542783814776389,
+        "t": 0.20215147709277562,
+        "k": 0.090045322994594,
+        "r": 0.07803199912630372,
+        "o": 0.0601758313766177,
+        "a": 0.05214874679189647,
+        "i": 0.04646972096325015,
+        "m": 0.0005460601758313766
+      }
+    },
+    "vowel_ratio": {
+      "vowel_ratio": 0.2429,
+      "expected_italian": 0.47,
+      "plausible": false
+    },
+    "bigram_analysis": {
+      "bigram_hit_ratio": 0.3702,
+      "top_decoded_bigrams": [
+        {
+          "bigram": "ts",
+          "count": 3693
+        },
+        {
+          "bigram": "se",
+          "count": 3444
+        },
+        {
+          "bigram": "er",
+          "count": 1393
+        },
+        {
+          "bigram": "rk",
+          "count": 1156
+        },
+        {
+          "bigram": "es",
+          "count": 1141
+        },
+        {
+          "bigram": "ko",
+          "count": 1102
+        },
+        {
+          "bigram": "sa",
+          "count": 955
+        },
+        {
+          "bigram": "ki",
+          "count": 547
+        },
+        {
+          "bigram": "ek",
+          "count": 307
+        },
+        {
+          "bigram": "re",
+          "count": 273
+        },
+        {
+          "bigram": "si",
+          "count": 268
+        },
+        {
+          "bigram": "sk",
+          "count": 186
+        },
+        {
+          "bigram": "ir",
+          "count": 36
+        },
+        {
+          "bigram": "et",
+          "count": 31
+        },
+        {
+          "bigram": "ms",
+          "count": 10
+        },
+        {
+          "bigram": "te",
+          "count": 9
+        }
+      ]
+    }
+  },
+  "ltr_score": 64353,
+  "rtl_score": 72409,
+  "ltr_n_matches": 88,
+  "rtl_n_matches": 65,
+  "ltr_all_scores": [
+    64353,
+    61118,
+    59522,
+    59491,
+    58613,
+    57548,
+    57548,
+    57497,
+    57404,
+    57160,
+    56704,
+    54249,
+    51395,
+    50315,
+    47837,
+    47001,
+    45621,
+    43054,
+    35725,
+    34882,
+    34328,
+    32079,
+    31960,
+    29256,
+    26197,
+    24115,
+    23683,
+    19750,
+    12534,
+    11403
+  ],
+  "rtl_all_scores": [
+    72409,
+    63023,
+    62721,
+    61777,
+    60587,
+    58818,
+    57205,
+    55833,
+    55215,
+    55215,
+    53558,
+    52154,
+    52023,
+    47328,
+    45582,
+    45079,
+    44097,
+    43385,
+    40850,
+    40656,
+    40145,
+    35706,
+    34445,
+    31875,
+    26174,
+    26087,
+    22674,
+    22493,
+    22422,
+    20011
+  ],
+  "top_matches": [
+    {
+      "eva": "chedy",
+      "hebrew": "CErXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 496,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "shedy",
+      "hebrew": "CErXy",
+      "italian": "tserki",
+      "gloss": "cerchi (Dante, freq=16)",
+      "count": 425,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "dar",
+      "hebrew": "tsE",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 297,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "qokedy",
+      "hebrew": "CErhSA",
+      "italian": "tseresa",
+      "gloss": "ceresa (s.f.)",
+      "count": 265,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "dal",
+      "hebrew": "JsE",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 243,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "qokal",
+      "hebrew": "JshSA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 188,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "qokar",
+      "hebrew": "tshSA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 149,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chdy",
+      "hebrew": "CEXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 145,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "qoky",
+      "hebrew": "ChSA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 139,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "dol",
+      "hebrew": "JSE",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 111,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "qokol",
+      "hebrew": "JShSA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 102,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chody",
+      "hebrew": "CESXw",
+      "italian": "tsesko",
+      "gloss": "cesco (s.m.)",
+      "count": 90,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "sar",
+      "hebrew": "tsy",
+      "italian": "tsi",
+      "gloss": "tsi (name, historical)",
+      "count": 83,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "dor",
+      "hebrew": "tSE",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 70,
+      "sections": [
+        "A",
+        "B",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "sol",
+      "hebrew": "JSy",
+      "italian": "tsi",
+      "gloss": "tsi (name, historical)",
+      "count": 67,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "cheky",
+      "hebrew": "ChrXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 63,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "sal",
+      "hebrew": "Jsy",
+      "italian": "tsi",
+      "gloss": "tsi (name, historical)",
+      "count": 54,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "Z"
+      ]
+    },
+    {
+      "eva": "sor",
+      "hebrew": "tSy",
+      "italian": "tsi",
+      "gloss": "tsi (name, historical)",
+      "count": 54,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "kar",
+      "hebrew": "tsh",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 52,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "shdy",
+      "hebrew": "CEXy",
+      "italian": "tseki",
+      "gloss": "ciechi (Dante, freq=3)",
+      "count": 44,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "choky",
+      "hebrew": "ChSXw",
+      "italian": "tsesko",
+      "gloss": "cesco (s.m.)",
+      "count": 39,
+      "sections": [
+        "A",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "kol",
+      "hebrew": "JSh",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 37,
+      "sections": [
+        "B",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "ches",
+      "hebrew": "yrXw",
+      "italian": "irko",
+      "gloss": "irco (s.m.)",
+      "count": 36,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "sheky",
+      "hebrew": "ChrXy",
+      "italian": "tserki",
+      "gloss": "cerchi (Dante, freq=16)",
+      "count": 35,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "qokor",
+      "hebrew": "tShSA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 35,
+      "sections": [
+        "B",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chedar",
+      "hebrew": "tsErXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 30,
+      "sections": [
+        "A",
+        "B",
+        "H",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "kor",
+      "hebrew": "tSh",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 26,
+      "sections": [
+        "B",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chedal",
+      "hebrew": "JsErXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 24,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "kal",
+      "hebrew": "Jsh",
+      "italian": "tse",
+      "gloss": "ce (noun, archaic)",
+      "count": 23,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "S",
+        "T",
+        "Z"
+      ]
+    },
+    {
+      "eva": "chdar",
+      "hebrew": "tsEXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 20,
+      "sections": [
+        "A",
+        "B",
+        "C",
+        "H",
+        "S",
+        "Z"
+      ]
+    },
+    {
+      "eva": "chky",
+      "hebrew": "ChXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 18,
+      "sections": [
+        "A",
+        "B",
+        "H",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chdal",
+      "hebrew": "JsEXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 18,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "qody",
+      "hebrew": "CESA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 17,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "daldy",
+      "hebrew": "CEJsE",
+      "italian": "tsetse",
+      "gloss": "cece (s.m.)",
+      "count": 17,
+      "sections": [
+        "A",
+        "B",
+        "H",
+        "P",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "chodar",
+      "hebrew": "tsESXw",
+      "italian": "tsesko",
+      "gloss": "cesco (s.m.)",
+      "count": 13,
+      "sections": [
+        "A",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "shky",
+      "hebrew": "ChXy",
+      "italian": "tseki",
+      "gloss": "ciechi (Dante, freq=3)",
+      "count": 13,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "chkal",
+      "hebrew": "JshXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 13,
+      "sections": [
+        "B",
+        "C",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "chekal",
+      "hebrew": "JshrXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 12,
+      "sections": [
+        "B",
+        "H",
+        "P",
+        "S",
+        "Z"
+      ]
+    },
+    {
+      "eva": "qodar",
+      "hebrew": "tsESA",
+      "italian": "tsesa",
+      "gloss": "cesa (s.f.)",
+      "count": 11,
+      "sections": [
+        "C",
+        "H",
+        "P"
+      ]
+    },
+    {
+      "eva": "chkar",
+      "hebrew": "tshXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 11,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "sam",
+      "hebrew": "msy",
+      "italian": "msi",
+      "gloss": "msi (name, historical)",
+      "count": 10,
+      "sections": [
+        "C",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "shedal",
+      "hebrew": "JsErXy",
+      "italian": "tserki",
+      "gloss": "cerchi (Dante, freq=16)",
+      "count": 10,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "qok",
+      "hebrew": "hSA",
+      "italian": "esa",
+      "gloss": "essa (Dante, freq=45)",
+      "count": 9,
+      "sections": [
+        "B",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "qoko",
+      "hebrew": "ShSA",
+      "italian": "sesa",
+      "gloss": "scesa (s.f.)",
+      "count": 9,
+      "sections": [
+        "C",
+        "H",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "eva": "shdar",
+      "hebrew": "tsEXy",
+      "italian": "tseki",
+      "gloss": "ciechi (Dante, freq=3)",
+      "count": 9,
+      "sections": [
+        "A",
+        "C",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "eva": "qokl",
+      "hebrew": "JhSA",
+      "italian": "tesa",
+      "gloss": "tesa (s.f.)",
+      "count": 9,
+      "sections": [
+        "B",
+        "S"
+      ]
+    },
+    {
+      "eva": "chd",
+      "hebrew": "EXw",
+      "italian": "eko",
+      "gloss": "ecco (avv./cong./escl.)",
+      "count": 8,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "chekar",
+      "hebrew": "tshrXw",
+      "italian": "tserko",
+      "gloss": "cerco (s.m.)",
+      "count": 8,
+      "sections": [
+        "B",
+        "H",
+        "S",
+        "Z"
+      ]
+    },
+    {
+      "eva": "qokedar",
+      "hebrew": "tsErhSA",
+      "italian": "tseresa",
+      "gloss": "ceresa (s.f.)",
+      "count": 8,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    },
+    {
+      "eva": "chdor",
+      "hebrew": "tSEXw",
+      "italian": "tseko",
+      "gloss": "cieco (agg./s.m.)",
+      "count": 8,
+      "sections": [
+        "B",
+        "H",
+        "S"
+      ]
+    }
+  ]
+}

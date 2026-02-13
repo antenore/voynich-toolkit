@@ -1,0 +1,1793 @@
+{
+  "direction": "rtl",
+  "max_dist": 2,
+  "min_word_len": 3,
+  "n_candidates_tested": 50,
+  "best_score": 65022,
+  "best_n_matched_types": 4593,
+  "all_scores_sorted": [
+    65022,
+    65022,
+    65022,
+    65002,
+    65002,
+    65002,
+    64944,
+    64944,
+    64832,
+    64832,
+    63406,
+    63406,
+    63406,
+    63406,
+    63323,
+    63323,
+    63323,
+    63301,
+    63301,
+    63301
+  ],
+  "mapping": {
+    "a": {
+      "hebrew": "y",
+      "hebrew_name": "yod",
+      "italian": "i",
+      "source": "champollion"
+    },
+    "c": {
+      "hebrew": "A",
+      "hebrew_name": "aleph",
+      "italian": "a",
+      "source": "champollion"
+    },
+    "d": {
+      "hebrew": "r",
+      "hebrew_name": "resh",
+      "italian": "r",
+      "source": "champollion"
+    },
+    "e": {
+      "hebrew": "p",
+      "hebrew_name": "pe",
+      "italian": "p",
+      "source": "champollion"
+    },
+    "f": {
+      "hebrew": "b",
+      "hebrew_name": "bet",
+      "italian": "b",
+      "source": "completion"
+    },
+    "g": {
+      "hebrew": "X",
+      "hebrew_name": "chet",
+      "italian": "k",
+      "source": "completion"
+    },
+    "h": {
+      "hebrew": "E",
+      "hebrew_name": "ayin",
+      "italian": "e",
+      "source": "champollion"
+    },
+    "i": {
+      "hebrew": "s",
+      "hebrew_name": "samekh",
+      "italian": "s",
+      "source": "completion"
+    },
+    "k": {
+      "hebrew": "t",
+      "hebrew_name": "tav",
+      "italian": "t",
+      "source": "champollion"
+    },
+    "l": {
+      "hebrew": "m",
+      "hebrew_name": "mem",
+      "italian": "m",
+      "source": "champollion"
+    },
+    "m": {
+      "hebrew": "g",
+      "hebrew_name": "gimel",
+      "italian": "g",
+      "source": "champollion"
+    },
+    "n": {
+      "hebrew": "d",
+      "hebrew_name": "dalet",
+      "italian": "d",
+      "source": "champollion"
+    },
+    "o": {
+      "hebrew": "w",
+      "hebrew_name": "vav",
+      "italian": "o",
+      "source": "champollion"
+    },
+    "p": {
+      "hebrew": "l",
+      "hebrew_name": "lamed",
+      "italian": "l",
+      "source": "champollion"
+    },
+    "q": {
+      "hebrew": "k",
+      "hebrew_name": "kaf",
+      "italian": "k",
+      "source": "completion"
+    },
+    "r": {
+      "hebrew": "h",
+      "hebrew_name": "he",
+      "italian": "e",
+      "source": "champollion"
+    },
+    "s": {
+      "hebrew": "n",
+      "hebrew_name": "nun",
+      "italian": "n",
+      "source": "champollion"
+    },
+    "t": {
+      "hebrew": "J",
+      "hebrew_name": "tet",
+      "italian": "t",
+      "source": "champollion"
+    },
+    "y": {
+      "hebrew": "S",
+      "hebrew_name": "shin",
+      "italian": "s",
+      "source": "champollion"
+    }
+  },
+  "unmapped_chars": [
+    "f",
+    "g",
+    "i",
+    "q"
+  ],
+  "top_matches": [
+    {
+      "decoded": "dssir",
+      "target": "disir",
+      "distance": 1,
+      "score": 3,
+      "count": 805,
+      "weighted": 2415,
+      "gloss": "disir (Dante, freq=3)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "dssi",
+      "target": "disi",
+      "distance": 1,
+      "score": 3,
+      "count": 457,
+      "weighted": 1371,
+      "gloss": "dissi (Dante, freq=39)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sea",
+      "target": "sea",
+      "distance": 0,
+      "score": 10,
+      "count": 136,
+      "weighted": 1360,
+      "gloss": "scea (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "moea",
+      "target": "mea",
+      "distance": 1,
+      "score": 3,
+      "count": 381,
+      "weighted": 1143,
+      "gloss": "mea (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sto",
+      "target": "sto",
+      "distance": 0,
+      "score": 10,
+      "count": 110,
+      "weighted": 1100,
+      "gloss": "sto (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "seta",
+      "target": "seta",
+      "distance": 0,
+      "score": 10,
+      "count": 105,
+      "weighted": 1050,
+      "gloss": "setta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "spea",
+      "target": "sea",
+      "distance": 1,
+      "score": 3,
+      "count": 339,
+      "weighted": 1017,
+      "gloss": "scea (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "sen",
+      "target": "sen",
+      "distance": 0,
+      "score": 10,
+      "count": 93,
+      "weighted": 930,
+      "gloss": "sen (Dante, freq=45)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eir",
+      "target": "dir",
+      "distance": 1,
+      "score": 3,
+      "count": 297,
+      "weighted": 891,
+      "gloss": "dir (Dante, freq=67)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "gir",
+      "target": "gir",
+      "distance": 0,
+      "score": 10,
+      "count": 89,
+      "weighted": 890,
+      "gloss": "gir (Dante, freq=6)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sto",
+      "target": "sto",
+      "distance": 0,
+      "score": 10,
+      "count": 88,
+      "weighted": 880,
+      "gloss": "sto (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "spen",
+      "target": "sen",
+      "distance": 1,
+      "score": 3,
+      "count": 276,
+      "weighted": 828,
+      "gloss": "sen (Dante, freq=45)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "moto",
+      "target": "moto",
+      "distance": 0,
+      "score": 10,
+      "count": 81,
+      "weighted": 810,
+      "gloss": "moto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "moto",
+      "target": "moto",
+      "distance": 0,
+      "score": 10,
+      "count": 79,
+      "weighted": 790,
+      "gloss": "moto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "esi",
+      "target": "esi",
+      "distance": 0,
+      "score": 10,
+      "count": 73,
+      "weighted": 730,
+      "gloss": "essi (Dante, freq=14)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "mir",
+      "target": "dir",
+      "distance": 1,
+      "score": 3,
+      "count": 243,
+      "weighted": 729,
+      "gloss": "dir (Dante, freq=67)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eoea",
+      "target": "enea",
+      "distance": 1,
+      "score": 3,
+      "count": 206,
+      "weighted": 618,
+      "gloss": "enea (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "dsir",
+      "target": "dir",
+      "distance": 1,
+      "score": 3,
+      "count": 189,
+      "weighted": 567,
+      "gloss": "dir (Dante, freq=67)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "moen",
+      "target": "men",
+      "distance": 1,
+      "score": 3,
+      "count": 175,
+      "weighted": 525,
+      "gloss": "men (Dante, freq=66)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sppto",
+      "target": "speto",
+      "distance": 1,
+      "score": 3,
+      "count": 174,
+      "weighted": 522,
+      "gloss": "spetto (prep.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mopea",
+      "target": "kopea",
+      "distance": 1,
+      "score": 3,
+      "count": 167,
+      "weighted": 501,
+      "gloss": "copea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "srpea",
+      "target": "ardea",
+      "distance": 2,
+      "score": 1,
+      "count": 496,
+      "weighted": 496,
+      "gloss": "ardea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "gito",
+      "target": "gito",
+      "distance": 0,
+      "score": 10,
+      "count": 47,
+      "weighted": 470,
+      "gloss": "gito (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mok",
+      "target": "lok",
+      "distance": 1,
+      "score": 3,
+      "count": 148,
+      "weighted": 444,
+      "gloss": "loc (s.i.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "speta",
+      "target": "speta",
+      "distance": 0,
+      "score": 10,
+      "count": 44,
+      "weighted": 440,
+      "gloss": "spetta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "srea",
+      "target": "area",
+      "distance": 1,
+      "score": 3,
+      "count": 145,
+      "weighted": 435,
+      "gloss": "aria",
+      "domain": "general"
+    },
+    {
+      "decoded": "srpen",
+      "target": "arpe",
+      "distance": 2,
+      "score": 1,
+      "count": 425,
+      "weighted": 425,
+      "gloss": "arpe (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dsito",
+      "target": "asito",
+      "distance": 1,
+      "score": 3,
+      "count": 141,
+      "weighted": 423,
+      "gloss": "assito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "stok",
+      "target": "sto",
+      "distance": 1,
+      "score": 3,
+      "count": 139,
+      "weighted": 417,
+      "gloss": "sto (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eito",
+      "target": "aito",
+      "distance": 1,
+      "score": 3,
+      "count": 139,
+      "weighted": 417,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mito",
+      "target": "aito",
+      "distance": 1,
+      "score": 3,
+      "count": 137,
+      "weighted": 411,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "sppto",
+      "target": "speto",
+      "distance": 1,
+      "score": 3,
+      "count": 135,
+      "weighted": 405,
+      "gloss": "spetto (prep.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "setaea",
+      "target": "setata",
+      "distance": 1,
+      "score": 3,
+      "count": 134,
+      "weighted": 402,
+      "gloss": "setata (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mito",
+      "target": "aito",
+      "distance": 1,
+      "score": 3,
+      "count": 133,
+      "weighted": 399,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eito",
+      "target": "aito",
+      "distance": 1,
+      "score": 3,
+      "count": 124,
+      "weighted": 372,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "seta",
+      "target": "seta",
+      "distance": 0,
+      "score": 10,
+      "count": 37,
+      "weighted": 370,
+      "gloss": "setta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "oen",
+      "target": "ben",
+      "distance": 1,
+      "score": 3,
+      "count": 121,
+      "weighted": 363,
+      "gloss": "been (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mor",
+      "target": "amor",
+      "distance": 1,
+      "score": 3,
+      "count": 111,
+      "weighted": 333,
+      "gloss": "amor (Dante, freq=91)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "speta",
+      "target": "speta",
+      "distance": 0,
+      "score": 10,
+      "count": 31,
+      "weighted": 310,
+      "gloss": "spetta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "spptok",
+      "target": "speto",
+      "distance": 2,
+      "score": 1,
+      "count": 308,
+      "weighted": 308,
+      "gloss": "spetto (prep.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "motok",
+      "target": "moto",
+      "distance": 1,
+      "score": 3,
+      "count": 102,
+      "weighted": 306,
+      "gloss": "moto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "esir",
+      "target": "eser",
+      "distance": 1,
+      "score": 3,
+      "count": 100,
+      "weighted": 300,
+      "gloss": "esser (Dante, freq=162)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eopea",
+      "target": "kopea",
+      "distance": 1,
+      "score": 3,
+      "count": 98,
+      "weighted": 294,
+      "gloss": "copea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dsito",
+      "target": "asito",
+      "distance": 1,
+      "score": 3,
+      "count": 95,
+      "weighted": 285,
+      "gloss": "assito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dsitok",
+      "target": "asito",
+      "distance": 2,
+      "score": 1,
+      "count": 277,
+      "weighted": 277,
+      "gloss": "assito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dsi",
+      "target": "asi",
+      "distance": 1,
+      "score": 3,
+      "count": 90,
+      "weighted": 270,
+      "gloss": "assi (avv.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "gito",
+      "target": "gito",
+      "distance": 0,
+      "score": 10,
+      "count": 26,
+      "weighted": 260,
+      "gloss": "gito (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "ein",
+      "target": "ei",
+      "distance": 1,
+      "score": 3,
+      "count": 83,
+      "weighted": 249,
+      "gloss": "ei (Dante, freq=62)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "stok",
+      "target": "sto",
+      "distance": 1,
+      "score": 3,
+      "count": 82,
+      "weighted": 246,
+      "gloss": "sto (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sei",
+      "target": "sei",
+      "distance": 0,
+      "score": 10,
+      "count": 24,
+      "weighted": 240,
+      "gloss": "sei",
+      "domain": "general"
+    },
+    {
+      "decoded": "setaea",
+      "target": "setata",
+      "distance": 1,
+      "score": 3,
+      "count": 78,
+      "weighted": 234,
+      "gloss": "setata (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mea",
+      "target": "mea",
+      "distance": 0,
+      "score": 10,
+      "count": 23,
+      "weighted": 230,
+      "gloss": "mea (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eiea",
+      "target": "enea",
+      "distance": 1,
+      "score": 3,
+      "count": 71,
+      "weighted": 213,
+      "gloss": "enea (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eor",
+      "target": "eo",
+      "distance": 1,
+      "score": 3,
+      "count": 70,
+      "weighted": 210,
+      "gloss": "eoo (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dssito",
+      "target": "absito",
+      "distance": 2,
+      "score": 1,
+      "count": 209,
+      "weighted": 209,
+      "gloss": "abscito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mon",
+      "target": "don",
+      "distance": 1,
+      "score": 3,
+      "count": 67,
+      "weighted": 201,
+      "gloss": "don (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "opea",
+      "target": "kopea",
+      "distance": 1,
+      "score": 3,
+      "count": 65,
+      "weighted": 195,
+      "gloss": "copea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mopto",
+      "target": "molto",
+      "distance": 1,
+      "score": 3,
+      "count": 65,
+      "weighted": 195,
+      "gloss": "molto",
+      "domain": "general"
+    },
+    {
+      "decoded": "stpea",
+      "target": "stea",
+      "distance": 1,
+      "score": 3,
+      "count": 63,
+      "weighted": 189,
+      "gloss": "stea (Dante, freq=5)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "mitok",
+      "target": "aito",
+      "distance": 2,
+      "score": 1,
+      "count": 188,
+      "weighted": 188,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "spto",
+      "target": "sato",
+      "distance": 1,
+      "score": 3,
+      "count": 62,
+      "weighted": 186,
+      "gloss": "sato (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "oea",
+      "target": "dea",
+      "distance": 1,
+      "score": 3,
+      "count": 61,
+      "weighted": 183,
+      "gloss": "dea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "sppea",
+      "target": "kopea",
+      "distance": 2,
+      "score": 1,
+      "count": 174,
+      "weighted": 174,
+      "gloss": "copea (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dssiro",
+      "target": "disiro",
+      "distance": 1,
+      "score": 3,
+      "count": 58,
+      "weighted": 174,
+      "gloss": "disiro (Dante, freq=5)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "moeta",
+      "target": "meta",
+      "distance": 1,
+      "score": 3,
+      "count": 58,
+      "weighted": 174,
+      "gloss": "meta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "spto",
+      "target": "sato",
+      "distance": 1,
+      "score": 3,
+      "count": 57,
+      "weighted": 171,
+      "gloss": "sato (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "min",
+      "target": "fin",
+      "distance": 1,
+      "score": 3,
+      "count": 54,
+      "weighted": 162,
+      "gloss": "fin (Dante, freq=34)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eon",
+      "target": "don",
+      "distance": 1,
+      "score": 3,
+      "count": 54,
+      "weighted": 162,
+      "gloss": "don (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eit",
+      "target": "ei",
+      "distance": 1,
+      "score": 3,
+      "count": 52,
+      "weighted": 156,
+      "gloss": "ei (Dante, freq=62)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "srpto",
+      "target": "arato",
+      "distance": 2,
+      "score": 1,
+      "count": 154,
+      "weighted": 154,
+      "gloss": "arato (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "dssito",
+      "target": "absito",
+      "distance": 2,
+      "score": 1,
+      "count": 150,
+      "weighted": 150,
+      "gloss": "abscito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "smo",
+      "target": "amo",
+      "distance": 1,
+      "score": 3,
+      "count": 50,
+      "weighted": 150,
+      "gloss": "amo (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eitok",
+      "target": "aito",
+      "distance": 2,
+      "score": 1,
+      "count": 149,
+      "weighted": 149,
+      "gloss": "aito (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "sppen",
+      "target": "pien",
+      "distance": 2,
+      "score": 1,
+      "count": 142,
+      "weighted": 142,
+      "gloss": "pien (Dante, freq=14)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "motok",
+      "target": "moto",
+      "distance": 1,
+      "score": 3,
+      "count": 47,
+      "weighted": 141,
+      "gloss": "moto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mot",
+      "target": "mo",
+      "distance": 1,
+      "score": 3,
+      "count": 47,
+      "weighted": 141,
+      "gloss": "mo (avv.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "miea",
+      "target": "mea",
+      "distance": 1,
+      "score": 3,
+      "count": 46,
+      "weighted": 138,
+      "gloss": "mea (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "dssin",
+      "target": "desia",
+      "distance": 2,
+      "score": 1,
+      "count": 136,
+      "weighted": 136,
+      "gloss": "desia (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "seato",
+      "target": "beato",
+      "distance": 1,
+      "score": 3,
+      "count": 45,
+      "weighted": 135,
+      "gloss": "beato (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "sren",
+      "target": "fren",
+      "distance": 1,
+      "score": 3,
+      "count": 44,
+      "weighted": 132,
+      "gloss": "fren (Dante, freq=4)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "mom",
+      "target": "kom",
+      "distance": 1,
+      "score": 3,
+      "count": 43,
+      "weighted": 129,
+      "gloss": "com (Dante, freq=167)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sro",
+      "target": "aro",
+      "distance": 1,
+      "score": 3,
+      "count": 43,
+      "weighted": 129,
+      "gloss": "arro (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eit",
+      "target": "ei",
+      "distance": 1,
+      "score": 3,
+      "count": 43,
+      "weighted": 129,
+      "gloss": "ei (Dante, freq=62)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "eom",
+      "target": "eo",
+      "distance": 1,
+      "score": 3,
+      "count": 43,
+      "weighted": 129,
+      "gloss": "eoo (agg.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eoeta",
+      "target": "eleta",
+      "distance": 1,
+      "score": 3,
+      "count": 42,
+      "weighted": 126,
+      "gloss": "eletta (s.f.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eoto",
+      "target": "boto",
+      "distance": 1,
+      "score": 3,
+      "count": 42,
+      "weighted": 126,
+      "gloss": "botto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mopto",
+      "target": "molto",
+      "distance": 1,
+      "score": 3,
+      "count": 41,
+      "weighted": 123,
+      "gloss": "molto",
+      "domain": "general"
+    },
+    {
+      "decoded": "srpeam",
+      "target": "sapear",
+      "distance": 2,
+      "score": 1,
+      "count": 119,
+      "weighted": 119,
+      "gloss": "sapear (v.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "stoea",
+      "target": "stea",
+      "distance": 1,
+      "score": 3,
+      "count": 39,
+      "weighted": 117,
+      "gloss": "stea (Dante, freq=5)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "srpto",
+      "target": "arato",
+      "distance": 2,
+      "score": 1,
+      "count": 116,
+      "weighted": 116,
+      "gloss": "arato (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mopen",
+      "target": "aosen",
+      "distance": 2,
+      "score": 1,
+      "count": 113,
+      "weighted": 113,
+      "gloss": "haoscen (s.i.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "mot",
+      "target": "mo",
+      "distance": 1,
+      "score": 3,
+      "count": 37,
+      "weighted": 111,
+      "gloss": "mo (avv.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "stoea",
+      "target": "stea",
+      "distance": 1,
+      "score": 3,
+      "count": 36,
+      "weighted": 108,
+      "gloss": "stea (Dante, freq=5)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "sptok",
+      "target": "pok",
+      "distance": 2,
+      "score": 1,
+      "count": 105,
+      "weighted": 105,
+      "gloss": "poc (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "noea",
+      "target": "noe",
+      "distance": 1,
+      "score": 3,
+      "count": 35,
+      "weighted": 105,
+      "gloss": "noe (Dante, freq=2)",
+      "domain": "dante"
+    },
+    {
+      "decoded": "srppto",
+      "target": "saputo",
+      "distance": 2,
+      "score": 1,
+      "count": 103,
+      "weighted": 103,
+      "gloss": "saputo (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "seato",
+      "target": "beato",
+      "distance": 1,
+      "score": 3,
+      "count": 34,
+      "weighted": 102,
+      "gloss": "beato (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "srppto",
+      "target": "saputo",
+      "distance": 2,
+      "score": 1,
+      "count": 99,
+      "weighted": 99,
+      "gloss": "saputo (agg./s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "eoto",
+      "target": "boto",
+      "distance": 1,
+      "score": 3,
+      "count": 33,
+      "weighted": 99,
+      "gloss": "botto (s.m.)",
+      "domain": "tlio"
+    },
+    {
+      "decoded": "nopea",
+      "target": "kopea",
+      "distance": 1,
+      "score": 3,
+      "count": 33,
+      "weighted": 99,
+      "gloss": "copea (s.f.)",
+      "domain": "tlio"
+    }
+  ],
+  "section_breakdown": {
+    "A": {
+      "n_words": 839,
+      "n_decoded": 603,
+      "n_matched": 10,
+      "score": 1435,
+      "expected_domain": "general",
+      "top_matches": [
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 12
+        },
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 11
+        },
+        {
+          "decoded": "eir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 10
+        },
+        {
+          "decoded": "sppto",
+          "target": "speto",
+          "distance": 1,
+          "gloss": "spetto (prep.)",
+          "count": 8
+        },
+        {
+          "decoded": "spen",
+          "target": "sen",
+          "distance": 1,
+          "gloss": "sen (Dante, freq=45)",
+          "count": 7
+        },
+        {
+          "decoded": "essir",
+          "target": "disir",
+          "distance": 2,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 7
+        },
+        {
+          "decoded": "esir",
+          "target": "eser",
+          "distance": 1,
+          "gloss": "esser (Dante, freq=162)",
+          "count": 7
+        },
+        {
+          "decoded": "ein",
+          "target": "ei",
+          "distance": 1,
+          "gloss": "ei (Dante, freq=62)",
+          "count": 6
+        },
+        {
+          "decoded": "mir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 6
+        },
+        {
+          "decoded": "moea",
+          "target": "mea",
+          "distance": 1,
+          "gloss": "mea (Dante, freq=2)",
+          "count": 6
+        }
+      ]
+    },
+    "B": {
+      "n_words": 6866,
+      "n_decoded": 1540,
+      "n_matched": 10,
+      "score": 10536,
+      "expected_domain": "medical",
+      "top_matches": [
+        {
+          "decoded": "srpen",
+          "target": "arpe",
+          "distance": 2,
+          "gloss": "arpe (s.f.)",
+          "count": 247
+        },
+        {
+          "decoded": "srpea",
+          "target": "ardea",
+          "distance": 2,
+          "gloss": "ardea (s.f.)",
+          "count": 208
+        },
+        {
+          "decoded": "dsitok",
+          "target": "asito",
+          "distance": 2,
+          "gloss": "assito (s.m.)",
+          "count": 158
+        },
+        {
+          "decoded": "mok",
+          "target": "lok",
+          "distance": 1,
+          "gloss": "loc (s.i.)",
+          "count": 115
+        },
+        {
+          "decoded": "mitok",
+          "target": "aito",
+          "distance": 2,
+          "gloss": "aito (s.m.)",
+          "count": 105
+        },
+        {
+          "decoded": "spen",
+          "target": "sen",
+          "distance": 1,
+          "gloss": "sen (Dante, freq=45)",
+          "count": 96
+        },
+        {
+          "decoded": "spea",
+          "target": "sea",
+          "distance": 1,
+          "gloss": "scea (agg.)",
+          "count": 93
+        },
+        {
+          "decoded": "spptok",
+          "target": "speto",
+          "distance": 2,
+          "gloss": "spetto (prep.)",
+          "count": 89
+        },
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 83
+        },
+        {
+          "decoded": "mir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 67
+        }
+      ]
+    },
+    "C": {
+      "n_words": 2469,
+      "n_decoded": 1103,
+      "n_matched": 10,
+      "score": 4410,
+      "expected_domain": "general",
+      "top_matches": [
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 51
+        },
+        {
+          "decoded": "eir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 37
+        },
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 33
+        },
+        {
+          "decoded": "mir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 28
+        },
+        {
+          "decoded": "srpea",
+          "target": "ardea",
+          "distance": 2,
+          "gloss": "ardea (s.f.)",
+          "count": 20
+        },
+        {
+          "decoded": "eitok",
+          "target": "aito",
+          "distance": 2,
+          "gloss": "aito (s.m.)",
+          "count": 19
+        },
+        {
+          "decoded": "spea",
+          "target": "sea",
+          "distance": 1,
+          "gloss": "scea (agg.)",
+          "count": 19
+        },
+        {
+          "decoded": "moea",
+          "target": "mea",
+          "distance": 1,
+          "gloss": "mea (Dante, freq=2)",
+          "count": 17
+        },
+        {
+          "decoded": "eito",
+          "target": "aito",
+          "distance": 1,
+          "gloss": "aito (s.m.)",
+          "count": 17
+        },
+        {
+          "decoded": "mitok",
+          "target": "aito",
+          "distance": 2,
+          "gloss": "aito (s.m.)",
+          "count": 15
+        }
+      ]
+    },
+    "H": {
+      "n_words": 10723,
+      "n_decoded": 3562,
+      "n_matched": 10,
+      "score": 22107,
+      "expected_domain": "botanical",
+      "top_matches": [
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 423
+        },
+        {
+          "decoded": "moea",
+          "target": "mea",
+          "distance": 1,
+          "gloss": "mea (Dante, freq=2)",
+          "count": 219
+        },
+        {
+          "decoded": "eoea",
+          "target": "enea",
+          "distance": 1,
+          "gloss": "enea (Dante, freq=2)",
+          "count": 147
+        },
+        {
+          "decoded": "moen",
+          "target": "men",
+          "distance": 1,
+          "gloss": "men (Dante, freq=66)",
+          "count": 101
+        },
+        {
+          "decoded": "eir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 99
+        },
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 97
+        },
+        {
+          "decoded": "seta",
+          "target": "seta",
+          "distance": 0,
+          "gloss": "setta (s.f.)",
+          "count": 92
+        },
+        {
+          "decoded": "sea",
+          "target": "sea",
+          "distance": 0,
+          "gloss": "scea (agg.)",
+          "count": 88
+        },
+        {
+          "decoded": "oen",
+          "target": "ben",
+          "distance": 1,
+          "gloss": "been (s.m.)",
+          "count": 88
+        },
+        {
+          "decoded": "spea",
+          "target": "sea",
+          "distance": 1,
+          "gloss": "scea (agg.)",
+          "count": 70
+        }
+      ]
+    },
+    "P": {
+      "n_words": 2505,
+      "n_decoded": 1125,
+      "n_matched": 10,
+      "score": 4860,
+      "expected_domain": "medical",
+      "top_matches": [
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 93
+        },
+        {
+          "decoded": "moea",
+          "target": "mea",
+          "distance": 1,
+          "gloss": "mea (Dante, freq=2)",
+          "count": 44
+        },
+        {
+          "decoded": "mopea",
+          "target": "kopea",
+          "distance": 1,
+          "gloss": "copea (s.f.)",
+          "count": 37
+        },
+        {
+          "decoded": "mopto",
+          "target": "molto",
+          "distance": 1,
+          "gloss": "molto",
+          "count": 30
+        },
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 28
+        },
+        {
+          "decoded": "mir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 27
+        },
+        {
+          "decoded": "eopea",
+          "target": "kopea",
+          "distance": 1,
+          "gloss": "copea (s.f.)",
+          "count": 24
+        },
+        {
+          "decoded": "moptok",
+          "target": "molto",
+          "distance": 2,
+          "gloss": "molto",
+          "count": 23
+        },
+        {
+          "decoded": "eoea",
+          "target": "enea",
+          "distance": 1,
+          "gloss": "enea (Dante, freq=2)",
+          "count": 23
+        },
+        {
+          "decoded": "sppto",
+          "target": "speto",
+          "distance": 1,
+          "gloss": "spetto (prep.)",
+          "count": 23
+        }
+      ]
+    },
+    "S": {
+      "n_words": 10679,
+      "n_decoded": 3029,
+      "n_matched": 10,
+      "score": 16228,
+      "expected_domain": "astronomical",
+      "top_matches": [
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 193
+        },
+        {
+          "decoded": "srpea",
+          "target": "ardea",
+          "distance": 2,
+          "gloss": "ardea (s.f.)",
+          "count": 190
+        },
+        {
+          "decoded": "spptok",
+          "target": "speto",
+          "distance": 2,
+          "gloss": "spetto (prep.)",
+          "count": 159
+        },
+        {
+          "decoded": "spea",
+          "target": "sea",
+          "distance": 1,
+          "gloss": "scea (agg.)",
+          "count": 123
+        },
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 122
+        },
+        {
+          "decoded": "srpen",
+          "target": "arpe",
+          "distance": 2,
+          "gloss": "arpe (s.f.)",
+          "count": 114
+        },
+        {
+          "decoded": "dsitok",
+          "target": "asito",
+          "distance": 2,
+          "gloss": "assito (s.m.)",
+          "count": 105
+        },
+        {
+          "decoded": "sppto",
+          "target": "speto",
+          "distance": 1,
+          "gloss": "spetto (prep.)",
+          "count": 96
+        },
+        {
+          "decoded": "dssito",
+          "target": "absito",
+          "distance": 2,
+          "gloss": "abscito (s.m.)",
+          "count": 94
+        },
+        {
+          "decoded": "spen",
+          "target": "sen",
+          "distance": 1,
+          "gloss": "sen (Dante, freq=45)",
+          "count": 84
+        }
+      ]
+    },
+    "T": {
+      "n_words": 1622,
+      "n_decoded": 884,
+      "n_matched": 10,
+      "score": 2869,
+      "expected_domain": "general",
+      "top_matches": [
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 28
+        },
+        {
+          "decoded": "mir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 23
+        },
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 18
+        },
+        {
+          "decoded": "moea",
+          "target": "mea",
+          "distance": 1,
+          "gloss": "mea (Dante, freq=2)",
+          "count": 17
+        },
+        {
+          "decoded": "eir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 15
+        },
+        {
+          "decoded": "mitok",
+          "target": "aito",
+          "distance": 2,
+          "gloss": "aito (s.m.)",
+          "count": 14
+        },
+        {
+          "decoded": "mito",
+          "target": "aito",
+          "distance": 1,
+          "gloss": "aito (s.m.)",
+          "count": 12
+        },
+        {
+          "decoded": "spen",
+          "target": "sen",
+          "distance": 1,
+          "gloss": "sen (Dante, freq=45)",
+          "count": 11
+        },
+        {
+          "decoded": "eitok",
+          "target": "aito",
+          "distance": 2,
+          "gloss": "aito (s.m.)",
+          "count": 11
+        },
+        {
+          "decoded": "mito",
+          "target": "aito",
+          "distance": 1,
+          "gloss": "aito (s.m.)",
+          "count": 10
+        }
+      ]
+    },
+    "Z": {
+      "n_words": 1322,
+      "n_decoded": 790,
+      "n_matched": 10,
+      "score": 2577,
+      "expected_domain": "astronomical",
+      "top_matches": [
+        {
+          "decoded": "dssi",
+          "target": "disi",
+          "distance": 1,
+          "gloss": "dissi (Dante, freq=39)",
+          "count": 27
+        },
+        {
+          "decoded": "sppto",
+          "target": "speto",
+          "distance": 1,
+          "gloss": "spetto (prep.)",
+          "count": 18
+        },
+        {
+          "decoded": "sropto",
+          "target": "arosto",
+          "distance": 2,
+          "gloss": "arrosto (agg./avv./s.m.)",
+          "count": 15
+        },
+        {
+          "decoded": "nopto",
+          "target": "norto",
+          "distance": 1,
+          "gloss": "norto (s.m.)",
+          "count": 15
+        },
+        {
+          "decoded": "mito",
+          "target": "aito",
+          "distance": 1,
+          "gloss": "aito (s.m.)",
+          "count": 12
+        },
+        {
+          "decoded": "dssito",
+          "target": "absito",
+          "distance": 2,
+          "gloss": "abscito (s.m.)",
+          "count": 12
+        },
+        {
+          "decoded": "dssir",
+          "target": "disir",
+          "distance": 1,
+          "gloss": "disir (Dante, freq=3)",
+          "count": 11
+        },
+        {
+          "decoded": "eir",
+          "target": "dir",
+          "distance": 1,
+          "gloss": "dir (Dante, freq=67)",
+          "count": 10
+        },
+        {
+          "decoded": "spto",
+          "target": "sato",
+          "distance": 1,
+          "gloss": "sato (s.m.)",
+          "count": 10
+        },
+        {
+          "decoded": "sppto",
+          "target": "speto",
+          "distance": 1,
+          "gloss": "spetto (prep.)",
+          "count": 10
+        }
+      ]
+    }
+  },
+  "score_by_distance": {
+    "0": 10860,
+    "1": 25314,
+    "2": 6528
+  }
+}
