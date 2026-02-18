@@ -926,6 +926,35 @@ The complete mapping, decoded corpus, and all statistical results are
 available in the project repository for independent verification.
 
 % ══════════════════════════════════════════════════════════
+\section*{Data Availability and Reproducibility}
+
+All source code, the EVA transcription, and the complete mapping are
+available at
+\url{https://github.com/antenore/voynich-toolkit}
+under the MIT license. The analysis pipeline is fully reproducible:
+
+\begin{verbatim}
+git clone https://github.com/antenore/voynich-toolkit.git
+cd voynich-toolkit
+pip install -e .
+voynich --force full-decode        # decode corpus
+voynich --force meta-analysis      # h2, MATTR, Zipf, literature table
+voynich --force null-model-test    # null model (1-3 min)
+voynich --force scribe-analysis    # per-hand match rates (3 min)
+voynich --force naibbe-test        # Naibbe hypothesis (40s)
+voynich --force layout-analysis    # label vs paragraph
+\end{verbatim}
+
+Each command produces JSON (machine-readable), TXT (human-readable), and
+where applicable LaTeX table output in \texttt{output/stats/}. The SQLite
+database (\texttt{voynich.db}, regenerable via
+\texttt{python scripts/build\_sqlite\_db.py}) contains all intermediate
+results in queryable form. Hebrew lexicon data requires separate
+preparation (\texttt{voynich enrich-lexicon}) due to third-party licensing;
+instructions are provided in the repository. The EVA transcription file
+(\texttt{eva\_data/LSI\_ivtff\_0d.txt}) is included in the repository.
+
+% ══════════════════════════════════════════════════════════
 \section*{Acknowledgments}
 
 This work used the EVA transcription by Takeshi Takahashi and the
