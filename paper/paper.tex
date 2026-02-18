@@ -1,6 +1,5 @@
 \documentclass[11pt,a4paper]{article}
 
-% ── Packages ──────────────────────────────────────────────
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -38,7 +37,6 @@ for the Voynich Manuscript}
 \begin{document}
 \maketitle
 
-% ══════════════════════════════════════════════════════════
 \begin{abstract}
 We present a systematic computational evaluation of the hypothesis that the
 Voynich Manuscript (Beinecke MS~408) encodes Hebrew consonantal text via the
@@ -72,7 +70,6 @@ phonotactic alignment --- remains an open question.
 \noindent\textbf{Keywords:} Voynich Manuscript, Hebrew cipher, computational
 cryptanalysis, monoalphabetic substitution, statistical linguistics
 
-% ══════════════════════════════════════════════════════════
 \section{Introduction}
 \label{sec:intro}
 
@@ -119,7 +116,6 @@ text structure (\S\ref{sec:layout}), and a meta-analysis comparing our
 results against 15 published studies (\S\ref{sec:meta}).
 
 
-% ══════════════════════════════════════════════════════════
 \section{Data and Methods}
 \label{sec:methods}
 
@@ -265,7 +261,6 @@ match at $26.8\%$ (``monkey baseline''). We therefore report all key results
 at the \emph{honest} tier and note full-lexicon results parenthetically.
 
 
-% ══════════════════════════════════════════════════════════
 \section{Results}
 \label{sec:results}
 
@@ -608,7 +603,6 @@ all manuscript sections, including the herbal pages where botanical
 terminology would be expected.
 
 
-% ══════════════════════════════════════════════════════════
 \section{Discussion}
 \label{sec:discussion}
 
@@ -722,7 +716,6 @@ approach might recover additional signal --- or additional noise.
 \end{itemize}
 
 
-% ══════════════════════════════════════════════════════════
 \section{Meta-Analysis: Comparison with Published Research}
 \label{sec:meta}
 
@@ -897,7 +890,6 @@ not capture, or (b)~the keywords they identify are structural artifacts
 semantic content.
 
 
-% ══════════════════════════════════════════════════════════
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -925,7 +917,6 @@ additional cipher structure beyond monoalphabetic substitution.
 The complete mapping, decoded corpus, and all statistical results are
 available in the project repository for independent verification.
 
-% ══════════════════════════════════════════════════════════
 \section*{Data Availability and Reproducibility}
 
 All source code, the EVA transcription, and the complete mapping are
@@ -954,7 +945,6 @@ preparation (\texttt{voynich enrich-lexicon}) due to third-party licensing;
 instructions are provided in the repository. The EVA transcription file
 (\texttt{eva\_data/LSI\_ivtff\_0d.txt}) is included in the repository.
 
-% ══════════════════════════════════════════════════════════
 \section*{Acknowledgments}
 
 This work used the EVA transcription by Takeshi Takahashi and the
@@ -964,8 +954,6 @@ Dictionary (via Sefaria API), and the Sefaria open-source corpus.
 Computational analysis was conducted with the assistance of Claude
 (Anthropic) for code development and statistical analysis.
 
-% ══════════════════════════════════════════════════════════
-\bibliographystyle{plainnat}
 \begin{thebibliography}{99}
 
 \bibitem[Bowern and Lindemann(2021)]{BowernLindemann2021}
@@ -1056,3 +1044,4 @@ A.~Timm and A.~Schinner.
 \end{thebibliography}
 
 \end{document}
+\typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}
