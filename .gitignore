@@ -1,14 +1,24 @@
 # Output artifacts (large, regenerable)
-output/pages/
-output/text_regions/
-output/glyphs/
+# Run: voynich --force <command> to regenerate
+output/
 
-# Lexicon files (regenerable, possible copyright concerns)
-# Run: voynich prepare-lexicon && voynich prepare-italian-lexicon
-output/lexicon/
+# SQLite database (regenerable: python scripts/build_sqlite_db.py)
+voynich.db
 
 # PDF manuscript (copyrighted, not distributable)
 voynich.pdf
+
+# LaTeX build artifacts (paper.tex is tracked)
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex*
+
+# Claude Code
+.claude/
 
 # Python
 .venv/

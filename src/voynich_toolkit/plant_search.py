@@ -274,6 +274,86 @@ def _build_botanical_lexicon():
         ("som", "aglio (heb. Swm)"),
         ("batsal", "cipolla (heb. bCl)"),
         ("kresa", "porro (heb. krSh)"),
+        # --- Shem Tov / medieval Hebrew botanical (XIII sec.) ---
+        ("astis", "guado (heb. Astys)"),
+        ("aibrata", "ginepro (heb. AybrAtA)"),
+        ("apsantin", "assenzio med. (heb. Apsntyn)"),
+        ("atstrublin", "pinoli (heb. ACtrwblyn)"),
+        ("asa", "mirto med. (heb. AsA)"),
+        ("airus", "iris (heb. Ayrws)"),
+        ("askare", "bosso (heb. ASkrE)"),
+        ("ailen abream", "agnocasto (heb. Ayln Abrhm)"),
+        ("erdupni", "oleandro (heb. hrdwpny)"),
+        ("elilgim", "mirabolano (heb. hlylgym)"),
+        ("dartsin", "cannella med. (heb. drCyn)"),
+        ("dabdaniot", "ciliegie (heb. dbdbnywt)"),
+        ("erni", "malva (heb. hrny)"),
+        ("erzpa", "piretro (heb. hrzpA)"),
+        ("kaltit", "assafetida (heb. Xltyt)"),
+        ("ebanim", "ebano (heb. hbnym)"),
+        ("gopnan", "finocchio med. (heb. gwpnn)"),
+        ("burit", "liscivia veg. (heb. bwryt)"),
+        ("batnim", "pistacchi (heb. btnym)"),
+        ("kelil emelk", "meliloto (heb. klyl hmlk)"),
+        ("lapsan", "senape selv. (heb. lpsn)"),
+        ("leson etspur", "frassino fr. (heb. lSwn hCpwr)"),
+        ("ordi ekmurim", "peonia (heb. wrdy hXmwrym)"),
+        ("batsal sade", "scilla (heb. bCl Sdh)"),
+        # --- Talmudico/mishnaico ---
+        ("morika", "cartamo (heb. mwryqA)"),
+        ("kalbana", "galbano (heb. Xlbnh)"),
+        ("pilpel", "pepe (heb. plpl)"),
+        ("eolsin", "cicoria (heb. EwlSyn)"),
+        ("sos", "liquirizia (heb. SwS)"),
+        ("rikhan", "basilico (heb. ryXn)"),
+        ("kalamut", "borragine (heb. Xlmwt)"),
+        ("sumak", "sommacco (heb. swmq)"),
+        ("narkis", "narciso (heb. nrqys)"),
+        ("dalat", "zucca (heb. dlEt)"),
+        ("lupa", "luffa (heb. lwph)"),
+        ("turmus", "lupino (heb. twrmws)"),
+        ("kazeret", "lattuga (heb. Xzrt)"),
+        ("kruv", "cavolo (heb. krwb)"),
+        ("lefet", "rapa (heb. lpt)"),
+        ("tsanun", "ravanello (heb. Cnwn)"),
+        ("sakalim", "crescione (heb. SXlym)"),
+        ("gargir", "rucola (heb. grgyr)"),
+        ("knista", "carciofo (heb. knyStA)"),
+        ("kasa", "lattuga aram. (heb. XsA)"),
+        ("kesut", "cuscuta (heb. kSwt)"),
+        ("siloa", "bietola (heb. sylwA)"),
+        ("kornit", "camomilla (heb. qwrnyt)"),
+        ("kusbar", "coriandolo talm. (heb. kwsbr)"),
+        ("peigam", "ruta (heb. pygm)"),
+        ("tiltan", "fieno greco (heb. tltn)"),
+        ("sumsem", "sesamo (heb. SwmSm)"),
+        ("dapna", "alloro (heb. dpnh)"),
+        ("kilba", "fieno greco var. (heb. Xylbh)"),
+        ("mastika", "mastice (heb. msJykA)"),
+        ("kapor", "canfora (heb. kpwr)"),
+        ("limon", "limone (heb. lymwn)"),
+        # --- Piante bibliche aggiuntive ---
+        ("tsori", "balsamo Galaad (heb. Cry)"),
+        ("natap", "storace (heb. nJp)"),
+        ("atad", "licio (heb. AJd)"),
+        ("agmon", "giunco (heb. Agmwn)"),
+        ("gome", "papiro (heb. gmA)"),
+        ("abiuna", "cappero (heb. Abywnh)"),
+        ("bedulak", "bdellio (heb. bdwlX)"),
+        ("bakaim", "gelso (heb. bkAym)"),
+        ("dardar", "cardo stellato (heb. drdr)"),
+        ("kabatselet", "colchico (heb. XbClt)"),
+        ("kadak", "solano (heb. Xdq)"),
+        ("arar", "ginepro bibl. (heb. ErEr)"),
+        ("pol", "fava (heb. pwl)"),
+        ("tsaelim", "giuggiolo (heb. CAlym)"),
+        ("tsaptsapa", "salice (heb. CpCph)"),
+        ("karuv", "carruba (heb. Xrwb)"),
+        ("etrog", "cedro frutto (heb. Atrwg)"),
+        ("kardal", "senape (heb. Xrdl)"),
+        ("koper", "henné (heb. kpr)"),
+        ("sikma", "sicomoro (heb. Sqmh)"),
+        ("dekel", "palma aram. (heb. dql)"),
     ]
     for name, gloss in hebrew_plants:
         add(name, gloss, "hebrew_translit")
@@ -383,15 +463,19 @@ def _build_botanical_lexicon():
 # =====================================================================
 
 def decode_word(eva_word, mapping, direction):
-    """Decode EVA word to Italian via Hebrew mapping."""
-    chars = list(eva_word) if direction == "ltr" else list(reversed(eva_word))
-    parts = []
-    for ch in chars:
-        heb = mapping.get(ch)
-        if heb is None:
-            return None
-        parts.append(HEBREW_TO_ITALIAN.get(heb, "?"))
-    return "".join(parts)
+    """Decode EVA word to Italian via Hebrew mapping.
+
+    Uses the canonical full_decode.decode_word for proper ch/ii/i/q
+    handling plus positional splits (d@init→bet, h@init→samekh).
+    """
+    from .full_decode import decode_word as _canonical_decode
+
+    italian, hebrew, n_unknown = _canonical_decode(
+        eva_word, mapping=mapping, direction=direction
+    )
+    if n_unknown > 0:
+        return None
+    return italian
 
 
 def search_plants_in_text(eva_data, mapping, direction, plant_index,
@@ -695,6 +779,94 @@ def run(config: ToolkitConfig, force=False, direction=None,
     for p, c in top_plants[:15]:
         gloss = ftg.get(p, "")
         click.echo(f"    {p:<20s} {c:4d} hits  {gloss}")
+
+    # 12. Separate d=0 and d<=1 reporting
+    d0_hits = [h for h in hits if h["distance"] == 0]
+    d1_hits = [h for h in hits if h["distance"] <= 1]
+    d0_plants = set(h["plant_match"] for h in d0_hits)
+    d1_plants = set(h["plant_match"] for h in d1_hits)
+
+    click.echo(f"\n  Distance breakdown:")
+    click.echo(f"    d=0 (exact): {len(d0_hits)} hits, "
+               f"{len(d0_plants)} unique plants")
+    click.echo(f"    d<=1 (fuzzy): {len(d1_hits)} hits, "
+               f"{len(d1_plants)} unique plants")
+    click.echo(f"    d<=2 (loose): {len(hits)} hits, "
+               f"{len(set(h['plant_match'] for h in hits))} unique plants")
+
+    if d0_hits:
+        click.echo(f"\n  Top d=0 exact plant matches:")
+        d0_freq = Counter(h["plant_match"] for h in d0_hits)
+        for p, c in d0_freq.most_common(15):
+            gloss = ftg.get(p, "")
+            click.echo(f"    {p:<20s} {c:4d} hits  {gloss}")
+
+    report["distance_report"] = {
+        "d0_hits": len(d0_hits),
+        "d0_unique_plants": len(d0_plants),
+        "d0_top_plants": [
+            {"plant": p, "count": c}
+            for p, c in Counter(
+                h["plant_match"] for h in d0_hits).most_common(20)
+        ],
+        "d1_hits": len(d1_hits),
+        "d1_unique_plants": len(d1_plants),
+    }
+
+    # 13. Permutation test
+    click.echo(f"\n  --- Permutation Test ---")
+    try:
+        from .permutation_stats import (
+            build_full_mapping,
+            decode_eva_with_mapping,
+            permutation_test_mapping,
+        )
+
+        # Collect all EVA words
+        all_eva_words = []
+        for page in eva_data["pages"]:
+            all_eva_words.extend(page["words"])
+
+        # Normalized plant set for exact match scoring
+        plant_forms = set(ph for _, ph, _, _ in unique_entries)
+
+        def plant_score_fn(test_mapping):
+            """Count unique plant types matched (not tokens).
+
+            Using unique types rather than total occurrences reduces
+            noise from short forms (e.g. 'mor' matching 225 pages).
+            """
+            matched_types = set()
+            for eva_w in all_eva_words:
+                if len(eva_w) < min_word_len:
+                    continue
+                decoded = decode_eva_with_mapping(
+                    eva_w, test_mapping, mode="italian", direction=direction
+                )
+                if decoded and decoded in plant_forms:
+                    matched_types.add(decoded)
+            return len(matched_types)
+
+        full_map = build_full_mapping(mapping)
+        perm_result = permutation_test_mapping(
+            plant_score_fn, full_map, n_perms=1000, seed=42)
+
+        click.echo(f"    Real score:   {perm_result['real_score']}")
+        click.echo(f"    Random mean:  {perm_result['random_mean']} "
+                   f"± {perm_result['random_std']}")
+        click.echo(f"    p-value:      {perm_result['p_value']:.6f}")
+        click.echo(f"    z-score:      {perm_result['z_score']:.1f}")
+        sig = "***" if perm_result["significant_001"] else \
+              "**" if perm_result["significant_01"] else \
+              "*" if perm_result["significant_05"] else "ns"
+        click.echo(f"    Significance: {sig}")
+        report["permutation_test"] = perm_result
+    except Exception as e:
+        click.echo(f"    Permutation test error: {e}")
+
+    # Re-save report with permutation and distance data
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, ensure_ascii=False, default=str)
 
     # Verdict
     h_pct = sec_dist.get("H", {}).get("pct", 0)

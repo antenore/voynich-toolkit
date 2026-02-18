@@ -68,6 +68,14 @@ class ToolkitConfig:
     def lexicon_dir(self) -> Path:
         return self.output_dir / "lexicon"
 
+    @property
+    def hebrew_lexicon_path(self) -> Path:
+        """Return enriched lexicon if available, else base."""
+        enriched = self.lexicon_dir / "lexicon_enriched.json"
+        if enriched.exists():
+            return enriched
+        return self.lexicon_dir / "lexicon.json"
+
     def ensure_dirs(self) -> None:
         """Crea tutte le directory necessarie."""
         for d in [

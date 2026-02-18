@@ -1,15 +1,20 @@
 """
-Full decode: apply convergent 16-char mapping to entire manuscript.
+Full decode: apply complete mapping to entire manuscript.
 
-Loads the convergent mapping (16 chars where Italian and Hebrew paths
-agree), decodes all EVA text, and uses F/I/Q placeholders for the
-3 divergent characters.
+Uses the Phase 7+9 resolved mapping (19 Hebrew letters):
+  - 16 convergent chars (Italian + Hebrew paths agree)
+  - f = lamed (allograph of p)
+  - ii = he (allograph of r), standalone i = resh (allograph of d)
+  - ch = kaf (digraph → single Hebrew letter, Phase 9 B3)
+  - n at Hebrew-initial = bet (positional split, Phase 9 B2)
+  - q = prefix (stripped)
 
 Output:
   - full_decode.json — structured per-page decode
   - full_decode_readable.txt — human-readable page-by-page text
 """
 import json
+import re
 from collections import Counter, defaultdict
 
 import click
@@ -33,6 +38,39 @@ SECTION_NAMES = {
     "": "unknown",
 }
 
+# =====================================================================
+# Complete 19-char mapping (Phase 7)
+# =====================================================================
+
+# 17-char letter mapping (16 convergent + f=lamed)
+FULL_MAPPING = {
+    'a': 'y', 'c': 'A', 'd': 'r', 'e': 'p', 'f': 'l',
+    'g': 'X', 'h': 'E', 'k': 't', 'l': 'm', 'm': 'g',
+    'n': 'd', 'o': 'w', 'p': 'l', 'r': 'h', 's': 'n',
+    't': 'J', 'y': 'S',
+}
+
+# i as composite glyph: ii→he(h), standalone i→resh(r)
+II_HEBREW = 'h'   # he → Italian 'e'
+I_HEBREW = 'r'    # resh → Italian 'r'
+
+# ch as digraph → kaf (Phase 9 B3: cohesion 0.722, +72 lexicon matches)
+CH_HEBREW = 'k'   # kaf → Italian 'k'
+
+# Positional split: EVA n at Hebrew word-initial → bet instead of dalet
+# (Phase 9 B2: +2162 net lexicon matches, differential +2047 vs random)
+INITIAL_D_HEBREW = 'b'  # bet → Italian 'b'
+
+# Positional split: EVA r/ii at Hebrew word-initial → samekh instead of he
+# (Phase 9 l/r allography: +563 net matches, differential +509 vs random)
+INITIAL_H_HEBREW = 's'  # samekh → Italian 'n' (via HEBREW_TO_ITALIAN)
+
+DIRECTION = 'rtl'
+
+
+# =====================================================================
+# Legacy 16-char convergent mapping loader (for backward compat)
+# =====================================================================
 
 def load_convergent_mapping(config):
     """Load the 16-char convergent mapping where both paths agree.
@@ -83,39 +121,135 @@ def load_convergent_mapping(config):
     return mapping, divergent, direction
 
 
-def decode_word(eva_word, mapping, divergent_chars, direction):
+# =====================================================================
+# 19-char decode
+# =====================================================================
+
+def preprocess_eva(word):
+    """Preprocess EVA word before char-by-char decoding.
+
+    Order:
+      1. ch → \\x03 (digraph kaf, before q-prefix to handle "qochedy" etc.)
+      2. Strip initial q/qo prefix
+      3. ii → \\x01 (he), standalone i → \\x02 (resh)
+
+    Returns: (prefix_stripped, processed_word)
+    """
+    w = word
+
+    # 1. Replace ch digraph with placeholder (before prefix stripping)
+    w = w.replace('ch', '\x03')
+
+    # 2. Strip q/qo prefix
+    prefix = ''
+    if w.startswith('qo'):
+        prefix = 'qo'
+        w = w[2:]
+    elif w.startswith('q') and len(w) > 1:
+        prefix = 'q'
+        w = w[1:]
+
+    # 3. Replace runs of i: ii→single token, then standalone i
+    w = re.sub(
+        r'i{3,}',
+        lambda m: '\x01' * (len(m.group()) // 2) +
+                  ('\x02' if len(m.group()) % 2 else ''),
+        w)
+    w = w.replace('ii', '\x01')
+    w = w.replace('i', '\x02')
+    return prefix, w
+
+
+def decode_word(eva_word, mapping=None, divergent_chars=None,
+                direction=None):
     """Decode a single EVA word to Italian phonemes and Hebrew.
 
+    When called with no arguments (or mapping=None), uses the full
+    19-char mapping with ii/i split and q-prefix stripping.
+
+    Legacy mode: when mapping + divergent_chars are provided, uses
+    the old 16-char path (for backward compatibility).
+
     Returns:
-        italian: str with Italian phonemes + F/I/Q placeholders
-        hebrew: str with Hebrew ASCII + F/I/Q placeholders
-        n_unknown: count of unknown (divergent) chars
+        italian: str with Italian phonemes
+        hebrew: str with Hebrew ASCII consonants
+        n_unknown: count of unmapped chars
     """
-    chars = list(reversed(eva_word)) if direction == "rtl" else list(eva_word)
+    # Legacy 16-char mode
+    if mapping is not None and divergent_chars is not None:
+        if direction is None:
+            direction = "rtl"
+        chars = (list(reversed(eva_word)) if direction == "rtl"
+                 else list(eva_word))
+        hebrew_parts = []
+        italian_parts = []
+        n_unknown = 0
+        for ch in chars:
+            if ch in mapping:
+                heb = mapping[ch]
+                hebrew_parts.append(heb)
+                italian_parts.append(HEBREW_TO_ITALIAN.get(heb, "?"))
+            elif ch in divergent_chars:
+                placeholder = ch.upper()
+                hebrew_parts.append(placeholder)
+                italian_parts.append(placeholder)
+                n_unknown += 1
+            else:
+                hebrew_parts.append("?")
+                italian_parts.append("?")
+                n_unknown += 1
+        return "".join(italian_parts), "".join(hebrew_parts), n_unknown
+
+    # Full 19-char mode
+    use_mapping = mapping if mapping is not None else FULL_MAPPING
+    use_direction = direction if direction is not None else DIRECTION
+
+    prefix, processed = preprocess_eva(eva_word)
+    chars = (list(reversed(processed)) if use_direction == "rtl"
+             else list(processed))
+
     hebrew_parts = []
     italian_parts = []
     n_unknown = 0
 
     for ch in chars:
-        if ch in mapping:
-            heb = mapping[ch]
+        if ch == '\x01':  # ii → he
+            hebrew_parts.append(II_HEBREW)
+            italian_parts.append(HEBREW_TO_ITALIAN.get(II_HEBREW, '?'))
+        elif ch == '\x02':  # standalone i → resh
+            hebrew_parts.append(I_HEBREW)
+            italian_parts.append(HEBREW_TO_ITALIAN.get(I_HEBREW, '?'))
+        elif ch == '\x03':  # ch → kaf
+            hebrew_parts.append(CH_HEBREW)
+            italian_parts.append(HEBREW_TO_ITALIAN.get(CH_HEBREW, '?'))
+        elif ch in use_mapping:
+            heb = use_mapping[ch]
             hebrew_parts.append(heb)
-            italian_parts.append(HEBREW_TO_ITALIAN.get(heb, "?"))
-        elif ch in divergent_chars:
-            placeholder = ch.upper()
-            hebrew_parts.append(placeholder)
-            italian_parts.append(placeholder)
-            n_unknown += 1
+            italian_parts.append(HEBREW_TO_ITALIAN.get(heb, '?'))
         else:
-            hebrew_parts.append("?")
-            italian_parts.append("?")
+            hebrew_parts.append('?')
+            italian_parts.append('?')
             n_unknown += 1
+
+    # Positional split: dalet at word-initial → bet (Phase 9 B2)
+    if hebrew_parts and hebrew_parts[0] == 'd':
+        hebrew_parts[0] = INITIAL_D_HEBREW
+        italian_parts[0] = HEBREW_TO_ITALIAN.get(INITIAL_D_HEBREW, '?')
+
+    # Positional split: he at word-initial → samekh (Phase 9 l/r allography)
+    if hebrew_parts and hebrew_parts[0] == 'h':
+        hebrew_parts[0] = INITIAL_H_HEBREW
+        italian_parts[0] = HEBREW_TO_ITALIAN.get(INITIAL_H_HEBREW, '?')
 
     return "".join(italian_parts), "".join(hebrew_parts), n_unknown
 
 
+# =====================================================================
+# Entry point
+# =====================================================================
+
 def run(config: ToolkitConfig, force=False, **kwargs):
-    """Full decode of the manuscript using convergent 16-char mapping."""
+    """Full decode of the manuscript using complete 19-char mapping."""
     report_path = config.stats_dir / "full_decode.json"
     text_path = config.stats_dir / "full_decode_readable.txt"
 
@@ -124,20 +258,37 @@ def run(config: ToolkitConfig, force=False, **kwargs):
         return
 
     config.ensure_dirs()
-    print_header("FULL DECODE — Convergent 16-char Mapping")
+    print_header("FULL DECODE — Complete Mapping (19 Hebrew letters)")
 
-    # 1. Load convergent mapping
-    print_step("Loading convergent mapping...")
-    mapping, divergent, direction = load_convergent_mapping(config)
-    click.echo(f"    {len(mapping)} agreed chars, "
-               f"{len(divergent)} divergent ({', '.join(sorted(divergent))})")
-    click.echo(f"    Direction: {direction}")
+    # 1. Show mapping
+    print_step("Using complete mapping (17 chars + ch + ii/i + q + positional split)...")
+    click.echo(f"    17 letter-mapped + ch→kaf + ii→he + i→resh + q→prefix")
+    click.echo(f"    Positional: n@initial→bet (Phase 9 B2)")
+    click.echo(f"    Direction: {DIRECTION}")
 
-    for eva_ch in sorted(mapping):
-        heb = mapping[eva_ch]
+    for eva_ch in sorted(FULL_MAPPING):
+        heb = FULL_MAPPING[eva_ch]
         it = HEBREW_TO_ITALIAN.get(heb, "?")
         click.echo(f"      {eva_ch} -> {heb} "
                    f"({CONSONANT_NAMES.get(heb, '?'):8s}) -> {it}")
+    click.echo(f"      ch -> {CH_HEBREW} "
+               f"({CONSONANT_NAMES.get(CH_HEBREW, '?'):8s}) -> "
+               f"{HEBREW_TO_ITALIAN.get(CH_HEBREW, '?')}")
+    click.echo(f"      ii -> {II_HEBREW} "
+               f"({CONSONANT_NAMES.get(II_HEBREW, '?'):8s}) -> "
+               f"{HEBREW_TO_ITALIAN.get(II_HEBREW, '?')}")
+    click.echo(f"      i  -> {I_HEBREW} "
+               f"({CONSONANT_NAMES.get(I_HEBREW, '?'):8s}) -> "
+               f"{HEBREW_TO_ITALIAN.get(I_HEBREW, '?')}")
+    click.echo(f"      q  -> prefix (stripped)")
+    click.echo(f"      n@initial -> {INITIAL_D_HEBREW} "
+               f"({CONSONANT_NAMES.get(INITIAL_D_HEBREW, '?'):8s}) -> "
+               f"{HEBREW_TO_ITALIAN.get(INITIAL_D_HEBREW, '?')} "
+               f"(positional split)")
+    click.echo(f"      r/ii@initial -> {INITIAL_H_HEBREW} "
+               f"({CONSONANT_NAMES.get(INITIAL_H_HEBREW, '?'):8s}) -> "
+               f"{HEBREW_TO_ITALIAN.get(INITIAL_H_HEBREW, '?')} "
+               f"(positional split, l/r allography)")
 
     # 2. Parse EVA
     print_step("Parsing EVA text...")
@@ -154,10 +305,8 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     total_words = 0
     total_fully_decoded = 0
     total_with_unknowns = 0
-    unknown_char_counter = Counter()
 
     text_lines = []
-    divergent_set = set(divergent.keys())
 
     for page in eva_data["pages"]:
         folio = page["folio"]
@@ -171,16 +320,13 @@ def run(config: ToolkitConfig, force=False, **kwargs):
         n_with_unk = 0
 
         for w in words_eva:
-            ita, heb, n_unk = decode_word(w, mapping, divergent_set, direction)
+            ita, heb, n_unk = decode_word(w)
             words_decoded.append(ita)
             words_hebrew.append(heb)
             if n_unk == 0:
                 n_fully += 1
             else:
                 n_with_unk += 1
-                for ch in (reversed(w) if direction == "rtl" else w):
-                    if ch in divergent_set:
-                        unknown_char_counter[ch.upper()] += 1
 
         pages[folio] = {
             "section": section_name,
@@ -207,7 +353,7 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             eva_line = " ".join(line_words)
             decoded_parts = []
             for w in line_words:
-                ita, _, _ = decode_word(w, mapping, divergent_set, direction)
+                ita, _, _ = decode_word(w)
                 decoded_parts.append(ita)
             text_lines.append(f"  EVA: {eva_line}")
             text_lines.append(f"  ITA: {' '.join(decoded_parts)}")
@@ -217,35 +363,66 @@ def run(config: ToolkitConfig, force=False, **kwargs):
 
     # 4. Save JSON report
     print_step("Saving reports...")
+
+    # Build mapping info for report
+    full_mapping_info = {}
+    for eva_ch in sorted(FULL_MAPPING):
+        heb = FULL_MAPPING[eva_ch]
+        full_mapping_info[eva_ch] = {
+            "hebrew": heb,
+            "hebrew_name": CONSONANT_NAMES.get(heb, "?"),
+            "italian": HEBREW_TO_ITALIAN.get(heb, "?"),
+        }
+    # Add ch, ii and i entries
+    full_mapping_info["ch"] = {
+        "hebrew": CH_HEBREW,
+        "hebrew_name": CONSONANT_NAMES.get(CH_HEBREW, "?"),
+        "italian": HEBREW_TO_ITALIAN.get(CH_HEBREW, "?"),
+        "note": "digraph → single kaf (Phase 9 B3)",
+    }
+    full_mapping_info["ii"] = {
+        "hebrew": II_HEBREW,
+        "hebrew_name": CONSONANT_NAMES.get(II_HEBREW, "?"),
+        "italian": HEBREW_TO_ITALIAN.get(II_HEBREW, "?"),
+        "note": "digraph → single phoneme",
+    }
+    full_mapping_info["i"] = {
+        "hebrew": I_HEBREW,
+        "hebrew_name": CONSONANT_NAMES.get(I_HEBREW, "?"),
+        "italian": HEBREW_TO_ITALIAN.get(I_HEBREW, "?"),
+        "note": "standalone (not part of ii)",
+    }
+    full_mapping_info["q"] = {
+        "hebrew": "—",
+        "hebrew_name": "prefix",
+        "italian": "—",
+        "note": "grammatical prefix, stripped",
+    }
+    full_mapping_info["n@initial"] = {
+        "hebrew": INITIAL_D_HEBREW,
+        "hebrew_name": CONSONANT_NAMES.get(INITIAL_D_HEBREW, "?"),
+        "italian": HEBREW_TO_ITALIAN.get(INITIAL_D_HEBREW, "?"),
+        "note": "positional split: n at Hebrew-initial → bet (Phase 9 B2)",
+    }
+    full_mapping_info["r/ii@initial"] = {
+        "hebrew": INITIAL_H_HEBREW,
+        "hebrew_name": CONSONANT_NAMES.get(INITIAL_H_HEBREW, "?"),
+        "italian": HEBREW_TO_ITALIAN.get(INITIAL_H_HEBREW, "?"),
+        "note": "positional split: he at Hebrew-initial → samekh (l/r allography)",
+    }
+
     report = {
-        "direction": direction,
-        "mapping_size": len(mapping),
-        "divergent_chars": sorted(divergent.keys()),
-        "mapping": {
-            eva_ch: {
-                "hebrew": mapping[eva_ch],
-                "hebrew_name": CONSONANT_NAMES.get(mapping[eva_ch], "?"),
-                "italian": HEBREW_TO_ITALIAN.get(mapping[eva_ch], "?"),
-            }
-            for eva_ch in sorted(mapping)
-        },
-        "divergent_details": {
-            ch: {
-                "italian_path": info["italian_path"],
-                "italian_path_name": CONSONANT_NAMES.get(
-                    info["italian_path"], "?"),
-                "hebrew_path": info["hebrew_path"],
-                "hebrew_path_name": CONSONANT_NAMES.get(
-                    info["hebrew_path"], "?"),
-            }
-            for ch, info in divergent.items()
-        },
+        "direction": DIRECTION,
+        "mapping_size": 22,
+        "mapping_type": "full_20char_plus_2_positional",
+        "hebrew_letters_mapped": 19,
+        "divergent_chars": [],
+        "mapping": full_mapping_info,
         "pages": pages,
         "total_words": total_words,
         "fully_decoded_pct": round(fully_pct, 1),
         "words_fully_decoded": total_fully_decoded,
         "words_with_unknowns": total_with_unknowns,
-        "unknown_char_frequency": dict(unknown_char_counter.most_common()),
     }
 
     with open(report_path, "w", encoding="utf-8") as f:
@@ -263,10 +440,6 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     click.echo(f"\n  Total words: {total_words}")
     click.echo(f"  Fully decoded: {total_fully_decoded} ({fully_pct:.1f}%)")
     click.echo(f"  With unknowns: {total_with_unknowns}")
-
-    click.echo(f"\n  Unknown char frequency:")
-    for ch, count in unknown_char_counter.most_common():
-        click.echo(f"    {ch}: {count}")
 
     # Section breakdown
     section_stats = defaultdict(lambda: {"total": 0, "fully": 0})
@@ -292,8 +465,7 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             if shown >= 20:
                 break
             if len(w) >= 4:
-                ita, heb, n_unk = decode_word(
-                    w, mapping, divergent_set, direction)
+                ita, heb, n_unk = decode_word(w)
                 if n_unk == 0:
                     click.echo(f"    {w:12s} -> {heb:8s} -> {ita}")
                     shown += 1

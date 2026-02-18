@@ -1,0 +1,1029 @@
+\documentclass[11pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+}
+
+\newcommand{\eva}[1]{\texttt{#1}}
+\newcommand{\heb}[1]{\textsf{#1}}
+\newcommand{\zs}[1]{$z=#1$}
+\newcommand{\pval}[1]{$p=#1$}
+
+\title{A Statistical Evaluation of the Hebrew Cipher Hypothesis\\
+for the Voynich Manuscript}
+
+\author{Antenore Gatta\\
+\small \texttt{antenore@simbiosi.org}}
+\date{February 2026 — Draft}
+
+\begin{document}
+\maketitle
+
+% ══════════════════════════════════════════════════════════
+\begin{abstract}
+We present a systematic computational evaluation of the hypothesis that the
+Voynich Manuscript (Beinecke MS~408) encodes Hebrew consonantal text via the
+European Voynich Alphabet (EVA) transcription. Starting from a monoalphabetic
+substitution mapping of 19 EVA characters to 19 of the 22 Hebrew consonants
+--- derived through frequency analysis, allograph detection, digraph resolution,
+and positional splitting --- we decode the full manuscript corpus (37,025 tokens,
+7,861 types) and evaluate the output against Hebrew lexicons at three tiers of
+coverage (6.5K biblical, 45K curated, 491K corpus-attested forms).
+
+The mapping produces a statistically significant signal: the decoded text
+matches Hebrew lexical forms at rates 2--3 times above random baselines
+($z=3.6$--$4.4$, $p<0.005$) across all lexicon tiers, survives permutation
+testing for botanical anchors ($p=0.017$) and domain vocabulary ($p=0.004$),
+and outperforms a synthetic null model on match rate ($z=98.2$), Zipfian
+gloss distribution ($z=121$), and Hebrew bigram plausibility ($z=40.9$).
+
+However, the decoded text does not produce readable Hebrew. Best passages
+yield incoherent word sequences. The signal concentrates in one of five
+identified scribal hands (Hand~1, 86 herbal pages) and in paragraph text
+rather than figure labels ($24.7\%$ vs $13.2\%$, $z=-8.10$). Alternative
+hypotheses (homophonic Naibbe cipher, Judeo-Italian substrate, Currier
+language split) are tested and largely rejected. We conclude that the mapping
+captures genuine structural correspondence between EVA text and Hebrew
+consonantal morphology, but falls short of decipherment. The nature of
+this correspondence --- partial cipher, structural mimicry, or coincidental
+phonotactic alignment --- remains an open question.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords:} Voynich Manuscript, Hebrew cipher, computational
+cryptanalysis, monoalphabetic substitution, statistical linguistics
+
+% ══════════════════════════════════════════════════════════
+\section{Introduction}
+\label{sec:intro}
+
+The Voynich Manuscript (Yale, Beinecke Rare Book and Manuscript Library,
+MS~408) is an illustrated codex of approximately 240 pages, written in an
+undeciphered script and dated by radiocarbon to the early 15th century
+(1404--1438 CE). The script, conventionally transcribed using the European
+Voynich Alphabet (EVA) system \citep{Landini2001}, employs approximately
+20 distinct characters and produces a corpus of roughly 37,000 word tokens
+and 8,000 types. The manuscript's sections --- herbal, astronomical, zodiac,
+balneological, pharmaceutical, and text --- suggest a practical or
+encyclopedic work.
+
+Proposed decipherments range from natural languages (Latin, Italian, Hebrew,
+Nahuatl) to constructed or meaningless text \citep{Rugg2004}. Statistical
+analyses have consistently shown that the text exhibits word-frequency
+distributions, entropy values, and clustering properties compatible with
+natural language \citep{Montemurro2013,Amancio2013}, though these properties
+can also arise from certain non-linguistic generative mechanisms
+\citep{Timm2014}.
+
+Recent work by \citet{Davis2020} identified five distinct scribal hands in
+the manuscript, correlating with Currier's earlier observation of two
+statistical ``languages'' (A and B) \citep{Currier1976}. \citet{Greshko2025}
+demonstrated that a verbose homophonic cipher using historically plausible
+15th-century materials (dice and playing cards) can produce ciphertext with
+statistical properties matching those of the Voynich text.
+
+In this paper, we evaluate the hypothesis that EVA characters map to Hebrew
+consonants via monoalphabetic substitution, read right-to-left. This
+hypothesis draws on the observation that Hebrew consonantal writing ---
+consisting of 22 consonant letters with vowels typically unwritten ---
+produces short, high-entropy word forms structurally similar to EVA tokens.
+Rather than claiming a decipherment, we frame the evaluation as a statistical
+test: \emph{does the proposed mapping produce output that matches Hebrew
+lexical forms at rates significantly above what random or structural baselines
+would predict?}
+
+We organize 29 systematic investigations across mapping derivation
+(\S\ref{sec:mapping}), multi-tier lexicon validation (\S\ref{sec:lexicon}),
+permutation testing (\S\ref{sec:permutation}), alternative hypothesis
+testing (\S\ref{sec:alternatives}), scribal variation (\S\ref{sec:scribes}),
+text structure (\S\ref{sec:layout}), and a meta-analysis comparing our
+results against 15 published studies (\S\ref{sec:meta}).
+
+
+% ══════════════════════════════════════════════════════════
+\section{Data and Methods}
+\label{sec:methods}
+
+\subsection{Corpus}
+\label{sec:corpus}
+
+The EVA transcription used is the Takahashi (H) layer from the
+\texttt{LSI\_ivtff\_0d.txt} file \citep{Landini2001}. The IVTFF format
+encodes page structure, line numbers, scribal hand assignments, Currier
+language labels (A/B), illustration-based section codes
+(H=herbal, S=astronomical, Z=zodiac, B=balneological, P=pharmaceutical,
+T=text, C=cosmological), and --- critically for our analysis --- layout type
+via unit codes: paragraph (\texttt{P0}, \texttt{P1}\ldots), label
+(\texttt{Lz}, \texttt{L0}\ldots), circular (\texttt{Cc}), and title
+(\texttt{Pt}).
+
+After parsing, the corpus contains 37,025 word tokens (7,861 types) across
+225 pages, distributed as 33,684 paragraph words, 1,022 label words, 2,286
+circular-text words, and 22 title words. The zodiac section (Z) contains
+zero paragraph text --- all 1,322 words appear as labels under figures or in
+circular bands.
+
+\subsection{Mapping Derivation}
+\label{sec:mapping}
+
+The EVA$\to$Hebrew mapping was derived through a multi-phase process:
+
+\begin{enumerate}
+\item \textbf{Frequency alignment} (Phase 5--6): initial assignment of EVA
+characters to Hebrew consonants via ranked frequency matching, validated
+independently through Italian phonemic transliteration.
+
+\item \textbf{Allograph detection} (Phase 7--9): positional profile analysis
+identified functional equivalences:
+  \begin{itemize}
+  \item \eva{f}~$=$~\eva{p} (both $\to$ lamed): cosine similarity 0.987,
+    context overlap 0.67
+  \item \eva{i}~(standalone) $=$~\eva{d} (both $\to$ resh): \eva{ii}
+    $\to$ he, standalone \eva{i} $\to$ resh
+  \item \eva{k}/\eva{t} confirmed equivalent (cosine 0.999) but mapped to
+    distinct letters (tav/tet)
+  \end{itemize}
+
+\item \textbf{Digraph resolution} (Phase 9): \eva{ch} identified as a
+single cipher unit mapping to kaf (cohesion $P(h|c)=82.7\%$, $+72$ lexicon
+matches).
+
+\item \textbf{Positional splitting} (Phase 9): two position-dependent rules
+recovered two additional Hebrew letters:
+  \begin{itemize}
+  \item EVA \eva{n} at Hebrew word-initial position $\to$ bet
+    (elsewhere $\to$ dalet): $+2{,}162$ net lexicon matches
+  \item EVA \eva{r}/\eva{ii} at Hebrew word-initial position $\to$ samekh
+    (elsewhere $\to$ he): $+563$ net matches
+  \end{itemize}
+\end{enumerate}
+
+The resulting mapping covers 19 of the 22 Hebrew consonants. The three
+unmapped letters (zayin, tsade, qof) were exhaustively probed via positional
+splits, digraph candidates (\eva{sh}), and constrained optimization; all
+strategies yielded non-significant gains. Table~\ref{tab:mapping} presents
+the complete mapping.
+
+\begin{table}[htbp]
+\centering
+\caption{Complete EVA $\to$ Hebrew mapping (19/22 consonants). Direction: RTL.
+Preprocessing: \eva{ch}$\to$kaf, \eva{q}-prefix stripped, \eva{ii}$\to$he,
+standalone \eva{i}$\to$resh. Post-decode: dalet at position 0 $\to$ bet;
+he at position 0 $\to$ samekh.}
+\label{tab:mapping}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+EVA & Hebrew & Name & Type & Notes \\
+\midrule
+\eva{a} & \heb{y} & yod & convergent & \\
+\eva{c} & \heb{A} & aleph & convergent & \\
+\eva{ch} & \heb{k} & kaf & digraph & Phase 9 B3 \\
+\eva{d} & \heb{r} & resh & convergent & \\
+\eva{e} & \heb{p} & pe & convergent & \\
+\eva{f} & \heb{l} & lamed & allograph & $=$ \eva{p} \\
+\eva{g} & \heb{X} & chet & convergent & \\
+\eva{h} & \heb{E} & ayin & convergent & \\
+\eva{ii} & \heb{h} & he & composite & \\
+\eva{i} & \heb{r} & resh & composite & allograph of \eva{d} \\
+\eva{k} & \heb{t} & tav & convergent & \\
+\eva{l} & \heb{m} & mem & convergent & \\
+\eva{m} & \heb{g} & gimel & convergent & \\
+\eva{n} & \heb{d}/\heb{b} & dalet/bet & positional & bet at initial \\
+\eva{o} & \heb{w} & vav & convergent & \\
+\eva{p} & \heb{l} & lamed & convergent & \\
+\eva{q} & --- & prefix & stripped & \\
+\eva{r} & \heb{h}/\heb{s} & he/samekh & positional & samekh at initial \\
+\eva{s} & \heb{n} & nun & convergent & \\
+\eva{t} & \heb{J} & tet & convergent & \\
+\eva{y} & \heb{S} & shin & convergent & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The \textbf{reading direction} was confirmed as right-to-left via permutation
+testing (500 permutations per direction): RTL achieves $41.65\%$ match rate
+vs LTR $33.14\%$ ($+8.51$~pp, $z_{\mathrm{direct}}=22.97$). Both directions
+produce significant permutation $z$-scores (RTL $z=4.17$, LTR $z=2.44$),
+but RTL is strongly preferred across both Currier languages (A: $+13.07$~pp;
+B: $+6.87$~pp).
+
+The \textbf{mapping optimality} was verified via constrained letter audit
+(Phase 10, 15): for each EVA character, all 22 Hebrew alternatives were
+tested while enforcing one-to-one constraints. With the curated lexicon
+(45,713 forms, excluding corpus-attested forms), 14 of 17 base letters are
+optimally assigned. The three non-optimal letters show marginal gains
+($<2\%$ token improvement) that fail permutation significance tests.
+
+\subsection{Hebrew Lexicon}
+\label{sec:lexicon}
+
+A key methodological concern is lexicon size inflation. We constructed
+lexicons at three coverage tiers to control for this effect:
+
+\begin{table}[htbp]
+\centering
+\caption{Hebrew lexicon tiers. The ``honest'' tier (45K) excludes
+corpus-attested forms from Sefaria, which contribute high match rates for
+both real and random mappings.}
+\label{tab:lexicon}
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Tier & Forms & Sources \\
+\midrule
+Biblical (STEPBible) & 6,475 & Biblical Hebrew headwords \\
+Curated (``honest'') & 45,713 & STEPBible + Jastrow + Klein + curated \\
+Full (corpus) & 491,148 & + Sefaria corpus (freq$\ge$5) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Sefaria corpus contributes 445,458 attested forms from a 250-million-token
+corpus of Hebrew texts. While these forms are genuine Hebrew, the sheer
+coverage means that random consonant strings of typical Voynich word lengths
+match at $26.8\%$ (``monkey baseline''). We therefore report all key results
+at the \emph{honest} tier and note full-lexicon results parenthetically.
+
+
+% ══════════════════════════════════════════════════════════
+\section{Results}
+\label{sec:results}
+
+\subsection{Match Rate and Lexicon Calibration}
+\label{sec:matchrate}
+
+Table~\ref{tab:reality} presents the core result: match rates of the decoded
+corpus against each lexicon tier, compared to random-mapping and
+random-string baselines.
+
+\begin{table}[htbp]
+\centering
+\caption{Reality test: decoded Voynich text vs.\ baselines across lexicon
+tiers. ``Random mapping'' = 1000 random EVA$\to$Hebrew permutations.
+``Random strings'' = consonant strings matching observed length distribution,
+drawn with Hebrew character frequencies.}
+\label{tab:reality}
+\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Lexicon tier & Real & Rnd.\ map & $z$ & Rnd.\ str. & Real/Str. \\
+\midrule
+STEPBible (6.5K) & 17.2\% & 9.0\% & 3.6 & $\sim$5\% & 3.4$\times$ \\
+Honest (45K) & 25.6\% & $\sim$12\% & $\sim$4.0 & $\sim$11\% & 2.3$\times$ \\
+Full (491K) & 45.7\% & 29.9\% & 3.7 & 26.8\% & 1.7$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Several patterns emerge:
+\begin{enumerate}
+\item The $z$-score remains in the range 3.6--4.0 across all lexicon tiers,
+indicating a \textbf{fixed differential} of approximately 8 percentage points
+above random mappings. If the mapping were a correct cipher key, additional
+legitimate lexical forms should widen this differential; the plateau suggests
+partial or coincidental correspondence.
+
+\item The real-to-random-string ratio \emph{decreases} with lexicon size
+(3.4$\times$ $\to$ 1.7$\times$), demonstrating that large lexicons inflate
+both sides. The honest tier provides the most informative signal.
+
+\item Even the smallest lexicon (STEPBible, 6,475 biblical forms) yields
+$z=3.6$, ruling out the possibility that the signal is purely an artifact of
+lexicon size.
+\end{enumerate}
+
+\subsection{Null Model Test}
+\label{sec:nullmodel}
+
+To determine whether the decoded text contains genuine Hebrew-like structure
+beyond simple character matching, we compared the real decoded corpus against
+500 synthetic corpora generated by random character substitution preserving
+word lengths and overall Hebrew character frequencies
+(Table~\ref{tab:nullmodel}).
+
+\begin{table}[htbp]
+\centering
+\caption{Null model test (honest lexicon, 33,320 tokens, 500 iterations).}
+\label{tab:nullmodel}
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Test & Real & Synthetic & $z$ & Verdict \\
+\midrule
+Match rate & 21.48\% & 8.91\%$\pm$0.13\% & 98.2 & significant \\
+Gloss entropy & 5.56 & 10.16$\pm$0.04 & 121.1 & significant \\
+Top-5 concentration & 33.3\% & 1.8\%$\pm$0.2\% & 178.1 & significant \\
+Bigram plausibility & $-2.970$ & $-3.095$$\pm$0.003 & 40.9 & significant \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The real decoded text matches the lexicon at 2.41$\times$ the synthetic rate.
+Crucially, the matched words show Zipfian concentration: the top 5 decoded
+types account for 33.3\% of all matches (vs.\ 1.8\% for synthetics), and
+the gloss entropy is far lower (5.56 vs.\ 10.16), indicating that the
+mapping produces a small set of high-frequency forms rather than uniformly
+distributed matches. Hebrew bigram transition probabilities are also
+significantly better fit ($z=40.9$).
+
+This establishes that the signal is \textbf{structurally embedded in
+character sequences}, not merely an artifact of character frequency overlap.
+
+\subsection{Permutation Tests}
+\label{sec:permutation}
+
+We tested the mapping against domain-specific vocabulary using 1,000 random
+EVA$\to$Hebrew permutations per test:
+
+\begin{table}[htbp]
+\centering
+\caption{Permutation tests against domain vocabulary (1,000 permutations each).}
+\label{tab:permutation}
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Domain & Real matches & Mean random & $z$ & $p$ \\
+\midrule
+Botanical (plant names) & --- & --- & 3.2 & 0.017 \\
+Domain anchors (d$\le$1) & 99 & --- & 4.2 & 0.004 \\
+Zodiac vocabulary & --- & --- & 0.9 & 0.071 (ns) \\
+\midrule
+Semantic coherence (max consec.) & 10 & 6.05 & 4.35 & 0.002 \\
+Semantic coherence (high lines) & 1,445 & 253 & 14.54 & 0.001 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Botanical and domain-anchor tests are significant after FDR correction;
+zodiac is not (only 1 exact match out of 3 expected). Semantic coherence ---
+measured as the tendency for lexicon-matched words to cluster in consecutive
+positions --- is highly significant, confirming that matches are
+\textbf{non-randomly distributed} within the text.
+
+However, manual inspection of the highest-scoring passages reveals that the
+glosses do not form coherent sentences. A typical ``100\% semantic'' passage
+in a herbal section reads: ``six -- die -- poor -- poor -- back.'' The
+statistical clustering reflects repeated common forms, not semantic coherence.
+
+\subsection{Mapping Stability}
+\label{sec:stability}
+
+The constrained letter audit (Table~\ref{tab:audit}) shows that
+14 of 17 base EVA characters are optimally assigned under the honest lexicon,
+and all three non-optimal letters have marginal gaps:
+
+\begin{table}[htbp]
+\centering
+\caption{Non-optimal letter assignments in constrained audit (honest lexicon,
+45K forms). Only 3 of 17 letters show any improvement potential, all
+non-significant under permutation testing.}
+\label{tab:audit}
+\small
+\begin{tabular}{@{}llllrl@{}}
+\toprule
+EVA & Current & Best alt. & Gap (tokens) & Gap (\%) & Significance \\
+\midrule
+\eva{t} & tet & tav & +154 & +0.9\% & $z=1.09$, $p=0.133$ (ns) \\
+\eva{m} & gimel & tsade & +118 & +1.2\% & $z=1.38$, $p=0.094$ (ns) \\
+\eva{c} & aleph & he & +14 & +0.1\% & ns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The mapping is therefore \textbf{locally optimal}: no single-letter change
+produces a statistically significant improvement. The gimel$\to$tsade swap
+was independently investigated with 1,000 permutations across both lexicon
+tiers and definitively rejected (honest $z=1.38$; full $z=0.22$).
+
+
+\subsection{Alternative Hypotheses}
+\label{sec:alternatives}
+
+\subsubsection{Naibbe Verbose Cipher}
+\label{sec:naibbe}
+
+\citet{Greshko2025} proposed that the Voynich text could be a verbose
+homophonic cipher. We tested this by simulating 200 Naibbe encryptions of
+Italian text, applying our Hebrew mapping to the output, and comparing match
+rates.
+
+The Naibbe simulation produces $20.7\% \pm 1.6\%$ match rate vs.\ real
+$40.3\%$ ($z=12.1$). Additionally, 8 of 9 diagnostic indicators --- including
+index of coincidence (IC$=0.077$, mono range 0.060--0.085), Gini coefficient
+(0.469, mono range 0.30--0.55), and conditional entropy ratio ($H_1/H_0=0.613$,
+mono range 0.50--0.75) --- favor a monoalphabetic interpretation. Only the
+hapax ratio (0.71) falls in the homophonic range.
+
+\textbf{Verdict}: the Naibbe verbose cipher hypothesis does not account for
+the observed Hebrew signal. The text's statistical properties are consistent
+with monoalphabetic substitution.
+
+\subsubsection{Judeo-Italian Substrate}
+\label{sec:ji}
+
+We tested whether the Hebrew signal could arise from Italian text
+transliterated via documented Judeo-Italian conventions (tet for /t/, tsade
+for /c/ dolce, qof for /c/ dura, matres lectionis for vowels). After
+transliterating 60,738 Italian forms:
+
+\begin{itemize}
+\item Judeo-Italian strict match: 5.0\% (1,674/33,412 tokens)
+\item Hebrew match: 40.2\% (13,438 tokens)
+\item JI explains only 10.0\% of Hebrew-matched types (101/1,009)
+\item Permutation test: $z=4.59$, $p=0.005$ --- the JI signal is real
+\end{itemize}
+
+The Judeo-Italian signal is statistically significant but explains only a
+small fraction of the Hebrew correspondence. Notably, 46 word types (566
+tokens) match Italian forms but \emph{not} standard Hebrew, suggesting a
+possible Italian substrate. The three unmapped Hebrew letters (zayin, tsade,
+qof) are all used in JI transliteration conventions.
+
+\textbf{Verdict}: Judeo-Italian is a plausible \textbf{partial} component
+but cannot be the primary explanation.
+
+\subsubsection{Currier Language Split}
+\label{sec:currier}
+
+Both Currier languages produce significant permutation scores independently
+(A: $z=4.02$; B: $z=3.85$), confirming that the Hebrew signal is not
+concentrated in one ``language.'' However, Language~A achieves significantly
+higher match rates: 45.7\% vs.\ 38.7\% ($+7.0$~pp, $z=11.64$, $p<0.0001$).
+Cross-language testing confirms that Aramaic matches at only 0.2--0.4\% in
+both languages, excluding a different Semitic substrate.
+
+
+\subsection{Scribal Variation}
+\label{sec:scribes}
+
+Following \citet{Davis2020}'s identification of five scribal hands, we
+computed match rates per hand (Table~\ref{tab:scribes}).
+
+\begin{table}[htbp]
+\centering
+\caption{Match rates per scribal hand (honest lexicon, paragraph text only).
+Hands 3, 5, Y omitted ($<$30 pages).}
+\label{tab:scribes}
+\small
+\begin{tabular}{@{}lrrrll@{}}
+\toprule
+Hand & Pages & Tokens & Honest \% & Perm.\ $z$ & Lang. \\
+\midrule
+1 & 86 & 6,545 & \textbf{28.8\%} & 3.79** & A \\
+2 & 45 & 9,087 & 24.9\% & 3.64** & B \\
+? & 66 & 10,868 & 23.0\% & 4.24** & mixed \\
+X & 6 & 2,703 & 21.9\% & 3.89** & B \\
+4 & 8 & 765 & 21.7\% & n/a & \textbf{A} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The central finding is that the previously reported Currier A$>$B advantage
+($+7.0$~pp) is entirely driven by \textbf{Hand~1}. Hand~4, which is also
+classified as Language~A, achieves only 21.7\% --- \emph{lower} than Hand~2
+(Language~B, 24.9\%). In a content-controlled herbal subsection comparison,
+Hand~1 (28.8\%) vs.\ Hand~2 (24.9\%): $+3.9$~pp, $z=3.12$, $p<0.002$.
+
+Hand~1 is the primary herbal scribe (86 pages, virtually all herbal section),
+responsible for 75\% of Language~A pages. The mapping appears to be
+\textbf{specifically tuned to Hand~1's orthographic conventions}, with
+diminishing performance on all other hands including the other Language~A
+scribe.
+
+\subsection{Layout-Aware Analysis}
+\label{sec:layout}
+
+The IVTFF transcription encodes three distinct text layout types: paragraph
+(continuous text, $\sim$8 words/line), label (captions under figures, 85\%
+single-word), and circular (ring text around diagrams). Previous section-level
+analyses mixed these types.
+
+\begin{table}[htbp]
+\centering
+\caption{Match rates by layout type (honest lexicon).}
+\label{tab:layout}
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Layout & Words & Decoded & Honest \% & vs.\ Paragraph \\
+\midrule
+Paragraph & 33,684 & 32,852 & \textbf{24.7\%} & --- \\
+Circular & 2,286 & 2,201 & 20.4\% & $z=-4.48$*** \\
+Label & 1,022 & 946 & 13.2\% & $z=-8.10$*** \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Labels match at roughly \textbf{half} the paragraph rate ($13.2\%$ vs.\
+$24.7\%$, $z=-8.10$, $p<10^{-15}$). This is counter-intuitive if labels
+represent identifiable nouns (plant names, star names), which should be
+easier to match. The low label rate suggests that these words are proper names
+or technical terms absent from standard Hebrew lexicons.
+
+Critically, the zodiac section (Z) contains \textbf{zero paragraph text}
+--- its 1,322 words are entirely labels (367) and circular text (955). This
+explains its anomalously low match rate (12.2\%) in section-level analyses.
+When restricted to paragraph text, section rates become substantially more
+uniform (18.5\%--27.7\%), with the zodiac dropping out entirely
+(Table~\ref{tab:parasection}).
+
+\begin{table}[htbp]
+\centering
+\caption{Section match rates: mixed vs.\ paragraph-only (honest lexicon).
+Zodiac (Z) has no paragraph text and is omitted from the paragraph column.}
+\label{tab:parasection}
+\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Sec. & Name & Mixed \% & Para.\ only \% & $\Delta$ & Para.\ words \\
+\midrule
+C & cosmological & 22.8 & \textbf{27.7} & +4.9 & 1,500 \\
+P & pharmaceutical & 24.6 & 26.9 & +2.3 & 2,202 \\
+H & herbal & 24.1 & 26.7 & +2.6 & 10,328 \\
+B & balneological & 23.4 & 25.4 & +2.0 & 6,527 \\
+T & text & 19.4 & 22.5 & +3.1 & 1,531 \\
+S & astronomical & 18.8 & 21.8 & +3.0 & 10,505 \\
+A & --- & 12.9 & 18.5 & +5.6 & 259 \\
+Z & zodiac & 12.2 & --- & --- & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Most Frequent Decoded Words}
+\label{sec:words}
+
+Table~\ref{tab:topwords} shows the most frequent decoded Hebrew forms with
+known dictionary glosses. These words account for a disproportionate share
+of all matches, consistent with the Zipfian concentration observed in the
+null model test.
+
+\begin{table}[htbp]
+\centering
+\caption{Top 10 decoded Hebrew forms by token frequency (glossed subset,
+excluding Sefaria corpus forms).}
+\label{tab:topwords}
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Hebrew & Freq. & Gloss \\
+\midrule
+\heb{bhyr} & 846 & bright, brilliant (of light) \\
+\heb{bhy} & 481 & chaotic \\
+\heb{mwk} & 383 & be poor \\
+\heb{sy} & 358 & thee \\
+\heb{Spk} & 345 & to pour \\
+\heb{bhyt} & 327 & [variant of \heb{bhy}] \\
+\heb{bryt} & 325 & covenant \\
+\heb{syr} & 308 & [noun, feminine] \\
+\heb{my} & 257 & who? whose? \\
+\heb{Sr} & 243 & [noun, masculine] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Notably, none of these words are domain-specific (botanical, astronomical,
+or medical). They are generic Hebrew roots --- a pattern that persists across
+all manuscript sections, including the herbal pages where botanical
+terminology would be expected.
+
+
+% ══════════════════════════════════════════════════════════
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What the Signal Is}
+
+The Hebrew cipher hypothesis produces a statistically genuine signal that
+survives multiple controls:
+
+\begin{itemize}
+\item Significant across three independent lexicon tiers ($z=3.6$--$4.4$)
+\item Robust to permutation testing (botanical $p=0.017$, anchors $p=0.004$)
+\item Structurally embedded in character sequences (null model $z=98.2$)
+\item Present in both Currier languages independently (A: $z=4.02$, B: $z=3.85$)
+\item Monoalphabetic (8/9 Naibbe diagnostics favor mono)
+\item Not explained by Aramaic (0.2--0.4\% match), Italian (4.5\% match),
+  or Judeo-Italian conventions (5.0\% match)
+\end{itemize}
+
+The signal is quantitatively modest but reproducible: a fixed $\sim$8
+percentage-point advantage over random mappings, corresponding to
+approximately 2,700 excess matched tokens (out of 33,000) beyond what
+chance would produce.
+
+\subsection{What the Signal Is Not}
+
+The decoded text does \textbf{not} read as Hebrew. Several lines of evidence
+confirm this:
+
+\begin{enumerate}
+\item \textbf{Incoherent glosses}: the highest-scoring semantically
+accessible passages produce word sequences like ``bright -- die -- poor --
+poor -- back'' in herbal sections.
+
+\item \textbf{No domain specialization}: the same generic words (\heb{bhyr},
+\heb{mwk}, \heb{my}) dominate all sections. An herbal text should show
+botanical concentration; a zodiac text should show astronomical terms.
+
+\item \textbf{Labels worse than text}: figure captions, which should be
+identifiable nouns, match at only 13.2\% --- nearly half the paragraph rate.
+
+\item \textbf{Scribe-specific signal}: the mapping works best for one of
+five scribes (Hand~1, 28.8\%) and substantially less well for all others
+(21--25\%), including the other Language~A scribe (Hand~4, 21.7\%).
+
+\item \textbf{Match rate ceiling}: even with 491K lexical forms, only 45.7\%
+of tokens match --- compared to an expected $>$80\% for correctly deciphered
+consonantal text matched against a comprehensive lexicon.
+\end{enumerate}
+
+\subsection{Interpretation}
+
+We consider four possible interpretations of the signal:
+
+\begin{enumerate}
+\item \textbf{Partially correct mapping}. Some letter assignments may be
+correct while others are not, producing an 8~pp excess above random. Under
+this interpretation, the mapping captures a subset of the true cipher
+relations, but the incorrect letters corrupt the decoded output. The local
+optimality of 14/17 letters argues against major errors, though marginal
+letters (tet/tav, gimel/tsade) remain ambiguous.
+
+\item \textbf{Structural mimicry}. Hebrew consonantal writing and Voynich
+text may share phonotactic properties (word length distribution, character
+frequency profiles, bigram patterns) without a direct cipher relationship.
+The null model test argues against pure frequency matching, but subtler
+structural similarities could produce the observed signal.
+
+\item \textbf{Shared substrate}. If the Voynich text encodes a Romance
+language through a Hebrew-like consonantal framework --- as in Judeo-Italian
+writing conventions --- the decoded output would resemble Hebrew
+morphologically without being Hebrew semantically. The 5\% JI match rate
+and the 46 JI-only word types support this possibility.
+
+\item \textbf{Non-linguistic structure}. Generative mechanisms such as
+Rugg's Cardan grille \citep{Rugg2004} can produce text with natural-language
+statistics. If the Voynich text is generated rather than encoded, any
+monoalphabetic mapping would produce pseudo-meaningful output tuned to the
+generator's character frequencies. However, the grille hypothesis struggles
+to explain the significant permutation test results and the
+non-random spatial clustering of matches.
+\end{enumerate}
+
+The data do not decisively distinguish between these interpretations. The
+concentration of signal in Hand~1 (interpretation~1 or~3), the lack of
+domain-specific vocabulary (against~1), and the Zipfian structure of matches
+(against~4) each constrain the space of viable explanations without resolving
+it.
+
+
+\subsection{Limitations}
+
+\begin{itemize}
+\item \textbf{Lexicon coverage}: the honest lexicon (45K forms) represents
+a specific historical stratum (biblical + talmudic + curated). Medieval
+Hebrew technical vocabulary --- especially botanical, astronomical, and
+medical terms --- is poorly represented.
+
+\item \textbf{Single mapping}: we test one mapping derived through a specific
+optimization trajectory. The space of possible 19-letter monoalphabetic
+mappings is vast ($22!/3! \approx 10^{18}$); our mapping is locally optimal
+but may not be globally so.
+
+\item \textbf{Transcription uncertainty}: the EVA transcription, particularly
+the Takahashi layer, contains uncertain readings (marked with \texttt{!} and
+\texttt{?} in the source). These affect approximately 3\% of characters.
+
+\item \textbf{Morphological opacity}: Hebrew consonantal text requires
+morphological analysis for full comprehension. Our matching is purely
+lexical (exact string match against consonantal forms). A morphology-aware
+approach might recover additional signal --- or additional noise.
+\end{itemize}
+
+
+% ══════════════════════════════════════════════════════════
+\section{Meta-Analysis: Comparison with Published Research}
+\label{sec:meta}
+
+No systematic comparison of Voynich hypotheses using unified statistical
+criteria has been published to date. In this section we compute
+information-theoretic metrics that enable direct comparison with published
+results and construct a comprehensive evaluation of 15 prior studies
+against our data.
+
+\subsection{Character Entropy}
+\label{sec:entropy}
+
+\citet{BowernLindemann2021} report that the Voynich text has a
+conditional character entropy of order~2 ($h_2$) of approximately 2~bits
+--- anomalously low for natural language, where $h_2 \approx 3$--$4$~bits.
+This has been cited as evidence against linguistic content. We computed
+$h_2$ for three representations of the text: raw EVA, our decoded Hebrew,
+and a reference Hebrew corpus sampled from the Sefaria 250-million-token
+corpus (Table~\ref{tab:entropy}).
+
+\begin{table}[htbp]
+\centering
+\caption{Character entropy at orders 0--2. Hebrew reference generated by
+frequency-weighted sampling from the Sefaria corpus (37,025 tokens).
+$h_k = H(X_n | X_{n-1}, \ldots, X_{n-k})$ in bits.}
+\label{tab:entropy}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Metric & EVA & Decoded & Hebrew ref. \\
+\midrule
+$h_0$ (entropy) & 3.86 & 3.82 & 4.12 \\
+$h_1$ (cond.\ bigram) & 2.37 & 2.70 & 3.98 \\
+$h_2$ (cond.\ trigram) & 2.12 & 2.44 & 3.72 \\
+\midrule
+Alphabet size & 22 & 19 & 22 \\
+Characters & 191,545 & 164,736 & 148,621 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The mapping \textbf{increases} $h_2$ by $+0.32$~bits (from 2.12 to 2.44).
+This shift represents 20\% of the gap between raw EVA and real Hebrew
+($3.72 - 2.12 = 1.60$ bits). The direction is notable: a correct
+decipherment should decompress the entropy of the ciphertext toward
+natural-language values, and our mapping does so. However, the decoded
+text remains far from the Hebrew reference ($h_2 = 2.44$ vs.\ $3.72$),
+confirming that the mapping is at best a partial decipherment.
+
+The $h_1$ shift is larger ($+0.33$ bits), consistent with the mapping's
+positional rules (initial bet/samekh splits) introducing context-dependent
+variation that reduces short-range predictability. The near-constant $h_0$
+($3.86 \to 3.82$) reflects the reduction from 22 EVA characters to 19
+Hebrew consonants, approximately offset by the more uniform distribution
+of Hebrew letters.
+
+\subsection{Morphological Complexity (MATTR)}
+\label{sec:mattr}
+
+\citet{Lindemann2022} found an anomalously high Moving Average
+Type-Token Ratio (MATTR, window~50) for the Voynich text, suggesting low
+morphological complexity. We computed MATTR for the three text
+representations:
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Text & MATTR (window=50) \\
+\midrule
+EVA & 0.876 \\
+Decoded Hebrew & 0.865 \\
+Hebrew reference & 0.977 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The decoded text shows marginally lower MATTR than raw EVA ($-0.011$),
+indicating a slight increase in morphological regularity from the
+letter-mapping process. However, the Hebrew reference has even higher
+MATTR ($0.977$), reflecting the rich type inventory of real Hebrew
+consonantal text. The Voynich-decoded text does not move toward the Hebrew
+reference, suggesting that while character-level entropy improves, word-level
+diversity does not.
+
+\subsection{Zipf Distribution}
+\label{sec:zipfmeta}
+
+The decoded text produces a Zipf slope of $-0.90$, close to the
+theoretical $-1.0$ for natural language and consistent with
+\citet{Landini2001}'s earlier analysis of raw EVA (slope $-0.87$). The
+Hebrew reference slope ($-0.73$) is shallower, reflecting the flatter
+frequency distribution of a large-vocabulary language sampled with
+replacement. The near-Zipfian distribution is consistent with linguistic
+structure but is not diagnostic, as various non-linguistic processes also
+produce Zipf-like distributions \citep{Timm2014}.
+
+\subsection{Comparative Evaluation of Published Claims}
+\label{sec:comparison}
+
+Table~\ref{tab:literature} summarizes how our results compare with 15
+published studies. We classify each comparison as \textbf{confirms}
+(our data independently supports their claim), \textbf{refutes} (our
+data contradicts their central claim), \textbf{contradicts} (mutual
+tension with our findings), or \textbf{neutral} (insufficient evidence
+to adjudicate).
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison with published Voynich research. See text for details.}
+\label{tab:literature}
+\small
+\begin{tabular}{@{}p{4.0cm}p{4.2cm}p{3.8cm}l@{}}
+\toprule
+Study & Claim & Our result & Verdict \\
+\midrule
+\citet{Reddy2011} & Hebrew abjad (perplexity) & 19/22 consonants mapped &
+  \textbf{C} \\
+\citet{BowernLindemann2021} & $h_2 \approx 2$, not mono & $h_2$: $2.12
+  \to 2.44$ (decoded) & \textbf{C} \\
+\citet{Kondrak2016} & Hebrew most probable & Match 17--25\% honest &
+  \textbf{C} \\
+\citet{Cheshire2019} & Proto-Romance & Italian 5\% vs Hebrew 25\% &
+  \textbf{R} \\
+\citet{Greshko2025} & Naibbe cipher & $z=12.1$, IC=0.077 & \textbf{R} \\
+\citet{Rugg2004} & Cardan grille (hoax) & Null model $z=98.2$ &
+  \textbf{R} \\
+\citet{Schinner2007} & Stochastic process & IC=0.077 (mono range) &
+  \textbf{R} \\
+\citet{Davis2020} & 5 scribal hands & Hand~1 drives signal & \textbf{C+}
+  \\
+\citet{Montemurro2013} & Domain keywords & Same glosses all sections &
+  \textbf{X} \\
+\citet{Landini2001} & Zipf-like distribution & Slope $-0.90$ &
+  \textbf{C} \\
+\citet{Currier1976} & Two languages A/B & Both sig.; A$=$Hand~1 &
+  \textbf{C+} \\
+\citet{Timm2014} & Non-linguistic mechanism & Null model $z=98.2$ &
+  \textbf{R} \\
+\citet{Amancio2013} & Language-like statistics & IC, Zipf confirm &
+  \textbf{C} \\
+\citet{Lindemann2022} & High MATTR & $0.876 \to 0.865$ (decoded) &
+  \textbf{N} \\
+\citet{Stolfi2005} & Prefix-root-suffix grammar & Matches Hebrew morphology &
+  \textbf{C} \\
+\bottomrule
+\multicolumn{4}{@{}l}{\footnotesize C = confirms, C+ = confirms and
+extends, R = refutes, X = contradicts, N = neutral.}
+\end{tabular}
+\end{table}
+
+Of the 15 comparisons, \textbf{8 confirm} our results (including two that
+we extend with new scribe-level and Currier-level data), \textbf{5 are
+refuted} by our evidence, \textbf{1 is contradicted}, and \textbf{1 is
+neutral}.
+
+The entropy analysis (\S\ref{sec:entropy}) provides the most informative
+new test. \citet{BowernLindemann2021}'s finding of anomalously low $h_2$
+is often cited against the possibility of monoalphabetic cipher. Our
+result shows that the mapping partially resolves this anomaly: $h_2$
+increases by 0.32 bits toward natural-language values. While this does not
+reach the Hebrew reference (3.72 bits), it demonstrates that the mapping
+introduces genuine information-theoretic structure rather than merely
+relabeling characters.
+
+The principal tension is with \citet{Montemurro2013}: their keyword
+clustering analysis predicts domain-specific vocabulary in different
+manuscript sections, but our decoded glosses show no such specialization.
+This contradiction has two possible explanations: (a)~the clustering they
+detected operates at a sub-word level that our word-level decoding does
+not capture, or (b)~the keywords they identify are structural artifacts
+(frequent words occurring in section-specific positions) rather than
+semantic content.
+
+
+% ══════════════════════════════════════════════════════════
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have conducted the most comprehensive statistical evaluation to date of
+the hypothesis that the Voynich Manuscript encodes Hebrew consonantal text.
+Our 19-letter monoalphabetic mapping produces a significant, reproducible
+signal ($z=3.6$--$4.4$ across lexicon tiers) that survives permutation
+testing, outperforms a null model, and resists alternative explanations
+(homophonic cipher, Aramaic, Italian, Judeo-Italian).
+
+The signal is real. The decipherment is not. The decoded text does not read
+as Hebrew, shows no domain-specific vocabulary, and fails to produce coherent
+passages. The signal is concentrated in one scribal hand and in continuous
+text rather than figure labels.
+
+We propose that the correspondence reflects either a partially correct
+mapping (some letters right, others not), a shared phonotactic substrate
+(possibly Judeo-Italian or another Hebrew-script Romance language), or
+structural properties of the Voynich text that happen to align with Hebrew
+consonantal morphology. Distinguishing between these possibilities requires
+either a domain-specific lexicon test (matching labels against specialized
+botanical/astronomical Hebrew terminology) or the identification of
+additional cipher structure beyond monoalphabetic substitution.
+
+The complete mapping, decoded corpus, and all statistical results are
+available in the project repository for independent verification.
+
+% ══════════════════════════════════════════════════════════
+\section*{Acknowledgments}
+
+This work used the EVA transcription by Takeshi Takahashi and the
+interlinear file maintained by the Voynich community. Hebrew lexicon data
+from STEPBible, Jastrow's Dictionary of the Talmud, the Klein Etymological
+Dictionary (via Sefaria API), and the Sefaria open-source corpus.
+Computational analysis was conducted with the assistance of Claude
+(Anthropic) for code development and statistical analysis.
+
+% ══════════════════════════════════════════════════════════
+\bibliographystyle{plainnat}
+\begin{thebibliography}{99}
+
+\bibitem[Bowern and Lindemann(2021)]{BowernLindemann2021}
+C.~Bowern and S.~J. Lindemann.
+\newblock The linguistics of the {V}oynich manuscript.
+\newblock \emph{Annual Review of Linguistics}, 7:285--308, 2021.
+
+\bibitem[Cheshire(2019)]{Cheshire2019}
+G.~Cheshire.
+\newblock The language and writing system of {MS408} ({V}oynich) explained.
+\newblock \emph{Romance Studies}, 37(1):23--34, 2019.
+
+\bibitem[Kondrak and Hauer(2016)]{Kondrak2016}
+G.~Kondrak and B.~Hauer.
+\newblock Decoding anagrammed texts written in an unknown language and script.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+4:75--86, 2016.
+
+\bibitem[Lindemann(2022)]{Lindemann2022}
+S.~J. Lindemann.
+\newblock Quantitative approaches to the {V}oynich manuscript.
+\newblock PhD thesis, Yale University, 2022.
+
+\bibitem[Reddy and Knight(2011)]{Reddy2011}
+S.~Reddy and K.~Knight.
+\newblock What we know about the {V}oynich manuscript.
+\newblock In \emph{Proceedings of the 5th ACL-HLT Workshop on Language
+Technology for Cultural Heritage, Social Sciences, and Humanities}, pages
+78--86, 2011.
+
+\bibitem[Schinner(2007)]{Schinner2007}
+A.~Schinner.
+\newblock The {V}oynich manuscript: evidence of the hoax hypothesis.
+\newblock \emph{Cryptologia}, 31(2):95--107, 2007.
+
+\bibitem[Stolfi(2005)]{Stolfi2005}
+J.~Stolfi.
+\newblock A quantitative study of the script of the {V}oynich manuscript.
+\newblock Technical report, Institute of Computing, University of Campinas,
+2005.
+
+\bibitem[Amancio et~al.(2013)]{Amancio2013}
+D.~R. Amancio, E.~G. Altmann, D.~Rybski, O.~N. Oliveira~Jr., and L.~da~F.
+Costa.
+\newblock Probing the statistical properties of unknown texts: application to
+the {V}oynich manuscript.
+\newblock \emph{PLoS ONE}, 8(7):e67310, 2013.
+
+\bibitem[Currier(1976)]{Currier1976}
+P.~Currier.
+\newblock Papers on the {V}oynich manuscript.
+\newblock In \emph{New Research on the Voynich Manuscript: Proceedings of a
+Seminar}, Washington, DC, 1976.
+
+\bibitem[Davis(2020)]{Davis2020}
+L.~Fagin~Davis.
+\newblock How many scribes? {A} paleographic study of the {V}oynich manuscript.
+\newblock \emph{Manuscript Studies}, 5(2):164--186, 2020.
+
+\bibitem[Greshko(2025)]{Greshko2025}
+M.~Greshko.
+\newblock The {N}aibbe cipher: a verbose homophonic substitution for the
+{V}oynich manuscript.
+\newblock \emph{Cryptologia}, 2025.
+
+\bibitem[Landini(2001)]{Landini2001}
+G.~Landini.
+\newblock Evidence of linguistic structure in the {V}oynich manuscript using
+spectral analysis.
+\newblock \emph{Cryptologia}, 25(4):275--295, 2001.
+
+\bibitem[Montemurro and Zanette(2013)]{Montemurro2013}
+M.~A. Montemurro and D.~H. Zanette.
+\newblock Keywords and co-occurrence patterns in the {V}oynich manuscript: an
+information-theoretic analysis.
+\newblock \emph{PLoS ONE}, 8(6):e66344, 2013.
+
+\bibitem[Rugg(2004)]{Rugg2004}
+G.~Rugg.
+\newblock An elegant hoax? {A} possible solution to the {V}oynich manuscript.
+\newblock \emph{Cryptologia}, 28(1):31--46, 2004.
+
+\bibitem[Timm and Schinner(2014)]{Timm2014}
+A.~Timm and A.~Schinner.
+\newblock A possible generating mechanism for the {V}oynich manuscript.
+\newblock \emph{Cryptologia}, 38(4):311--328, 2014.
+
+\end{thebibliography}
+
+\end{document}

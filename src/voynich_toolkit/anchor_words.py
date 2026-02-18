@@ -97,6 +97,93 @@ def normalize_for_match(word):
 
 
 # =====================================================================
+# Orthographic variant generation (mater lectionis, plene/defective)
+# =====================================================================
+
+MATRES = set("hwy")          # he, vav, yod — matres lectionis
+VOWELS_IT = set("aeiou")     # Italian final vowels
+
+
+def hebrew_variants(form):
+    """Generate orthographic variants of a Hebrew consonantal form.
+
+    Accounts for:
+    - Optional final mater lectionis (h/w/y)
+    - Internal y ↔ h swap (both are matres)
+    - Optional internal vav (plene vs defective spelling)
+    - Optional initial aleph (often dropped in decoded text)
+    """
+    variants = {form}
+    if len(form) < 3:
+        return variants
+
+    # 1. Final mater: drop or swap
+    if form[-1] in MATRES:
+        short = form[:-1]
+        if len(short) >= 3:
+            variants.add(short)
+        # Swap final mater: h↔y, h↔w, y↔w
+        for m in MATRES - {form[-1]}:
+            variants.add(form[:-1] + m)
+    else:
+        # Add optional final mater
+        for m in MATRES:
+            variants.add(form + m)
+
+    # 2. Internal y ↔ h swaps (matres lectionis positions)
+    for i in range(1, len(form) - 1):
+        if form[i] == "y":
+            variants.add(form[:i] + "h" + form[i + 1:])
+        elif form[i] == "h":
+            variants.add(form[:i] + "y" + form[i + 1:])
+
+    # 3. Optional internal vav (plene → defective)
+    for i in range(1, len(form)):
+        if form[i] == "w":
+            short = form[:i] + form[i + 1:]
+            if len(short) >= 3:
+                variants.add(short)
+
+    # 4. Optional doubled letter → single (myym → mym)
+    for i in range(len(form) - 1):
+        if form[i] == form[i + 1]:
+            short = form[:i] + form[i + 1:]
+            if len(short) >= 3:
+                variants.add(short)
+
+    # 5. Optional initial aleph (Abyr → byr)
+    if form[0] == "A" and len(form) >= 4:
+        variants.add(form[1:])
+
+    return variants
+
+
+def italian_variants(form):
+    """Generate variants of Italian/Latin normalized anchor forms.
+
+    Accounts for:
+    - Final vowel drop (Hebrew abjad has no final vowels)
+    - Double consonant simplification
+    """
+    variants = {form}
+    if len(form) < 3:
+        return variants
+
+    # 1. Drop final vowel (most important: abjad truncation)
+    if form[-1] in VOWELS_IT and len(form) >= 4:
+        variants.add(form[:-1])
+
+    # 2. Double consonant → single (siropo → sirpo)
+    for i in range(len(form) - 1):
+        if form[i] == form[i + 1] and form[i] not in VOWELS_IT:
+            short = form[:i] + form[i + 1:]
+            if len(short) >= 3:
+                variants.add(short)
+
+    return variants
+
+
+# =====================================================================
 # Anchor word dictionary — organized by semantic category
 # =====================================================================
 
@@ -234,7 +321,7 @@ ANCHOR_DICT = {
             ("autunno", "autumn"), ("inverno", "winter"),
         ],
         "hebrew": [
-            ("yareach", "moon"), ("shemesh", "sun"),
+            ("yareach", "moon"), ("shemesh", "sun"), ("khamah", "sun"),
             ("kochav", "star"), ("shamayim", "sky"),
             ("or", "light"), ("tzel", "shadow"),
             ("maleh", "full"), ("chadash", "new"),
@@ -323,6 +410,134 @@ ANCHOR_DICT = {
         "italian": [],
         "latin": [],
     },
+    # === Phase 8D: New domain-specific anchors ===
+    "astronomia_ibn_ezra": {
+        "label": "Astronomia (Ibn Ezra)",
+        "hebrew": [
+            ("mazzal", "constellation"), ("machberet", "conjunction"),
+            ("neged", "opposition"), ("oleh", "ascendant"),
+            ("yored", "descendant"), ("galal", "sphere/cycle"),
+            ("tekufah", "solstice/equinox"), ("molad", "new moon"),
+            ("likui", "eclipse"), ("maalah", "degree"),
+            ("merchak", "distance"), ("bayit", "astrological house"),
+            ("govah", "elevation"), ("netiyah", "declination"),
+            ("machazor", "cycle"), ("or", "light"),
+            ("choshech", "darkness"), ("shamayim", "heavens"),
+            ("mizrach", "east"), ("maarav", "west"),
+            ("tzafon", "north"), ("darom", "south"),
+            ("sha'ah", "hour"), ("yom", "day"),
+            ("lailah", "night"), ("shanah", "year"),
+            ("chodesh", "month"), ("teli", "dragon/node"),
+            ("shemesh", "sun"), ("khamah", "sun"),  # alt. Hebrew for sun
+            ("levanah", "moon"),
+        ],
+        "italian": [
+            ("ascendente", "ascendant"), ("congiunzione", "conjunction"),
+            ("opposizione", "opposition"), ("grado", "degree"),
+            ("eclisse", "eclipse"), ("equinozio", "equinox"),
+            ("solstizio", "solstice"), ("zodiaco", "zodiac"),
+            ("oroscopo", "horoscope"), ("decano", "decan"),
+            ("dignita", "dignity"), ("esaltazione", "exaltation"),
+            ("triplicita", "triplicity"), ("domicilio", "domicile"),
+        ],
+        "latin": [],
+    },
+    "medicina_bos": {
+        "label": "Medicina (Bos/Donnolo)",
+        "hebrew": [
+            ("refuah", "medicine/cure"), ("choli", "illness"),
+            ("rofeh", "physician"), ("makkah", "wound"),
+            ("keev", "pain"), ("chom", "fever/heat"),
+            ("tzinah", "cold"), ("lach", "moist"),
+            ("yavesh", "dry"), ("marah", "bile"),
+            ("lechah", "phlegm"), ("shchorit", "melancholy"),
+            ("sam", "drug"), ("terufah", "remedy"),
+            ("mirqachat", "ointment"), ("mashchah", "ointment/oil"),
+            ("retiyah", "poultice"), ("shemen", "oil"),
+            ("dvash", "honey"), ("chometz", "vinegar"),
+            ("melach", "salt"), ("rechem", "womb"),
+            ("sheten", "urine"), ("zera", "seed/semen"),
+            ("niddah", "menstruation"), ("herayon", "pregnancy"),
+            ("chalav", "milk"), ("yayin", "wine"),
+            ("teriaq", "theriac"), ("mishkal", "dose/weight"),
+        ],
+        "italian": [
+            ("febbre", "fever"), ("dolore", "pain"),
+            ("malattia", "illness"), ("rimedio", "remedy"),
+            ("unguento", "ointment"), ("impiastro", "poultice"),
+            ("sciroppo", "syrup"), ("decotto", "decoction"),
+            ("infusione", "infusion"), ("polvere", "powder"),
+            ("tintura", "tincture"), ("pomata", "ointment"),
+            ("collirio", "eye drop"), ("clistere", "clyster"),
+            ("purga", "purge"), ("salasso", "bloodletting"),
+            ("cauterio", "cautery"), ("dieta", "diet"),
+            ("complessione", "complexion"), ("umore", "humor"),
+            ("sangue", "blood"), ("bile", "bile"),
+            ("flegma", "phlegm"), ("melancolia", "melancholy"),
+        ],
+        "latin": [],
+    },
+    "botanica_bos": {
+        "label": "Botanica (Bos & Mensching)",
+        "hebrew": [
+            ("erez", "cedar"), ("shaked", "almond"),
+            ("tapuach", "apple"), ("gefen", "vine"),
+            ("tamar", "date palm"), ("rimon", "pomegranate"),
+            ("zait", "olive"), ("te'enah", "fig"),
+            ("egoz", "walnut"), ("berosh", "cypress"),
+            ("shoshan", "lily"), ("vered", "rose"),
+            ("karkom", "saffron/crocus"), ("mor", "myrrh"),
+            ("levonah", "frankincense"), ("nerd", "nard"),
+            ("ezov", "hyssop"), ("kinamon", "cinnamon"),
+            ("kiddah", "cassia"), ("kamon", "cumin"),
+            ("ketzach", "black cumin"), ("gad", "coriander"),
+            ("chitah", "wheat"), ("se'orah", "barley"),
+            ("dochan", "millet"), ("kaneh", "cane/reed"),
+            ("shum", "garlic"), ("batzel", "onion"),
+            ("kreshah", "leek"),
+        ],
+        "italian": [
+            ("viola", "violet"), ("ruta", "rue"),
+            ("salvia", "sage"), ("menta", "mint"),
+            ("malva", "mallow"), ("issopo", "hyssop"),
+            ("assenzio", "wormwood"), ("rosmarino", "rosemary"),
+            ("basilico", "basil"), ("origano", "oregano"),
+            ("timo", "thyme"), ("dragoncello", "tarragon"),
+            ("sedano", "celery"), ("finocchio", "fennel"),
+            ("aneto", "dill"), ("coriandolo", "coriander"),
+            ("cumino", "cumin"), ("pepe", "pepper"),
+            ("cannella", "cinnamon"), ("zafferano", "saffron"),
+            ("mirra", "myrrh"), ("incenso", "frankincense"),
+            ("nardo", "nard"), ("aloe", "aloe"),
+            ("mandragora", "mandrake"), ("elleboro", "hellebore"),
+            ("papavero", "poppy"), ("belladonna", "belladonna"),
+            ("ricino", "castor"), ("edera", "ivy"),
+        ],
+        "latin": [],
+    },
+    "farmaceutica_shem_tov": {
+        "label": "Farmaceutica (Shem Tov)",
+        "hebrew": [
+            ("sam hammavet", "lethal poison"),
+            ("teriaq", "theriac/antidote"),
+            ("ashan", "smoke/fumigation"), ("saraf", "resin"),
+            ("mishchah", "ointment"), ("avkat", "powder"),
+            ("mitz", "juice/extract"), ("tavshil", "decoction"),
+            ("kvitzah", "compress"), ("rechitzah", "washing"),
+            ("katit", "crushed"), ("tachun", "ground"),
+            ("mesunan", "filtered"), ("mevushal", "cooked"),
+            ("shikuy", "potion"), ("gilgul", "pill"),
+            ("regesh", "sensation"), ("regel", "foot/leg"),
+        ],
+        "italian": [
+            ("teriaca", "theriac"), ("suffumigio", "fumigation"),
+            ("cataplasma", "cataplasm"), ("gargarismo", "gargle"),
+            ("fumigazione", "fumigation"), ("distillato", "distillate"),
+            ("estratto", "extract"), ("elettuario", "electuary"),
+            ("pillola", "pill"), ("supposta", "suppository"),
+        ],
+        "latin": [],
+    },
 }
 
 
@@ -384,10 +599,45 @@ def search_anchor_word(target, word_index, max_dist=1):
     return matches
 
 
+def search_with_variants(primary_form, variants, word_index, max_dist):
+    """Search an anchor word plus its orthographic variants.
+
+    For the primary form, uses max_dist as given.
+    For each variant, searches d=0 only (the variant already absorbs
+    the orthographic distance, so any Levenshtein distance on top of
+    that would be double-counting).
+
+    Returns merged match list, de-duplicated by decoded_word.
+    """
+    seen = {}  # decoded_word → match dict
+
+    # Primary form with original max_dist
+    for m in search_anchor_word(primary_form, word_index, max_dist):
+        key = m["decoded_word"]
+        if key not in seen or m["distance"] < seen[key]["distance"]:
+            seen[key] = m
+
+    # Variant forms — d=0 only
+    for var in variants - {primary_form}:
+        if len(var) < 3:
+            continue
+        for m in search_anchor_word(var, word_index, max_dist=0):
+            key = m["decoded_word"]
+            # Variant d=0 matches count as d=0 for the anchor
+            if key not in seen or m["distance"] < seen[key]["distance"]:
+                seen[key] = m
+
+    matches = list(seen.values())
+    matches.sort(key=lambda m: (m["distance"], -m["total_count"]))
+    return matches
+
+
 def search_all_anchors(pages_data, max_dist=1):
     """Search all anchor words against decoded text.
 
     Returns structured results by category.
+    Uses orthographic variants (mater lectionis, plene/defective,
+    final vowel drop) to improve exact match (d=0) coverage.
     """
     # Build indexes
     italian_index = build_word_index(pages_data, "words_decoded")
@@ -408,8 +658,9 @@ def search_all_anchors(pages_data, max_dist=1):
             if len(normalized) < 3:
                 continue
             effective_dist = 0 if len(normalized) < 4 else max_dist
-            matches = search_anchor_word(
-                normalized, italian_index, effective_dist)
+            variants = italian_variants(normalized)
+            matches = search_with_variants(
+                normalized, variants, italian_index, effective_dist)
             if matches:
                 cat_results["matches"].append({
                     "anchor": word,
@@ -426,8 +677,9 @@ def search_all_anchors(pages_data, max_dist=1):
             if len(consonantal) < 3:
                 continue
             effective_dist = 0 if len(consonantal) < 4 else max_dist
-            matches = search_anchor_word(
-                consonantal, hebrew_index, effective_dist)
+            variants = hebrew_variants(consonantal)
+            matches = search_with_variants(
+                consonantal, variants, hebrew_index, effective_dist)
             if matches:
                 cat_results["matches"].append({
                     "anchor": word,
@@ -444,8 +696,9 @@ def search_all_anchors(pages_data, max_dist=1):
             if len(normalized) < 3:
                 continue
             effective_dist = 0 if len(normalized) < 4 else max_dist
-            matches = search_anchor_word(
-                normalized, italian_index, effective_dist)
+            variants = italian_variants(normalized)
+            matches = search_with_variants(
+                normalized, variants, italian_index, effective_dist)
             if matches:
                 cat_results["matches"].append({
                     "anchor": word,
@@ -840,6 +1093,83 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             total = sum(mm["total_count"] for mm in m["matches"])
             click.echo(f"      {m['anchor']} ({m['gloss']}): "
                        f"{total} occurrences, d={m['matches'][0]['distance']}")
+
+    # 11. Permutation test — mapping quality
+    click.echo(f"\n  --- Permutation Test ---")
+    try:
+        from .permutation_stats import (
+            build_full_mapping,
+            decode_eva_with_mapping,
+            permutation_test_mapping,
+        )
+        from .full_decode import FULL_MAPPING, load_convergent_mapping
+
+        # Collect all EVA words
+        all_eva_words = []
+        for pdata in pages_data.values():
+            all_eva_words.extend(pdata["words_eva"])
+
+        # Build target sets for scoring (include orthographic variants)
+        all_targets_hebrew = set()
+        all_targets_italian = set()
+        for cat_data in ANCHOR_DICT.values():
+            for word, _ in cat_data.get("hebrew", []):
+                c = hebrew_to_consonantal(word)
+                if len(c) >= 3:
+                    for v in hebrew_variants(c):
+                        if len(v) >= 3:
+                            all_targets_hebrew.add(v)
+            for word, _ in cat_data.get("italian", []):
+                n = normalize_for_match(word)
+                if len(n) >= 3:
+                    for v in italian_variants(n):
+                        if len(v) >= 3:
+                            all_targets_italian.add(v)
+            for word, _ in cat_data.get("latin", []):
+                n = normalize_for_match(word)
+                if len(n) >= 3:
+                    for v in italian_variants(n):
+                        if len(v) >= 3:
+                            all_targets_italian.add(v)
+
+        def anchor_score_fn(mapping):
+            n = 0
+            for eva_w in all_eva_words:
+                if len(eva_w) < 3:
+                    continue
+                heb = decode_eva_with_mapping(eva_w, mapping, mode="hebrew")
+                ita = decode_eva_with_mapping(eva_w, mapping, mode="italian")
+                if heb and heb in all_targets_hebrew:
+                    n += 1
+                elif ita and ita in all_targets_italian:
+                    n += 1
+            return n
+
+        if full_decode_path.exists():
+            real_mapping = build_full_mapping(FULL_MAPPING)
+        else:
+            mapping_loaded, _, _ = load_convergent_mapping(config)
+            real_mapping = build_full_mapping(mapping_loaded)
+
+        perm_result = permutation_test_mapping(
+            anchor_score_fn, real_mapping, n_perms=1000, seed=42)
+
+        click.echo(f"    Real score:   {perm_result['real_score']}")
+        click.echo(f"    Random mean:  {perm_result['random_mean']} "
+                   f"± {perm_result['random_std']}")
+        click.echo(f"    p-value:      {perm_result['p_value']:.6f}")
+        click.echo(f"    z-score:      {perm_result['z_score']:.1f}")
+        sig = "***" if perm_result["significant_001"] else \
+              "**" if perm_result["significant_01"] else \
+              "*" if perm_result["significant_05"] else "ns"
+        click.echo(f"    Significance: {sig}")
+        report["permutation_test"] = perm_result
+    except Exception as e:
+        click.echo(f"    Permutation test error: {e}")
+
+    # Re-save report with permutation data
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, ensure_ascii=False)
 
     # Verdict
     n_pass = sum(1 for t in tests.values() if t.get("pass"))

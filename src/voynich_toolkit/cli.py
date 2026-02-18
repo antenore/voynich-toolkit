@@ -320,6 +320,285 @@ def prefix_resolve(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("enrich-lexicon")
+@click.pass_context
+def enrich_lexicon(ctx):
+    """Download Jastrow dict, filter proper nouns, enrich Hebrew lexicon."""
+    from .enrich_lexicon import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("cross-language")
+@click.pass_context
+def cross_language(ctx):
+    """Compare Hebrew mapping against Aramaic and random baselines."""
+    from .cross_language_baseline import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("section-specificity")
+@click.pass_context
+def section_specificity(ctx):
+    """Analyze domain term concentration across manuscript sections."""
+    from .section_specificity import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("validation-summary")
+@click.pass_context
+def validation_summary(ctx):
+    """Aggregate all Phase 8 results into a validation scorecard."""
+    from .validation_summary import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("allograph-analysis")
+@click.pass_context
+def allograph_analysis(ctx):
+    """Investigate EVA l/e allography via positional + context analysis."""
+    from .allograph_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("allograph-kt-deep")
+@click.pass_context
+def allograph_kt_deep(ctx):
+    """Deep analysis of EVA k/t allography and freed Hebrew slot."""
+    from .allograph_kt_deep import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("digraph-analysis")
+@click.pass_context
+def digraph_analysis(ctx):
+    """Investigate EVA digraphs as single Hebrew letter candidates."""
+    from .digraph_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("dual-role")
+@click.pass_context
+def dual_role(ctx):
+    """Test position-dependent mapping splits for over-represented letters."""
+    from .dual_role_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("mater-lectionis")
+@click.pass_context
+def mater_lectionis(ctx):
+    """Analyze mater lectionis tolerance impact on lexicon matching."""
+    from .mater_lectionis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("deep-yl")
+@click.pass_context
+def deep_yl(ctx):
+    """Deep investigation of EVA y (shin) and EVA l (mem)."""
+    from .deep_yl_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("allograph-lr-deep")
+@click.pass_context
+def allograph_lr_deep(ctx):
+    """Deep analysis of EVA l/r allography (mem/he)."""
+    from .allograph_lr_deep import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("pe-tet-deep")
+@click.pass_context
+def pe_tet_deep(ctx):
+    """Deep investigation of pe and tet medial over-representation."""
+    from .pe_tet_investigation import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("phrase-completion")
+@click.pass_context
+def phrase_completion(ctx):
+    """Multi-tier resolution of unknown decoded Hebrew words."""
+    from .phrase_completion import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("qof-investigation")
+@click.pass_context
+def qof_investigation(ctx):
+    """Investigate EVA t → qof swap (tet vs qof differential test)."""
+    from .qof_investigation import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("digraph-sh-deep")
+@click.pass_context
+def digraph_sh_deep(ctx):
+    """Investigate EVA 'sh' as digraph for tsade/qof/zayin."""
+    from .digraph_sh_deep import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("mapping-audit")
+@click.pass_context
+def mapping_audit(ctx):
+    """Per-letter optimality audit of the EVA→Hebrew mapping."""
+    from .mapping_audit import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("italian-layer")
+@click.pass_context
+def italian_layer(ctx):
+    """Italian-layer analysis of decoded Hebrew text."""
+    from .italian_layer_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("semantic-coherence")
+@click.pass_context
+def semantic_coherence(ctx):
+    """Analyze semantic coherence of decoded text."""
+    from .semantic_coherence import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("phrase-reconstruction")
+@click.pass_context
+def phrase_reconstruction(ctx):
+    """Iterative phrase reconstruction from context."""
+    from .phrase_reconstruction import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("currier-split")
+@click.pass_context
+def currier_split(ctx):
+    """Test Hebrew mapping on Currier Language A vs B separately."""
+    from .currier_split import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("naibbe-test")
+@click.pass_context
+def naibbe_test(ctx):
+    """Test Naibbe-style verbose homophonic cipher hypothesis."""
+    from .naibbe_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("judeo-italian")
+@click.pass_context
+def judeo_italian(ctx):
+    """Test Judeo-Italian hypothesis: Italian written in Hebrew script."""
+    from .judeo_italian_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("direction-test")
+@click.pass_context
+def direction_test(ctx):
+    """Phase 15 P2a: Test RTL vs LTR reading direction with permutation test."""
+    from .direction_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("mapping-audit-honest")
+@click.pass_context
+def mapping_audit_honest(ctx):
+    """Phase 15 P2b: Per-letter audit with honest lexicon (no Sefaria-Corpus)."""
+    from .mapping_audit import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"], lexicon_mode="honest")
+
+
+@cli.command("gimel-tsade")
+@click.pass_context
+def gimel_tsade(ctx):
+    """Phase 15 P2b: Investigate EVA m → tsade swap (honest lexicon)."""
+    from .gimel_tsade_investigation import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("scribe-analysis")
+@click.pass_context
+def scribe_analysis(ctx):
+    """Phase 15 P3: Per-scribe (hand) match rate analysis."""
+    from .scribe_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("hand1-dive")
+@click.pass_context
+def hand1_dive(ctx):
+    """Phase 16: analisi approfondita Hand 1 (vocab/structure/audit/compare)."""
+    from .hand1_deep_dive import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("null-model-test")
+@click.pass_context
+def null_model_test(ctx):
+    """Phase 16B: null model test — il segnale ebraico è più che lunghezza?"""
+    from .null_model_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("section-entropy")
+@click.pass_context
+def section_entropy(ctx):
+    """Phase 16C: match rate per sezione, uniformità, profili EVA."""
+    from .section_entropy import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("layout-analysis")
+@click.pass_context
+def layout_analysis(ctx):
+    """Phase 17: analisi layout-aware (label vs paragrafo vs circolare)."""
+    from .layout_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("meta-analysis")
+@click.pass_context
+def meta_analysis(ctx):
+    """Phase 18: meta-analisi (h2, MATTR, Zipf, tabella comparativa letteratura)."""
+    from .meta_analysis import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):

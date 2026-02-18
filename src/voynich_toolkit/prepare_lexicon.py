@@ -273,6 +273,105 @@ def get_curated_botanical() -> list[dict]:
         ("סַם", "sm", "droga, ingrediente"),
         ("עִקָּר", "Eqr", "radice (medicinale)"),
         ("צֶמַח", "CmX", "pianta, germoglio"),
+        # --- Shem Tov ben Isaac (XIII sec., Sefer ha-Shimmush Book 29) ---
+        # Medieval Hebrew coinages from Arabic medical tradition
+        # Source: Bos et al., Medical Synonym Lists (Brill 2011)
+        ("אסטיס", "Astys", "guado, isatide"),          # Isatis tinctoria
+        ("איברתא", "AybrAtA", "ginepro"),               # Juniperus
+        ("אפסנתין", "Apsntyn", "assenzio (med.)"),       # Artemisia absinthium
+        ("אצטרובלין", "ACtrwblyn", "pinoli, pigne"),     # Pinus picea seeds
+        ("אסא", "AsA", "mirto (med.)"),                  # Myrtus communis
+        ("אירוס", "Ayrws", "iris"),                      # Iris pallida
+        ("אשכרע", "ASkrE", "bosso"),                     # Buxus sempervirens
+        ("אגסים", "Agsym", "pere"),                      # Pirus communis
+        ("אילן אברהם", "Ayln Abrhm", "agnocasto"),      # Vitex agnus castus
+        ("הרדופני", "hrdwpny", "oleandro"),               # Nerium Oleander
+        ("הלילגים", "hlylgym", "mirabolano"),             # Terminalia spp.
+        ("דרצין", "drCyn", "cannella (med.)"),            # Cinnamomum (arab.)
+        ("דבדבניות", "dbdbnywt", "ciliegie"),             # Prunus cerasus
+        ("הרני", "hrny", "malva"),                        # Malva silvestris
+        ("הרזפא", "hrzpA", "piretro"),                   # Anacyclus pyrethrum
+        ("חלתית", "Xltyt", "assafetida"),                 # Ferula asa foetida
+        ("הבנים", "hbnym", "ebano"),                      # Diospyros
+        ("גופנן", "gwpnn", "finocchio (med.)"),           # Foeniculum vulgare
+        ("בורית", "bwryt", "liscivia, soda vegetale"),    # Mesembrianthemum
+        ("בטנים", "btnym", "pistacchi"),                  # Pistacia vera
+        ("בנות שקמה", "bnwt SqmA", "fichi del sicomoro"),# Ficus sycomorus
+        ("כליל המלך", "klyl hmlk", "meliloto"),           # Melilotus officinalis
+        ("לפסן", "lpsn", "senape selvatica"),             # Sinapis arvensis
+        ("לשון הצפור", "lSwn hCpwr", "frassino (frutto)"),# Fraxinus excelsior
+        ("ורדי החמורים", "wrdy hXmwrym", "peonia"),      # Paeonia corallina
+        ("בצל שדה", "bCl Sdh", "scilla"),                # Scilla maritima
+        # --- Talmudico/mishnaico (Jastrow/JE, dominio botanico) ---
+        ("מוריקא", "mwryqA", "cartamo, zafferanone"),    # Carthamus tinctorius
+        ("חלבנה", "Xlbnh", "galbano"),                    # Ferula galbaniflua
+        ("פלפל", "plpl", "pepe"),                         # Piper nigrum
+        ("עולשין", "EwlSyn", "cicoria, endivia"),         # Cichorium
+        ("שוש", "SwS", "liquirizia"),                     # Glycyrrhiza glabra
+        ("ריחן", "ryXn", "basilico"),                     # Ocimum basilicum
+        ("חלמות", "Xlmwt", "borragine"),                  # Anchusa
+        ("כפור", "kpwr", "canfora"),                      # Cinnamomum camphora
+        ("סומק", "swmq", "sommacco"),                     # Rhus coriaria
+        ("נרקיס", "nrqys", "narciso"),                    # Narcissus tazetta
+        ("דלעת", "dlEt", "zucca"),                        # Lagenaria vulgaris
+        ("לופה", "lwph", "luffa"),                        # Luffa cylindrica
+        ("תורמוס", "twrmws", "lupino"),                   # Lupinus
+        ("חזרת", "Xzrt", "lattuga"),                      # Lactuca
+        ("כרוב", "krwb", "cavolo"),                       # Brassica oleracea
+        ("לפת", "lpt", "rapa"),                           # Brassica rapa
+        ("צנון", "Cnwn", "ravanello"),                    # Raphanus sativus
+        ("שחלים", "SXlym", "crescione"),                  # Lepidium sativum
+        ("גרגיר", "grgyr", "rucola"),                     # Eruca sativa
+        ("כנישתא", "knyStA", "carciofo"),                 # Cynara scolymus
+        ("קינרס", "qynrs", "cardo"),                      # Cynara syrica
+        ("חסא", "XsA", "lattuga (aram.)"),                # Lactuca (Aram.)
+        ("כשות", "kSwt", "cuscuta"),                      # Cuscuta
+        ("סילוא", "sylwA", "bietola"),                    # Beta vulgaris
+        ("קורנית", "qwrnyt", "camomilla"),                # Matricaria
+        ("כוסבר", "kwsbr", "coriandolo (talm.)"),         # Coriandrum sativum
+        ("פיגם", "pygm", "ruta"),                         # Ruta (greek)
+        ("תלתן", "tltn", "fieno greco"),                  # Trigonella
+        ("שומשום", "SwmSm", "sesamo"),                    # Sesamum indicum
+        ("דפנה", "dpnh", "alloro"),                       # Laurus nobilis
+        ("חילבה", "Xylbh", "fieno greco (var.)"),         # Trigonella (var.)
+        ("מסטיכא", "msJykA", "mastice"),                  # Pistacia lentiscus
+        ("לימון", "lymwn", "limone"),                     # Citrus limon
+        # --- Piante bibliche aggiuntive (JE, PMC) ---
+        ("צרי", "Cry", "balsamo di Galaad"),              # Commiphora gileadensis
+        ("נטף", "nJp", "storace, resina"),                # Styrax officinalis
+        ("אטד", "AJd", "spina di Cristo"),                # Lycium europaeum
+        ("אגמון", "Agmwn", "giunco"),                     # Juncus, Arundo
+        ("גמא", "gmA", "papiro"),                         # Cyperus papyrus
+        ("אביונה", "Abywnh", "cappero spinoso"),          # Capparis spinosa
+        ("בדולח", "bdwlX", "bdellio"),                    # Balsamodendron
+        ("בכאים", "bkAym", "gelso"),                      # Mulberry
+        ("גופר", "gpr", "cipresso (var.)"),               # Cupressus
+        ("דרדר", "drdr", "cardo stellato"),               # Centaurea
+        ("חוח", "XwX", "echinops, spina"),                # Echinops
+        ("חבצלת", "XbClt", "colchico, narciso"),          # Colchicum
+        ("חדק", "Xdq", "solano"),                         # Solanum
+        ("לבנה", "lbnh", "pioppo bianco"),                # Populus alba
+        ("לוט", "lwJ", "mastice (resina)"),               # Pistacia lentiscus
+        ("מלוח", "mlwX", "atriplice"),                    # Atriplex halimus
+        ("נכאת", "nkAt", "tragacanto"),                   # Astragalus gummifer
+        ("סוף", "swp", "giunco (bibl.)"),                 # Juncus
+        ("סיר", "syr", "poterio spinoso"),                # Poterium spinosum
+        ("סנה", "snh", "rovo"),                           # Rubus sanctus
+        ("עדשים", "EdSym", "lenticchie"),                 # Lens esculenta
+        ("ערמון", "Ermwn", "platano"),                    # Platanus orientalis
+        ("ערער", "ErEr", "ginepro (bibl.)"),              # Juniperus oxycedrus
+        ("פול", "pwl", "fava"),                           # Vicia faba
+        ("צאלים", "CAlym", "giuggiolo"),                  # Zizyphus
+        ("צפצפה", "CpCph", "salice"),                     # Salix
+        ("חרוב", "Xrwb", "carruba"),                      # Ceratonia siliqua
+        ("אתרוג", "Atrwg", "cedro (frutto)"),             # Citrus medica
+        ("פקועה", "pqwEh", "coloquintide"),               # Citrullus colocynthis
+        ("חרדל", "Xrdl", "senape"),                       # Sinapis
+        ("כופר", "kpr", "henné"),                         # Lawsonia inermis
+        ("לוז", "lwz", "mandorlo (var.)"),                # Prunus amygdalus
+        ("שקמה", "Sqmh", "sicomoro"),                     # Ficus sycomorus
+        ("קיקיון", "qyqywn", "ricino"),                   # Ricinus communis
+        ("דקל", "dql", "palma (aram.)"),                  # Phoenix (Aram.)
     ]
     return _curated_to_entries(terms, "botanical", "Curato-Botanico")
 

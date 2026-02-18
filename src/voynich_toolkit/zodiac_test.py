@@ -87,7 +87,8 @@ MONTHS = {
 
 PLANETS = {
     "hebrew": [
-        ("shemesh", "Sun"), ("yareach", "Moon"),
+        ("shemesh", "Sun"), ("khamah", "Sun"),  # Two Hebrew words for sun
+        ("yareach", "Moon"),
         ("maadim", "Mars"), ("kokhav", "Mercury"),
         ("tzedek", "Jupiter"), ("nogah", "Venus"),
         ("shabtai", "Saturn"),
@@ -494,13 +495,85 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             click.echo(f"    {folio}: {len(candidates)} candidates — "
                        f"{', '.join(parts)}...")
 
+    # 9. Permutation test — mapping quality
+    click.echo(f"\n  --- Permutation Test ---")
+    try:
+        from .permutation_stats import (
+            build_full_mapping,
+            decode_eva_with_mapping,
+            permutation_test_mapping,
+        )
+
+        # Collect all EVA words from zodiac pages
+        zodiac_eva_words = []
+        for pdata in zodiac_pages.values():
+            zodiac_eva_words.extend(pdata["words_eva"])
+
+        # Score function: count zodiac vocabulary hits with a given mapping
+        from .prepare_italian_lexicon import HEBREW_TO_ITALIAN as H2I
+        all_targets_hebrew = set()
+        all_targets_italian = set()
+        for vocab in [ZODIAC_SIGNS, MONTHS, PLANETS, ASTRO_TERMS]:
+            for lang, words in vocab.items():
+                for word, _ in words:
+                    if lang == "hebrew":
+                        all_targets_hebrew.add(hebrew_to_consonantal(word))
+                    else:
+                        all_targets_italian.add(normalize_for_match(word))
+        for word, _ in HEBREW_DAYS:
+            all_targets_hebrew.add(hebrew_to_consonantal(word))
+
+        def zodiac_score_fn(mapping):
+            """Count zodiac vocabulary matches with a given mapping."""
+            n = 0
+            for eva_w in zodiac_eva_words:
+                if len(eva_w) < 3:
+                    continue
+                heb = decode_eva_with_mapping(eva_w, mapping, mode="hebrew")
+                ita = decode_eva_with_mapping(eva_w, mapping, mode="italian")
+                if heb and heb in all_targets_hebrew:
+                    n += 1
+                elif ita and ita in all_targets_italian:
+                    n += 1
+            return n
+
+        # Build real mapping dict with preprocessing placeholders
+        from .full_decode import FULL_MAPPING
+        real_mapping = build_full_mapping(FULL_MAPPING)
+
+        if real_mapping:
+            perm_result = permutation_test_mapping(
+                zodiac_score_fn, real_mapping, n_perms=1000, seed=42)
+            click.echo(f"    Real score:   {perm_result['real_score']}")
+            click.echo(f"    Random mean:  {perm_result['random_mean']} "
+                       f"± {perm_result['random_std']}")
+            click.echo(f"    p-value:      {perm_result['p_value']:.6f}")
+            click.echo(f"    z-score:      {perm_result['z_score']:.1f}")
+            sig = "***" if perm_result["significant_001"] else \
+                  "**" if perm_result["significant_01"] else \
+                  "*" if perm_result["significant_05"] else "ns"
+            click.echo(f"    Significance: {sig}")
+            report["permutation_test"] = perm_result
+        else:
+            click.echo("    (skipped — mapping not available)")
+    except Exception as e:
+        click.echo(f"    Permutation test error: {e}")
+
+    # Re-save report with permutation data
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, ensure_ascii=False)
+
     # Verdict
     click.echo(f"\n  {'=' * 40}")
     n_exact = len(exact_matches)
     n_zodiac = len(all_zodiac_hits)
-    if n_exact > 0:
+    if n_exact >= 3:
         click.echo(f"  VERDICT: {n_exact} EXACT MATCH(ES) FOUND!")
-        click.echo("  This is a STRONG validation signal.")
+        click.echo("  Strong validation signal.")
+    elif n_exact > 0:
+        click.echo(f"  VERDICT: {n_exact} exact match(es) found.")
+        click.echo("  NOTE: Short consonantal matches (<=3 chars) have")
+        click.echo("  elevated false-positive risk. Interpret with caution.")
     elif n_zodiac > 5:
         click.echo(f"  VERDICT: {n_zodiac} fuzzy matches in zodiac section")
         click.echo("  Moderate support for the mapping.")
