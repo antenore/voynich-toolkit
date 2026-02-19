@@ -245,6 +245,35 @@ def create_tables(cur: sqlite3.Cursor) -> None:
             value TEXT,
             detail TEXT
         );
+
+        CREATE TABLE IF NOT EXISTS layout_analysis (
+            metric TEXT PRIMARY KEY,
+            value TEXT,
+            detail TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS meta_analysis (
+            key TEXT PRIMARY KEY,
+            value TEXT,
+            detail TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS cross_analysis_epilectrik (
+            axis TEXT NOT NULL,
+            lexicon TEXT NOT NULL,
+            category TEXT NOT NULL,
+            types INTEGER,
+            matched_types INTEGER,
+            rate_types REAL,
+            tokens INTEGER,
+            matched_tokens INTEGER,
+            rate_tokens REAL,
+            chi2 REAL,
+            p_value REAL,
+            PRIMARY KEY (axis, lexicon, category)
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_xae_axis ON cross_analysis_epilectrik(axis);
     """)
 
 
@@ -831,6 +860,98 @@ def import_section_entropy(cur: sqlite3.Cursor) -> int:
     return len(rows)
 
 
+def import_layout_analysis(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "layout_analysis.json")
+    if not data:
+        return 0
+    rows = []
+    # Layout rates
+    for layout, s in data.get("layout_rates", {}).items():
+        rows.append((f"rate_{layout}_honest", str(s.get("honest_rate", "")),
+                     f"matched={s.get('honest_matched','')}/{s.get('n_decoded','')}"))
+        rows.append((f"rate_{layout}_full", str(s.get("full_rate", "")),
+                     f"matched={s.get('full_matched','')}/{s.get('n_decoded','')}"))
+    # Z-tests
+    for test_name, t in data.get("z_tests", {}).items():
+        rows.append((f"z_{test_name}", str(t.get("z_score", "")),
+                     f"p={t.get('p_value','')} diff={t.get('diff','')}"))
+    cur.executemany(
+        "INSERT OR REPLACE INTO layout_analysis VALUES (?,?,?)", rows)
+    return len(rows)
+
+
+def import_meta_analysis(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "meta_analysis.json")
+    if not data:
+        return 0
+    rows = []
+    # Entropy metrics (nested under 'entropy')
+    ent = data.get("entropy", {})
+    for hx in ("h0", "h1", "h2"):
+        sub = ent.get(hx, {})
+        for lang in ("eva", "hebrew", "ref_hebrew"):
+            val = sub.get(lang)
+            if val is not None:
+                rows.append((f"{hx}_{lang}", str(val), ""))
+    # MATTR
+    mattr = data.get("mattr", {})
+    for lang in ("eva", "hebrew"):
+        val = mattr.get(lang)
+        if val is not None:
+            rows.append((f"mattr_{lang}", str(val), ""))
+    # Zipf (flat dict: eva, decoded, hebrew_ref)
+    zipf = data.get("zipf", {})
+    for key in ("eva", "decoded", "hebrew_ref"):
+        val = zipf.get(key)
+        if val is not None:
+            rows.append((f"zipf_{key}", str(val), ""))
+    # Summary
+    summary = data.get("summary", {})
+    for k, v in summary.items():
+        rows.append((f"summary_{k}", str(v), ""))
+    # Literature comparison table
+    for entry in data.get("comparison_table", []):
+        key = f"paper_{entry.get('cite_key', entry.get('paper', ''))}"
+        rows.append((key, entry.get("comparison", ""),
+                     entry.get("detail", "")))
+    cur.executemany(
+        "INSERT OR REPLACE INTO meta_analysis VALUES (?,?,?)", rows)
+    return len(rows)
+
+
+def import_cross_analysis_epilectrik(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "cross_analysis_epilectrik.json")
+    if not data:
+        return 0
+    rows = []
+    axes = data.get("axes", {})
+    for axis_lex_key, analysis in axes.items():
+        # axis_lex_key is like "kernel_honest" or "role_full"
+        parts = axis_lex_key.rsplit("_", 1)
+        if len(parts) != 2:
+            continue
+        axis_name, lex_label = parts
+        chi2_val = analysis.get("chi2")
+        p_val = analysis.get("p")
+        for cat, stats in analysis.get("categories", {}).items():
+            rows.append((
+                axis_name, lex_label, cat,
+                stats.get("types", 0),
+                stats.get("matched_types", 0),
+                stats.get("rate_types", 0),
+                stats.get("tokens", 0),
+                stats.get("matched_tokens", 0),
+                stats.get("rate_tokens", 0),
+                chi2_val,
+                p_val,
+            ))
+    cur.executemany(
+        "INSERT OR REPLACE INTO cross_analysis_epilectrik VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        rows,
+    )
+    return len(rows)
+
+
 def build(db_path: str) -> None:
     db_path = str(Path(db_path).resolve())
     print(f"Building SQLite database: {db_path}\n")
@@ -866,6 +987,9 @@ def build(db_path: str) -> None:
         ("hand1_dive", import_hand1_dive),
         ("null_model_test", import_null_model_test),
         ("section_entropy", import_section_entropy),
+        ("layout_analysis", import_layout_analysis),
+        ("meta_analysis", import_meta_analysis),
+        ("cross_analysis_epilectrik", import_cross_analysis_epilectrik),
     ]
 
     for name, fn in importers:

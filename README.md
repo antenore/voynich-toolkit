@@ -317,7 +317,7 @@ voynich-toolkit/
 
 ## Open Directions
 
-30 investigations completed across Phases 1-18. Remaining options:
+31 investigations completed across Phases 1-19. Remaining options:
 
 1. **Hand 4 allography**: H4 uses EVA 'e' at 2x the rate of H1 — possible unmapped allograph (limited power: 817 words).
 2. **Label-specific lexicon**: Build specialized Hebrew lexicon (plant names, star names, body parts) and test against labels.
@@ -338,6 +338,10 @@ This is exploratory research, not a confirmed decipherment. Key limitations:
 8. **SmS (שמש) claim downgraded**: ~5 occurrences, not zodiac-exclusive, alternative Hebrew sun words absent.
 
 The strongest remaining evidence is the z-score stability across lexicon sizes (3.6-4.4) and the monkey-test differential (real mapping = 2.2-3.4x random strings, while random mappings ≈ 1.1x). This rules out pure chance but leaves open whether the signal reflects a partially correct mapping, a more complex cipher partially captured, or a structural artifact of the EVA transcription.
+
+## Related Work
+
+- **[epilectrik/voynich](https://github.com/epilectrik/voynich)** (Joe DiPrima) — An independent computational analysis taking a radically different approach: the Voynich text encodes closed-loop control programs (possibly for distillation), not natural language. Uses progressive constraint architecture (~988 validated constraints, 401 research phases), token morphology decomposition (479 types → 49 instruction classes), and structural comparison with Brunschwig's *Liber de arte distillandi* (1500). Key finding: illustration swap invariance (p=1.0) — illustrations do not predict text content. Complementary to our cipher-linguistic approach; cross-testing is ongoing.
 
 ## References
 

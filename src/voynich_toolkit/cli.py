@@ -599,6 +599,15 @@ def meta_analysis(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("cross-analysis")
+@click.pass_context
+def cross_analysis(ctx):
+    """Phase 19: cross-analisi con classificazioni epilectrik/voynich."""
+    from .cross_analysis_epilectrik import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):

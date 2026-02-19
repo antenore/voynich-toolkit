@@ -108,7 +108,7 @@ test: \emph{does the proposed mapping produce output that matches Hebrew
 lexical forms at rates significantly above what random or structural baselines
 would predict?}
 
-We organize 29 systematic investigations across mapping derivation
+We organize 30 systematic investigations across mapping derivation
 (\S\ref{sec:mapping}), multi-tier lexicon validation (\S\ref{sec:lexicon}),
 permutation testing (\S\ref{sec:permutation}), alternative hypothesis
 testing (\S\ref{sec:alternatives}), scribal variation (\S\ref{sec:scribes}),
@@ -692,6 +692,62 @@ domain-specific vocabulary (against~1), and the Zipfian structure of matches
 it.
 
 
+\subsection{Cross-Analysis with Independent Token Classification}
+\label{sec:cross}
+
+An independent computational analysis of the Voynich text by
+DiPrima~\citep{DiPrima2026} classifies all EVA tokens into morphological
+components and functional categories using distributional methods without
+assuming linguistic content. His framework decomposes each token into
+prefix, middle, and suffix, assigns each middle to one of three
+\emph{kernel operators} (K, H, E) based on positional and co-occurrence
+properties, and groups 479 token types into 49 instruction classes.
+
+We decoded each of his 8,150 token types through our Hebrew mapping and
+tested whether his classifications predict our lexicon match rate.
+Table~\ref{tab:cross} summarizes the results using the honest lexicon
+(45K forms).
+
+\begin{table}[h]
+\centering
+\caption{Hebrew match rate (honest lexicon, types) by DiPrima's token
+classifications. All $\chi^2$ tests are significant at $p < 10^{-6}$.}
+\label{tab:cross}
+\begin{tabular}{llrrr}
+\toprule
+Axis & Category & Types & Matched & Rate \\
+\midrule
+\multirow{3}{*}{Kernel} & K (energy) & 2,111 & 156 & 7.4\% \\
+  & H (transition) & 1,207 & 48 & 4.0\% \\
+  & E (stability) & 1,552 & 28 & 1.8\% \\
+\midrule
+\multirow{3}{*}{System} & multi (A$+$B) & 1,498 & 203 & 13.6\% \\
+  & A only & 2,164 & 97 & 4.5\% \\
+  & B only & 3,585 & 154 & 4.3\% \\
+\midrule
+\multirow{3}{*}{Regime} & Precision & 1,088 & 119 & 10.9\% \\
+  & High energy & 777 & 36 & 4.6\% \\
+  & Settling & 1,699 & 28 & 1.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A potential confound is word length: short tokens match any lexicon at
+higher rates (63.6\% at 2~chars, 7.7\% at 5~chars, $<$1\% beyond 7).
+To control for this, we computed match rates within fixed-length subsets.
+At length~4 (679 types): K matches at 33.3\% vs E at 9.6\% ($3.5\times$).
+At length~6 (1,845 types): K at 3.2\% vs E at 0.2\% ($16\times$).
+The kernel effect persists after length control.
+
+Two findings merit attention. First, tokens appearing in both Currier
+systems (``multi'') match at 13.6\% --- three times the rate of
+system-specific tokens ($\sim$4.5\%). The Hebrew signal resides in
+shared vocabulary, not system-specific material. Second, the kernel
+gradient (K~$>$~H~$>$~E) suggests that our mapping differentially captures
+specific functional categories of the text, regardless of whether those
+categories represent linguistic or non-linguistic structure.
+
+
 \subsection{Limitations}
 
 \begin{itemize}
@@ -909,10 +965,15 @@ We propose that the correspondence reflects either a partially correct
 mapping (some letters right, others not), a shared phonotactic substrate
 (possibly Judeo-Italian or another Hebrew-script Romance language), or
 structural properties of the Voynich text that happen to align with Hebrew
-consonantal morphology. Distinguishing between these possibilities requires
-either a domain-specific lexicon test (matching labels against specialized
-botanical/astronomical Hebrew terminology) or the identification of
-additional cipher structure beyond monoalphabetic substitution.
+consonantal morphology. Cross-analysis with an independent distributional
+classification of the same tokens~\citep{DiPrima2026} reveals that the
+mapping differentially captures specific functional categories of the text
+(kernel-K tokens match at $3.5\times$ the rate of kernel-E tokens at
+matched word length), suggesting the signal is not uniformly distributed
+across the text's internal structure. Distinguishing between these
+possibilities requires either a domain-specific lexicon test or the
+identification of additional cipher structure beyond monoalphabetic
+substitution.
 
 The complete mapping, decoded corpus, and all statistical results are
 available in the project repository for independent verification.
@@ -934,6 +995,7 @@ voynich --force null-model-test    # null model (1-3 min)
 voynich --force scribe-analysis    # per-hand match rates (3 min)
 voynich --force naibbe-test        # Naibbe hypothesis (40s)
 voynich --force layout-analysis    # label vs paragraph
+voynich --force cross-analysis    # cross-analysis (requires epilectrik repo)
 \end{verbatim}
 
 Each command produces JSON (machine-readable), TXT (human-readable), and
@@ -1001,6 +1063,11 @@ Costa.
 \newblock Probing the statistical properties of unknown texts: application to
 the {V}oynich manuscript.
 \newblock \emph{PLoS ONE}, 8(7):e67310, 2013.
+
+\bibitem[DiPrima(2026)]{DiPrima2026}
+J.~DiPrima.
+\newblock Distributional analysis of {V}oynich manuscript token structure.
+\newblock GitHub repository, \url{https://github.com/epilectrik/voynich}, 2026.
 
 \bibitem[Currier(1976)]{Currier1976}
 P.~Currier.
