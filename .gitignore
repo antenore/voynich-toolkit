@@ -8,8 +8,8 @@ voynich.db
 # PDF manuscript (copyrighted, not distributable)
 voynich.pdf
 
-# LaTeX build artifacts (paper.tex is tracked)
-paper/*.pdf
+# LaTeX build artifacts (paper.tex and paper.pdf are tracked)
+!paper/paper.pdf
 paper/*.aux
 paper/*.log
 paper/*.out

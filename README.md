@@ -2,6 +2,8 @@
 
 A computational analysis toolkit for the Voynich Manuscript (Beinecke MS 408, Yale University), implementing a complete pipeline from statistical analysis through candidate decipherment.
 
+**[Read the paper (PDF)](paper/paper.pdf)** — *A Statistical Evaluation of the Hebrew Cipher Hypothesis for the Voynich Manuscript*
+
 ## Key Results
 
 Analysis of 191,545 characters and 37,025 words from the Takahashi EVA transcription yields:
