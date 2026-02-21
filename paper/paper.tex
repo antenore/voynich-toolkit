@@ -48,7 +48,7 @@ and positional splitting --- we decode the full manuscript corpus (37,025 tokens
 coverage (6.5K biblical, 45K curated, 491K corpus-attested forms).
 
 The mapping produces a statistically significant signal: the decoded text
-matches Hebrew lexical forms at rates 2--3 times above random baselines
+matches Hebrew lexical forms at rates 1.7--3.4 times above random baselines
 ($z=3.6$--$4.4$, $p<0.005$) across all lexicon tiers, survives permutation
 testing for botanical anchors ($p=0.017$) and domain vocabulary ($p=0.004$),
 and outperforms a synthetic null model on match rate ($z=98.2$), Zipfian
@@ -63,7 +63,7 @@ language split) are tested and largely rejected. Independent validation by
 a Hebrew-specialized language model (DictaLM) confirms $19.4\%$ of matched
 types as genuine Hebrew words, with token-weighted confirmation at $56.6\%$;
 the signal concentrates in approximately 200 high-frequency forms that produce
-a real-to-random ratio of $\sim$24$\times$. We conclude that the mapping
+a real-to-random ratio of $118\times$. We conclude that the mapping
 captures genuine structural correspondence between EVA text and Hebrew
 consonantal morphology, but falls short of decipherment. The nature of
 this correspondence --- partial cipher, structural mimicry, or coincidental
@@ -112,7 +112,7 @@ test: \emph{does the proposed mapping produce output that matches Hebrew
 lexical forms at rates significantly above what random or structural baselines
 would predict?}
 
-We organize 30 systematic investigations across mapping derivation
+We organize 34 systematic investigations across mapping derivation
 (\S\ref{sec:mapping}), multi-tier lexicon validation (\S\ref{sec:lexicon}),
 permutation testing (\S\ref{sec:permutation}), alternative hypothesis
 testing (\S\ref{sec:alternatives}), scribal variation (\S\ref{sec:scribes}),
@@ -251,7 +251,7 @@ both real and random mappings.}
 \toprule
 Tier & Forms & Sources \\
 \midrule
-Biblical (STEPBible) & 6,475 & Biblical Hebrew headwords \\
+Biblical (STEPBible) & 5,475 & Biblical Hebrew headwords \\
 Curated (``honest'') & 45,713 & STEPBible + Jastrow + Klein + curated \\
 Full (corpus) & 491,148 & + Sefaria corpus (freq$\ge$5) \\
 \bottomrule
@@ -306,7 +306,7 @@ partial or coincidental correspondence.
 (3.4$\times$ $\to$ 1.7$\times$), demonstrating that large lexicons inflate
 both sides. The honest tier provides the most informative signal.
 
-\item Even the smallest lexicon (STEPBible, 6,475 biblical forms) yields
+\item Even the smallest lexicon (STEPBible, 5,475 biblical forms) yields
 $z=3.6$, ruling out the possibility that the signal is purely an artifact of
 lexicon size.
 \end{enumerate}
@@ -329,7 +329,7 @@ word lengths and overall Hebrew character frequencies
 \toprule
 Test & Real & Synthetic & $z$ & Verdict \\
 \midrule
-Match rate & 21.48\% & 8.91\%$\pm$0.13\% & 98.2 & significant \\
+Match rate & 21.48\%\footnote{The honest match rate differs between the null model test (21.48\%, 33,320 tokens after layout filtering) and the mapping audit (25.6\%, 36,922 tokens including all layout types). Both values are correct for their respective corpora.} & 8.91\%$\pm$0.13\% & 98.2 & significant \\
 Gloss entropy & 5.56 & 10.16$\pm$0.04 & 121.1 & significant \\
 Top-5 concentration & 33.3\% & 1.8\%$\pm$0.2\% & 178.1 & significant \\
 Bigram plausibility & $-2.970$ & $-3.095$$\pm$0.003 & 40.9 & significant \\
@@ -363,9 +363,9 @@ EVA$\to$Hebrew permutations per test:
 \toprule
 Domain & Real matches & Mean random & $z$ & $p$ \\
 \midrule
-Botanical (plant names) & --- & --- & 3.2 & 0.017 \\
+Botanical (plant names) & 6 & 1.38 & 3.2 & 0.017 \\
 Domain anchors (d$\le$1) & 99 & --- & 4.2 & 0.004 \\
-Zodiac vocabulary & --- & --- & 0.9 & 0.071 (ns) \\
+Zodiac vocabulary & 2 & 0.44 & 0.9 & 0.071 (ns) \\
 \midrule
 Semantic coherence (max consec.) & 10 & 6.05 & 4.35 & 0.002 \\
 Semantic coherence (high lines) & 1,445 & 253 & 14.54 & 0.001 \\
@@ -506,7 +506,7 @@ frequency $\leq$31 and semantically trivial.
 Both Currier languages produce significant permutation scores independently
 (A: $z=4.02$; B: $z=3.85$), confirming that the Hebrew signal is not
 concentrated in one ``language.'' However, Language~A achieves significantly
-higher match rates: 45.7\% vs.\ 38.7\% ($+7.0$~pp, $z=11.64$, $p<0.0001$).
+higher match rates (full lexicon): 45.7\% vs.\ 38.7\% ($+7.0$~pp, $z=11.64$, $p<0.0001$).
 Cross-language testing confirms that Aramaic matches at only 0.2--0.4\% in
 both languages, excluding a different Semitic substrate.
 
@@ -539,8 +539,11 @@ X & 6 & 2,703 & 21.9\% & 3.89** & B \\
 The central finding is that the previously reported Currier A$>$B advantage
 ($+7.0$~pp) is entirely driven by \textbf{Hand~1}. Hand~4, which is also
 classified as Language~A, achieves only 21.7\% --- \emph{lower} than Hand~2
-(Language~B, 24.9\%). In a content-controlled herbal subsection comparison,
+(Language~B, 24.9\%). In paragraph text overall,
 Hand~1 (28.8\%) vs.\ Hand~2 (24.9\%): $+3.9$~pp, $z=3.12$, $p<0.002$.
+A content-controlled comparison restricted to herbal pages (full lexicon)
+shows an even larger gap: Hand~1 48.6\% vs.\ Hand~2 38.6\%
+($+9.9$~pp, $z=8.18$, $p<0.0001$).
 
 Hand~1 is the primary herbal scribe (86 pages, virtually all herbal section),
 responsible for 75\% of Language~A pages. The mapping appears to be
@@ -601,7 +604,7 @@ H & herbal & 24.1 & 26.7 & +2.6 & 10,328 \\
 B & balneological & 23.4 & 25.4 & +2.0 & 6,527 \\
 T & text & 19.4 & 22.5 & +3.1 & 1,531 \\
 S & astronomical & 18.8 & 21.8 & +3.0 & 10,505 \\
-A & --- & 12.9 & 18.5 & +5.6 & 259 \\
+A\footnote{Section code ``A'' denotes a subset of astronomical pages in the IVTFF transcription, distinct from the main astronomical section (S).} & --- & 12.9 & 18.5 & +5.6 & 259 \\
 Z & zodiac & 12.2 & --- & --- & 0 \\
 \bottomrule
 \end{tabular}
@@ -806,9 +809,9 @@ Featherless.ai API.
 
 \begin{table}[htbp]
 \centering
-\caption{DictaLM validation results for 1,098 glossed word types
-(37,025 corpus tokens). Token-weighted rates reflect the higher frequency
-of confirmed forms.}
+\caption{DictaLM validation results for 1,098 glossed word types.
+Token counts reflect the 16,100 matched tokens (of 37,025 corpus tokens);
+token-weighted rates show the higher frequency of confirmed forms.}
 \label{tab:dictalm}
 \small
 \begin{tabular}{@{}lrrrr@{}}
@@ -856,7 +859,8 @@ with a recipe or preparation genre. Mixed Aramaic-Hebrew forms were also
 flagged, characteristic of medieval Jewish texts rather than biblical
 Hebrew.
 
-\subsubsection{Syntactic Analysis with DictaBERT}
+\subsection{Syntactic Analysis with DictaBERT}
+\label{sec:dictabert}
 
 To move beyond generative LLM assessment, we applied DictaBERT-parse
 \citep{DictaBERTParse2024}, a transformer-based Hebrew dependency parser
@@ -866,9 +870,30 @@ and dependency trees. We computed a syntactic quality score (0--6) based
 on the presence of a root, verb, noun, function words, core arguments
 (subject/object), and dependency diversity.
 
-Results on the 47 best consecutive 5-word windows (all words DictaLM-valid):
-real Hebrew controls score $6.0/6$, Voynich phrases score $2.74/6$, and
-random consonant strings score $2.5/6$. Only $23\%$ of Voynich phrases
+Results on the 47 best consecutive 5-word windows (all words DictaLM-valid)
+are shown in Table~\ref{tab:dictabert}.
+
+\begin{table}[htbp]
+\centering
+\caption{DictaBERT syntactic quality scores (0--6 scale) for three text
+types. Permutation $z$ compares real word order against random reorderings
+of the same vocabulary.}
+\label{tab:dictabert}
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Text type & Score & Notes \\
+\midrule
+Real Hebrew & 6.0/6 & 100\% verbs, arguments, function words \\
+Voynich phrases & 2.74/6 & 23\% verbs, 13\% func.\ words, 2\% arguments \\
+Random consonants & 2.5/6 & baseline \\
+\midrule
+\multicolumn{2}{@{}l}{Permutation test ($z$)} & $-0.51$ (real order $\leq$ random) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Only $23\%$ of Voynich phrases
 receive a VERB tag (vs.\ $100\%$ for real Hebrew), $13\%$ have function
 words, and only $2\%$ (1 phrase) have core syntactic arguments.
 
@@ -894,7 +919,7 @@ medical terms --- is poorly represented.
 
 \item \textbf{Single mapping}: we test one mapping derived through a specific
 optimization trajectory. The space of possible 19-letter monoalphabetic
-mappings is vast ($22!/3! \approx 10^{18}$); our mapping is locally optimal
+mappings is vast ($22!/3! \approx 10^{20}$); our mapping is locally optimal
 but may not be globally so.
 
 \item \textbf{Transcription uncertainty}: the EVA transcription, particularly
@@ -943,7 +968,7 @@ $h_0$ (entropy) & 3.86 & 3.82 & 4.12 \\
 $h_1$ (cond.\ bigram) & 2.37 & 2.70 & 3.98 \\
 $h_2$ (cond.\ trigram) & 2.12 & 2.44 & 3.72 \\
 \midrule
-Alphabet size & 22 & 19 & 22 \\
+Alphabet size & 22\footnote{The EVA transcription uses 22 distinct characters including rare and uncertain forms; our mapping uses the 19 principal characters that account for $>$99\% of the text.} & 19 & 22 \\
 Characters & 191,545 & 164,736 & 148,621 \\
 \bottomrule
 \end{tabular}
@@ -1264,7 +1289,7 @@ A.~Timm and A.~Schinner.
 \newblock A possible generating mechanism for the {V}oynich manuscript.
 \newblock \emph{Cryptologia}, 38(4):311--328, 2014.
 
-\bibitem[Shmidman et~al.(2024)]{DictaLM2024}
+\bibitem[Shmidman et~al.(2024a)]{DictaLM2024}
 S.~Shmidman, A.~Gueta, et~al.
 \newblock {DictaLM}: A large generative language model for {H}ebrew.
 \newblock \emph{arXiv preprint arXiv:2407.07080}, 2024.
