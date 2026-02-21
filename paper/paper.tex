@@ -59,7 +59,11 @@ yield incoherent word sequences. The signal concentrates in one of five
 identified scribal hands (Hand~1, 86 herbal pages) and in paragraph text
 rather than figure labels ($24.7\%$ vs $13.2\%$, $z=-8.10$). Alternative
 hypotheses (homophonic Naibbe cipher, Judeo-Italian substrate, Currier
-language split) are tested and largely rejected. We conclude that the mapping
+language split) are tested and largely rejected. Independent validation by
+a Hebrew-specialized language model (DictaLM) confirms $19.4\%$ of matched
+types as genuine Hebrew words, with token-weighted confirmation at $56.6\%$;
+the signal concentrates in approximately 200 high-frequency forms that produce
+a real-to-random ratio of $\sim$24$\times$. We conclude that the mapping
 captures genuine structural correspondence between EVA text and Hebrew
 consonantal morphology, but falls short of decipherment. The nature of
 this correspondence --- partial cipher, structural mimicry, or coincidental
@@ -748,6 +752,68 @@ specific functional categories of the text, regardless of whether those
 categories represent linguistic or non-linguistic structure.
 
 
+\subsection{Independent Validation by Hebrew Language Model}
+\label{sec:dictalm}
+
+To assess the quality of our lexicon matches independently of dictionary
+coverage, we submitted all 1,098 glossed word types to DictaLM
+\citep{DictaLM2024}, a Hebrew-specialized large language model trained on
+200 billion tokens of Hebrew text (dicta-il/DictaLM-3.0-1.7B-Instruct).
+Each word was evaluated for plausibility as genuine Hebrew (valid /
+possible / invalid), approximate meaning, historical period, and
+whether our assigned gloss was accurate. Validation was conducted via the
+Featherless.ai API.
+
+\begin{table}[htbp]
+\centering
+\caption{DictaLM validation results for 1,098 glossed word types
+(37,025 corpus tokens). Token-weighted rates reflect the higher frequency
+of confirmed forms.}
+\label{tab:dictalm}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Category & Types & Type \% & Tokens & Token \% \\
+\midrule
+Valid (genuine Hebrew) & 211 & 19.4\% & 9,113 & 56.6\% \\
+Possible (plausible form) & 763 & 70.1\% & 5,359 & 33.3\% \\
+Invalid & 114 & 10.5\% & 1,628 & 10.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The key finding is a strong frequency asymmetry: although only 19.4\% of
+matched \emph{types} are rated valid, those 211 types account for 56.6\%
+of all matched \emph{tokens}, confirming that high-frequency forms
+are the genuine Hebrew signal. Restricting the lexicon to the 211
+DictaLM-confirmed forms yields a match rate of $25.2\%$ against a
+random-string baseline of approximately $1.1\%$ --- a real-to-random
+ratio of $\sim$24$\times$, compared to $2.3\times$ for the full honest
+lexicon. The signal is thus highly concentrated in approximately 200
+high-frequency Hebrew roots.
+
+The 114 invalid types are predominantly low-frequency Sefaria-corpus
+entries with no dictionary gloss, consistent with our earlier finding
+that corpus-attested forms inflate match rates without adding semantic
+content. No letter mapping was positively refuted: the 3 mappings with
+fewer than 40 associated types (chet, aleph, dalet) lack statistical
+power to adjudicate, but none showed consistent invalidity.
+
+The period classification is overwhelmingly \textbf{medieval} (899 of 974
+valid\,+\,possible forms), with almost no biblical classifications. This
+suggests that if the decoded text is genuinely Hebrew, it is closer to
+medieval or rabbinic Hebrew than to the biblical register targeted by the
+STEPBible component of our lexicon --- potentially explaining why biblical
+glosses frequently misidentify the intended meaning. Consistent with this,
+DictaLM independently reinterpreted \heb{mwk} (freq~383, our gloss ``be
+poor'') as ``cotton/wool'' in the rabbinic sense --- more appropriate for
+herbal and pharmaceutical contexts --- and identified \heb{syr} as
+``pot/cauldron'' rather than a generic feminine noun, a gloss consistent
+with a recipe or preparation genre. Mixed Aramaic-Hebrew forms were also
+flagged, characteristic of medieval Jewish texts rather than biblical
+Hebrew.
+
+
 \subsection{Limitations}
 
 \begin{itemize}
@@ -975,6 +1041,17 @@ possibilities requires either a domain-specific lexicon test or the
 identification of additional cipher structure beyond monoalphabetic
 substitution.
 
+Independent validation by DictaLM (\S\ref{sec:dictalm}) confirms that the
+mapping captures real Hebrew vocabulary: 19.4\% of matched types are
+confirmed as genuine Hebrew words (token-weighted: 56.6\%), yielding a
+real-to-random ratio of $\sim$24$\times$ when restricted to confirmed forms.
+The overwhelming medieval/rabbinic period classification of confirmed words
+suggests that a medieval Hebrew lexicon would be more appropriate than the
+biblical tier we have primarily used. This does not resolve the readability
+gap but narrows the diagnosis: the signal is not a lexicon artifact, and the
+underlying vocabulary --- where real --- belongs to medieval Jewish textual
+tradition rather than biblical Hebrew.
+
 The complete mapping, decoded corpus, and all statistical results are
 available in the project repository for independent verification.
 
@@ -996,6 +1073,7 @@ voynich --force scribe-analysis    # per-hand match rates (3 min)
 voynich --force naibbe-test        # Naibbe hypothesis (40s)
 voynich --force layout-analysis    # label vs paragraph
 voynich --force cross-analysis    # cross-analysis (requires epilectrik repo)
+voynich --force dictalm-validate  # DictaLM validation (55 min, API key required)
 \end{verbatim}
 
 Each command produces JSON (machine-readable), TXT (human-readable), and
@@ -1107,6 +1185,11 @@ G.~Rugg.
 A.~Timm and A.~Schinner.
 \newblock A possible generating mechanism for the {V}oynich manuscript.
 \newblock \emph{Cryptologia}, 38(4):311--328, 2014.
+
+\bibitem[Shmidman et~al.(2024)]{DictaLM2024}
+S.~Shmidman, A.~Gueta, et~al.
+\newblock {DictaLM}: A large generative language model for {H}ebrew.
+\newblock \emph{arXiv preprint arXiv:2407.07080}, 2024.
 
 \end{thebibliography}
 

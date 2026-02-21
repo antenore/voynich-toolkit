@@ -608,6 +608,16 @@ def cross_analysis(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("dictalm-validate")
+@click.option("--batch-size", default=20, help="Words per API batch")
+@click.pass_context
+def dictalm_validate(ctx, batch_size):
+    """Phase 20: validazione ebraico con DictaLM (Featherless.ai API)."""
+    from .dictalm_validation import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"], batch_size=batch_size)
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):

@@ -37,6 +37,11 @@ build/
 *.swo
 *~
 
+# Secrets
+.env
+*api_key*
+*.secret
+
 # OS
 .DS_Store
 Thumbs.db

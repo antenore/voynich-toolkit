@@ -274,6 +274,25 @@ def create_tables(cur: sqlite3.Cursor) -> None:
         );
 
         CREATE INDEX IF NOT EXISTS idx_xae_axis ON cross_analysis_epilectrik(axis);
+
+        CREATE TABLE IF NOT EXISTS dictalm_validation (
+            consonantal TEXT PRIMARY KEY,
+            hebrew_unicode TEXT,
+            freq INTEGER,
+            source TEXT,
+            our_gloss TEXT,
+            valid TEXT,
+            meaning TEXT,
+            period TEXT,
+            our_gloss_correct TEXT,
+            correct_meaning TEXT,
+            confidence TEXT,
+            notes TEXT
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_dv_valid ON dictalm_validation(valid);
+        CREATE INDEX IF NOT EXISTS idx_dv_freq ON dictalm_validation(freq DESC);
+        CREATE INDEX IF NOT EXISTS idx_dv_source ON dictalm_validation(source);
     """)
 
 
@@ -952,6 +971,36 @@ def import_cross_analysis_epilectrik(cur: sqlite3.Cursor) -> int:
     return len(rows)
 
 
+def import_dictalm_validation(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "dictalm_validation.json")
+    if not data:
+        return 0
+    words = data.get("words", [])
+    rows = []
+    for w in words:
+        if "parse_error" in w or "error" in w:
+            continue
+        rows.append((
+            w.get("consonantal", ""),
+            w.get("hebrew_unicode", ""),
+            w.get("freq", 0),
+            w.get("source", ""),
+            w.get("gloss", ""),
+            w.get("valid", ""),
+            w.get("meaning", ""),
+            w.get("period", ""),
+            w.get("our_gloss_correct", ""),
+            w.get("correct_meaning", ""),
+            w.get("confidence", ""),
+            w.get("notes", ""),
+        ))
+    cur.executemany(
+        "INSERT OR REPLACE INTO dictalm_validation VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+        rows,
+    )
+    return len(rows)
+
+
 def build(db_path: str) -> None:
     db_path = str(Path(db_path).resolve())
     print(f"Building SQLite database: {db_path}\n")
@@ -990,6 +1039,7 @@ def build(db_path: str) -> None:
         ("layout_analysis", import_layout_analysis),
         ("meta_analysis", import_meta_analysis),
         ("cross_analysis_epilectrik", import_cross_analysis_epilectrik),
+        ("dictalm_validation", import_dictalm_validation),
     ]
 
     for name, fn in importers:
