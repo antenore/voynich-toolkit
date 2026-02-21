@@ -461,6 +461,45 @@ qof) are all used in JI transliteration conventions.
 \textbf{Verdict}: Judeo-Italian is a plausible \textbf{partial} component
 but cannot be the primary explanation.
 
+\subsubsection{Judeo-Arabic Substrate}
+\label{sec:ja}
+
+Given that Arabic and Hebrew share a large number of trilateral roots and
+that Judeo-Arabic (Arabic written in Hebrew characters) was widely used in
+medieval Jewish intellectual culture, we tested whether the decoded output
+could reflect Arabic rather than Hebrew. We transliterated 37,746 Arabic
+forms (AraMorph~1.2.1 stems excluding proper nouns, plus CAMeL~Morph
+non-proper lemmas and roots) into Hebrew consonants via standard
+Judeo-Arabic orthographic conventions.
+
+\begin{itemize}
+\item Arabic match: 3.8\% of types (296/7,752), 14.4\% of tokens (4,801/33,412)
+\item 90\% of Arabic matches (266/296 types) are also in the Hebrew lexicon --- shared Semitic roots
+\item Only 30 types match Arabic but not Hebrew (491K); examples include
+  \emph{sryr} (سرير, ``bed,'' freq=103) and \emph{Srwr} (شرور, ``malice'')
+\end{itemize}
+
+The Arabic signal is weaker than Hebrew at every lexicon tier and is almost
+entirely explained by shared Semitic cognates rather than independent Arabic
+vocabulary.
+
+\textbf{Verdict}: the decoded text is \textbf{not} Judeo-Arabic. The small
+Arabic-specific overlap does not add explanatory power beyond the Hebrew
+hypothesis.
+
+\subsubsection{Ladino (Judeo-Spanish)}
+\label{sec:ladino}
+
+Ladino --- medieval Spanish written in Hebrew characters --- was widely used
+by Sephardic communities in Italy after the 1492 expulsion. We transliterated
+5,902 Ladino word forms to Hebrew consonants and tested against the decoded
+output: only 0.5\% of types (42/7,752) and 3.0\% of tokens (990/33,412) match.
+Of the 42 matches, 33 are also in the Hebrew lexicon (generic short forms like
+\emph{syr} $\leftarrow$ ``ser''). Only 9 types are Ladino-specific, all at
+frequency $\leq$31 and semantically trivial.
+
+\textbf{Verdict}: Ladino is \textbf{conclusively excluded}.
+
 \subsubsection{Currier Language Split}
 \label{sec:currier}
 
@@ -622,7 +661,8 @@ survives multiple controls:
 \item Present in both Currier languages independently (A: $z=4.02$, B: $z=3.85$)
 \item Monoalphabetic (8/9 Naibbe diagnostics favor mono)
 \item Not explained by Aramaic (0.2--0.4\% match), Italian (4.5\% match),
-  or Judeo-Italian conventions (5.0\% match)
+  Judeo-Italian (5.0\% match), Judeo-Arabic (3.8\% types, 90\% shared cognates),
+  or Ladino (0.5\% types)
 \end{itemize}
 
 The signal is quantitatively modest but reproducible: a fixed $\sim$8
@@ -785,12 +825,15 @@ Invalid & 114 & 10.5\% & 1,628 & 10.1\% \\
 The key finding is a strong frequency asymmetry: although only 19.4\% of
 matched \emph{types} are rated valid, those 211 types account for 56.6\%
 of all matched \emph{tokens}, confirming that high-frequency forms
-are the genuine Hebrew signal. Restricting the lexicon to the 211
-DictaLM-confirmed forms yields a match rate of $25.2\%$ against a
-random-string baseline of approximately $1.1\%$ --- a real-to-random
-ratio of $\sim$24$\times$, compared to $2.3\times$ for the full honest
-lexicon. The signal is thus highly concentrated in approximately 200
-high-frequency Hebrew roots.
+are the genuine Hebrew signal. A permutation test restricted to the 211
+DictaLM-confirmed forms yields the strongest result of this study:
+$21.43\%$ match rate vs.\ $0.18\%$ for random mappings, giving
+$z=56.71$ and a real-to-random ratio of $118\times$. For comparison,
+the full 491K-form lexicon (minus 114 invalid forms) produces $z=3.70$
+with a ratio of only $1.9\times$, and the honest lexicon (cleaned of
+49 invalid forms) produces $z=46.00$ with a ratio of $78\times$.
+The signal is thus highly concentrated in approximately 200
+high-frequency Hebrew roots whose validity is independently confirmed.
 
 The 114 invalid types are predominantly low-frequency Sefaria-corpus
 entries with no dictionary gloss, consistent with our earlier finding
@@ -1020,7 +1063,7 @@ the hypothesis that the Voynich Manuscript encodes Hebrew consonantal text.
 Our 19-letter monoalphabetic mapping produces a significant, reproducible
 signal ($z=3.6$--$4.4$ across lexicon tiers) that survives permutation
 testing, outperforms a null model, and resists alternative explanations
-(homophonic cipher, Aramaic, Italian, Judeo-Italian).
+(homophonic cipher, Aramaic, Italian, Judeo-Italian, Judeo-Arabic, Ladino).
 
 The signal is real. The decipherment is not. The decoded text does not read
 as Hebrew, shows no domain-specific vocabulary, and fails to produce coherent
@@ -1043,8 +1086,9 @@ substitution.
 
 Independent validation by DictaLM (\S\ref{sec:dictalm}) confirms that the
 mapping captures real Hebrew vocabulary: 19.4\% of matched types are
-confirmed as genuine Hebrew words (token-weighted: 56.6\%), yielding a
-real-to-random ratio of $\sim$24$\times$ when restricted to confirmed forms.
+confirmed as genuine Hebrew words (token-weighted: 56.6\%). A permutation
+test restricted to these 211 confirmed forms yields $z=56.71$ with a
+real-to-random ratio of $118\times$ --- the strongest result in this study.
 The overwhelming medieval/rabbinic period classification of confirmed words
 suggests that a medieval Hebrew lexicon would be more appropriate than the
 biblical tier we have primarily used. This does not resolve the readability
