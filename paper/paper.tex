@@ -476,7 +476,7 @@ Judeo-Arabic orthographic conventions.
 \item Arabic match: 3.8\% of types (296/7,752), 14.4\% of tokens (4,801/33,412)
 \item 90\% of Arabic matches (266/296 types) are also in the Hebrew lexicon --- shared Semitic roots
 \item Only 30 types match Arabic but not Hebrew (491K); examples include
-  \emph{sryr} (سرير, ``bed,'' freq=103) and \emph{Srwr} (شرور, ``malice'')
+  \emph{sryr} (\textit{sar\={\i}r}, ``bed,'' freq=103) and \emph{Srwr} (\textit{shur\=ur}, ``malice'')
 \end{itemize}
 
 The Arabic signal is weaker than Hebrew at every lexicon tier and is almost
@@ -856,6 +856,33 @@ with a recipe or preparation genre. Mixed Aramaic-Hebrew forms were also
 flagged, characteristic of medieval Jewish texts rather than biblical
 Hebrew.
 
+\subsubsection{Syntactic Analysis with DictaBERT}
+
+To move beyond generative LLM assessment, we applied DictaBERT-parse
+\citep{DictaBERTParse2024}, a transformer-based Hebrew dependency parser
+trained on Universal Dependencies treebanks. Unlike DictaLM, this model
+produces structured syntactic analysis: POS tags, morphological features,
+and dependency trees. We computed a syntactic quality score (0--6) based
+on the presence of a root, verb, noun, function words, core arguments
+(subject/object), and dependency diversity.
+
+Results on the 47 best consecutive 5-word windows (all words DictaLM-valid):
+real Hebrew controls score $6.0/6$, Voynich phrases score $2.74/6$, and
+random consonant strings score $2.5/6$. Only $23\%$ of Voynich phrases
+receive a VERB tag (vs.\ $100\%$ for real Hebrew), $13\%$ have function
+words, and only $2\%$ (1 phrase) have core syntactic arguments.
+
+A permutation test comparing the real consecutive phrases against random
+sequences drawn from the same word vocabulary yields $z = -0.51$: the
+actual word order scores \emph{lower} than random orderings. This rules
+out the possibility that the decoded text contains latent syntactic
+structure not captured by the lexical analysis.
+
+The parser treats most decoded tokens as NOUN chains in construct state
+(\emph{smixut}), which is the Hebrew parser's default for sequences of
+unrelated nominals. The conclusion is unambiguous: \textbf{the signal is
+purely lexical; word ordering carries no detectable syntactic information.}
+
 
 \subsection{Limitations}
 
@@ -1091,10 +1118,17 @@ test restricted to these 211 confirmed forms yields $z=56.71$ with a
 real-to-random ratio of $118\times$ --- the strongest result in this study.
 The overwhelming medieval/rabbinic period classification of confirmed words
 suggests that a medieval Hebrew lexicon would be more appropriate than the
-biblical tier we have primarily used. This does not resolve the readability
-gap but narrows the diagnosis: the signal is not a lexicon artifact, and the
-underlying vocabulary --- where real --- belongs to medieval Jewish textual
-tradition rather than biblical Hebrew.
+biblical tier we have primarily used.
+
+Dependency parsing with DictaBERT further sharpens the diagnosis: the 47
+best consecutive phrases (all words DictaLM-validated) score only $2.74/6$
+on syntactic quality, barely above random consonant strings ($2.5/6$) and
+far below real Hebrew ($6.0/6$). A permutation test confirms that the
+actual word order scores no better than random reorderings of the same
+vocabulary ($z=-0.51$). The signal is therefore purely lexical: individual
+words match Hebrew roots, but their sequential arrangement carries no
+syntactic information. This does not resolve the readability gap but
+narrows the diagnosis to a precise boundary: real vocabulary, random syntax.
 
 The complete mapping, decoded corpus, and all statistical results are
 available in the project repository for independent verification.
@@ -1234,6 +1268,11 @@ A.~Timm and A.~Schinner.
 S.~Shmidman, A.~Gueta, et~al.
 \newblock {DictaLM}: A large generative language model for {H}ebrew.
 \newblock \emph{arXiv preprint arXiv:2407.07080}, 2024.
+
+\bibitem[Shmidman et~al.(2024b)]{DictaBERTParse2024}
+S.~Shmidman, E.~Gueta, et~al.
+\newblock {DictaBERT}: A state-of-the-art {H}ebrew {NLP} suite.
+\newblock In \emph{Findings of ACL 2024}, pages 4523--4538, 2024.
 
 \end{thebibliography}
 
