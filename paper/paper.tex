@@ -112,7 +112,7 @@ test: \emph{does the proposed mapping produce output that matches Hebrew
 lexical forms at rates significantly above what random or structural baselines
 would predict?}
 
-We organize 34 systematic investigations across mapping derivation
+We organize 35 systematic investigations across mapping derivation
 (\S\ref{sec:mapping}), multi-tier lexicon validation (\S\ref{sec:lexicon}),
 permutation testing (\S\ref{sec:permutation}), alternative hypothesis
 testing (\S\ref{sec:alternatives}), scribal variation (\S\ref{sec:scribes}),
@@ -725,6 +725,41 @@ section-entropy finding (\S\ref{sec:layout}) that the same high-frequency
 glosses dominate all sections, with no domain specialization in decoded
 vocabulary.
 
+\subsection{Scribal Error Correction}
+\label{sec:scribal-errors}
+
+Approximately 75\% of decoded word types do not match the honest lexicon.
+We tested whether single-character scribal errors --- visually confusable
+EVA glyph substitutions --- could account for part of this gap.  Eleven
+confusion pairs were defined from EVA glyph shape analysis (a/o, e/i, n/r,
+c/e, d/s, k/t, f/p, l/r, m/n, i/n, c/h).  For each of the 7{,}933
+unmatched types, we generated all distance-1 visual variants (substituting
+one confusable glyph at a time), decoded each variant, and checked against
+the honest lexicon (45K forms).
+
+This procedure recovered 835 types (10.5\% of unmatched) corresponding to
+8{,}544 tokens (31.1\%).  The most productive substitution was o$\to$a
+(2{,}077 tokens), followed by a$\to$o (1{,}108) and n$\to$i (793).
+Recovery rates were uniform across scribal hands (9.6\%--15.6\%) and
+manuscript sections (9.3\%--13.9\%), with no hand or section standing out.
+
+A permutation control measured whether the \emph{specific} confusion pairs
+outperform arbitrary ones.  We shuffled the confusion-pair labels 200 times,
+each time applying the same correction procedure.  The result is a clear
+null: type $z=-0.07$ ($p=0.53$), token $z=-0.03$ ($p=0.51$).  Shuffled
+pairs recover the same number of words as the real visual-confusion pairs.
+The recovery is therefore an artefact of lexicon density --- any
+single-character substitution has a non-trivial chance of hitting the
+45K-form lexicon --- rather than evidence of actual scribal copying errors.
+
+This null result has a constructive implication: the 75\% unmatched words
+cannot be recovered by error correction against the current lexicon.  The
+gap reflects \textbf{lexicon inadequacy} --- medieval Hebrew technical
+vocabulary (botanical, astronomical, medical) is underrepresented in the
+biblical and talmudic sources that constitute the honest lexicon --- rather
+than scribal noise.  Progress toward readability requires a better-suited
+lexicon, not error correction.
+
 \subsection{Most Frequent Decoded Words}
 \label{sec:words}
 
@@ -1045,7 +1080,10 @@ purely lexical; word ordering carries no detectable syntactic information.}
 \item \textbf{Lexicon coverage}: the honest lexicon (45K forms) represents
 a specific historical stratum (biblical + talmudic + curated). Medieval
 Hebrew technical vocabulary --- especially botanical, astronomical, and
-medical terms --- is poorly represented.
+medical terms --- is poorly represented. A scribal error correction
+experiment (\S\ref{sec:scribal-errors}) confirms that the 75\% unmatched
+gap is not recoverable through single-character corrections; the shortfall
+is lexical, not scribal.
 
 \item \textbf{Single mapping}: we test one mapping derived through a specific
 optimization trajectory. The space of possible 19-letter monoalphabetic
@@ -1294,7 +1332,12 @@ test restricted to these 211 confirmed forms yields $z=56.71$ with a
 real-to-random ratio of $118\times$ --- the strongest result in this study.
 The overwhelming medieval/rabbinic period classification of confirmed words
 suggests that a medieval Hebrew lexicon would be more appropriate than the
-biblical tier we have primarily used.
+biblical tier we have primarily used. A scribal error correction experiment
+(\S\ref{sec:scribal-errors}) reinforces this conclusion: single-character
+visual corrections recover 10.5\% of unmatched types, but a permutation
+control shows this recovery is no better than chance ($z\approx 0$),
+confirming that the unmatched gap reflects lexicon inadequacy rather than
+copyist noise.
 
 Dependency parsing with DictaBERT further sharpens the diagnosis: the 47
 best consecutive phrases (all words DictaLM-validated) score only $2.74/6$

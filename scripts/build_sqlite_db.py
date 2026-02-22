@@ -335,6 +335,31 @@ def create_tables(cur: sqlite3.Cursor) -> None:
             perm_p REAL,
             expected_sections TEXT
         );
+
+        CREATE TABLE IF NOT EXISTS scribal_corrections (
+            eva_original TEXT NOT NULL,
+            eva_corrected TEXT NOT NULL,
+            hebrew TEXT,
+            gloss TEXT,
+            freq INTEGER,
+            position INTEGER,
+            char_from TEXT,
+            char_to TEXT,
+            has_gloss INTEGER,
+            word_len INTEGER,
+            PRIMARY KEY (eva_original, eva_corrected)
+        );
+
+        CREATE TABLE IF NOT EXISTS scribal_correction_stats (
+            metric TEXT PRIMARY KEY,
+            value TEXT,
+            detail TEXT
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_sc_freq
+            ON scribal_corrections(freq DESC);
+        CREATE INDEX IF NOT EXISTS idx_sc_pair
+            ON scribal_corrections(char_from, char_to);
     """)
 
 
@@ -1181,6 +1206,74 @@ def import_domain_lexicon_test(cur: sqlite3.Cursor) -> int:
     return len(rows)
 
 
+def import_scribal_corrections(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "scribal_error_correction.json")
+    if not data:
+        return 0
+    count = 0
+
+    # Correction rows
+    corrections = data.get("corrections", [])
+    cur.executemany(
+        "INSERT OR REPLACE INTO scribal_corrections VALUES (?,?,?,?,?,?,?,?,?,?)",
+        [(c["eva_original"], c["eva_corrected"], c.get("hebrew", ""),
+          c.get("gloss", ""), c.get("freq", 0), c.get("position", 0),
+          c.get("char_from", ""), c.get("char_to", ""),
+          1 if c.get("has_gloss") else 0, c.get("word_len", 0))
+         for c in corrections],
+    )
+    count += len(corrections)
+
+    # Stats rows
+    rows = []
+    summary = data.get("summary", {})
+    for key in ("n_unmatched_types", "n_unmatched_tokens",
+                "n_corrected_types", "n_corrected_tokens",
+                "n_with_gloss", "recovery_rate_types",
+                "recovery_rate_tokens"):
+        if key in summary:
+            rows.append((key, str(summary[key]), ""))
+
+    perm = summary.get("permutation", {})
+    for key in ("type_z_score", "type_p_value", "token_z_score",
+                "token_p_value", "perm_type_mean", "perm_type_std"):
+        if key in perm:
+            rows.append((f"perm_{key}", str(perm[key]), ""))
+
+    # By hand
+    for hand, h in data.get("by_hand", {}).items():
+        rows.append((
+            f"hand_{hand}_corrected",
+            str(h.get("n_corrected_types", 0)),
+            f"tokens={h.get('n_corrected_tokens', 0)} "
+            f"rate={h.get('correction_rate_types', 0):.1f}%",
+        ))
+
+    # By section
+    for sec, s in data.get("by_section", {}).items():
+        rows.append((
+            f"section_{sec}_corrected",
+            str(s.get("n_corrected_types", 0)),
+            f"tokens={s.get('n_corrected_tokens', 0)} "
+            f"rate={s.get('correction_rate_types', 0):.1f}%",
+        ))
+
+    # Top confusions
+    for i, tc in enumerate(data.get("top_confusions", [])[:10]):
+        rows.append((
+            f"confusion_{i+1}",
+            f"{tc['from']}→{tc['to']}",
+            f"tokens={tc.get('tokens', 0)}",
+        ))
+
+    cur.executemany(
+        "INSERT OR REPLACE INTO scribal_correction_stats VALUES (?,?,?)",
+        rows,
+    )
+    count += len(rows)
+    return count
+
+
 def build(db_path: str) -> None:
     db_path = str(Path(db_path).resolve())
     print(f"Building SQLite database: {db_path}\n")
@@ -1224,6 +1317,7 @@ def build(db_path: str) -> None:
         ("convergence_control", import_convergence_control),
         ("dictalm_calibration", import_dictalm_calibration),
         ("domain_lexicon_test", import_domain_lexicon_test),
+        ("scribal_corrections", import_scribal_corrections),
     ]
 
     for name, fn in importers:

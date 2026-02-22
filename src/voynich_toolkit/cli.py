@@ -655,6 +655,15 @@ def domain_lexicon_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("scribal-error-correction")
+@click.pass_context
+def scribal_error_correction(ctx):
+    """Scribal error correction via visual confusion pairs."""
+    from .scribal_error_correction import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
