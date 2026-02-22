@@ -1083,7 +1083,11 @@ Hebrew technical vocabulary --- especially botanical, astronomical, and
 medical terms --- is poorly represented. A scribal error correction
 experiment (\S\ref{sec:scribal-errors}) confirms that the 75\% unmatched
 gap is not recoverable through single-character corrections; the shortfall
-is lexical, not scribal.
+is lexical, not scribal. However, a supplementary test using 96{,}447 new
+consonantal forms extracted from medieval Rishonim texts (Sefaria
+\texttt{hebrew\_library} corpus: Halakhah, Responsa, Jewish Thought,
+Kabbalah) yielded only $+58$ additional decoded matches ($+760$ tokens),
+suggesting the gap is not merely a matter of lexicon period mismatch.
 
 \item \textbf{Single mapping}: we test one mapping derived through a specific
 optimization trajectory. The space of possible 19-letter monoalphabetic
@@ -1331,8 +1335,12 @@ confirmed as genuine Hebrew words (token-weighted: 56.6\%). A permutation
 test restricted to these 211 confirmed forms yields $z=56.71$ with a
 real-to-random ratio of $118\times$ --- the strongest result in this study.
 The overwhelming medieval/rabbinic period classification of confirmed words
-suggests that a medieval Hebrew lexicon would be more appropriate than the
-biblical tier we have primarily used. A scribal error correction experiment
+suggested that a medieval Hebrew lexicon might close the gap; however,
+a supplementary test extracting 96{,}447 new consonantal forms from
+Rishonim-era texts (Halakhah, Responsa, Jewish Thought, Kabbalah via the
+Sefaria \texttt{hebrew\_library} corpus) yielded only $+58$ additional
+decoded matches --- ruling out lexicon period mismatch as the explanation.
+A scribal error correction experiment
 (\S\ref{sec:scribal-errors}) reinforces this conclusion: single-character
 visual corrections recover 10.5\% of unmatched types, but a permutation
 control shows this recovery is no better than chance ($z\approx 0$),
