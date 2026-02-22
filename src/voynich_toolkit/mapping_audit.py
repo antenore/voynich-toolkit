@@ -112,7 +112,8 @@ def load_honest_lexicon(config: ToolkitConfig) -> tuple[set, dict]:
 
     honest_sources = {"STEPBible", "Jastrow", "Klein",
                       "Curato-Botanico", "Curato-IbnEzra",
-                      "Curato-Medico", "Curato-Generale"}
+                      "Curato-Medico", "Curato-Generale",
+                      "Curato-Balneologico"}
 
     honest_forms: set[str] = set()
     by_domain = lex_data.get("by_domain", {})

@@ -48,6 +48,9 @@ The remaining 3 characters (f, i, q) were resolved through positional profile an
 | Italian-layer analysis | 4.5% match (z=3.82) — ruled out |
 | Mapping optimality | 16/17 optimal under 1-to-1 constraint |
 | Semantic coherence | z=4.35-14.54 (p≤0.002) — words cluster, but glosses don't form sentences |
+| Cross-validation | 13/17 letters optimal on both subsets, held-out z=5.72 (p=0.005) |
+| Domain concentration | Balneological z=8.53, Astronomical z=3.51, Medical z=2.79 |
+| DictaLM calibration | Precision 100%, Recall 2%, FPR 0% (model too conservative) |
 
 **Critical assessment**: The mapping produces a statistically significant signal (z=3.6-4.4 across all lexicon sizes, ruling out pure chance). However, the decoded text does **not** read as coherent Hebrew — the best passages with 100% semantic coverage produce incoherent glosses. The z=42.8 headline figure is inflated by the 491K-form lexicon (random strings match at 26.8%). With the more honest glossed-only lexicon (28K forms with dictionary definitions), the z-score is 4.4 — still significant, but the match rate is only 24.3%.
 
@@ -227,6 +230,15 @@ voynich layout-analysis               # Layout-aware (label vs paragraph vs circ
 voynich meta-analysis                 # Meta-analysis: h2, MATTR, Zipf, literature table
 ```
 
+### Phase 22: Review Response
+
+```bash
+voynich cross-validation              # Hand-based + random 50/50 cross-validation
+voynich convergence-control           # Hill-climber convergence on real/shuffled/random
+voynich dictalm-calibrate             # Blinded DictaLM calibration (Featherless API)
+voynich domain-lexicon-test           # Domain-specific lexicon chi-square + permutation
+```
+
 ### Global Options
 
 ```bash
@@ -306,18 +318,22 @@ voynich-toolkit/
     ├── null_model_test.py            # Phase 16B null model vs synthetic
     ├── section_entropy.py            # Phase 16C section entropy analysis
     ├── layout_analysis.py            # Phase 17 layout-aware analysis
-    └── meta_analysis.py              # Phase 18 meta-analysis (h2, MATTR, literature)
+    ├── meta_analysis.py              # Phase 18 meta-analysis (h2, MATTR, literature)
+    ├── cross_validation.py           # Phase 22 hand-based + random cross-validation
+    ├── convergence_control.py        # Phase 22 hill-climber convergence control
+    ├── dictalm_calibration.py        # Phase 22 blinded DictaLM calibration
+    └── domain_lexicon_test.py        # Phase 22 domain-specific lexicon test
 ```
 
 ## Source Data
 
 - **EVA IVTFF**: `LSI_ivtff_0d.txt` (Takahashi, 1998) -- 191,545 characters, 37,025 words, 225 folios
-- **Hebrew lexicon**: STEPBible TBESH (CC BY 4.0) + Jastrow Dictionary + Sefaria corpus (250M tokens, freq≥5) + Klein Etymological Dictionary + curated medieval glossaries -- 491,137 consonantal forms (proper nouns filtered)
+- **Hebrew lexicon**: STEPBible TBESH (CC BY 4.0) + Jastrow Dictionary + Sefaria corpus (250M tokens, freq≥5) + Klein Etymological Dictionary + 475 curated medieval terms (ibn Ezra, Asaph ha-Rofe, Mishnah) -- 494,469 consonantal forms (proper nouns filtered)
 - **Italian lexicon**: Dante concordance + TLIO + medieval botanical/medical terms -- 60,738 forms
 
 ## Open Directions
 
-31 investigations completed across Phases 1-19. Remaining options:
+40 investigations completed across Phases 1-22. Remaining options:
 
 1. **Hand 4 allography**: H4 uses EVA 'e' at 2x the rate of H1 — possible unmapped allograph (limited power: 817 words).
 2. **Label-specific lexicon**: Build specialized Hebrew lexicon (plant names, star names, body parts) and test against labels.

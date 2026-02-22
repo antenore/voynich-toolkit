@@ -293,6 +293,48 @@ def create_tables(cur: sqlite3.Cursor) -> None:
         CREATE INDEX IF NOT EXISTS idx_dv_valid ON dictalm_validation(valid);
         CREATE INDEX IF NOT EXISTS idx_dv_freq ON dictalm_validation(freq DESC);
         CREATE INDEX IF NOT EXISTS idx_dv_source ON dictalm_validation(source);
+
+        CREATE TABLE IF NOT EXISTS cross_validation (
+            metric TEXT PRIMARY KEY,
+            value TEXT,
+            detail TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS convergence_control (
+            text_type TEXT PRIMARY KEY,
+            convergence_vs_fullmap REAL,
+            n_agree INTEGER,
+            self_convergence REAL,
+            self_n_agree INTEGER
+        );
+
+        CREATE TABLE IF NOT EXISTS dictalm_calibration (
+            consonantal TEXT PRIMARY KEY,
+            origin TEXT,
+            valid TEXT,
+            meaning TEXT,
+            confidence TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS dictalm_calibration_metrics (
+            metric TEXT PRIMARY KEY,
+            value TEXT,
+            detail TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS domain_lexicon_test (
+            domain TEXT PRIMARY KEY,
+            domain_size INTEGER,
+            curated_size INTEGER,
+            total_matches INTEGER,
+            in_expected INTEGER,
+            concentration_ratio REAL,
+            chi2 REAL,
+            chi2_p REAL,
+            perm_z REAL,
+            perm_p REAL,
+            expected_sections TEXT
+        );
     """)
 
 
@@ -1001,6 +1043,144 @@ def import_dictalm_validation(cur: sqlite3.Cursor) -> int:
     return len(rows)
 
 
+def import_cross_validation(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "cross_validation.json")
+    if not data:
+        return 0
+    rows = []
+
+    # Hand-based split
+    hb = data.get("hand_based", {})
+    rows.append(("hb_train_tokens", str(hb.get("train_n_tokens", "")), ""))
+    rows.append(("hb_test_tokens", str(hb.get("test_n_tokens", "")), ""))
+    tm = hb.get("train_match", {})
+    rows.append(("hb_train_match_rate", str(tm.get("match_rate", "")),
+                 f"matched={tm.get('matched_tokens','')}/{tm.get('total_tokens','')}"))
+    tt = hb.get("test_match", {})
+    rows.append(("hb_test_match_rate", str(tt.get("match_rate", "")),
+                 f"matched={tt.get('matched_tokens','')}/{tt.get('total_tokens','')}"))
+    ta = hb.get("train_audit", {})
+    rows.append(("hb_train_optimal", str(ta.get("n_optimal", "")),
+                 f"of {ta.get('n_total', '')}"))
+    te = hb.get("test_audit", {})
+    rows.append(("hb_test_optimal", str(te.get("n_optimal", "")),
+                 f"of {te.get('n_total', '')}"))
+    ag = hb.get("agreement", {})
+    rows.append(("hb_both_optimal", str(ag.get("n_both", "")),
+                 ",".join(ag.get("both_optimal", []))))
+    rows.append(("hb_train_only", str(len(ag.get("train_only", []))),
+                 ",".join(ag.get("train_only", []))))
+    rows.append(("hb_neither", str(len(ag.get("neither", []))),
+                 ",".join(ag.get("neither", []))))
+    tp = hb.get("test_permutation", {})
+    rows.append(("hb_test_z_score", str(tp.get("z_score", "")),
+                 f"p={tp.get('p_value','')}"))
+
+    # Random 50/50 split
+    rs = data.get("random_split", {})
+    su = rs.get("summary", {})
+    rows.append(("rs_z_mean", str(su.get("z_mean", "")),
+                 f"std={su.get('z_std','')} range={su.get('z_min','')}-{su.get('z_max','')}"))
+    rows.append(("rs_n_optimal_mean", str(su.get("n_optimal_mean", "")),
+                 f"range={su.get('n_optimal_min','')}-{su.get('n_optimal_max','')}"))
+    rows.append(("rs_test_rate_mean", str(su.get("test_rate_mean", "")),
+                 f"std={su.get('test_rate_std','')}"))
+    rows.append(("rs_all_significant", str(su.get("all_significant", "")), ""))
+    rows.append(("rs_n_splits", str(rs.get("n_splits", "")), ""))
+
+    cur.executemany(
+        "INSERT OR REPLACE INTO cross_validation VALUES (?,?,?)", rows)
+    return len(rows)
+
+
+def import_convergence_control(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "convergence_control.json")
+    if not data:
+        return 0
+    rows = []
+    for text_type in ("real", "shuffled", "random"):
+        sub = data.get(text_type, {})
+        cvf = sub.get("convergence_vs_fullmap", {})
+        sc = sub.get("self_convergence", {})
+        rows.append((
+            text_type,
+            cvf.get("convergence", 0),
+            cvf.get("n_agree", 0),
+            sc.get("convergence", None),
+            sc.get("n_agree", None),
+        ))
+    cur.executemany(
+        "INSERT OR REPLACE INTO convergence_control VALUES (?,?,?,?,?)", rows)
+    return len(rows)
+
+
+def import_dictalm_calibration(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "dictalm_calibration.json")
+    if not data:
+        return 0
+
+    # Details (300 forms)
+    details = data.get("details", [])
+    cur.executemany(
+        "INSERT OR REPLACE INTO dictalm_calibration VALUES (?,?,?,?,?)",
+        [(d.get("consonantal", ""), d.get("origin", ""),
+          d.get("valid", ""), d.get("meaning", ""),
+          d.get("confidence", ""))
+         for d in details],
+    )
+
+    # Metrics
+    rows = []
+    m = data.get("metrics", {})
+    for tier in ("strict", "lenient"):
+        sub = m.get(tier, {})
+        for k in ("precision", "recall", "fpr", "tp", "fp", "fn", "tn"):
+            if k in sub:
+                rows.append((f"{tier}_{k}", str(sub[k]), ""))
+    v = m.get("voynich", {})
+    for k in ("accepted", "possible", "rejected", "acceptance_rate"):
+        if k in v:
+            rows.append((f"voynich_{k}", str(v[k]), ""))
+    rows.append(("n_forms", str(data.get("n_forms", "")), ""))
+    rows.append(("errors", str(data.get("errors", "")), ""))
+    cur.executemany(
+        "INSERT OR REPLACE INTO dictalm_calibration_metrics VALUES (?,?,?)",
+        rows)
+    return len(details) + len(rows)
+
+
+def import_domain_lexicon_test(cur: sqlite3.Cursor) -> int:
+    data = load_json(STATS / "domain_lexicon_test.json")
+    if not data:
+        return 0
+    ds = data.get("domain_sizes", {})
+    cs = data.get("curated_sizes", {})
+    chi = data.get("chi_square", {})
+    perm = data.get("permutation", {})
+    es = data.get("expected_sections", {})
+    rows = []
+    for domain in ds:
+        c = chi.get(domain, {})
+        p = perm.get(domain, {})
+        rows.append((
+            domain,
+            ds.get(domain, 0),
+            cs.get(domain, 0),
+            c.get("total_matches", 0),
+            c.get("in_expected_sections", 0),
+            c.get("concentration_ratio", 0),
+            c.get("chi2", 0),
+            c.get("p_value", 0),
+            p.get("z_score", 0),
+            p.get("p_value", 0),
+            ",".join(es.get(domain, [])),
+        ))
+    cur.executemany(
+        "INSERT OR REPLACE INTO domain_lexicon_test VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        rows)
+    return len(rows)
+
+
 def build(db_path: str) -> None:
     db_path = str(Path(db_path).resolve())
     print(f"Building SQLite database: {db_path}\n")
@@ -1040,6 +1220,10 @@ def build(db_path: str) -> None:
         ("meta_analysis", import_meta_analysis),
         ("cross_analysis_epilectrik", import_cross_analysis_epilectrik),
         ("dictalm_validation", import_dictalm_validation),
+        ("cross_validation", import_cross_validation),
+        ("convergence_control", import_convergence_control),
+        ("dictalm_calibration", import_dictalm_calibration),
+        ("domain_lexicon_test", import_domain_lexicon_test),
     ]
 
     for name, fn in importers:

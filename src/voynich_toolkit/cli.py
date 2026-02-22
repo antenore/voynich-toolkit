@@ -618,6 +618,43 @@ def dictalm_validate(ctx, batch_size):
     run(ctx.obj["config"], force=ctx.obj["force"], batch_size=batch_size)
 
 
+@cli.command("convergence-control")
+@click.pass_context
+def convergence_control(ctx):
+    """Convergence control: hill-climb on shuffled/random vs real text."""
+    from .convergence_control import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("cross-validation")
+@click.pass_context
+def cross_validation(ctx):
+    """Cross-validation: Hand 1 train / rest test + random 50/50 splits."""
+    from .cross_validation import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("dictalm-calibrate")
+@click.option("--batch-size", default=10, help="Words per API batch")
+@click.pass_context
+def dictalm_calibrate(ctx, batch_size):
+    """DictaLM blinded calibration (100 Hebrew + 100 random + 100 Voynich)."""
+    from .dictalm_calibration import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"], batch_size=batch_size)
+
+
+@cli.command("domain-lexicon-test")
+@click.pass_context
+def domain_lexicon_test(ctx):
+    """Domain-specific lexicon test: chi-square + permutation per section."""
+    from .domain_lexicon_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):

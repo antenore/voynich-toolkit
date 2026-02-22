@@ -51,8 +51,8 @@ The mapping produces a statistically significant signal: the decoded text
 matches Hebrew lexical forms at rates 1.7--3.4 times above random baselines
 ($z=3.6$--$4.4$, $p<0.005$) across all lexicon tiers, survives permutation
 testing for botanical anchors ($p=0.017$) and domain vocabulary ($p=0.004$),
-and outperforms a synthetic null model on match rate ($z=98.2$), Zipfian
-gloss distribution ($z=121$), and Hebrew bigram plausibility ($z=40.9$).
+and outperforms a synthetic null model on match rate, Zipfian gloss
+distribution, and Hebrew bigram plausibility.
 
 However, the decoded text does not produce readable Hebrew. Best passages
 yield incoherent word sequences. The signal concentrates in one of five
@@ -150,7 +150,14 @@ The EVA$\to$Hebrew mapping was derived through a multi-phase process:
 \begin{enumerate}
 \item \textbf{Frequency alignment} (Phase 5--6): initial assignment of EVA
 characters to Hebrew consonants via ranked frequency matching, validated
-independently through Italian phonemic transliteration.
+independently through Italian phonemic transliteration.\footnote{The
+  Hebrew and Italian optimization paths converged on 84.2\% (16/19)
+  of characters.  A convergence control using a simplified steepest-ascent
+  hill-climber (10 restarts) on shuffled text and random strings yields
+  0--12\% convergence (0--2/17 characters agreeing with the published
+  mapping), consistent with the chance expectation ($1/22 \approx 4.5\%$
+  per character). The 84.2\% agreement between independent derivation
+  paths greatly exceeds any control.}
 
 \item \textbf{Allograph detection} (Phase 7--9): positional profile analysis
 identified functional equivalences:
@@ -175,6 +182,18 @@ recovered two additional Hebrew letters:
   \item EVA \eva{r}/\eva{ii} at Hebrew word-initial position $\to$ samekh
     (elsewhere $\to$ he): $+563$ net matches
   \end{itemize}
+These splits were selected from 36 explicitly tested hypotheses (6
+anomalous position--letter pairs $\times$ 5 unmapped Hebrew letters,
+plus 6 allographic variants). The full search space comprises
+$19 \times 3 \times 5 = 285$ possible splits. Both adopted splits
+survive Bonferroni correction at $\alpha/285 = 1.75 \times 10^{-4}$:
+\eva{n}$\to$bet $z = 40.1$, $p_{\mathrm{corrected}} < 10^{-100}$;
+\eva{r}$\to$samekh $z = 19.5$, $p_{\mathrm{corrected}} < 10^{-80}$
+(sign test on gained vs.\ lost matches).\footnote{The
+  sign-test $z$-scores treat each gained or lost match as an
+  independent Bernoulli trial under $H_0$: $P(\text{gain}) =
+  P(\text{loss}) = 0.5$.  Bonferroni correction for the full
+  285-hypothesis search space leaves significance unchanged.}
 \end{enumerate}
 
 The resulting mapping covers 19 of the 22 Hebrew consonants. The three
@@ -233,6 +252,38 @@ tested while enforcing one-to-one constraints. With the curated lexicon
 (45,713 forms, excluding corpus-attested forms), 14 of 17 base letters are
 optimally assigned. The three non-optimal letters show marginal gains
 ($<2\%$ token improvement) that fail permutation significance tests.
+
+\subsubsection*{Cross-validation}
+\label{sec:crossval}
+
+To address the concern that the mapping was derived and validated on the
+same data, we performed two cross-validation experiments using the honest
+lexicon (45K forms).
+
+\textbf{Hand-based split.}
+Hand~1 pages (6,832 tokens) serve as the training set; all other hands
+(30,193 tokens) form the test set. We ran the constrained per-letter
+audit independently on each subset. Full held-out derivation
+(re-running the hill-climbing optimizer on each subset) would require
+re-implementing the historical 10-group homophonic architecture; instead,
+we test whether the existing mapping is \emph{independently optimal} on
+each data partition. Results: 15/17 letters optimal on training, 13/17
+on test, with 13/17 independently optimal on both subsets.
+The four non-shared letters (\eva{c}, \eva{g}, \eva{m}, \eva{t}) show
+small gaps ($\le$137 tokens).
+The permutation test ($n=200$) on the held-out
+(non-Hand~1) subset yields \zs{5.72} (\pval{0.005}).
+
+\textbf{Random 50/50 split.}
+We randomly partitioned pages into two halves (10 repetitions, different
+random seeds). For each split we audited mapping optimality on the training
+half and computed a permutation $z$-score on the test half.
+All 10 splits are significant: mean \zs{5.85 \pm 0.32} (range 5.36--6.36),
+mean optimality 13.5/17 (range 13--14), test match rate $25.8\% \pm 0.7\%$.
+
+A mapping that achieves \zs{>5} on held-out data across all splits, with
+13/17 letters independently optimal on disjoint subsets, cannot be
+dismissed as an artefact of overfitting to one corpus partition.
 
 \subsection{Hebrew Lexicon}
 \label{sec:lexicon}
@@ -347,6 +398,16 @@ significantly better fit ($z=40.9$).
 
 This establishes that the signal is \textbf{structurally embedded in
 character sequences}, not merely an artifact of character frequency overlap.
+However, it should be noted that the null model is deliberately minimal:
+it preserves only marginal character frequencies and word lengths, discarding
+all sequential structure (bigram, trigram, and positional patterns). Any
+systematically derived mapping would preserve the EVA text's sequential
+structure when projected onto the Hebrew alphabet, and would therefore
+outperform this baseline. The null model thus provides a \emph{floor}
+(the decoded text is better than random character sequences), not a
+ceiling. The permutation tests in \S\ref{sec:permutation}, which compare
+against random bijective mappings preserving all source-text structure,
+provide the more appropriate measure of statistical significance.
 
 \subsection{Permutation Tests}
 \label{sec:permutation}
@@ -545,6 +606,17 @@ A content-controlled comparison restricted to herbal pages (full lexicon)
 shows an even larger gap: Hand~1 48.6\% vs.\ Hand~2 38.6\%
 ($+9.9$~pp, $z=8.18$, $p<0.0001$).
 
+A per-character frequency comparison (proportion $z$-test with Bonferroni
+correction for 19 characters, $\alpha_{\mathrm{adj}} = 0.0026$)
+reveals the structural source of the gap. Hand~4 uses EVA~\eva{e}
+at roughly twice the rate of Hand~1 (11.1\% vs.\ 5.3\%), making it the
+single largest divergence. Because \eva{e}$\to$pe occurs
+disproportionately in non-matching contexts, this alone accounts for a
+substantial portion of the match-rate difference. Hand~4's small sample
+size (765 paragraph tokens) limits statistical power, with only 2--3
+characters reaching Bonferroni significance. The full 19-character
+comparison is available in the supplementary data.
+
 Hand~1 is the primary herbal scribe (86 pages, virtually all herbal section),
 responsible for 75\% of Language~A pages. The mapping appears to be
 \textbf{specifically tuned to Hand~1's orthographic conventions}, with
@@ -611,6 +683,48 @@ Z & zodiac & 12.2 & --- & --- & 0 \\
 \end{table}
 
 
+\subsection{Domain-Specific Lexicon Test}
+\label{sec:domain-lexicon}
+
+To test whether the decoded text exhibits domain specificity --- a requirement
+for meaningful decipherment --- we assembled a curated lexicon of 420 medieval
+Hebrew terms across four domains: botanical (148 terms from Shem Tov and Talmud),
+astronomical (76 from ibn Ezra), medical (96 from Asaph ha-Rofe and medieval
+translations), and balneological (64 from Mishnah Mikvaot and medieval sources).
+For each domain, we counted decoded matches per manuscript section and tested
+whether matches concentrate in the expected sections (e.g., botanical terms
+in herbal/pharmaceutical) via both chi-square and permutation tests
+(1,000 permutations of section labels).
+
+\begin{table}[htbp]
+\centering
+\caption{Domain lexicon concentration by manuscript section. Concentration
+ratio $>1$ indicates above-baseline concentration in expected sections.}
+\label{tab:domain}
+\small
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+Domain & Expected & Matches & Conc. & Perm.\ $z$ & $p$ \\
+\midrule
+Balneological & B & 649 & \textbf{2.08} & 8.53 & $<$0.001 \\
+Astronomical & S,Z,C & 1,170 & 0.72 & 3.51 & 0.001 \\
+Medical & B,P & 189 & 1.03 & 2.79 & 0.002 \\
+Botanical & H,P & 372 & 1.15 & $-6.00$ & 1.000 (ns) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Balneological vocabulary shows the strongest domain specificity:
+decoded water/bathing terms concentrate at $2.08\times$ baseline in the
+balneological section ($z=8.53$, $p<0.001$). Astronomical and medical
+domains are also significant by permutation but with weak or dispersed
+concentration. Botanical terms, surprisingly, show \emph{anti-concentration}
+($z=-6.00$): herbal sections contain \emph{fewer} botanical matches per
+word than other sections. This negative result is consistent with the
+section-entropy finding (\S\ref{sec:layout}) that the same high-frequency
+glosses dominate all sections, with no domain specialization in decoded
+vocabulary.
+
 \subsection{Most Frequent Decoded Words}
 \label{sec:words}
 
@@ -660,7 +774,7 @@ survives multiple controls:
 \begin{itemize}
 \item Significant across three independent lexicon tiers ($z=3.6$--$4.4$)
 \item Robust to permutation testing (botanical $p=0.017$, anchors $p=0.004$)
-\item Structurally embedded in character sequences (null model $z=98.2$)
+\item Structurally embedded in character sequences beyond marginal frequency overlap
 \item Present in both Currier languages independently (A: $z=4.02$, B: $z=3.85$)
 \item Monoalphabetic (8/9 Naibbe diagnostics favor mono)
 \item Not explained by Aramaic (0.2--0.4\% match), Italian (4.5\% match),
@@ -794,6 +908,19 @@ gradient (K~$>$~H~$>$~E) suggests that our mapping differentially captures
 specific functional categories of the text, regardless of whether those
 categories represent linguistic or non-linguistic structure.
 
+An epistemological tension deserves acknowledgment: DiPrima's framework
+assumes the Voynich text represents non-linguistic control programs
+(distillation instructions), yet his distributional classifications
+successfully predict our Hebrew lexical match rates. This convergence
+admits two interpretations: (a)~the linguistic and distributional structures
+are genuinely correlated --- both methods detect the same underlying
+organization of the text; or (b)~both systems detect shared statistical
+regularities (word-length distributions, positional character patterns)
+without either correctly identifying the generative mechanism. The
+cross-analysis demonstrates that \emph{something real} is being captured
+by independent methods, but does not adjudicate between linguistic and
+non-linguistic interpretations of that signal.
+
 
 \subsection{Independent Validation by Hebrew Language Model}
 \label{sec:dictalm}
@@ -870,8 +997,11 @@ and dependency trees. We computed a syntactic quality score (0--6) based
 on the presence of a root, verb, noun, function words, core arguments
 (subject/object), and dependency diversity.
 
-Results on the 47 best consecutive 5-word windows (all words DictaLM-valid)
-are shown in Table~\ref{tab:dictabert}.
+We selected the 47 best consecutive 5-word windows in which all words are
+DictaLM-valid --- by construction, the most favorable windows in the entire
+corpus. This deliberately optimistic selection means that the results below
+represent an \emph{upper bound} on syntactic quality
+(Table~\ref{tab:dictabert}).
 
 \begin{table}[htbp]
 \centering
@@ -893,7 +1023,7 @@ Random consonants & 2.5/6 & baseline \\
 \end{tabular}
 \end{table}
 
-Only $23\%$ of Voynich phrases
+Even under this optimistic selection, only $23\%$ of Voynich phrases
 receive a VERB tag (vs.\ $100\%$ for real Hebrew), $13\%$ have function
 words, and only $2\%$ (1 phrase) have core syntactic arguments.
 
@@ -930,6 +1060,19 @@ the Takahashi layer, contains uncertain readings (marked with \texttt{!} and
 morphological analysis for full comprehension. Our matching is purely
 lexical (exact string match against consonantal forms). A morphology-aware
 approach might recover additional signal --- or additional noise.
+
+\item \textbf{DictaLM calibration}: the 1.7B-parameter model used for
+Hebrew validation has limited capacity. A blinded calibration experiment
+(100 known Hebrew forms, 100 random consonantal strings, 100 Voynich
+forms, submitted without origin labels) yielded 100\% precision but only
+2\% recall (strict): the model recognized only 2/100 known Hebrew words
+and 0/100 random strings (FPR\,=\,0\%). Of 100 blinded Voynich forms,
+3 were accepted (vs.\ 0 expected by chance).
+The extremely low recall means the model is too conservative to serve as
+a reliable standalone validator; the ``possible'' category (70.1\% of
+Voynich forms in the main experiment) reflects this conservatism rather
+than genuine ambiguity. The $z=56.71$ DictaLM-filtered score should be
+interpreted as a lower bound, since the model rejects most valid Hebrew.
 \end{itemize}
 
 
@@ -974,13 +1117,14 @@ Characters & 191,545 & 164,736 & 148,621 \\
 \end{tabular}
 \end{table}
 
-The mapping \textbf{increases} $h_2$ by $+0.32$~bits (from 2.12 to 2.44).
-This shift represents 20\% of the gap between raw EVA and real Hebrew
-($3.72 - 2.12 = 1.60$ bits). The direction is notable: a correct
-decipherment should decompress the entropy of the ciphertext toward
-natural-language values, and our mapping does so. However, the decoded
-text remains far from the Hebrew reference ($h_2 = 2.44$ vs.\ $3.72$),
-confirming that the mapping is at best a partial decipherment.
+The mapping \textbf{increases} $h_2$ by $+0.32$~bits (from 2.12 to 2.44),
+closing approximately 20\% of the gap between raw EVA and real Hebrew
+($3.72 - 2.12 = 1.60$ bits). The direction is consistent with partial
+decipherment: a correct cipher key should decompress the entropy of the
+ciphertext toward natural-language values. However, the magnitude is
+modest --- the decoded text remains much closer to raw EVA than to the
+Hebrew reference ($h_2 = 2.44$ vs.\ $3.72$), and the 80\% residual gap
+confirms that the mapping is, at best, a partial decipherment.
 
 The $h_1$ shift is larger ($+0.33$ bits), consistent with the mapping's
 positional rules (initial bet/samekh splits) introducing context-dependent
@@ -1056,11 +1200,11 @@ Study & Claim & Our result & Verdict \\
   \textbf{C} \\
 \citet{Cheshire2019} & Proto-Romance & Italian 5\% vs Hebrew 25\% &
   \textbf{R} \\
-\citet{Greshko2025} & Naibbe cipher & $z=12.1$, IC=0.077 & \textbf{R} \\
-\citet{Rugg2004} & Cardan grille (hoax) & Null model $z=98.2$ &
-  \textbf{R} \\
+\citet{Greshko2025} & Naibbe cipher & $z=12.1$, 8/9 mono & \textbf{T} \\
+\citet{Rugg2004} & Cardan grille (hoax) & Perm.\ $z=3.6$--$4.4$ &
+  \textbf{T} \\
 \citet{Schinner2007} & Stochastic process & IC=0.077 (mono range) &
-  \textbf{R} \\
+  \textbf{T} \\
 \citet{Davis2020} & 5 scribal hands & Hand~1 drives signal & \textbf{C+}
   \\
 \citet{Montemurro2013} & Domain keywords & Same glosses all sections &
@@ -1069,8 +1213,8 @@ Study & Claim & Our result & Verdict \\
   \textbf{C} \\
 \citet{Currier1976} & Two languages A/B & Both sig.; A$=$Hand~1 &
   \textbf{C+} \\
-\citet{Timm2014} & Non-linguistic mechanism & Null model $z=98.2$ &
-  \textbf{R} \\
+\citet{Timm2014} & Non-linguistic mechanism & Perm.\ $z=3.6$--$4.4$ &
+  \textbf{T} \\
 \citet{Amancio2013} & Language-like statistics & IC, Zipf confirm &
   \textbf{C} \\
 \citet{Lindemann2022} & High MATTR & $0.876 \to 0.865$ (decoded) &
@@ -1079,23 +1223,27 @@ Study & Claim & Our result & Verdict \\
   \textbf{C} \\
 \bottomrule
 \multicolumn{4}{@{}l}{\footnotesize C = confirms, C+ = confirms and
-extends, R = refutes, X = contradicts, N = neutral.}
+extends, R = refutes, T = in tension, X = contradicts, N = neutral.}
 \end{tabular}
 \end{table}
 
 Of the 15 comparisons, \textbf{8 confirm} our results (including two that
-we extend with new scribe-level and Currier-level data), \textbf{5 are
-refuted} by our evidence, \textbf{1 is contradicted}, and \textbf{1 is
+we extend with new scribe-level and Currier-level data), \textbf{1 is
+refuted} by our evidence (Cheshire's Proto-Romance hypothesis, contradicted
+by the 5\% Italian vs.\ 25\% Hebrew match rate), \textbf{4 are in tension}
+with our findings (our data provide evidence against these claims but do not
+conclusively exclude them), \textbf{1 is contradicted}, and \textbf{1 is
 neutral}.
 
 The entropy analysis (\S\ref{sec:entropy}) provides the most informative
 new test. \citet{BowernLindemann2021}'s finding of anomalously low $h_2$
 is often cited against the possibility of monoalphabetic cipher. Our
-result shows that the mapping partially resolves this anomaly: $h_2$
-increases by 0.32 bits toward natural-language values. While this does not
-reach the Hebrew reference (3.72 bits), it demonstrates that the mapping
-introduces genuine information-theoretic structure rather than merely
-relabeling characters.
+result shows that the mapping partially shifts $h_2$ toward
+natural-language values: an increase of 0.32 bits, closing approximately
+20\% of the gap to the Hebrew reference (3.72 bits). This is consistent
+with the mapping capturing some cipher structure, but the modest magnitude
+(80\% of the gap remains) means the evidence is suggestive rather than
+conclusive.
 
 The principal tension is with \citet{Montemurro2013}: their keyword
 clustering analysis predicts domain-specific vocabulary in different
@@ -1114,13 +1262,17 @@ We have conducted the most comprehensive statistical evaluation to date of
 the hypothesis that the Voynich Manuscript encodes Hebrew consonantal text.
 Our 19-letter monoalphabetic mapping produces a significant, reproducible
 signal ($z=3.6$--$4.4$ across lexicon tiers) that survives permutation
-testing, outperforms a null model, and resists alternative explanations
-(homophonic cipher, Aramaic, Italian, Judeo-Italian, Judeo-Arabic, Ladino).
+testing and is in tension with tested alternative explanations
+(homophonic cipher, Aramaic, Italian, Judeo-Italian, Judeo-Arabic, Ladino),
+though it does not conclusively exclude all non-Hebrew generative mechanisms.
 
 The signal is real. The decipherment is not. The decoded text does not read
-as Hebrew, shows no domain-specific vocabulary, and fails to produce coherent
-passages. The signal is concentrated in one scribal hand and in continuous
-text rather than figure labels.
+as Hebrew and fails to produce coherent passages. A domain-specific lexicon
+test (\S\ref{sec:domain-lexicon}) finds one significant result --- balneological
+vocabulary concentrates at $2.08\times$ baseline in the bathing section
+($z=8.53$) --- but botanical terms show no specialization. The signal is
+concentrated in one scribal hand and in continuous text rather than figure
+labels.
 
 We propose that the correspondence reflects either a partially correct
 mapping (some letters right, others not), a shared phonotactic substrate
@@ -1131,8 +1283,7 @@ classification of the same tokens~\citep{DiPrima2026} reveals that the
 mapping differentially captures specific functional categories of the text
 (kernel-K tokens match at $3.5\times$ the rate of kernel-E tokens at
 matched word length), suggesting the signal is not uniformly distributed
-across the text's internal structure. Distinguishing between these
-possibilities requires either a domain-specific lexicon test or the
+across the text's internal structure. Distinguishing between these possibilities requires the
 identification of additional cipher structure beyond monoalphabetic
 substitution.
 

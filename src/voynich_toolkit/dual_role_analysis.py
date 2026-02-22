@@ -23,6 +23,8 @@ from pathlib import Path
 import click
 import numpy as np
 
+from scipy.stats import norm as sp_norm
+
 from .config import ToolkitConfig
 from .cross_language_baseline import generate_random_lexicon
 from .full_decode import (
@@ -329,6 +331,69 @@ def test_combined_splits(corpus_data, lexicon_set, splits):
 
 
 # =====================================================================
+# Multiple testing correction (Review Task #7)
+# =====================================================================
+
+def compute_split_significance(split_results):
+    """Compute Bonferroni-corrected significance for positional splits.
+
+    The mapping derivation tested a specific number of hypotheses:
+    - dual_role_analysis: top 6 anomalies × 5 unmapped Hebrew = 30 tests
+    - allograph_lr_deep: 6 positional split variants
+    - Total explicit tests: 36
+    - Full search space: 19 EVA × 3 positions × 5 unmapped = 285
+
+    For each split with net > 0, computes:
+    - Sign test z-score: z = (gained - lost) / sqrt(gained + lost)
+    - Raw two-sided p-value from normal approximation
+    - Bonferroni-corrected p-values for 36 and 285 tests
+    """
+    N_EXPLICIT = 36   # actual tests run
+    N_SEARCH_SPACE = 285  # 19 EVA × 3 positions × 5 unmapped
+
+    results = []
+    for r in split_results:
+        gained = r['gained']
+        lost = r['lost']
+        net = r['net']
+        if net <= 0 or (gained + lost) == 0:
+            continue
+
+        # Sign test: under H0, P(gain) = P(lose) = 0.5
+        n_total_changes = gained + lost
+        z = (gained - lost) / np.sqrt(n_total_changes)
+        p_raw = 2 * sp_norm.sf(abs(z))  # two-sided
+
+        p_bonf_explicit = min(1.0, p_raw * N_EXPLICIT)
+        p_bonf_search = min(1.0, p_raw * N_SEARCH_SPACE)
+
+        results.append({
+            'letter': r['letter'],
+            'position': r['position'],
+            'new_hebrew': r['new_hebrew'],
+            'new_name': r.get('new_name', UNMAPPED_NAMES.get(r['new_hebrew'], '?')),
+            'gained': gained,
+            'lost': lost,
+            'net': net,
+            'n_changes': n_total_changes,
+            'z_score': round(z, 2),
+            'p_raw': float(p_raw),
+            'p_bonferroni_36': float(p_bonf_explicit),
+            'p_bonferroni_285': float(p_bonf_search),
+            'survives_36': p_bonf_explicit < 0.05,
+            'survives_285': p_bonf_search < 0.05,
+        })
+
+    return {
+        'n_explicit_tests': N_EXPLICIT,
+        'n_search_space': N_SEARCH_SPACE,
+        'alpha_bonf_36': round(0.05 / N_EXPLICIT, 6),
+        'alpha_bonf_285': round(0.05 / N_SEARCH_SPACE, 6),
+        'splits': results,
+    }
+
+
+# =====================================================================
 # Entry point
 # =====================================================================
 
@@ -469,6 +534,19 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             for orig, new in c_sample[:10]:
                 click.echo(f"      {orig:12s} → {new}")
 
+    # 7b. Multiple testing correction
+    print_step("Computing multiple testing correction (Bonferroni)...")
+    significance = compute_split_significance(split_results)
+    click.echo(f"    Explicit tests: {significance['n_explicit_tests']}, "
+               f"search space: {significance['n_search_space']}")
+    click.echo(f"    Bonferroni α(36)={significance['alpha_bonf_36']:.4f}, "
+               f"α(285)={significance['alpha_bonf_285']:.6f}")
+    for s in significance['splits']:
+        status = "SURVIVES" if s['survives_285'] else "marginal"
+        click.echo(f"    {s['letter']}@{s['position']}→{s['new_name']}: "
+                   f"z={s['z_score']:.1f}, p_raw={s['p_raw']:.2e}, "
+                   f"p_bonf(285)={s['p_bonferroni_285']:.2e} [{status}]")
+
     # 8. Show sample gained for best single split
     if best and best['sample_gained']:
         print_step(f"Sample words gained by best split "
@@ -519,6 +597,7 @@ def run(config: ToolkitConfig, force=False, **kwargs):
             "sample": [{"original": o, "new": n}
                        for o, n in combined_result['sample'][:20]],
         } if combined_result else None,
+        "multiple_testing": significance,
     }
 
     with open(report_path, "w", encoding="utf-8") as f:

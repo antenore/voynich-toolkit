@@ -372,6 +372,21 @@ def get_curated_botanical() -> list[dict]:
         ("שקמה", "Sqmh", "sicomoro"),                     # Ficus sycomorus
         ("קיקיון", "qyqywn", "ricino"),                   # Ricinus communis
         ("דקל", "dql", "palma (aram.)"),                  # Phoenix (Aram.)
+        # --- Mishnah Kil'ayim piante aggiuntive ---
+        ("שִׁיפוֹן", "Sypwn", "segale"),                     # Secale
+        ("סַפִּיר", "spyr", "fagiolo mung"),                  # Vigna radiata
+        ("אֲפוּנָה", "Apwnh", "pisello"),                     # Pisum sativum
+        ("כַּרְשִׁינָה", "krSynh", "veccia amara"),           # Vicia ervilia
+        ("כַּרְפַּס", "krps", "sedano, prezzemolo"),          # Apium graveolens
+        ("תֶּרֶד", "trd", "bietola, spinacio"),               # Beta vulgaris
+        ("חֲמִיצָה", "XmyCh", "acetosa"),                     # Rumex acetosa
+        ("אַפַּרְסֵק", "Aprsk", "pesca"),                    # Prunus persica
+        ("צְלָף", "Clp", "cappero"),                          # Capparis spinosa
+        ("פִּשְׁתָּן", "pStn", "lino"),                      # Linum usitatissimum
+        ("אֶשֶׁל", "ASl", "tamerice"),                       # Tamarix
+        ("לוּלָב", "lwlb", "ramo di palma"),                  # Phoenix
+        ("הֲדַס", "hds", "mirto"),                            # Myrtus communis
+        ("עֲרָבָה", "Erbh", "salice"),                        # Salix
     ]
     return _curated_to_entries(terms, "botanical", "Curato-Botanico")
 
@@ -434,6 +449,53 @@ def get_curated_astronomical() -> list[dict]:
         ("שָׁעָה", "SEh", "ora"),
         ("שָׁנָה", "Snh", "anno"),
         ("חֹדֶשׁ", "XdS", "mese"),
+        # --- Aspetti astrologici (ibn Ezra, Reshit Hokhmah) ---
+        ("מַבָּט", "mbJ", "aspetto (astrologico)"),
+        ("מְשֻׁלָּשׁ", "mSwlS", "trigono, aspetto di 120°"),
+        ("מְרֻבָּע", "mrwbE", "quadratura, aspetto di 90°"),
+        ("מִשּׁוּשׁ", "mSwS", "sestile, aspetto di 60°"),
+        ("מְקַבֵּל", "mqbl", "opposizione, aspetto di 180°"),
+        ("חִבּוּר", "Xbwr", "congiunzione"),
+        ("מַזָּג", "mzg", "temperamento, mistura"),
+        # Case astrologiche
+        ("עוֹלֶה", "Ewlh", "ascendente"),
+        ("שָׁפָל", "Spl", "perigeo, nadir"),
+        ("נִשְּׂא", "nSA", "apogeo, elevazione"),
+        ("אוֹפֶק", "Awpq", "orizzonte"),
+        ("גּוֹרָל", "gwrl", "lot, sorte"),
+        ("כֹּחַ", "kX", "forza, influenza"),
+        ("מְנַהֵל", "mnhl", "signore (di una casa)"),
+        # Nodi lunari
+        ("רֹאשׁ הַתְּלִי", "rAS htly", "nodo ascendente"),
+        ("זָנָב", "znb", "coda, nodo discendente"),
+        # Stelle fisse (termini medievali)
+        ("כּוֹכָב קָבוּעַ", "kwkb qbwE", "stella fissa"),
+        ("כּוֹכָב לֶכֶת", "kwkb lkt", "pianeta"),
+        ("כּוֹכָב שָׁבִיט", "kwkb SbyJ", "cometa"),
+        ("שְׁבִיל הֶחָלָב", "Sbyl hXlb", "Via Lattea"),
+        # Strumenti astronomici
+        ("אַצְטְרוֹלָב", "ACJrwlb", "astrolabio"),
+        ("לוּחַ", "lwX", "tavola (astronomica)"),
+        ("חֶשְׁבּוֹן", "XSbwn", "calcolo"),
+        ("שָׁעוֹן", "SEwn", "orologio"),
+        ("מַצְפֵּן", "mCpn", "compasso, bussola"),
+        # Movimenti celesti (ibn Ezra)
+        ("סִבּוּב", "sbwb", "rotazione, rivoluzione"),
+        ("הַקָּפָה", "hqph", "orbita, circuito"),
+        ("הִלּוּךְ", "hlwk", "corso, moto"),
+        ("מַהֲלָךְ", "mhlk", "percorso"),
+        ("חֶצִי", "XCy", "metà (di sfera)"),
+        # --- ibn Ezra: termini aggiuntivi ---
+        ("אֶצְטַגְנִינוּת", "ACJgnynwt", "astrologia"),
+        ("הוֹרָאָה", "hwrAh", "oroscopo"),
+        ("חֵלֶק", "Xlq", "lot, parte (astrologica)"),
+        ("קַוִּים", "qwym", "raggi (planetari)"),
+        ("נְקוּדָה", "nqwdh", "punto, nodo"),
+        ("שֶׁמֶשׁ", "SmS", "sole"),
+        ("יָרֵחַ", "yrX", "luna"),
+        ("מֶרְכָּז", "mrkz", "centro (di sfera)"),
+        ("עִגּוּל", "Egwl", "cerchio, orbita"),
+        ("יְלִידָה", "ylydh", "natività, carta natale"),
     ]
     return _curated_to_entries(terms, "astronomical", "Curato-IbnEzra")
 
@@ -506,8 +568,171 @@ def get_curated_medical() -> list[dict]:
         ("דְּבַשׁ", "dbS", "miele"),
         ("חֹמֶץ", "XmC", "aceto"),
         ("מֶלַח", "mlX", "sale"),
+        # --- Malattie e condizioni (Asaph ha-Rofe, medievale) ---
+        ("מַגֵּפָה", "mgph", "epidemia, peste"),
+        ("שְׁחִין", "SXyn", "ulcera, foruncolo"),
+        ("צָרַעַת", "CrEt", "lebbra"),
+        ("קַדַּחַת", "qdXt", "febbre, malaria"),
+        ("שִׁעוּל", "SEwl", "tosse"),
+        ("עֲצִירָה", "ECyrh", "costipazione"),
+        ("שִׁלְשׁוּל", "SlSwl", "diarrea"),
+        ("גָּרָב", "grb", "scabbia"),
+        ("אֶבֶן", "Abn", "calcolo (renale/vescicale)"),
+        ("תּוֹלַעַת", "twlEt", "verme"),
+        ("נְפִיחָה", "npyXh", "gonfiore"),
+        ("מוּגְלָא", "mwglA", "pus"),
+        # Ostetricia/ginecologia
+        ("רֶחֶם", "rXm", "utero"),
+        ("עֻבָּר", "Ebr", "feto"),
+        ("הֵרָיוֹן", "hrywn", "gravidanza"),
+        ("לֵידָה", "lydh", "parto"),
+        ("עֲקָרָה", "Eqrh", "sterile"),
+        ("חָלָב", "Xlb", "latte"),
+        ("יוֹנֵק", "ywnq", "lattante"),
+        # Chirurgia e procedure (Hillel di Verona, XIII sec.)
+        ("חִתּוּךְ", "Xytwk", "incisione, chirurgia"),
+        ("כְּוִיָּה", "kwyh", "cauterizzazione"),
+        ("הַקָּזָה", "hqzh", "salasso"),
+        ("תַּחְבֹּשֶׁת", "tXbSt", "fasciatura, impiastro"),
+        ("מִמְשָׁשׁ", "mmSS", "sonda chirurgica"),
+        ("מַכְחוֹל", "mkXwl", "sonda, ago"),
+        ("סְמָמָנִים", "smmnm", "ingredienti medicinali"),
+        ("תֶּרְיָק", "tryq", "teriaca, antidoto"),
+        # Teoria umorale estesa
+        ("מֶזֶג", "mzg", "temperamento"),
+        ("טֶבַע", "JbE", "natura"),
+        ("חוּם", "Xwm", "calore (umorale)"),
+        ("קוֹר", "qwr", "freddo (umorale)"),
+        ("לַחוּת", "lXwt", "umidità"),
+        ("יוֹבֶשׁ", "ywbS", "secchezza"),
+        # Organi interni aggiuntivi
+        ("וְרִיד", "wryd", "vena"),
+        ("עוֹרֵק", "Ewrq", "arteria"),
+        ("עֶצֶב", "ECb", "nervo"),
+        ("שְׁרִיר", "Sryr", "muscolo"),
+        ("גוּלְגוֹלֶת", "gwlgwlt", "teschio"),
+        # --- Anatomia aggiuntiva (Asaph ha-Rofe) ---
+        ("גַּרְגֶּרֶת", "grGrt", "trachea"),
+        ("וֶשֶׁט", "wSJ", "esofago"),
+        ("שַׁלְפּוּחִית", "SlpwXyt", "vescica urinaria"),
+        ("כֶּסֶל", "ksl", "fianco, lombi"),
+        ("מָתְנַיִם", "mtnAym", "lombi, reni"),
+        ("עוֹרֶף", "Ewrp", "nuca"),
+        ("מֶרְפֶּק", "mrpq", "gomito"),
+        ("קֻרְסֹל", "qwrsl", "caviglia"),
+        ("בָּבָה", "bbh", "pupilla"),
+        ("עֲפַעַפַּיִם", "EpEpym", "palpebre"),
+        # --- Malattie (Asaph ha-Rofe, Maimonides) ---
+        ("מַחֲלָה", "mXlh", "malattia"),
+        ("יַלֶּפֶת", "ylpt", "eruzioni cutanee (tigna)"),
+        ("שֵׁגָּעוֹן", "SgEwn", "follia"),
+        ("אַסְכָּרָה", "AskArh", "crup, angina"),
+        ("דֶּבֶר", "dbr", "pestilenza"),
+        # --- Chirurgia e farmacologia (Hillel, Shem Tov) ---
+        ("נִתּוּחַ", "ntwX", "chirurgia, dissezione"),
+        ("מִשְׁקֶה", "mSqh", "pozione, decotto"),
+        ("כָּחוֹל", "kXwl", "antimonio, kohl"),
+        ("עִכּוּל", "EkwAl", "digestione"),
     ]
     return _curated_to_entries(terms, "medical", "Curato-Medico")
+
+
+def get_curated_balneological() -> list[dict]:
+    """Termini balneologici dall'ebraico biblico, mishnaico e medievale.
+
+    Fonti: Mishnah Mikvaot, Maimonides Hilkhot Mikvaot, Talmud,
+    Donnolo Sefer Hakhmoni, medieval bathing culture.
+    """
+    terms = [
+        # Bagni e strutture idriche
+        ("מִקְוֶה", "mqwh", "bagno rituale"),
+        ("מֶרְחָץ", "mrXC", "bagno pubblico, terme"),
+        ("מֶרְחֲצָאוֹת", "mrXCAwt", "terme (plurale)"),
+        ("אַמְבַּטִי", "AmbJy", "vasca da bagno"),
+        ("בְּרֵכָה", "bryKh", "piscina, vasca"),
+        ("בּוֹר", "bwr", "cisterna, pozzo"),
+        ("בְּאֵר", "bAr", "pozzo"),
+        ("מַעְיָן", "mEyn", "sorgente"),
+        ("גַּת", "gt", "vasca, tino"),
+        # Acqua e flussi
+        ("מַיִם חַיִּים", "mym Xyym", "acqua corrente"),
+        ("מַיִם שְׁאוּבִים", "mym SAwbym", "acqua attinta"),
+        ("נָהָר", "nhr", "fiume"),
+        ("נַחַל", "nXl", "torrente, ruscello"),
+        ("אֲגַם", "Agm", "lago, stagno"),
+        ("יָם", "ym", "mare"),
+        ("גֶּשֶׁם", "gSm", "pioggia"),
+        ("טַל", "Jl", "rugiada"),
+        # Condutture e vasi
+        ("צִנּוֹר", "Cnwr", "tubo, condotto"),
+        ("סִילוֹן", "sylwn", "getto, cannella"),
+        ("מַרְזֵב", "mrzb", "grondaia, canale"),
+        ("דּוּד", "dwd", "caldaia, boiler"),
+        ("יוֹרָה", "ywrh", "bollitore, pentola"),
+        ("כִּיּוֹר", "kywr", "catino, lavabo"),
+        ("דְּלִי", "dly", "secchio"),
+        ("כַּד", "kd", "brocca"),
+        ("סִיר", "syr", "pentola"),
+        ("קִילוֹן", "qylwn", "acquedotto"),
+        ("נֶטֶל", "nJl", "brocca per lavaggio mani"),
+        # Lavaggio e purificazione
+        ("רְחִיצָה", "rXyCh", "lavaggio, bagno"),
+        ("טְבִילָה", "Jbylh", "immersione rituale"),
+        ("טָהֳרָה", "Jhrh", "purificazione"),
+        ("נְקִיּוֹן", "nqywn", "pulizia"),
+        ("שְׁטִיפָה", "SJyph", "risciacquo"),
+        ("כְּבִיסָה", "kbySh", "lavaggio"),
+        ("רָחַץ", "rXC", "lavare"),
+        ("טָבַל", "Jbl", "immergere"),
+        ("טָהֵר", "Jhr", "purificare"),
+        # Calore e vapore
+        ("חֹם", "Xwm", "calore"),
+        ("קִיטוֹר", "qyJwr", "vapore"),
+        ("אֵד", "Ad", "vapore, nebbia"),
+        ("עָנָן", "Enn", "nube"),
+        ("חַמִּין", "Xmyn", "acqua calda"),
+        ("צוֹנֵן", "Cwnn", "acqua fredda"),
+        ("אֵשׁ", "AS", "fuoco"),
+        ("גַּחֶלֶת", "gXlt", "brace"),
+        # Igiene e cosmetica
+        ("סַבּוֹן", "sbwn", "sapone"),
+        ("נֶתֶר", "ntr", "natron, soda"),
+        ("בּוֹרִית", "bwryt", "liscivia"),
+        ("שֶׁמֶן", "Smn", "olio"),
+        ("בֹּשֶׂם", "bSm", "profumo"),
+        ("מִשְׁחָה", "mSXh", "unguento"),
+        # Corpo (in contesto balneare)
+        ("גּוּף", "gwp", "corpo"),
+        ("עוֹר", "Ewr", "pelle"),
+        ("שֵׂעָר", "SEr", "capello"),
+        ("צִפֹּרֶן", "Cprn", "unghia"),
+        ("רֶגֶל", "rgl", "piede"),
+        ("יָד", "yd", "mano"),
+        ("פָּנִים", "pnym", "viso"),
+        # Misura dell'acqua (Mishnah Mikvaot)
+        ("סְאָה", "sAh", "seah (misura)"),
+        ("לוֹג", "lwg", "log (misura liquidi)"),
+        ("הִין", "hyn", "hin (misura liquidi)"),
+        ("בַּת", "bt", "bat (misura liquidi)"),
+        # Terapia idrica (medievale)
+        ("מַרְחֶצֶת", "mrXCt", "bagno medicinale"),
+        ("חַמֵּי טְבֶרְיָה", "Xmy Jbryh", "terme di Tiberiade"),
+        # --- Mishnah Mikvaot termini aggiuntivi ---
+        ("אוֹצָר", "AwCr", "cisterna di raccolta"),
+        ("הַשָּׁקָה", "hSqh", "connessione acque"),
+        ("טֻמְאָה", "JwmAh", "impurità"),
+        ("חֲצִיצָה", "XCyCh", "interposizione (barriera)"),
+        ("שׁוֹקֶת", "Swqt", "abbeveratoio, canale"),
+        ("נֶקֶב", "nqb", "foro, apertura"),
+        ("בַּלָּן", "bln", "addetto al bagno"),
+        ("גֵּרוּד", "grwd", "raschiamento, strigile"),
+        ("אַנְטְלִי", "AnJly", "vaso da attingere acqua"),
+        ("אֲגָנִית", "Agnyt", "catino, conca"),
+        ("שֶׁלֶג", "Slg", "neve"),
+        ("בָּרָד", "brd", "grandine"),
+        ("קֶרַח", "qrX", "ghiaccio"),
+    ]
+    return _curated_to_entries(terms, "balneological", "Curato-Balneologico")
 
 
 def get_curated_general() -> list[dict]:
@@ -632,6 +857,12 @@ DOMAIN_KEYWORDS = {
         "medicine", "remedy", "ointment", "physician", "cure",
         "bile", "phlegm", "humor", "hot", "cold", "moist", "dry",
         "drug", "poison", "oil", "honey", "vinegar", "salt",
+    ],
+    "balneological": [
+        "bath", "bathe", "wash", "immerse", "purif", "pool", "cistern",
+        "well", "spring", "river", "stream", "water", "hot spring",
+        "pipe", "conduit", "vessel", "bucket", "basin", "cauldron",
+        "soap", "lye", "steam", "vapor", "dew", "rain",
     ],
 }
 
@@ -830,6 +1061,10 @@ def run(config: ToolkitConfig, force: bool = False) -> None:
     medical = get_curated_medical()
     curated.extend(medical)
     print(f"    Medico/anatomico: {len(medical)} termini")
+
+    balneological = get_curated_balneological()
+    curated.extend(balneological)
+    print(f"    Balneologico: {len(balneological)} termini")
 
     general = get_curated_general()
     curated.extend(general)

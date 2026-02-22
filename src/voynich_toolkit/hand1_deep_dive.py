@@ -544,6 +544,142 @@ def compare_h1_h4(corpus: dict[str, dict], lexicon_set: set,
 
 
 # =====================================================================
+# Analisi 5 — EXTENDED: Per-letter z-test H1 vs H4 + gap decomposition
+# =====================================================================
+
+def compare_h1_h4_extended(
+    corpus: dict[str, dict],
+    lexicon_set: set,
+) -> dict:
+    """Per-letter frequency analysis H1 vs H4 with proportion z-tests.
+
+    For each of 19 EVA characters:
+    1. Proportion z-test on character frequency (H1 vs H4)
+    2. Gap decomposition: how much of the match-rate gap is attributable
+       to each character's frequency difference
+
+    Uses Bonferroni correction for 19 tests (α = 0.05/19 = 0.00263).
+
+    Returns dict with per-char stats and decomposition summary.
+    """
+    if "1" not in corpus or "4" not in corpus:
+        return {"error": "hands 1 or 4 not found"}
+
+    N_CHARS = 19  # 19 EVA characters in FULL_MAPPING
+    ALPHA_BONF = 0.05 / N_CHARS
+
+    h1_words = corpus["1"]["words"]
+    h4_words = corpus["4"]["words"]
+
+    # Preprocess and count chars
+    from .full_decode import preprocess_eva, FULL_MAPPING
+    from collections import Counter
+    from scipy.stats import norm as sp_norm
+
+    def count_chars(words):
+        cf = Counter()
+        total = 0
+        for w in words:
+            _, proc = preprocess_eva(w)
+            cf.update(proc)
+            total += len(proc)
+        return cf, total
+
+    h1_cf, h1_total = count_chars(h1_words)
+    h4_cf, h4_total = count_chars(h4_words)
+
+    # Decode and match for each word, tracking which EVA chars contribute
+    from .mapping_audit import decode_hebrew
+
+    def decode_and_check(words, lex):
+        """Decode words, return (n_matched, n_decoded)."""
+        n_dec = 0
+        n_match = 0
+        for w in words:
+            heb = decode_word(w)[1]
+            if heb and len(heb) >= MIN_LEN and "?" not in heb:
+                n_dec += 1
+                if heb in lex:
+                    n_match += 1
+        return n_match, n_dec
+
+    h1_match, h1_dec = decode_and_check(h1_words, lexicon_set)
+    h4_match, h4_dec = decode_and_check(h4_words, lexicon_set)
+
+    h1_rate = h1_match / h1_dec if h1_dec else 0
+    h4_rate = h4_match / h4_dec if h4_dec else 0
+    gap_pp = (h1_rate - h4_rate) * 100
+
+    # Per-char analysis
+    eva_chars = sorted(FULL_MAPPING.keys())
+    per_char = []
+
+    for ch in eva_chars:
+        n1 = h1_cf.get(ch, 0)
+        n4 = h4_cf.get(ch, 0)
+        p1 = n1 / h1_total if h1_total else 0
+        p4 = n4 / h4_total if h4_total else 0
+        diff = p1 - p4
+
+        # Proportion z-test for character frequency
+        p_pool = (n1 + n4) / (h1_total + h4_total) if (h1_total + h4_total) else 0
+        if p_pool > 0 and p_pool < 1:
+            se = (p_pool * (1 - p_pool) *
+                  (1.0 / h1_total + 1.0 / h4_total)) ** 0.5
+            z = diff / se if se > 0 else 0
+            p_val = 2 * sp_norm.sf(abs(z))
+        else:
+            z = 0
+            p_val = 1.0
+
+        p_bonf = min(1.0, p_val * N_CHARS)
+
+        # Gap contribution: approximate by frequency weight
+        # contribution ≈ |diff| * weight_of_this_char_in_matching
+        contribution_abs = abs(diff) * 100  # in percentage points
+
+        per_char.append({
+            "eva": ch,
+            "hebrew": FULL_MAPPING[ch],
+            "hebrew_name": CONSONANT_NAMES.get(FULL_MAPPING[ch], "?"),
+            "freq_h1": round(p1, 5),
+            "freq_h4": round(p4, 5),
+            "diff_pp": round(diff * 100, 3),
+            "count_h1": n1,
+            "count_h4": n4,
+            "z_score": round(z, 2),
+            "p_value": float(p_val),
+            "p_bonferroni": float(p_bonf),
+            "significant_bonf": p_bonf < 0.05,
+            "contribution_pp": round(contribution_abs, 3),
+        })
+
+    # Sort by |diff|
+    per_char.sort(key=lambda x: abs(x["diff_pp"]), reverse=True)
+
+    # Count significant
+    n_sig = sum(1 for c in per_char if c["significant_bonf"])
+
+    # Top contributors to gap
+    total_contribution = sum(c["contribution_pp"] for c in per_char)
+
+    return {
+        "h1_tokens": h1_total,
+        "h4_tokens": h4_total,
+        "h1_decoded": h1_dec,
+        "h4_decoded": h4_dec,
+        "h1_match_rate": round(h1_rate, 5),
+        "h4_match_rate": round(h4_rate, 5),
+        "gap_pp": round(gap_pp, 2),
+        "n_chars_tested": N_CHARS,
+        "alpha_bonferroni": round(ALPHA_BONF, 6),
+        "n_significant": n_sig,
+        "per_char": per_char,
+        "total_contribution": round(total_contribution, 2),
+    }
+
+
+# =====================================================================
 # Formatting del sommario
 # =====================================================================
 
@@ -778,6 +914,20 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs):
                    f"H4 {compare['h4_stats']['match_rate']*100:.1f}% = "
                    f"{diff_pp:+.1f}pp  z={zt['z_score']:.2f}  p={zt['p_value']:.4f}")
 
+    # 7b. EXTENDED: per-letter z-test H1 vs H4 + gap decomposition
+    print_step("Confronto esteso per-lettera H1 vs H4 (compare_extended)...")
+    compare_ext = compare_h1_h4_extended(corpus, honest_lex)
+    if "error" not in compare_ext:
+        click.echo(f"    Gap: {compare_ext['gap_pp']:+.2f}pp  "
+                   f"({compare_ext['n_significant']}/{compare_ext['n_chars_tested']} "
+                   f"char significativi Bonferroni)")
+        click.echo(f"    Top divergenze:")
+        for c in compare_ext['per_char'][:5]:
+            sig = "***" if c['significant_bonf'] else "ns"
+            click.echo(f"      {c['eva']:2s}→{c['hebrew_name']:8s}  "
+                       f"H1={c['freq_h1']*100:5.2f}%  H4={c['freq_h4']*100:5.2f}%  "
+                       f"diff={c['diff_pp']:+6.2f}pp  z={c['z_score']:6.2f} {sig}")
+
     # 8. Salva report
     print_step("Salvataggio report...")
     report = {
@@ -795,6 +945,7 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs):
             "unmapped_test": audit["unmapped_test"],
         },
         "compare": compare,
+        "compare_extended": compare_ext,
         "lexicon": "honest_45K",
     }
 
