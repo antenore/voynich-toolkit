@@ -45,7 +45,9 @@ The remaining 3 characters (f, i, q) were resolved through positional profile an
 | Plant name search | permutation p=0.017 (*) |
 | Anchor words (d=0) | 28 / 445, permutation p=0.004 (**) |
 | Zodiac vocabulary | permutation p=0.071 (ns) |
-| Italian-layer analysis | 4.5% match (z=3.82) — ruled out |
+| Italian-layer analysis | 4.5% match (z=3.82) — ruled out by old JI conventions |
+| Italian cipher-native (Phase 25) | 19.3% match (z=3.76), pre-1500 only: z=3.96 |
+| Combined Heb+Ita coverage | 43.5% of tokens (vs ~20% Hebrew-only) |
 | Mapping optimality | 16/17 optimal under 1-to-1 constraint |
 | Semantic coherence | z=4.35-14.54 (p≤0.002) — words cluster, but glosses don't form sentences |
 | Cross-validation | 13/17 letters optimal on both subsets, held-out z=5.72 (p=0.005) |
@@ -239,6 +241,13 @@ voynich dictalm-calibrate             # Blinded DictaLM calibration (Featherless
 voynich domain-lexicon-test           # Domain-specific lexicon chi-square + permutation
 ```
 
+### Phase 25: Italian/Veneto Test
+
+```bash
+python scripts/download_veneto_lexicons.py   # Download N. Italian dialect lexicons from kaikki.org
+voynich veneto-italian-test                  # Cipher-native Italian test + permutation (~2min)
+```
+
 ### Global Options
 
 ```bash
@@ -322,7 +331,8 @@ voynich-toolkit/
     ├── cross_validation.py           # Phase 22 hand-based + random cross-validation
     ├── convergence_control.py        # Phase 22 hill-climber convergence control
     ├── dictalm_calibration.py        # Phase 22 blinded DictaLM calibration
-    └── domain_lexicon_test.py        # Phase 22 domain-specific lexicon test
+    ├── domain_lexicon_test.py        # Phase 22 domain-specific lexicon test
+    └── veneto_italian_test.py        # Phase 25 cipher-native Italian/Veneto test
 ```
 
 ## Source Data
@@ -330,10 +340,11 @@ voynich-toolkit/
 - **EVA IVTFF**: `LSI_ivtff_0d.txt` (Takahashi, 1998) -- 191,545 characters, 37,025 words, 225 folios
 - **Hebrew lexicon**: STEPBible TBESH (CC BY 4.0) + Jastrow Dictionary + Sefaria corpus (250M tokens, freq≥5) + Klein Etymological Dictionary + 475 curated medieval terms (ibn Ezra, Asaph ha-Rofe, Mishnah) -- 494,469 consonantal forms (proper nouns filtered)
 - **Italian lexicon**: Dante concordance + TLIO + medieval botanical/medical terms -- 60,738 forms
+- **North Italian dialects**: kaikki.org (Venetian, Ligurian, Emilian, Lombard, Friulian, Romagnol, Piedmontese, Ladin, Neapolitan) -- 20,442 unique forms
 
 ## Open Directions
 
-40 investigations completed across Phases 1-22. Remaining options:
+42 investigations completed across Phases 1-25. Remaining options:
 
 1. **Hand 4 allography**: H4 uses EVA 'e' at 2x the rate of H1 — possible unmapped allograph (limited power: 817 words).
 2. **Label-specific lexicon**: Build specialized Hebrew lexicon (plant names, star names, body parts) and test against labels.
@@ -346,7 +357,7 @@ This is exploratory research, not a confirmed decipherment. Key limitations:
 
 1. **Text does not read as Hebrew**: Despite statistically significant signal (z=3.6-4.4), the decoded text produces incoherent glosses. Best passages with 100% lexicon coverage read as disconnected word lists, not sentences.
 2. **Lexicon inflation**: The 491K-form lexicon inflates both real (45.7%) and random (29.9%) match rates. Random Hebrew strings match at 26.8%. The "honest" assessment uses glossed-only (28K) lexicon: 24.3% match, z=4.4.
-3. **Italian ruled out**: 4.5% match rate (z=3.82), vowel ratio 0.302 vs expected 0.468 — too consonantal.
+3. **Italian signal detected but text still unreadable**: Phase 25 cipher-native transliteration (fixing a bug where Italian 'e' was mapped to yod instead of ayin) produces z=3.96 with pre-1500 Italian forms. Combined Hebrew+Italian coverage reaches 43.5% of tokens. Top matches include plausible medieval Italian words ("seta"=silk, "goto"=toad, "molto"=much, "spento"=extinguished). However, glossed text still reads as disconnected word lists, not sentences.
 4. **Multiple scribes**: Davis (2020) identified 5 scribal hands. A single monoalphabetic mapping may not apply to all scribes equally.
 5. **Competing hypothesis**: The Naibbe cipher (Greshko 2025, Cryptologia) demonstrates that verbose homophonic substitution can produce Voynich-like ciphertext from Latin/Italian using 15th-century materials. If the real cipher is homophonic, our monoalphabetic approach captures only residual signal.
 6. **3 Hebrew letters unmapped**: zayin, tsade, and qof — all strategies exhausted.

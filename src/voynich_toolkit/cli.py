@@ -664,6 +664,15 @@ def scribal_error_correction(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("veneto-italian-test")
+@click.pass_context
+def veneto_italian_test(ctx):
+    """Phase 25: test Italian/Veneto vocabulary with cipher-native transliteration."""
+    from .veneto_italian_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
