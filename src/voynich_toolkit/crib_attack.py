@@ -779,11 +779,22 @@ def run_wordlevel_attack(
 
         api_key = _load_api_key()
         client = anthropic.Anthropic(api_key=api_key)
-        message = client.messages.create(
-            model=model,
-            max_tokens=4096,
-            messages=[{"role": "user", "content": prompt}],
-        )
+        import time as _time
+        for _attempt in range(5):
+            try:
+                message = client.messages.create(
+                    model=model,
+                    max_tokens=4096,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                break
+            except anthropic._exceptions.OverloadedError:
+                wait = 10 * (2 ** _attempt)
+                print(f"[wordlevel] API overloaded, retry in {wait}s...")
+                _time.sleep(wait)
+        else:
+            print(f"[wordlevel] WARNING: batch failed after 5 retries")
+            continue
         raw = message.content[0].text.strip()
 
         # Parse JSON
