@@ -1,0 +1,153 @@
+{
+  "folio": "f65r",
+  "model": "claude-sonnet-4-20250514",
+  "n_targets": 2,
+  "n_exact": 0,
+  "n_near": 2,
+  "word_results": {
+    "0": {
+      "position": 0,
+      "real_eva": "otaim",
+      "current_hebrew": "gryJw",
+      "length": 5,
+      "candidates": [
+        {
+          "hebrew": "grySw",
+          "eva_variant": "oyaim",
+          "distance": 1
+        },
+        {
+          "hebrew": "grySr",
+          "eva_variant": "oyaim",
+          "distance": 1
+        },
+        {
+          "hebrew": "grynt",
+          "eva_variant": "qotsaim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grysh",
+          "eva_variant": "r?aim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grypl",
+          "eva_variant": "feaim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grydn",
+          "eva_variant": "snaim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grybt",
+          "eva_variant": "k?aim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grymn",
+          "eva_variant": "slaim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grylh",
+          "eva_variant": "rfaim",
+          "distance": 2
+        },
+        {
+          "hebrew": "grykm",
+          "eva_variant": "lchaim",
+          "distance": 3
+        }
+      ],
+      "best_distance": 1,
+      "best_candidate": {
+        "hebrew": "grySw",
+        "eva_variant": "oyaim",
+        "distance": 1
+      }
+    },
+    "2": {
+      "position": 2,
+      "real_eva": "alam",
+      "current_hebrew": "gymy",
+      "length": 4,
+      "candidates": [
+        {
+          "hebrew": "gymr",
+          "eva_variant": "olam",
+          "distance": 1
+        },
+        {
+          "hebrew": "gypl",
+          "eva_variant": "feam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gysr",
+          "eva_variant": "o?am",
+          "distance": 2
+        },
+        {
+          "hebrew": "gynt",
+          "eva_variant": "tsam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gybh",
+          "eva_variant": "r?am",
+          "distance": 2
+        },
+        {
+          "hebrew": "gydr",
+          "eva_variant": "dnam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gyst",
+          "eva_variant": "k?am",
+          "distance": 2
+        },
+        {
+          "hebrew": "gyrh",
+          "eva_variant": "rdam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gylh",
+          "eva_variant": "rfam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gykm",
+          "eva_variant": "lcham",
+          "distance": 3
+        }
+      ],
+      "best_distance": 1,
+      "best_candidate": {
+        "hebrew": "gymr",
+        "eva_variant": "olam",
+        "distance": 1
+      }
+    }
+  },
+  "hits": [
+    {
+      "position": 0,
+      "real_eva": "otaim",
+      "old_hebrew": "gryJw",
+      "new_hebrew": "grySw",
+      "distance": 1
+    },
+    {
+      "position": 2,
+      "real_eva": "alam",
+      "old_hebrew": "gymy",
+      "new_hebrew": "gymr",
+      "distance": 1
+    }
+  ]
+}
