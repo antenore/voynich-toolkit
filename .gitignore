@@ -1,6 +1,12 @@
 # Output artifacts (large, regenerable)
 # Run: voynich --force <command> to regenerate
-output/
+output/*
+# But track crib attack results and readings (priority evidence)
+!output/stats/
+output/stats/*
+!output/stats/crib_wordlevel_*.json
+!output/readings/
+!output/readings/*.txt
 
 # SQLite database (regenerable: python scripts/build_sqlite_db.py)
 voynich.db
