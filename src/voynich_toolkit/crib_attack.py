@@ -45,6 +45,9 @@ def _load_api_key() -> str:
                     return v
     return ""
 
+import glob as _glob
+from collections import Counter as _Counter
+
 from .crib_encoder import best_variant_match, encode_word, encode_word_variants
 from .full_decode import decode_word
 
@@ -66,9 +69,306 @@ SECTION_NAMES: dict[str, str] = {
     "P": "pharmaceutical",
     "T": "text",
     "C": "cosmological",
+    "A": "astronomical",
     "?": "unknown",
     "": "unknown",
 }
+
+# ---------------------------------------------------------------------------
+# Section-specific prompt configuration
+# ---------------------------------------------------------------------------
+# Each section gets: persona, content_description, vocabulary, coherence_hint
+
+SECTION_PROMPTS: dict[str, dict[str, str]] = {
+    "H": {
+        "persona": "a specialist in medieval Hebrew medical and botanical manuscripts",
+        "author": "an Italian Jewish physician and herbalist",
+        "content": (
+            "describing herbs, their medicinal properties, preparation methods, "
+            "and pharmaceutical recipes"
+        ),
+        "coherence": (
+            "Each variant must tell a DIFFERENT, COHERENT medical recipe or "
+            "herbal description.\n"
+            "Think: what would a real physician write next to this plant illustration?"
+        ),
+        "vocabulary": """Body parts:
+  yd (hand), rgl (foot), Eyn (eye), lb (heart), rAS (head), bJn (belly),
+  kbd (liver), klyt (kidney), grwn (throat), ySn (tooth), Ewr (skin)
+
+Plants / botanical:
+  SrS (root), Elh (leaf), prX (flower), pry (fruit), zrE (seed),
+  EnbS (anise), lwnX (frankincense), knmwn (cinnamon),
+  rzdh (rue), Alh (aloe), Sr (mastic), hnk (henna), krkm (turmeric)
+
+Actions / verbs:
+  swk (anoint), Spk (pour), JXn (grind), bSl (cook), Erb (mix),
+  rXC (wash), rkk (soften), lXS (knead), Ebr (pass/filter),
+  ntn (give/apply), sm (place), SrS (uproot), kth (pound/crush)
+
+Substances:
+  mym (water), yyn (wine), Smn (oil), dbs (honey), Xms (vinegar),
+  mlX (salt), gpr (sulphur), hlb (milk), dm (blood), Srp (turpentine)
+
+Qualities:
+  Xm (hot), mr (bitter), mtq (sweet), rk (soft), ybs (dry), lX (moist)
+
+Medical terms:
+  rpy (heal), Xly (sick), mkh (wound), kAb (pain), mrgw (salve)""",
+    },
+    "P": {
+        "persona": "a specialist in medieval Hebrew pharmaceutical manuscripts",
+        "author": "an Italian Jewish apothecary (speziale)",
+        "content": (
+            "describing pharmaceutical preparations, compound medicines, dosages, "
+            "and recipes for salves, elixirs, and remedies"
+        ),
+        "coherence": (
+            "Each variant must describe a DIFFERENT pharmaceutical preparation.\n"
+            "Think: what would a pharmacist/speziale write in a recipe compendium?"
+        ),
+        "vocabulary": """Preparations:
+  mrgw (salve/ointment), mSXh (paste), rqyXh (plaster/poultice),
+  mzg (compound), trykh (theriac), Smn (oil/unguent), Srp (syrup)
+
+Actions:
+  Spk (pour), JXn (grind), bSl (cook), Erb (mix), rkk (soften),
+  lXS (knead), kth (crush), ntn (apply), snn (filter), ybs (dry),
+  Xmm (heat), mdd (measure), Skl (weigh)
+
+Ingredients:
+  SrS (root), Elh (leaf), prX (flower), pry (fruit), zrE (seed),
+  Smn (oil), dbs (honey), yyn (wine), mym (water), Xms (vinegar),
+  mlX (salt), Srp (turpentine), nrd (nard), hlb (milk)
+
+Body parts:
+  yd (hand), Eyn (eye), lb (heart), rAS (head), bJn (belly),
+  kbd (liver), klyt (kidney), grwn (throat), Ewr (skin)
+
+Measures:
+  kzyt (olive-size), kp (handful), mnh (portion), skl (shekel weight)
+
+Medical terms:
+  rpy (heal), Xly (sick), mkh (wound), kAb (pain), dm (blood)""",
+    },
+    "B": {
+        "persona": "a specialist in medieval Hebrew balneological and thermal manuscripts",
+        "author": "an Italian Jewish physician specializing in thermal baths",
+        "content": (
+            "describing medicinal bathing protocols, thermal treatments, "
+            "immersion procedures, herbal bath preparations, and hydrotherapy"
+        ),
+        "coherence": (
+            "Each variant must describe a DIFFERENT bathing/thermal protocol.\n"
+            "Think: what would a bath-house physician write about this treatment?"
+        ),
+        "vocabulary": """Bathing / thermal:
+  rXyC (bathing/washing), Jbl (immersion/dipping), mym (water),
+  Xmym (hot waters), mEyn (spring), brkh (pool/bath), mrhC (bathhouse)
+
+Temperature:
+  Xm (hot), ryJ (warm), qr (cold), rwX (wind/air), AS (fire)
+
+Actions:
+  rXC (wash), Jbl (immerse), swk (anoint), Spk (pour), Erb (mix),
+  ntn (apply), ysb (sit/rest), Skb (lie down), Emd (stand)
+
+Body:
+  gwp (body), rAS (head), rgl (foot), yd (hand), Ewr (skin),
+  bSr (flesh), Ecm (bone), gyd (tendon), dm (blood)
+
+Substances:
+  Smn (oil), mlX (salt), Srp (resin), nrd (nard), hlb (milk),
+  Elh (leaf), prX (flower), SrS (root)
+
+Time/duration:
+  SEh (hour), ywm (day), lylh (night), Edn (time/period)
+
+Medical:
+  rpy (heal), Xly (sick), kAb (pain), mkh (wound), nph (rest)""",
+    },
+    "Z": {
+        "persona": (
+            "a specialist in medieval Hebrew astrological-medical manuscripts "
+            "(melothesia and zodiacal medicine)"
+        ),
+        "author": (
+            "an Italian Jewish physician-astrologer writing about zodiacal "
+            "influences on the body and medical timing"
+        ),
+        "content": (
+            "describing zodiac signs, their influence on body parts (melothesia), "
+            "auspicious times for medical treatments, and astrological-medical "
+            "correspondences"
+        ),
+        "coherence": (
+            "Each variant must describe astrological-medical content: zodiac signs, "
+            "their body part correspondences, or timing for treatments.\n"
+            "Think: what would a physician-astrologer write next to zodiac figures?"
+        ),
+        "vocabulary": """Zodiac signs (Hebrew names):
+  Jlh (Aries/ram), Swr (Taurus/bull), tAwmym (Gemini/twins),
+  srJn (Cancer/crab), Aryh (Leo/lion), btwlh (Virgo/virgin),
+  mAznym (Libra/scales), Eqrb (Scorpio/scorpion), qSt (Sagittarius/bow),
+  gdy (Capricorn/goat), dly (Aquarius/water-bearer), dgym (Pisces/fish)
+
+Celestial bodies:
+  SmS (sun), lbnh (moon), kwkb (star/Mercury), nghh (Venus),
+  mAdym (Mars), Cdq (Jupiter), SbtAy (Saturn)
+
+Astrological terms:
+  mzl (constellation/fortune), bytXm (house/sign), mElh (degree),
+  Jbyt (nature/quality), msdr (order), tkwph (season/solstice),
+  nwld (nativity), mwld (birth chart)
+
+Body correspondences (melothesia):
+  rAS (head=Aries), gwrwn (throat=Taurus), ydym (hands=Gemini),
+  Xzh (chest=Cancer), lb (heart=Leo), mEym (bowels=Virgo),
+  klyh (kidney=Libra), Erwh (genitals=Scorpio), yrk (thigh=Sagit.),
+  brk (knee=Capricorn), Swq (shin=Aquarius), rgl (foot=Pisces)
+
+Medical timing:
+  Et (time), SEh (hour), ywm (day), lylh (night), Xds (month),
+  tkwph (season), Jwb (good/auspicious), rE (bad/inauspicious)
+
+Actions:
+  hqyz (bleed/phlebotomy), rpy (heal), swk (anoint), ntn (apply)""",
+    },
+    "S": {
+        "persona": (
+            "a specialist in medieval Hebrew astronomical and cosmographical "
+            "manuscripts"
+        ),
+        "author": (
+            "an Italian Jewish astronomer-physician describing celestial "
+            "phenomena and their effects"
+        ),
+        "content": (
+            "describing stars, planetary movements, celestial diagrams, "
+            "astronomical calculations, and their medical/natural significance"
+        ),
+        "coherence": (
+            "Each variant must describe astronomical content: celestial bodies, "
+            "movements, cycles, or their effects on the natural world.\n"
+            "Think: what would a Jewish astronomer write to explain this diagram?"
+        ),
+        "vocabulary": """Celestial bodies:
+  SmS (sun), lbnh (moon), kwkb (star), nghh (Venus), mAdym (Mars),
+  Cdq (Jupiter), SbtAy (Saturn), kwkb nwgh (planet)
+
+Sky / structure:
+  Smym (heavens), glgl (sphere/wheel), rqyE (firmament),
+  mslwl (orbit/path), mzl (constellation), qJb (pole)
+
+Motion / cycles:
+  sbwb (revolve), hlk (go/move), Xzr (return), Emd (stand/station),
+  yrd (descend), Elh (ascend), nwE (move), qrb (approach)
+
+Time:
+  ywm (day), lylh (night), Xds (month), Snh (year), tkwph (season),
+  SEh (hour), Et (time), mwEd (appointed time)
+
+Elements:
+  AS (fire), mym (water), rwX (air/wind), Epr (earth/dust)
+
+Light:
+  Awr (light), XSk (darkness), ngh (shine), zrX (rise/shine)
+
+Numbers (common in astro texts):
+  AXd (one), Snym (two), SlSh (three), SbEh (seven), ESrh (ten),
+  SlSym (thirty), mAh (hundred)""",
+    },
+    "C": {
+        "persona": (
+            "a specialist in medieval Hebrew cosmological and natural philosophy "
+            "manuscripts"
+        ),
+        "author": (
+            "an Italian Jewish natural philosopher describing the structure "
+            "of the cosmos, elements, and natural forces"
+        ),
+        "content": (
+            "describing cosmological diagrams, the structure of the universe, "
+            "elemental theory, and natural philosophy"
+        ),
+        "coherence": (
+            "Each variant must describe cosmological content: elements, spheres, "
+            "natural forces, or the structure of creation.\n"
+            "Think: what would a medieval cosmographer write to explain concentric diagrams?"
+        ),
+        "vocabulary": """Cosmos / structure:
+  Smym (heavens), ArC (earth), glgl (sphere), rqyE (firmament),
+  twk (center/middle), sbwb (surround), mrkz (center)
+
+Elements:
+  AS (fire), mym (water), rwX (air/wind), Epr (earth/dust),
+  ysd (element/foundation), Jbyt (nature/quality)
+
+Qualities:
+  Xm (hot), qr (cold), ybs (dry), lX (moist)
+
+Forces / processes:
+  kwX (force/power), XyAh (life), nSmh (soul/breath),
+  Xkmh (wisdom), tbwnh (understanding), sdr (order)
+
+Directions:
+  mzrX (east), mErb (west), Cpwn (north), drwm (south),
+  mElh (above), mJh (below)
+
+Actions:
+  brA (create), ysd (found), nJh (stretch), sbwb (revolve),
+  msdr (arrange), Xbr (connect), prd (separate)
+
+Time / cycles:
+  Snh (year), tkwph (season), Xds (month), ywm (day),
+  mwEd (appointed time), dwr (generation/cycle)""",
+    },
+    "T": {
+        "persona": (
+            "a specialist in medieval Hebrew manuscripts — medical treatises, "
+            "commentaries, and scholarly texts"
+        ),
+        "author": (
+            "an Italian Jewish scholar writing a medical or philosophical "
+            "treatise, commentary, or explanatory text"
+        ),
+        "content": (
+            "writing a scholarly text — possibly a medical treatise, theoretical "
+            "discussion, commentary, or instructional passage without illustrations"
+        ),
+        "coherence": (
+            "Each variant must be COHERENT scholarly prose — medical theory, "
+            "commentary, or instruction.\n"
+            "Think: what would a Jewish scholar write in a text-only section?"
+        ),
+        "vocabulary": """Medical theory:
+  rpy (heal), Xly (sick), Jwb (good), rE (bad), mzg (temperament),
+  Jbyt (nature), kwX (force), XyAh (life), nSmh (soul), gwp (body)
+
+Scholarly:
+  Amr (say), ktb (write), lmd (teach), ydE (know), Xkm (wise),
+  spr (book), dEt (opinion), drS (interpret), prs (explain)
+
+Connectives / discourse:
+  gm (also), Ak (but/only), wAm (and if), ky (because/for),
+  lkn (therefore), Ewd (still/again), kAsr (as/when)
+
+Medical:
+  rpy (heal), Xly (disease), mkh (wound), dm (blood), kAb (pain),
+  gwp (body), nps (soul/self), Smr (guard/preserve)
+
+Actions:
+  ntn (give), lqX (take), sm (place), Ebr (pass), hlk (go),
+  ysb (sit/dwell), Emd (stand), bwA (come)
+
+Qualities:
+  Xm (hot), qr (cold), ybs (dry), lX (moist), Jwb (good),
+  rE (bad), gdwl (great), qJn (small)""",
+    },
+}
+
+# Fallback for unknown sections — generic medical
+_DEFAULT_SECTION = SECTION_PROMPTS["H"]
 
 # IVTFF hand preference order (best first)
 HAND_PREFERENCE = ["H", "C", "F", "U"]
@@ -214,18 +514,81 @@ def extract_page_constraints(folio: str, eva_file: str | Path = _EVA_FILE) -> di
 # ---------------------------------------------------------------------------
 
 
-def identify_anchors(eva_words: list[str], db_path: str | Path = _DB_PATH) -> list[dict]:
-    """For each EVA word, decode it and check if it has a gloss in the database.
+def build_crib_vocabulary(
+    output_dir: str | Path = _OUTPUT_DIR,
+    min_pages: int = 2,
+    exclude_folio: str | None = None,
+) -> dict[str, dict]:
+    """Build a consolidated vocabulary from all crib attack exact matches.
 
-    Uses full_decode.decode_word() to get the Hebrew consonantal form, then
-    queries glossed_words for a matching entry.
+    Scans all crib_wordlevel_*.json files, collects d=0 hits, and returns
+    words confirmed on at least `min_pages` different pages.
+
+    Args:
+        output_dir: directory containing crib_wordlevel_*.json files
+        min_pages: minimum number of pages a word must appear on
+        exclude_folio: optionally exclude a folio (for leave-one-out)
 
     Returns:
-        List of dicts for words that have glosses:
-        [{"position": int, "eva": str, "hebrew": str, "gloss": str, "freq": int}, ...]
+        dict mapping Hebrew word → {"count": int, "pages": list[str]}
+    """
+    output_dir = Path(output_dir)
+    word_pages: dict[str, set[str]] = {}
+
+    for fpath in sorted(output_dir.glob("crib_wordlevel_*.json")):
+        folio = fpath.stem.replace("crib_wordlevel_", "")
+        if exclude_folio and folio == exclude_folio:
+            continue
+        try:
+            data = json.loads(fpath.read_text())
+        except (json.JSONDecodeError, OSError):
+            continue
+        for hit in data.get("hits", []):
+            if hit.get("distance", 99) == 0:
+                heb = hit["new_hebrew"]
+                if len(heb) > 1:  # skip single-char
+                    word_pages.setdefault(heb, set()).add(folio)
+
+    return {
+        word: {"count": len(pages), "pages": sorted(pages)}
+        for word, pages in word_pages.items()
+        if len(pages) >= min_pages
+    }
+
+
+def identify_anchors(
+    eva_words: list[str],
+    db_path: str | Path = _DB_PATH,
+    output_dir: str | Path = _OUTPUT_DIR,
+    use_crib_vocab: bool = True,
+    exclude_folio: str | None = None,
+) -> list[dict]:
+    """For each EVA word, decode it and check if it has a gloss in the database
+    OR is confirmed by crib attack results from other pages.
+
+    Uses full_decode.decode_word() to get the Hebrew consonantal form, then:
+    1. Queries glossed_words for a matching entry (original behavior)
+    2. Checks the cross-page crib vocabulary for confirmed words (new)
+
+    Words confirmed by crib on 2+ other pages become strong anchors even if
+    the DB gloss is weak or missing.
+
+    Returns:
+        List of dicts for words that have glosses or crib confirmation:
+        [{"position": int, "eva": str, "hebrew": str, "gloss": str,
+          "freq": int, "strong": bool, "source": str}, ...]
     """
     conn = sqlite3.connect(str(db_path))
     cursor = conn.cursor()
+
+    # Load cross-page crib vocabulary (exclude current folio to avoid circularity)
+    crib_vocab: dict[str, dict] = {}
+    if use_crib_vocab:
+        crib_vocab = build_crib_vocabulary(
+            output_dir=output_dir,
+            min_pages=2,
+            exclude_folio=exclude_folio,
+        )
 
     anchors = []
     for pos, eva_word in enumerate(eva_words):
@@ -238,17 +601,36 @@ def identify_anchors(eva_words: list[str], db_path: str | Path = _DB_PATH) -> li
             (hebrew,),
         ).fetchone()
 
+        gloss = ""
+        freq = 0
+        source = "none"
+        is_strong = False
+
         if row:
             gloss = row[1] or ""
             freq = row[2] or 0
-            # Filter: only keep anchors with real, meaningful glosses
-            # Skip weak entries: attested-only, grammar codes, Klein stubs
+            source = "db"
             skip_patterns = [
                 "[attestato nel corpus]",
                 "H:N-M", "H:N-F", "H:Adv", "H:V",
                 "[Klein headword]",
             ]
             is_strong = not any(pat in gloss for pat in skip_patterns)
+
+        # Boost from crib vocabulary: if confirmed on 2+ other pages,
+        # promote to strong anchor
+        if hebrew in crib_vocab:
+            cv = crib_vocab[hebrew]
+            crib_note = f"[crib-confirmed x{cv['count']} pages]"
+            if not gloss or not is_strong:
+                gloss = f"{gloss} {crib_note}".strip() if gloss else crib_note
+            else:
+                gloss = f"{gloss} {crib_note}"
+            is_strong = True
+            source = "db+crib" if row else "crib"
+            freq = max(freq, cv["count"] * 10)  # boost freq for ranking
+
+        if gloss:  # only add if we have something
             anchors.append({
                 "position": pos,
                 "eva": eva_word,
@@ -256,6 +638,7 @@ def identify_anchors(eva_words: list[str], db_path: str | Path = _DB_PATH) -> li
                 "gloss": gloss,
                 "freq": freq,
                 "strong": is_strong,
+                "source": source,
             })
 
     conn.close()
@@ -272,21 +655,19 @@ def build_crib_prompt(
     anchors: list[dict],
     n_variants: int = 10,
 ) -> str:
-    """Build a prompt for Claude to generate plausible Hebrew medical texts.
+    """Build a prompt for Claude to generate plausible Hebrew texts.
 
-    The prompt specifies:
-      - Persona: 15th-century Judeo-Italian physician
-      - Section type (herbal, balneological, etc.)
-      - Exact word count and per-word character-length constraints
-      - Anchor words (decoded words with known glosses) as hard constraints
-      - Output format: JSON list of lists
-      - Hebrew consonantal notation guide and vocabulary
+    Adapts persona, vocabulary, and coherence instructions to the manuscript
+    section (herbal, zodiac, astronomical, cosmological, etc.).
     """
     section = constraints.get("section", "?")
     section_name = constraints.get("section_name", "unknown")
     word_lengths = constraints.get("word_lengths", [])
     n_words = len(word_lengths)
     folio = constraints.get("folio", "unknown")
+
+    # Section-specific configuration
+    sec_cfg = SECTION_PROMPTS.get(section, _DEFAULT_SECTION)
 
     # Format anchor constraints — only strong ones as hard constraints
     strong_anchors = [a for a in anchors if a.get("strong", False)]
@@ -316,17 +697,16 @@ def build_crib_prompt(
         f"word{i}={l}" for i, l in enumerate(word_lengths)
     )
 
-    prompt = f"""You are a specialist in medieval Hebrew medical manuscripts. Your task is to
-generate plausible 15th-century Judeo-Italian physician texts in CONSONANTAL HEBREW that
+    prompt = f"""You are {sec_cfg['persona']}. Your task is to
+generate plausible 15th-century texts in CONSONANTAL HEBREW that
 could have been encoded in the Voynich manuscript.
 
 CONTEXT
 =======
 - Manuscript section: {section_name} (code '{section}')
 - Folio: {folio}
-- The text is consonantal Hebrew (no vowels) written by an Italian Jewish physician
-  describing herbs, recipes, balneological treatments, or pharmaceutical preparations
-  depending on the section type.
+- The text is consonantal Hebrew (no vowels) written by {sec_cfg['author']}
+  {sec_cfg['content']}.
 - The cipher reads RIGHT TO LEFT; you must write the Hebrew in logical (left-to-right)
   consonantal order as it would appear in a decoded transliteration.
 
@@ -361,44 +741,14 @@ as long as the replacement has the correct character count:
 
 DIVERSITY AND COHERENCE (CRITICAL)
 ====================================
-- Each variant must tell a DIFFERENT, COHERENT medical recipe or herbal description
+{sec_cfg['coherence']}
 - Do NOT repeat the same word in multiple non-anchor positions — variety is essential
-- The text should read as natural medical Hebrew, not filler
-- Use a VARIETY of medical vocabulary: body parts, plants, actions, substances
-- Think: what would a real physician write on this page?
+- The text should read as natural Hebrew, not filler
+- Use a VARIETY of domain-appropriate vocabulary
 
-MEDICAL HEBREW VOCABULARY (use this as inspiration)
-=====================================================
-Body parts:
-  yd (hand), rgl (foot), Eyn (eye), lb (heart), rAS (head), bJn (belly),
-  kbd (liver), klyt (kidney), grwn (throat), ySn (tooth), znb (tail/appendage)
-
-Plants / botanical:
-  SrS (root), Elh (leaf), prX (flower), pry (fruit), zrE (seed),
-  EnbS (anise), qdX (coriander), lwnX (frankincense), knmwn (cinnamon),
-  rzdh (rue), Alh (aloe), Sr (mastic), hnk (henna), krkm (turmeric)
-
-Actions / verbs (imperative / infinitive form):
-  swk (anoint), Spk (pour), JXn (grind), bSl (cook), Erb (mix),
-  rXC (wash), rkk (soften), lXS (knead), Ebr (pass/filter), qSr (bind),
-  ntn (give/apply), sm (place), SrS (uproot), kth (pound/crush)
-
-Substances:
-  mym (water), yyn (wine), Smn (oil), dbs (honey), Xms (vinegar),
-  mlX (salt), qJrn (resin), gpr (sulphur), hlb (milk), dm (blood),
-  zyt (olive), Srp (turpentine), nrd (nard/spikenard)
-
-Qualities / adjectives:
-  Xm (hot), qr (cold), ybs (dry), lX (wet/moist), mr (bitter),
-  mtq (sweet), Xzq (strong), rk (soft), qdm (old/ancient)
-
-Medical terms:
-  rpy (heal), Xly (sick/disease), mkh (wound), kAb (pain), mrgw (salve),
-  qrXt (plaster/poultice), mzg (mixture/compound), hwrl (medicine)
-
-Measures / quantities:
-  kzyt (olive-size), kbyCh (egg-size), kp (palm/handful), lgh (log measure),
-  rbyEyt (quarter-measure), mnh (portion), skl (shekel weight)
+HEBREW VOCABULARY FOR THIS SECTION (use as inspiration)
+=========================================================
+{sec_cfg['vocabulary']}
 
 Common prepositions / particles:
   b (in/with), l (to/for), m (from/of), k (as/like), E (on/above), tXt (under)
@@ -408,9 +758,9 @@ TASK
 Generate {n_variants} different plausible texts that:
 1. Satisfy ALL word-length constraints exactly
 2. Include all anchor words at the specified positions exactly
-3. Form a coherent medical/herbal instruction, recipe, or description
+3. Form coherent {section_name} content as described above
 4. Use only the Hebrew ASCII consonants listed above
-5. Are stylistically consistent with medieval Judeo-Italian medical manuscripts
+5. Are stylistically consistent with medieval Judeo-Italian Hebrew manuscripts
 
 OUTPUT FORMAT (JSON only — no markdown, no explanation)
 =======================================================
@@ -674,28 +1024,32 @@ def build_wordlevel_prompt(
 
     targets_text = "\n---\n".join(target_blocks)
 
-    prompt = f"""You are an expert in medieval Hebrew medical manuscripts.
+    # Section-specific configuration
+    # Extract section code from section_name
+    sec_code = next(
+        (k for k, v in SECTION_NAMES.items() if v == section_name),
+        "H",
+    )
+    sec_cfg = SECTION_PROMPTS.get(sec_code, _DEFAULT_SECTION)
+
+    prompt = f"""You are {sec_cfg['persona']}.
 
 TASK: For each unknown word below, generate {n_candidates} plausible Hebrew consonantal
 alternatives that:
 1. Have EXACTLY the specified number of consonants
-2. Fit the surrounding medical/herbal context
+2. Fit the surrounding {section_name} context
 3. Use ONLY mapped Hebrew letters: A b g d h w X J y k l m n s E p r S t
    (AVOID z, C, q — these are unmapped and produce errors)
 4. Are real Hebrew/Aramaic words or Italian loanwords in Hebrew consonants
 
-SECTION: {section_name} (herbal/pharmaceutical recipe)
+SECTION: {section_name} — text by {sec_cfg['author']}
+{sec_cfg['content']}.
 
 HEBREW ASCII: A=aleph b=bet g=gimel d=dalet h=he w=vav X=chet J=tet y=yod
 k=kaf l=lamed m=mem n=nun s=samekh E=ayin p=pe r=resh S=shin t=tav
 
-MEDICAL VOCABULARY HINTS:
-- Body: yd(hand) rgl(foot) Eyn(eye) lb(heart) rAS(head) bJn(belly) Ewr(skin) dm(blood)
-- Plants: SrS(root) Elh(leaf) prX(flower) pry(fruit) Esb(herb) Smn(oil) hlb(milk)
-- Actions: swk(anoint) Spk(pour) JXn(grind) bSl(cook) Erb(mix) rXy(wash) ntn(give)
-  kth(crush) rkk(soften) snn(filter) ybs(dry) Xmm(heat)
-- Substances: mym(water) yyn(wine) dbs(honey) mlX(salt) Smr(yeast/dregs)
-- Qualities: Xm(hot) mr(bitter) mtq(sweet) rk(soft) yps(good/beautiful)
+DOMAIN VOCABULARY HINTS:
+{sec_cfg['vocabulary']}
 
 UNKNOWN WORDS TO RESOLVE:
 =========================
@@ -706,7 +1060,7 @@ A JSON object mapping position number to a list of {n_candidates} candidate stri
 Example: {{"0": ["SrSh", "Elbm", ...], "13": ["bSlht", "mymEn", ...], ...}}
 
 Each candidate must have EXACTLY the right number of consonants for that position.
-Prioritize words that make medical/recipe sense in the given context."""
+Prioritize words that make {section_name} sense in the given context."""
 
     return prompt
 
@@ -741,7 +1095,10 @@ def run_wordlevel_attack(
         return {"folio": folio, "error": "No EVA words found"}
 
     eva_words = constraints["eva_words"]
-    anchors = identify_anchors(eva_words, db_path=db_path)
+    anchors = identify_anchors(
+        eva_words, db_path=db_path, output_dir=output_dir,
+        exclude_folio=folio,
+    )
     anchor_positions = {a["position"] for a in anchors if a.get("strong")}
 
     # Step 2: find target words (not strong anchors)
@@ -933,7 +1290,10 @@ def run_crib_attack(
 
     # --- Step 2: anchor words ---
     print("[crib_attack] Step 2: identifying anchor words …")
-    anchors = identify_anchors(constraints["eva_words"], db_path=db_path)
+    anchors = identify_anchors(
+        constraints["eva_words"], db_path=db_path, output_dir=out_dir,
+        exclude_folio=folio,
+    )
     print(f"[crib_attack]   {len(anchors)} anchors found")
     for a in anchors[:5]:
         print(f"[crib_attack]     pos {a['position']:3d}: {a['eva']:12s} → "

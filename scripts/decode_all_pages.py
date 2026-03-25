@@ -171,7 +171,7 @@ NEW WORDS:
         return f"ERROR: {e}"
 
 
-def process_folio(folio, api_key, skip_crib=False):
+def process_folio(folio, api_key, skip_crib=False, force=False):
     """Full pipeline for one folio: crib attack + interpretation."""
     result = {"folio": folio, "status": "ok"}
 
@@ -186,9 +186,9 @@ def process_folio(folio, api_key, skip_crib=False):
         result["section"] = constraints.get("section_name", "unknown")
         result["n_words"] = len(constraints["eva_words"])
 
-        # Step 2: Crib attack (if not skipping and not already done)
+        # Step 2: Crib attack (if not skipping and not already done / forced)
         crib_path = OUTPUT_DIR / f"crib_wordlevel_{folio}.json"
-        if not skip_crib and not crib_path.exists():
+        if not skip_crib and (force or not crib_path.exists()):
             try:
                 run_wordlevel_attack(
                     folio, n_candidates=10, model="claude-sonnet-4-20250514",
@@ -226,6 +226,7 @@ def main():
     parser = argparse.ArgumentParser(description="Decode all Voynich pages")
     parser.add_argument("--workers", type=int, default=2, help="Parallel workers")
     parser.add_argument("--skip-crib", action="store_true", help="Skip crib attack, interpret only")
+    parser.add_argument("--force", action="store_true", help="Force re-run even if results exist")
     parser.add_argument("--folios", nargs="*", help="Specific folios (default: all)")
     args = parser.parse_args()
 
@@ -248,7 +249,7 @@ def main():
 
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = {
-            executor.submit(process_folio, f, api_key, args.skip_crib): f
+            executor.submit(process_folio, f, api_key, args.skip_crib, args.force): f
             for f in folios
         }
 
