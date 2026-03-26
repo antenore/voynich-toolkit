@@ -4,15 +4,20 @@
 
 | Metric | Value |
 |--------|-------|
-| Match rate (honest 45K lexicon) | ~20% |
-| z-score DictaLM valid-only (211 forms) | **56.71** |
-| z-score Italian cipher-native (pre-1500) | **3.96** |
-| Combined Heb+Ita token coverage | 43.5% |
-| Validation scorecard | 7/14 |
-| Paper | 19 pp., arXiv-ready, endorser needed |
-| Active work | Phase 26: Crib attack (known-plaintext), 79% word-level on f27r |
-| Active work | Phase 25: Italian/Veneto test completed |
-| Active work | Visual analysis page-by-page (Phase 24) |
+| Match rate (honest 45K lexicon) | ~20% (80% unmatched) |
+| Cross-validation z-score | **5.72** (13/17 letters optimal in both splits) |
+| z-score DictaLM valid-only (211 forms) | 56.71 (cherry-picked 19.4%; full set z=3.70) |
+| DictaBERT syntax | 2.74/6 (random=2.5, real Hebrew=6.0) — **word order random** |
+| z-score Italian cipher-native (pre-1500) | 3.96 |
+| Botanical specificity | z=-6.0 (**anti-concentration**) |
+| Zodiac validation | 1/12 (not significant, p=0.071) |
+| Validation scorecard | 7/14 FDR-significant |
+| Paper | 21 pp., needs corrections before submission |
+| Hebrew prefix test | **0/7 in range** — shin 41.3% (exp 1-5%), he(article) 0% |
+| Length-stratified signal | z=8.14 at 4 letters, **z=0.01 at 2 letters** (pure noise) |
+| 5+ letter match rate | 0.4% (71/16,804) — signal collapses at longer words |
+| Text readability | **Unreadable** — no Hebraist can read any page |
+| Active work | Phase 26: Crib attack — signal confirmed, text unreadable |
 
 ## Phase History
 
@@ -71,4 +76,4 @@ See `memory/phase9_diagnosis.md`.
 - Judeo-Italian and Ladino: rejected
 
 ## Diagnosis
-Traditional decode → gloss → interpret pipeline hit ceiling at ~20% match rate. The crib attack (Phase 26) flips the direction and shows promise at 79% word-level matching on first tested folio.
+Traditional decode → gloss → interpret pipeline hit ceiling at ~20% match rate. The crib attack (Phase 26) produces 1,758 exact matches with zero-controls at zero, confirming the cipher relationship is non-random. However, the text remains unreadable (DictaBERT 2.74/6), botanical specificity is negative (z=-6.0), zodiac validation fails (1/12), and all English "translations" are AI paraphrases conditioned on section type. Status: **real signal, unknown meaning**.

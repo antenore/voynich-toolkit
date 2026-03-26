@@ -1,8 +1,8 @@
 # Voynich Manuscript Analysis Toolkit
 
-A computational toolkit for deciphering the Voynich Manuscript (Beinecke MS 408, Yale University). The hypothesis: the text is a Hebrew consonantal cipher encoding a Judeo-Italian medical/pharmaceutical manuscript, written by a 15th-century Italian Jewish physician.
+> **This hypothesis is wrong.** After 26 phases of analysis and months of work, the Hebrew cipher hypothesis does not hold up. The decoded text has no Hebrew grammatical structure (0/7 expected prefixes in range, the definite article is completely absent, shin at 41% initial frequency), the signal only works on short words where coincidental matches are easy, and no one can read a single page. The "translations" in this repo are AI-generated paraphrases, not real readings. I'm leaving the code and data up because the infrastructure (58MB database, permutation framework, crib attack pipeline) might be useful to someone testing a different hypothesis. See the [honest baseline](#honest-baseline) below for what actually works and what doesn't.
 
-After 26 phases of analysis and one near-capitulation, we produced the first coherent page-level readings of the manuscript. The text appears to be a pharmaceutical recipe book.
+A computational toolkit for analyzing the Voynich Manuscript (Beinecke MS 408, Yale University). Originally built to test the hypothesis that the text is a Hebrew consonantal cipher. That hypothesis failed, but the toolkit and data remain available for other approaches.
 
 **[Read the paper (PDF)](paper/paper.pdf)** - *A Statistical Evaluation of the Hebrew Cipher Hypothesis for the Voynich Manuscript* (pre-Phase 26, being revised)
 
@@ -12,9 +12,9 @@ We built a character mapping (19 EVA characters to 19 Hebrew consonants) through
 
 Then we flipped the approach. Instead of decoding and hoping for meaning, we asked: what would a 15th-century physician actually write on a page showing a plant illustration? We generated plausible medical Hebrew texts, encoded them through our cipher, and compared against the real manuscript. 70% of unknown words matched at edit distance 1 or less, across 918 words on 6 pages.
 
-That gave us enough vocabulary to read folio 27r (a herbal page) at 96% coverage. It's a pharmaceutical extraction recipe: filtering through cotton, clarifying with chalk, using alcohol as solvent, with a sweetness test for completion. Folio 75r (a balneological page) reads as a medicinal bathing protocol with herbal immersion cycles. Five pages decoded, all internally consistent.
+On folio 27r, the crib match rate reached 97% — but the honest breakdown is: 68% pre-existing anchor words (already in Hebrew dictionaries), 17% new exact matches from the crib attack, and 16% near-matches (d=1, off by one letter). An AI interprets the decoded consonants as a pharmaceutical extraction recipe, but **this interpretation is unverified and potentially circular** — the AI was told the page shows a plant, so it generated pharmaceutical vocabulary.
 
-The words that unlocked everything: `mwk` doesn't mean "be poor" - it means cotton/soft filtering material. `SEn` isn't "to lean" - it's "to rest/apply" (medicine). `Sk` isn't a grammar code - it's "mixture/preparation". Once you read the text as a pharmacist, not a lexicographer, it makes sense.
+Vocabulary reinterpretations worth investigating: `mwk` ("be poor" in biblical Hebrew, possibly "cotton" in rabbinic), `SEn` ("to lean", possibly "to apply"), `Sk` (unclear, possibly "mixture"). These are **hypotheses**, not confirmed meanings.
 
 ## How we got here
 
@@ -87,11 +87,11 @@ The near-match analysis (295 cases at edit distance 1) revealed three systematic
 - **X / E (chet / ayin)**: guttural confusion, both lost in Italian pronunciation
 - **w / r (vav / resh)**: visually near-identical in cursive Hebrew script
 
-With these equivalences, f27r reached **96% decoded** and reads as a coherent pharmaceutical recipe.
+With these equivalences, f27r reached 97% crib match rate (see honest breakdown above).
 
-## Reading f27r: a pharmaceutical extraction recipe
+## AI interpretation of f27r (UNVERIFIED)
 
-This is the first coherent reading of a Voynich page. Cotton filtering, chalk clarification, alcohol extraction, and a sweetness test for completion:
+> **WARNING: The following is Claude Sonnet's AI paraphrase of Hebrew consonants, NOT a verified translation.** No Hebraist has confirmed this reading. The vocabulary assignments (mwk=cotton, etc.) are hypotheses. The AI was told this is a herbal page, which may bias the interpretation toward pharmaceutical content.
 
 > Cotton rests as a sign, cotton rests and appears clear-bright - pour chalk.
 >
@@ -107,11 +107,11 @@ This is the first coherent reading of a Voynich page. Cotton filtering, chalk cl
 >
 > Clear, when the edges flow, pour the poured liquid until sweet.
 
-f75r (balneological page) reads as a medicinal bathing protocol: preparation of herbal bath solution, temperature control, repeated immersion cycles, with rose water and bitter herbs.
+The AI interprets f75r (balneological page) as a medicinal bathing protocol. Same caveat: this is an AI paraphrase conditioned on section type, not a verified reading.
 
-## Confirmed vocabulary (5 pages)
+## Proposed vocabulary (5 pages) — HYPOTHESES, NOT CONFIRMED
 
-These words appear consistently across multiple pages with coherent medical meanings:
+These words appear consistently across multiple pages. Cross-page consistency could reflect: (a) real manuscript content, or (b) AI self-consistency (same model generates similar vocabulary for similar sections).
 
 | Hebrew | Meaning | Old dictionary gloss | Pages |
 |--------|---------|---------------------|-------|
@@ -128,7 +128,7 @@ These words appear consistently across multiple pages with coherent medical mean
 | mytq | sweet (completion test) | sweet | f27r |
 | wdryn | roses | (not found) | f75r |
 
-The recipe structure is consistent across all herbal pages: plant identification, extraction with solvent (alcohol), filtration through cotton, clarification with chalk, quality test (bitter to sweet), application (anoint), completion.
+The AI-generated interpretations show consistent structure across herbal pages. This may reflect genuine manuscript content, or AI self-consistency (same prompts, same model).
 
 ## The mapping
 
@@ -250,7 +250,7 @@ voynich-toolkit/
 
 ## What's still open
 
-The readings are promising but not a confirmed decipherment. Honest assessment:
+**This is not a confirmed decipherment.** Honest assessment:
 
 1. **3 Hebrew letters still unmapped** (zayin, tsade, qof). They may be hiding behind EVA characters we've assigned to other letters.
 2. **The crib attack relies on generated text.** Sonnet generates what a physician *might* write. The 70% match rate is strong evidence, but we're measuring against our own expectations, not ground truth.
@@ -259,7 +259,42 @@ The readings are promising but not a confirmed decipherment. Honest assessment:
 5. **We haven't read the whole manuscript.** Five pages with coherent readings doesn't mean the approach works everywhere. The pharmaceutical section (f99r) scored lower at 56%.
 6. **Competing hypotheses exist.** The Naibbe cipher (Greshko 2025, Cryptologia) shows verbose homophonic substitution can produce Voynich-like text from Latin/Italian. If the real cipher is homophonic, our monoalphabetic mapping captures only residual signal.
 
-The strongest evidence: a vocabulary of medical Hebrew terms that makes pharmaceutical sense, confirmed independently across 5 pages from 3 different manuscript sections. Random chance doesn't produce coherent recipe structures.
+7. **DictaBERT syntax is random.** Decoded passages score 2.74/6 on syntactic quality (real Hebrew = 6.0, random consonants = 2.5). Word order carries no information.
+8. **Botanical specificity is negative.** Herbal pages have *fewer* botanical dictionary matches than other sections (z=-6.0).
+9. **Zodiac validation fails.** Only 1/12 zodiac signs matched (p=0.071, not significant).
+10. **Hebrew prefix distribution is wrong.** 0/7 grammatical prefixes fall in the expected frequency range. Shin appears at 41.3% of word-initial positions (expected 1-5%). The definite article he is completely absent (expected 5-12%). Lamed (to/for) is at 0.1% (expected 4-10%). The decoded text does not have the grammatical structure of any form of Hebrew.
+11. **2-letter words are pure noise.** Match rate 56.6% real vs 56.4% random (z=0.01). The 1,535 "matched" 2-letter tokens contribute nothing.
+12. **Signal collapses at 5+ letters.** Only 71 matches out of 16,804 tokens (0.4%, p=0.055). If the mapping were correct, longer words should still match.
+
+## Honest baseline
+
+**What IS established:**
+- Cross-validation z=5.72 on held-out data (13/17 letters optimal in both splits)
+- **Strong signal at 3-4 letter words**: z=3.62 (3 letters, 2.3x ratio), z=8.14 (4 letters, 7.8x ratio)
+- Permutation tests pass: anchor z=4.2, plant z=3.2, Currier A z=4.02, B z=3.85
+- Crib attack: 1,758 exact matches vs 0 in 700K random attempts
+- Domain specificity (partial): balneological z=8.53, astronomical z=3.51
+
+**What is NOT established:**
+- Readable text (no Hebraist can read any page)
+- Correct interpretation (all English text is AI paraphrase)
+- Hebrew grammatical structure (0/7 prefixes in range, shin 41.3%)
+- Signal at word length 5+ (collapses to 0.4%)
+- Zodiac validation (1/12 signs)
+- Botanical specificity (z=-6.0, negative)
+- Syntax (DictaBERT 2.74/6, random word order)
+- That the manuscript is a "pharmaceutical handbook" (circular AI interpretation)
+
+## Where this stands
+
+The mapping captures a **real lexical signal at 3-4 letter words** (z=8.14) that cannot be explained by chance. But the decoded text has **no Hebrew grammatical structure** (wrong prefix distribution, random word order, no article). The signal may reflect a partial phonotactic overlap between the Voynich text's structure and Hebrew triconsonantal roots, rather than actual Hebrew content.
+
+Further progress requires either:
+1. **A Hebraist** examining the decoded consonants without AI assistance
+2. **A different cipher model** (e.g., homophonic, polyalphabetic) that might recover the missing structure
+3. **Known-text identification** — finding a passage that matches a known medieval Hebrew source
+
+Without external expertise, the computational approach has reached its limit. The toolkit, database (512K rows), and all 26 phases of analysis are open source for anyone to investigate.
 
 ## Related work
 

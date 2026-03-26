@@ -1,9 +1,10 @@
-# Voynich Manuscript — First Coherent Readings
-## Phase 26: Known-Plaintext Attack Results (2026-03-25)
+# Voynich Manuscript — AI-Assisted Interpretations (UNVERIFIED)
+## Phase 26: Crib Attack Results (2026-03-25)
+> **WARNING**: All text below is Claude Sonnet's AI interpretation of Hebrew consonants. No Hebraist has verified these readings. The AI was conditioned on section type, which may introduce circularity.
 
 ---
 
-## f27r — Ricetta di estrazione erbaria (96% decoded)
+## f27r — AI interpretation (97% crib match rate, incl. 68% pre-existing anchors)
 
 **Versa** i suoi rami e **fai fluire**, e così accade che si riconosce [la pianta] come **adatta**.
 

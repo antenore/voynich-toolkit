@@ -58,14 +58,29 @@ distribution, and Hebrew bigram plausibility.
 A known-plaintext crib attack reverses the traditional pipeline: we generate
 plausible Hebrew medical texts via an LLM, encode them through the cipher,
 and compare against real manuscript text. This produces 1{,}758 exact matches
-across all 227~folios (78.7\% average coverage on 132~herbal pages), while
-three independent controls --- random Hebrew words (0/176{,}600), cross-folio
-transfer (0/410{,}826), and shuffled positions (0/151{,}000) --- all return
-zero matches ($z>100$). Near-match analysis reveals systematic scribal
-confusion patterns (vav/resh, tet/tav, ayin/chet) consistent with medieval
-Hebrew paleography. The decoded content describes pharmaceutical extraction
-recipes with consistent cross-page vocabulary, coherent with the manuscript's
-illustrations and with medieval Judeo-Italian medical tradition.
+across all 227~folios ($\sim$5\% of tokens; 78.7\% average match rate on
+132~herbal pages including pre-existing anchors), while three independent
+controls --- random Hebrew words (0/176{,}600), cross-folio transfer
+(0/410{,}826), and shuffled positions (0/151{,}000) --- all return zero
+matches ($z>100$). Near-match analysis reveals systematic character
+substitution patterns (vav/resh, tet/tav, ayin/chet) consistent with medieval
+Hebrew paleography. An LLM-assisted interpretation of the decoded consonants
+suggests pharmaceutical content, though this interpretation is conditioned
+on section type and has not been independently verified.
+
+Despite these results, the text remains unreadable: DictaBERT syntax
+scores (2.74/6) are barely above random consonant strings, botanical
+vocabulary shows anti-concentration in herbal sections ($z=-6.0$),
+and zodiac validation achieves only 1 of 12 expected sign matches.
+A length-stratified analysis reveals that the signal is concentrated
+in 3--4 letter words ($z=8.14$ at length~4, $7.8\times$ ratio) while
+2-letter matches are indistinguishable from chance ($z=0.01$) and
+5+ letter matches collapse to 0.4\%. A Hebrew prefix frequency test
+finds 0/7 grammatical prefixes (bet, kaf, lamed, mem, shin, he, vav)
+in their expected frequency ranges --- shin appears at 41.3\% of
+word-initial positions versus an expected 1--5\%.
+The mapping captures a real lexical signal at short word lengths
+whose grammatical and linguistic interpretation remains open.
 \end{abstract}
 
 \medskip
@@ -1366,6 +1381,22 @@ while keeping the matched Hebrew words fixed. Result: \textbf{0 matches in
 All three controls return exactly zero, yielding $z>100$ and ruling out
 chance alignment at any conventional significance level.
 
+\subsection{Circularity Concerns}
+\label{sec:crib-circularity}
+
+Several aspects of the crib attack design introduce potential circularity:
+(1)~the LLM is conditioned on section type (herbal, balneological, etc.),
+which biases generated content toward domain-appropriate vocabulary;
+(2)~coverage percentages include pre-existing anchor words (e.g., on
+folio~27r: 68\% anchors, 17\% new exact matches, 16\% near-matches);
+(3)~the bootstrap mechanism feeds confirmed matches back as anchors,
+potentially inflating subsequent rounds.
+The zero-controls rule out random coincidence but do not address whether
+the LLM is ``finding'' manuscript content or ``generating'' plausible
+content that happens to match. Independent expert verification ---
+ideally by a Hebraist reading the decoded consonants without LLM
+assistance --- is required to establish semantic validity.
+
 \subsection{Scribal Confusion Patterns}
 
 Analysis of 599 near-matches ($d=1$) reveals systematic character
@@ -1374,8 +1405,10 @@ substitution patterns consistent with known medieval Hebrew paleography:
 \eva{J}$\leftrightarrow$\eva{t} ($\times$25, tet/tav phonetic merger),
 \eva{A}$\leftrightarrow$\eva{h} ($\times$24, aleph/he confusion),
 \eva{E}$\leftrightarrow$\eva{X} ($\times$19, ayin/chet guttural confusion).
-These are all documented in medieval Hebrew manuscript studies and provide
-independent confirmation that the underlying script is handwritten Hebrew.
+These are all documented in medieval Hebrew manuscript studies and are
+consistent with a Hebrew scribal origin, though they could also arise
+if the mapping is partially incorrect in ways that happen to align with
+known paleographic confusions.
 
 \subsection{Section-Specific Vocabulary}
 
@@ -1389,13 +1422,15 @@ vocabulary.
 
 \subsection{Content}
 
-The decoded herbal pages consistently describe pharmaceutical extraction
-recipes: filtering through cotton (\heb{mwk}), pouring (\heb{Spk}),
-clarifying with chalk (\heb{gyr}), extraction with alcohol (\heb{Skr}),
-and a completion test of bitter (\heb{mr}) becoming sweet (\heb{mtq}).
-Balneological pages describe therapeutic bathing protocols with immersion
-cycles (\heb{SrpEn}) and temperature control. This content is consistent
-with medieval Judeo-Italian pharmaceutical manuscripts.
+An LLM-assisted interpretation of the decoded herbal pages suggests
+pharmaceutical extraction recipes: filtering through cotton (\heb{mwk}),
+pouring (\heb{Spk}), clarifying with chalk (\heb{gyr}), extraction
+with alcohol (\heb{Skr}), and a completion test of bitter (\heb{mr})
+becoming sweet (\heb{mtq}). Balneological pages are interpreted as
+therapeutic bathing protocols. This content is consistent with medieval
+Judeo-Italian pharmaceutical manuscripts, but the interpretation is
+conditioned on section type (see \S\ref{sec:crib-circularity} above)
+and has not been verified by an independent Hebraist.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1408,25 +1443,42 @@ testing and is in tension with tested alternative explanations
 (homophonic cipher, Aramaic, Italian, Judeo-Italian, Judeo-Arabic, Ladino),
 though it does not conclusively exclude all non-Hebrew generative mechanisms.
 
-A known-plaintext crib attack (\S\ref{sec:crib-attack}) dramatically
-strengthens the case: generating plausible Hebrew candidates and encoding
-them through the cipher produces 1{,}758~exact matches across 227~folios
-(78.7\% average coverage on herbal pages), while three independent controls
-(random words, cross-folio, shuffled positions) all return zero matches.
-The decoded content --- pharmaceutical recipes with consistent cross-page
-vocabulary --- is coherent with the manuscript's illustrations and with
-medieval Judeo-Italian medical tradition. A domain-specific lexicon
-test (\S\ref{sec:domain-lexicon}) finds one significant result --- balneological
+A known-plaintext crib attack (\S\ref{sec:crib-attack}) confirms the
+non-random nature of the cipher relationship: generating plausible Hebrew
+candidates and encoding them through the cipher produces 1{,}758~exact
+matches across 227~folios ($\sim$5\% of tokens; 78.7\% average match
+rate on herbal pages including pre-existing anchors), while three
+independent controls (random words, cross-folio, shuffled positions) all
+return zero matches. However, the crib attack's semantic interpretations
+are conditioned on section type and have not been independently verified
+(\S\ref{sec:crib-circularity}). A domain-specific lexicon test
+(\S\ref{sec:domain-lexicon}) finds one significant result --- balneological
 vocabulary concentrates at $2.08\times$ baseline in the bathing section
-($z=8.53$) --- but botanical terms show no specialization. The signal is
-concentrated in one scribal hand and in continuous text rather than figure
-labels.
+($z=8.53$) --- but botanical terms show \emph{anti}-concentration
+($z=-6.0$) and zodiac validation achieves only 1 of 12 expected sign
+matches ($p=0.071$, not significant). DictaBERT syntax analysis confirms
+that word order is indistinguishable from random ($z=-0.51$, score
+2.74/6). The signal is concentrated in one scribal hand and in continuous
+text rather than figure labels.
+
+A length-stratified permutation test reveals that the signal is driven
+by 3--4 letter words: $z=3.62$ at length~3 ($2.3\times$ ratio) and
+$z=8.14$ at length~4 ($7.8\times$ ratio), while 2-letter matches are
+indistinguishable from chance ($z=0.01$, 56.6\% real vs.\ 56.4\%
+random) and 5+ letter matches collapse to 0.4\% (71 of 16{,}804
+tokens, $p=0.055$). A Hebrew grammatical prefix analysis finds 0 of 7
+expected prefixes (bet, kaf, lamed, mem, shin, he, vav) in their
+canonical frequency ranges: shin appears at 41.3\% of word-initial
+positions (expected 1--5\%), the definite article he is absent
+(expected 5--12\%), and lamed appears at 0.1\% (expected 4--10\%).
+The decoded text therefore has \textbf{no Hebrew grammatical structure}
+despite its lexical signal at short word lengths.
 
 We propose that the correspondence reflects either a partially correct
 mapping (some letters right, others not), a shared phonotactic substrate
 (possibly Judeo-Italian or another Hebrew-script Romance language), or
 structural properties of the Voynich text that happen to align with Hebrew
-consonantal morphology. Cross-analysis with an independent distributional
+consonantal morphology at triconsonantal root lengths. Cross-analysis with an independent distributional
 classification of the same tokens~\citep{DiPrima2026} reveals that the
 mapping differentially captures specific functional categories of the text
 (kernel-K tokens match at $3.5\times$ the rate of kernel-E tokens at
@@ -1436,10 +1488,14 @@ identification of additional cipher structure beyond monoalphabetic
 substitution.
 
 Independent validation by DictaLM (\S\ref{sec:dictalm}) confirms that the
-mapping captures real Hebrew vocabulary: 19.4\% of matched types are
-confirmed as genuine Hebrew words (token-weighted: 56.6\%). A permutation
-test restricted to these 211 confirmed forms yields $z=56.71$ with a
-real-to-random ratio of $118\times$ --- the strongest result in this study.
+mapping captures some real Hebrew vocabulary: 19.4\% of matched types are
+confirmed as genuine Hebrew words (211 of 1{,}088 forms). A permutation
+test restricted to these confirmed forms yields $z=56.71$, but this
+result is selected on the highest-confidence subset; including all
+decoded forms reduces the $z$-score to 3.70. DictaBERT syntax scoring
+(2.74/6, where random consonants score 2.5/6 and real Hebrew scores
+$\sim$6.0/6) confirms that the decoded text has lexical matches but
+no syntactic structure.
 The overwhelming medieval/rabbinic period classification of confirmed words
 suggested that a medieval Hebrew lexicon might close the gap; however,
 a supplementary test extracting 96{,}447 new consonantal forms from
