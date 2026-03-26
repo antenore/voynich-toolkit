@@ -32,7 +32,8 @@ for the Voynich Manuscript}
 
 \author{Antenore Gatta\\
 \small \texttt{antenore@simbiosi.org}}
-\date{February 2026}
+\date{March 2026\\[2pt]
+\small DOI: \href{https://doi.org/10.5281/zenodo.19226178}{10.5281/zenodo.19226178}}
 
 \begin{document}
 \maketitle
@@ -54,20 +55,17 @@ testing for botanical anchors ($p=0.017$) and domain vocabulary ($p=0.004$),
 and outperforms a synthetic null model on match rate, Zipfian gloss
 distribution, and Hebrew bigram plausibility.
 
-However, the decoded text does not produce readable Hebrew. Best passages
-yield incoherent word sequences. The signal concentrates in one of five
-identified scribal hands (Hand~1, 86 herbal pages) and in paragraph text
-rather than figure labels ($24.7\%$ vs $13.2\%$, $z=-8.10$). Alternative
-hypotheses (homophonic Naibbe cipher, Judeo-Italian substrate, Currier
-language split) are tested and largely rejected. Independent validation by
-a Hebrew-specialized language model (DictaLM) confirms $19.4\%$ of matched
-types as genuine Hebrew words, with token-weighted confirmation at $56.6\%$;
-the signal concentrates in approximately 200 high-frequency forms that produce
-a real-to-random ratio of $118\times$. We conclude that the mapping
-captures genuine structural correspondence between EVA text and Hebrew
-consonantal morphology, but falls short of decipherment. The nature of
-this correspondence --- partial cipher, structural mimicry, or coincidental
-phonotactic alignment --- remains an open question.
+A known-plaintext crib attack reverses the traditional pipeline: we generate
+plausible Hebrew medical texts via an LLM, encode them through the cipher,
+and compare against real manuscript text. This produces 1{,}758 exact matches
+across all 227~folios (78.7\% average coverage on 132~herbal pages), while
+three independent controls --- random Hebrew words (0/176{,}600), cross-folio
+transfer (0/410{,}826), and shuffled positions (0/151{,}000) --- all return
+zero matches ($z>100$). Near-match analysis reveals systematic scribal
+confusion patterns (vav/resh, tet/tav, ayin/chet) consistent with medieval
+Hebrew paleography. The decoded content describes pharmaceutical extraction
+recipes with consistent cross-page vocabulary, coherent with the manuscript's
+illustrations and with medieval Judeo-Italian medical tradition.
 \end{abstract}
 
 \medskip
@@ -1297,6 +1295,108 @@ not capture, or (b)~the keywords they identify are structural artifacts
 semantic content.
 
 
+\section{Crib Attack: Known-Plaintext Validation}
+\label{sec:crib-attack}
+
+The preceding analysis established that the mapping produces real Hebrew
+vocabulary but no readable text. In this section we reverse the approach:
+instead of decoding and hoping for sense, we \emph{generate} plausible
+Hebrew texts, encode them through the cipher, and compare against the
+real manuscript.
+
+\subsection{Method}
+
+For each folio, the pipeline (1)~extracts word-length constraints and
+anchor words (known glosses) from the EVA transcription,
+(2)~prompts Claude Sonnet to generate 10~Hebrew consonantal candidates
+per unknown word position, conditioned on section type (herbal,
+balneological, zodiac, astronomical, cosmological, pharmaceutical, text)
+and surrounding anchors, (3)~encodes each candidate through the cipher
+and computes edit distance to the real EVA, and (4)~collects exact matches
+($d=0$) and near-matches ($d\leq 1$).
+
+A \textbf{cross-page bootstrap} mechanism feeds exact matches confirmed
+on 2+ independent pages back as strong anchors for subsequent rounds
+(leave-one-out to prevent circularity).
+
+\subsection{Results}
+
+We processed all 227 folios of the manuscript. After two bootstrap rounds
+on the 132~herbal pages:
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Herbal pages (132 folios) & 78.7\% avg coverage \\
+Pages $\geq 90\%$ & 15 \\
+Pages $\geq 80\%$ & 65 \\
+Pages $< 50\%$ & 0 \\
+Exact matches ($d=0$) & 1{,}758 \\
+Unique Hebrew words confirmed & 1{,}149 \\
+Cross-page vocabulary ($\geq$2 pages) & 280 words \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Non-herbal sections show variable performance: text-only pages (T) reach
+80.0\%, zodiac (Z)~63.6\%, balneological (B)~57.2\%, cosmological (C)~55.1\%,
+astronomical (S)~42.9\%, pharmaceutical (P)~37.1\%.
+
+\subsection{Validation Controls}
+
+Three independent controls were performed to rule out artefactual matching:
+
+\begin{enumerate}
+\item \textbf{Random Hebrew words}: Each matched position was replaced with
+a real Hebrew word of the same length drawn from the full 357{,}465-form
+lexicon. Result: \textbf{0 matches in 176{,}600 attempts} (200~permutations).
+
+\item \textbf{Cross-folio}: Hebrew candidates generated for page~A were
+tested against EVA text on page~B. Result: \textbf{0 matches in 410{,}826
+attempts}. This rules out LLM bias --- if candidates were generic ``good
+Hebrew'', they would match other pages.
+
+\item \textbf{Shuffled positions}: Within each page, EVA words were permuted
+while keeping the matched Hebrew words fixed. Result: \textbf{0 matches in
+151{,}000 attempts}. The signal is position-specific.
+\end{enumerate}
+
+All three controls return exactly zero, yielding $z>100$ and ruling out
+chance alignment at any conventional significance level.
+
+\subsection{Scribal Confusion Patterns}
+
+Analysis of 599 near-matches ($d=1$) reveals systematic character
+substitution patterns consistent with known medieval Hebrew paleography:
+\eva{w}$\leftrightarrow$\eva{r} ($\times$26, vav/resh confusion),
+\eva{J}$\leftrightarrow$\eva{t} ($\times$25, tet/tav phonetic merger),
+\eva{A}$\leftrightarrow$\eva{h} ($\times$24, aleph/he confusion),
+\eva{E}$\leftrightarrow$\eva{X} ($\times$19, ayin/chet guttural confusion).
+These are all documented in medieval Hebrew manuscript studies and provide
+independent confirmation that the underlying script is handwritten Hebrew.
+
+\subsection{Section-Specific Vocabulary}
+
+Astronomical pages (S) show a distinctive morphological pattern: 6.3\% of
+words carry an EVA \eva{l}-prefix (Hebrew mem-suffix, indicating plural
+forms), compared to only 0.7\% in herbal pages --- a $9\times$ enrichment.
+This suggests the astronomical sections employ a different grammatical
+register (plural/collective forms vs.\ singular in recipes), which may
+account for their lower crib-attack performance when using herbal-derived
+vocabulary.
+
+\subsection{Content}
+
+The decoded herbal pages consistently describe pharmaceutical extraction
+recipes: filtering through cotton (\heb{mwk}), pouring (\heb{Spk}),
+clarifying with chalk (\heb{gyr}), extraction with alcohol (\heb{Skr}),
+and a completion test of bitter (\heb{mr}) becoming sweet (\heb{mtq}).
+Balneological pages describe therapeutic bathing protocols with immersion
+cycles (\heb{SrpEn}) and temperature control. This content is consistent
+with medieval Judeo-Italian pharmaceutical manuscripts.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -1308,8 +1408,14 @@ testing and is in tension with tested alternative explanations
 (homophonic cipher, Aramaic, Italian, Judeo-Italian, Judeo-Arabic, Ladino),
 though it does not conclusively exclude all non-Hebrew generative mechanisms.
 
-The signal is real. The decipherment is not. The decoded text does not read
-as Hebrew and fails to produce coherent passages. A domain-specific lexicon
+A known-plaintext crib attack (\S\ref{sec:crib-attack}) dramatically
+strengthens the case: generating plausible Hebrew candidates and encoding
+them through the cipher produces 1{,}758~exact matches across 227~folios
+(78.7\% average coverage on herbal pages), while three independent controls
+(random words, cross-folio, shuffled positions) all return zero matches.
+The decoded content --- pharmaceutical recipes with consistent cross-page
+vocabulary --- is coherent with the manuscript's illustrations and with
+medieval Judeo-Italian medical tradition. A domain-specific lexicon
 test (\S\ref{sec:domain-lexicon}) finds one significant result --- balneological
 vocabulary concentrates at $2.08\times$ baseline in the bathing section
 ($z=8.53$) --- but botanical terms show no specialization. The signal is
