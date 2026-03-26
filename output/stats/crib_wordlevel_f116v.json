@@ -1,0 +1,82 @@
+{
+  "folio": "f116v",
+  "model": "claude-sonnet-4-20250514",
+  "n_targets": 1,
+  "n_exact": 0,
+  "n_near": 1,
+  "word_results": {
+    "0": {
+      "position": 0,
+      "real_eva": "oror",
+      "current_hebrew": "swhw",
+      "length": 4,
+      "candidates": [
+        {
+          "hebrew": "swpw",
+          "eva_variant": "oeor",
+          "distance": 1
+        },
+        {
+          "hebrew": "swbw",
+          "eva_variant": "o?or",
+          "distance": 1
+        },
+        {
+          "hebrew": "shpw",
+          "eva_variant": "oerr",
+          "distance": 2
+        },
+        {
+          "hebrew": "spwr",
+          "eva_variant": "ooer",
+          "distance": 2
+        },
+        {
+          "hebrew": "shwr",
+          "eva_variant": "oorr",
+          "distance": 2
+        },
+        {
+          "hebrew": "swph",
+          "eva_variant": "qoreor",
+          "distance": 2
+        },
+        {
+          "hebrew": "swEh",
+          "eva_variant": "qorgor",
+          "distance": 2
+        },
+        {
+          "hebrew": "swkh",
+          "eva_variant": "qorchor",
+          "distance": 3
+        },
+        {
+          "hebrew": "sbwb",
+          "eva_variant": "?o?r",
+          "distance": 3
+        },
+        {
+          "hebrew": "shpE",
+          "eva_variant": "herr",
+          "distance": 3
+        }
+      ],
+      "best_distance": 1,
+      "best_candidate": {
+        "hebrew": "swpw",
+        "eva_variant": "oeor",
+        "distance": 1
+      }
+    }
+  },
+  "hits": [
+    {
+      "position": 0,
+      "real_eva": "oror",
+      "old_hebrew": "swhw",
+      "new_hebrew": "swpw",
+      "distance": 1
+    }
+  ]
+}
