@@ -1,9 +1,9 @@
 {
   "folio": "f100r",
   "model": "claude-sonnet-4-20250514",
-  "n_targets": 52,
-  "n_exact": 1,
-  "n_near": 11,
+  "n_targets": 48,
+  "n_exact": 2,
+  "n_near": 2,
   "word_results": {
     "1": {
       "position": 1,
@@ -12,61 +12,61 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "mSXhwty",
-          "eva_variant": "akorhyl",
-          "distance": 3
-        },
-        {
-          "hebrew": "mrgwShm",
-          "eva_variant": "lryomol",
+          "hebrew": "mSXhty",
+          "eva_variant": "akiihyl",
           "distance": 4
         },
         {
-          "hebrew": "SmnErbh",
-          "eva_variant": "qr?ohsly",
+          "hebrew": "tSlmwh",
+          "eva_variant": "qrolfyk",
           "distance": 5
         },
         {
-          "hebrew": "trykShm",
-          "eva_variant": "lrychaot",
+          "hebrew": "ShmnEy",
+          "eva_variant": "ahslry",
           "distance": 5
         },
         {
-          "hebrew": "rqyXhty",
-          "eva_variant": "atrha?o",
+          "hebrew": "rqyXht",
+          "eva_variant": "trha?o",
           "distance": 5
         },
         {
-          "hebrew": "mzgSmny",
-          "eva_variant": "aslym?l",
+          "hebrew": "mzgEyn",
+          "eva_variant": "qosahm?l",
           "distance": 5
         },
         {
-          "hebrew": "SrpErbh",
-          "eva_variant": "qr?dheoy",
+          "hebrew": "trykht",
+          "eva_variant": "krchaok",
           "distance": 5
         },
         {
-          "hebrew": "Xmswrby",
-          "eva_variant": "a?oo?lg",
+          "hebrew": "SrpEyn",
+          "eva_variant": "qosaheoy",
           "distance": 5
         },
         {
-          "hebrew": "mddntyh",
-          "eva_variant": "qratsnnl",
+          "hebrew": "XmSEyn",
+          "eva_variant": "qosahylg",
           "distance": 5
         },
         {
-          "hebrew": "Smngdwl",
-          "eva_variant": "fonmsly",
+          "hebrew": "bSlmwt",
+          "eva_variant": "qtolfyn",
           "distance": 6
+        },
+        {
+          "hebrew": "kthSrs",
+          "eva_variant": "?oyrtch",
+          "distance": 7
         }
       ],
-      "best_distance": 3,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "mSXhwty",
-        "eva_variant": "akorhyl",
-        "distance": 3
+        "hebrew": "mSXhty",
+        "eva_variant": "akiihyl",
+        "distance": 4
       }
     },
     "2": {
@@ -76,125 +76,61 @@
       "length": 9,
       "candidates": [
         {
-          "hebrew": "SrpElhgdw",
-          "eva_variant": "qodnmrfhedy",
+          "hebrew": "SElAhwkwn",
+          "eva_variant": "sochorcfhy",
+          "distance": 0
+        },
+        {
+          "hebrew": "trkybEyn",
+          "eva_variant": "sah?achok",
           "distance": 7
         },
         {
-          "hebrew": "SrShlbwgd",
-          "eva_variant": "nmd?fryoy",
+          "hebrew": "bSlXmsEy",
+          "eva_variant": "qoah?lgfyn",
+          "distance": 7
+        },
+        {
+          "hebrew": "SmnprXEy",
+          "eva_variant": "ahhoesly",
+          "distance": 7
+        },
+        {
+          "hebrew": "rqyXhtEy",
+          "eva_variant": "qoahkrha?o",
+          "distance": 7
+        },
+        {
+          "hebrew": "JXnSrSEy",
+          "eva_variant": "qoahyoyshk",
+          "distance": 7
+        },
+        {
+          "hebrew": "lXSmymEy",
+          "eva_variant": "qoahlalyhf",
+          "distance": 7
+        },
+        {
+          "hebrew": "mzgSrSEy",
+          "eva_variant": "qoahyoym?l",
           "distance": 8
         },
         {
-          "hebrew": "ElhSmngdw",
-          "eva_variant": "onmslyrfh",
+          "hebrew": "kthElhEy",
+          "eva_variant": "agrfhrtch",
           "distance": 8
         },
         {
-          "hebrew": "prXmrgwby",
-          "eva_variant": "qoa?omolhde",
+          "hebrew": "XmmdbsEy",
+          "eva_variant": "qoah??nllg",
           "distance": 8
-        },
-        {
-          "hebrew": "prytrykSm",
-          "eva_variant": "lychaotaoe",
-          "distance": 8
-        },
-        {
-          "hebrew": "SmnXmswty",
-          "eva_variant": "qoako?lhsly",
-          "distance": 8
-        },
-        {
-          "hebrew": "XmsmSXhby",
-          "eva_variant": "a?rhyl?lh",
-          "distance": 8
-        },
-        {
-          "hebrew": "zrESmndby",
-          "eva_variant": "qoa?nslyhd?",
-          "distance": 9
-        },
-        {
-          "hebrew": "mymmzgSrp",
-          "eva_variant": "eoym?llal",
-          "distance": 9
-        },
-        {
-          "hebrew": "dbsyynmym",
-          "eva_variant": "lalsaa??n",
-          "distance": 10
         }
       ],
-      "best_distance": 7,
+      "best_distance": 0,
       "best_candidate": {
-        "hebrew": "SrpElhgdw",
-        "eva_variant": "qodnmrfhedy",
-        "distance": 7
-      }
-    },
-    "3": {
-      "position": 3,
-      "real_eva": "otear",
-      "current_hebrew": "sypJw",
-      "length": 5,
-      "candidates": [
-        {
-          "hebrew": "snnty",
-          "eva_variant": "atssr",
-          "distance": 3
-        },
-        {
-          "hebrew": "JXnty",
-          "eva_variant": "atshk",
-          "distance": 4
-        },
-        {
-          "hebrew": "bSlty",
-          "eva_variant": "atfyn",
-          "distance": 4
-        },
-        {
-          "hebrew": "Erbty",
-          "eva_variant": "at?oh",
-          "distance": 4
-        },
-        {
-          "hebrew": "lXSty",
-          "eva_variant": "atyhf",
-          "distance": 4
-        },
-        {
-          "hebrew": "ntnty",
-          "eva_variant": "atsts",
-          "distance": 4
-        },
-        {
-          "hebrew": "ybsty",
-          "eva_variant": "at??a",
-          "distance": 4
-        },
-        {
-          "hebrew": "Spkty",
-          "eva_variant": "atchey",
-          "distance": 5
-        },
-        {
-          "hebrew": "kthty",
-          "eva_variant": "atrtch",
-          "distance": 5
-        },
-        {
-          "hebrew": "rkkty",
-          "eva_variant": "atchchd",
-          "distance": 6
-        }
-      ],
-      "best_distance": 3,
-      "best_candidate": {
-        "hebrew": "snnty",
-        "eva_variant": "atssr",
-        "distance": 3
+        "hebrew": "SElAhwkwn",
+        "eva_variant": "sochorcfhy",
+        "distance": 0
       }
     },
     "4": {
@@ -204,61 +140,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "mSXhyl",
-          "eva_variant": "qofargyl",
-          "distance": 4
-        },
-        {
-          "hebrew": "mrgwEy",
-          "eva_variant": "ahomdl",
+          "hebrew": "Smnwy",
+          "eva_variant": "aosly",
           "distance": 5
         },
         {
-          "hebrew": "mzgprX",
-          "eva_variant": "hoem?l",
+          "hebrew": "SrSwy",
+          "eva_variant": "aoyoy",
           "distance": 5
         },
         {
-          "hebrew": "SmndwS",
-          "eva_variant": "qyonsly",
+          "hebrew": "ElhEy",
+          "eva_variant": "ahrfh",
           "distance": 5
         },
         {
-          "hebrew": "Smnkbd",
-          "eva_variant": "n?chsly",
+          "hebrew": "yynwy",
+          "eva_variant": "aosaa",
+          "distance": 5
+        },
+        {
+          "hebrew": "mymEy",
+          "eva_variant": "ahlal",
+          "distance": 5
+        },
+        {
+          "hebrew": "prXwy",
+          "eva_variant": "aohoe",
           "distance": 6
         },
         {
-          "hebrew": "rqyXhd",
-          "eva_variant": "niiha?o",
+          "hebrew": "dbsEy",
+          "eva_variant": "ah??n",
           "distance": 6
         },
         {
-          "hebrew": "trykSr",
-          "eva_variant": "oychadk",
+          "hebrew": "kthEy",
+          "eva_variant": "ahiikch",
           "distance": 6
         },
         {
-          "hebrew": "SrpElh",
-          "eva_variant": "iifheoy",
+          "hebrew": "bSlty",
+          "eva_variant": "akfyn",
           "distance": 6
         },
         {
-          "hebrew": "XmsElb",
-          "eva_variant": "?fh?lg",
-          "distance": 7
-        },
-        {
-          "hebrew": "dbsmym",
-          "eva_variant": "lal??n",
+          "hebrew": "mzgty",
+          "eva_variant": "atm?l",
           "distance": 7
         }
       ],
-      "best_distance": 4,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "mSXhyl",
-        "eva_variant": "qofargyl",
-        "distance": 4
+        "hebrew": "Smnwy",
+        "eva_variant": "aosly",
+        "distance": 5
       }
     },
     "7": {
@@ -268,125 +204,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "SrSmzg",
-          "eva_variant": "m?lydy",
-          "distance": 5
-        },
-        {
-          "hebrew": "ElhSrp",
-          "eva_variant": "edyiifh",
-          "distance": 5
-        },
-        {
-          "hebrew": "prXmrg",
-          "eva_variant": "milhde",
-          "distance": 5
-        },
-        {
-          "hebrew": "Smnyyn",
-          "eva_variant": "saasly",
-          "distance": 5
-        },
-        {
-          "hebrew": "SrpElb",
-          "eva_variant": "?fgedy",
-          "distance": 5
-        },
-        {
-          "hebrew": "prySmn",
-          "eva_variant": "qslyade",
-          "distance": 6
-        },
-        {
-          "hebrew": "zrEXms",
-          "eva_variant": "?lggd?",
-          "distance": 6
-        },
-        {
-          "hebrew": "XmsStr",
-          "eva_variant": "dty?lg",
-          "distance": 6
-        },
-        {
-          "hebrew": "dbsElh",
-          "eva_variant": "iifg??n",
-          "distance": 7
-        },
-        {
-          "hebrew": "mymmzg",
-          "eva_variant": "m?llal",
-          "distance": 7
-        }
-      ],
-      "best_distance": 5,
-      "best_candidate": {
-        "hebrew": "SrSmzg",
-        "eva_variant": "m?lydy",
-        "distance": 5
-      }
-    },
-    "9": {
-      "position": 9,
-      "real_eva": "aro",
-      "current_hebrew": "why",
-      "length": 3,
-      "candidates": [
-        {
-          "hebrew": "Spy",
-          "eva_variant": "aey",
-          "distance": 2
-        },
-        {
-          "hebrew": "JXn",
-          "eva_variant": "sgt",
-          "distance": 3
-        },
-        {
-          "hebrew": "bSl",
-          "eva_variant": "fyn",
-          "distance": 3
-        },
-        {
-          "hebrew": "Erb",
-          "eva_variant": "?oh",
-          "distance": 3
-        },
-        {
-          "hebrew": "lXS",
-          "eva_variant": "ygf",
-          "distance": 3
-        },
-        {
-          "hebrew": "ntn",
-          "eva_variant": "sts",
-          "distance": 3
-        },
-        {
-          "hebrew": "snn",
-          "eva_variant": "ssr",
-          "distance": 3
-        },
-        {
-          "hebrew": "ybs",
-          "eva_variant": "??a",
-          "distance": 3
-        },
-        {
-          "hebrew": "rkk",
-          "eva_variant": "chcho",
+          "hebrew": "mddwy",
+          "eva_variant": "ainnl",
           "distance": 4
         },
         {
-          "hebrew": "kth",
-          "eva_variant": "qrtch",
-          "distance": 4
+          "hebrew": "kthwy",
+          "eva_variant": "aoiikch",
+          "distance": 5
+        },
+        {
+          "hebrew": "Sklty",
+          "eva_variant": "atfchy",
+          "distance": 5
+        },
+        {
+          "hebrew": "JXnSrs",
+          "eva_variant": "?iysht",
+          "distance": 6
+        },
+        {
+          "hebrew": "bSlmz",
+          "eva_variant": "?lfyn",
+          "distance": 6
+        },
+        {
+          "hebrew": "Spkmz",
+          "eva_variant": "?lchey",
+          "distance": 6
+        },
+        {
+          "hebrew": "Erbmz",
+          "eva_variant": "?l?dh",
+          "distance": 6
+        },
+        {
+          "hebrew": "lXSty",
+          "eva_variant": "atyhf",
+          "distance": 6
+        },
+        {
+          "hebrew": "ybs*y",
+          "eva_variant": "a???a",
+          "distance": 6
+        },
+        {
+          "hebrew": "Xmmty",
+          "eva_variant": "atllg",
+          "distance": 6
         }
       ],
-      "best_distance": 2,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "Spy",
-        "eva_variant": "aey",
-        "distance": 2
+        "hebrew": "mddwy",
+        "eva_variant": "ainnl",
+        "distance": 4
       }
     },
     "10": {
@@ -396,60 +268,60 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "bSlmrgw",
-          "eva_variant": "dmdlfyn",
+          "hebrew": "bSlmzgt",
+          "eva_variant": "km?lfyn",
           "distance": 6
         },
         {
-          "hebrew": "lXSmSXh",
-          "eva_variant": "rhylyhf",
+          "hebrew": "trykhtm",
+          "eva_variant": "lkrchaik",
           "distance": 6
         },
         {
-          "hebrew": "snnSrpy",
-          "eva_variant": "aedyssii",
+          "hebrew": "SrSmzgt",
+          "eva_variant": "km?lyiy",
           "distance": 6
         },
         {
-          "hebrew": "ErbSrSh",
-          "eva_variant": "iiyoy?ih",
+          "hebrew": "ErbmzgS",
+          "eva_variant": "ym?l?ig",
+          "distance": 6
+        },
+        {
+          "hebrew": "mSXhmzg",
+          "eva_variant": "m?lrhyl",
+          "distance": 7
+        },
+        {
+          "hebrew": "rqyXhty",
+          "eva_variant": "atiiga?d",
           "distance": 7
         },
         {
           "hebrew": "JXnElhm",
-          "eva_variant": "lrfhsgk",
+          "eva_variant": "lrfgsht",
           "distance": 7
         },
         {
-          "hebrew": "kthprXy",
-          "eva_variant": "ahoertch",
-          "distance": 7
+          "hebrew": "kthSrSm",
+          "eva_variant": "lydyrkch",
+          "distance": 8
         },
         {
-          "hebrew": "ntntrym",
-          "eva_variant": "ladtsks",
-          "distance": 7
+          "hebrew": "SpkSmnm",
+          "eva_variant": "lslychey",
+          "distance": 8
         },
         {
-          "hebrew": "ybsmzgr",
-          "eva_variant": "om?l??a",
-          "distance": 7
-        },
-        {
-          "hebrew": "XmmSmny",
-          "eva_variant": "aslyllh",
-          "distance": 7
-        },
-        {
-          "hebrew": "SpkSmnr",
-          "eva_variant": "oslychey",
+          "hebrew": "lXSdbsm",
+          "eva_variant": "l??nygf",
           "distance": 8
         }
       ],
       "best_distance": 6,
       "best_candidate": {
-        "hebrew": "bSlmrgw",
-        "eva_variant": "dmdlfyn",
+        "hebrew": "bSlmzgt",
+        "eva_variant": "km?lfyn",
         "distance": 6
       }
     },
@@ -460,61 +332,61 @@
       "length": 4,
       "candidates": [
         {
-          "hebrew": "Smnr",
-          "eva_variant": "osly",
-          "distance": 2
-        },
-        {
-          "hebrew": "Srpw",
-          "eva_variant": "oedy",
-          "distance": 2
-        },
-        {
-          "hebrew": "mrgw",
-          "eva_variant": "omol",
+          "hebrew": "Smny",
+          "eva_variant": "asly",
           "distance": 3
         },
         {
-          "hebrew": "mSXh",
-          "eva_variant": "iihyl",
+          "hebrew": "SrSy",
+          "eva_variant": "ayoy",
           "distance": 3
         },
         {
-          "hebrew": "trym",
-          "eva_variant": "lait",
-          "distance": 3
-        },
-        {
-          "hebrew": "Xmsr",
-          "eva_variant": "o?lg",
-          "distance": 3
-        },
-        {
-          "hebrew": "rqyX",
-          "eva_variant": "ha?o",
+          "hebrew": "dbsy",
+          "eva_variant": "a??n",
           "distance": 4
         },
         {
-          "hebrew": "mzgt",
-          "eva_variant": "tm?l",
+          "hebrew": "mzgy",
+          "eva_variant": "am?l",
           "distance": 4
         },
         {
-          "hebrew": "dbst",
-          "eva_variant": "k??n",
+          "hebrew": "Elhy",
+          "eva_variant": "aiifg",
+          "distance": 4
+        },
+        {
+          "hebrew": "prXy",
+          "eva_variant": "ahde",
           "distance": 4
         },
         {
           "hebrew": "mymy",
           "eva_variant": "alal",
           "distance": 4
+        },
+        {
+          "hebrew": "yyny",
+          "eva_variant": "asaa",
+          "distance": 4
+        },
+        {
+          "hebrew": "Xmsy",
+          "eva_variant": "a?lh",
+          "distance": 4
+        },
+        {
+          "hebrew": "mlXy",
+          "eva_variant": "ahfl",
+          "distance": 4
         }
       ],
-      "best_distance": 2,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "Smnr",
-        "eva_variant": "osly",
-        "distance": 2
+        "hebrew": "Smny",
+        "eva_variant": "asly",
+        "distance": 3
       }
     },
     "14": {
@@ -524,14 +396,29 @@
       "length": 4,
       "candidates": [
         {
-          "hebrew": "Smnw",
-          "eva_variant": "osly",
+          "hebrew": "yyny",
+          "eva_variant": "asaa",
           "distance": 2
         },
         {
-          "hebrew": "Elhr",
-          "eva_variant": "orfh",
+          "hebrew": "Smny",
+          "eva_variant": "asly",
           "distance": 3
+        },
+        {
+          "hebrew": "mymy",
+          "eva_variant": "alal",
+          "distance": 3
+        },
+        {
+          "hebrew": "SrSy",
+          "eva_variant": "ayoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "Elhy",
+          "eva_variant": "arfg",
+          "distance": 4
         },
         {
           "hebrew": "prXy",
@@ -539,23 +426,8 @@
           "distance": 4
         },
         {
-          "hebrew": "pryb",
-          "eva_variant": "?aoe",
-          "distance": 4
-        },
-        {
-          "hebrew": "zrEt",
-          "eva_variant": "kho?",
-          "distance": 4
-        },
-        {
-          "hebrew": "SrSt",
-          "eva_variant": "kydy",
-          "distance": 4
-        },
-        {
-          "hebrew": "tryt",
-          "eva_variant": "kadt",
+          "hebrew": "dbsy",
+          "eva_variant": "a??n",
           "distance": 4
         },
         {
@@ -564,20 +436,20 @@
           "distance": 4
         },
         {
-          "hebrew": "rqyt",
-          "eva_variant": "ka?d",
+          "hebrew": "Xmsy",
+          "eva_variant": "a?lh",
           "distance": 4
         },
         {
-          "hebrew": "mSXy",
-          "eva_variant": "ahyl",
+          "hebrew": "mlXy",
+          "eva_variant": "ahfl",
           "distance": 4
         }
       ],
       "best_distance": 2,
       "best_candidate": {
-        "hebrew": "Smnw",
-        "eva_variant": "osly",
+        "hebrew": "yyny",
+        "eva_variant": "asaa",
         "distance": 2
       }
     },
@@ -588,61 +460,61 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "Elhmrgw",
-          "eva_variant": "dmolrfh",
-          "distance": 5
-        },
-        {
-          "hebrew": "SrSrqyX",
-          "eva_variant": "ha?oyoy",
-          "distance": 5
-        },
-        {
-          "hebrew": "prytryt",
-          "eva_variant": "tadkade",
+          "hebrew": "kthSrsm",
+          "eva_variant": "l?dyrkch",
           "distance": 6
         },
         {
-          "hebrew": "SmnSrpy",
-          "eva_variant": "aeoysly",
+          "hebrew": "ErbSrsm",
+          "eva_variant": "l?oy?oh",
           "distance": 6
         },
         {
-          "hebrew": "mSXhmym",
-          "eva_variant": "lalrhyl",
+          "hebrew": "Xmmyynm",
+          "eva_variant": "lsaallh",
           "distance": 6
         },
         {
-          "hebrew": "prXSmny",
-          "eva_variant": "aslygde",
+          "hebrew": "JXnElhm",
+          "eva_variant": "liifgsht",
           "distance": 7
         },
         {
-          "hebrew": "zrEmSXh",
-          "eva_variant": "rgylhd?",
+          "hebrew": "bSlmzgm",
+          "eva_variant": "lm?lfyn",
           "distance": 7
         },
         {
-          "hebrew": "trycmzg",
-          "eva_variant": "m?l?adk",
+          "hebrew": "SpkSmnm",
+          "eva_variant": "lslychey",
           "distance": 7
         },
         {
-          "hebrew": "mzgXmsy",
-          "eva_variant": "a?lhm?l",
+          "hebrew": "lXSdbsm",
+          "eva_variant": "l??nygf",
           "distance": 7
         },
         {
-          "hebrew": "rqyXdby",
-          "eva_variant": "a?nga?d",
+          "hebrew": "ybsmzgm",
+          "eva_variant": "lm?l??a",
+          "distance": 7
+        },
+        {
+          "hebrew": "snnSmnm",
+          "eva_variant": "lslyssr",
+          "distance": 7
+        },
+        {
+          "hebrew": "mddElhm",
+          "eva_variant": "lrfgnnl",
           "distance": 7
         }
       ],
-      "best_distance": 5,
+      "best_distance": 6,
       "best_candidate": {
-        "hebrew": "Elhmrgw",
-        "eva_variant": "dmolrfh",
-        "distance": 5
+        "hebrew": "kthSrsm",
+        "eva_variant": "l?dyrkch",
+        "distance": 6
       }
     },
     "16": {
@@ -652,124 +524,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "Elhrg",
-          "eva_variant": "morfg",
-          "distance": 4
-        },
-        {
-          "hebrew": "pryEr",
-          "eva_variant": "ohade",
-          "distance": 4
-        },
-        {
-          "hebrew": "mzgtr",
-          "eva_variant": "okm?l",
-          "distance": 4
-        },
-        {
-          "hebrew": "mSXnt",
-          "eva_variant": "tsgyl",
-          "distance": 4
-        },
-        {
-          "hebrew": "Smnlb",
-          "eva_variant": "?fsly",
-          "distance": 4
-        },
-        {
-          "hebrew": "prXtm",
-          "eva_variant": "lkhoe",
-          "distance": 5
-        },
-        {
-          "hebrew": "zrEbl",
-          "eva_variant": "f?hd?",
-          "distance": 5
-        },
-        {
-          "hebrew": "SrSmt",
-          "eva_variant": "tlyoy",
-          "distance": 5
-        },
-        {
-          "hebrew": "rqyty",
-          "eva_variant": "ata?o",
-          "distance": 5
-        },
-        {
-          "hebrew": "trypt",
-          "eva_variant": "keaot",
-          "distance": 5
-        }
-      ],
-      "best_distance": 4,
-      "best_candidate": {
-        "hebrew": "Elhrg",
-        "eva_variant": "morfg",
-        "distance": 4
-      }
-    },
-    "18": {
-      "position": 18,
-      "real_eva": "sheod",
-      "current_hebrew": "rwpEn",
-      "length": 5,
-      "candidates": [
-        {
-          "hebrew": "tryEl",
-          "eva_variant": "fhaot",
+          "hebrew": "mymEy",
+          "eva_variant": "aglal",
           "distance": 3
         },
         {
-          "hebrew": "prXmz",
-          "eva_variant": "?lhoe",
+          "hebrew": "yynwy",
+          "eva_variant": "aosaa",
+          "distance": 3
+        },
+        {
+          "hebrew": "mlXwy",
+          "eva_variant": "aohfl",
+          "distance": 3
+        },
+        {
+          "hebrew": "Smnwy",
+          "eva_variant": "aosly",
           "distance": 4
         },
         {
-          "hebrew": "prytr",
-          "eva_variant": "otaoe",
+          "hebrew": "SrSwy",
+          "eva_variant": "aoyoy",
           "distance": 4
         },
         {
-          "hebrew": "zrEmS",
-          "eva_variant": "ylgo?",
+          "hebrew": "mzgty",
+          "eva_variant": "atm?l",
           "distance": 4
         },
         {
-          "hebrew": "SrSrq",
-          "eva_variant": "?dyoy",
+          "hebrew": "dbswy",
+          "eva_variant": "ao??n",
           "distance": 4
         },
         {
-          "hebrew": "rqmSt",
-          "eva_variant": "tyl?d",
+          "hebrew": "prXwy",
+          "eva_variant": "aohoe",
           "distance": 4
         },
         {
-          "hebrew": "ElhSm",
-          "eva_variant": "lyrfh",
-          "distance": 5
+          "hebrew": "Xmswy",
+          "eva_variant": "ao?lg",
+          "distance": 4
         },
         {
-          "hebrew": "Smntb",
-          "eva_variant": "?ksly",
-          "distance": 5
-        },
-        {
-          "hebrew": "mzgrq",
-          "eva_variant": "?om?l",
-          "distance": 5
-        },
-        {
-          "hebrew": "mSXpr",
-          "eva_variant": "oegyl",
+          "hebrew": "ElhEy",
+          "eva_variant": "agrfh",
           "distance": 5
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "tryEl",
-        "eva_variant": "fhaot",
+        "hebrew": "mymEy",
+        "eva_variant": "aglal",
         "distance": 3
       }
     },
@@ -780,60 +588,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "prXmy",
-          "eva_variant": "qoalhde",
+          "hebrew": "prXwy",
+          "eva_variant": "qoaohoe",
           "distance": 3
         },
         {
-          "hebrew": "ElhSr",
-          "eva_variant": "qoyrph",
-          "distance": 4
-        },
-        {
-          "hebrew": "prytz",
-          "eva_variant": "qo?kade",
-          "distance": 4
-        },
-        {
-          "hebrew": "zrEms",
-          "eva_variant": "qo?lho?",
-          "distance": 4
-        },
-        {
-          "hebrew": "mSXpr",
-          "eva_variant": "qoehyl",
-          "distance": 4
-        },
-        {
-          "hebrew": "SrSmz",
-          "eva_variant": "qo?lydy",
+          "hebrew": "Smnwy",
+          "eva_variant": "qoaosly",
           "distance": 5
         },
         {
-          "hebrew": "trymz",
-          "eva_variant": "qo?ladk",
+          "hebrew": "SrSwy",
+          "eva_variant": "qoadyoy",
           "distance": 5
         },
         {
-          "hebrew": "mzgrq",
-          "eva_variant": "qo?om?l",
+          "hebrew": "ElhEy",
+          "eva_variant": "agrph",
           "distance": 5
         },
         {
-          "hebrew": "rqmSX",
-          "eva_variant": "qogyl?o",
+          "hebrew": "mzgty",
+          "eva_variant": "qoatm?l",
           "distance": 5
         },
         {
-          "hebrew": "Smntry",
-          "eva_variant": "qadtsly",
-          "distance": 6
+          "hebrew": "dbswy",
+          "eva_variant": "qoao??n",
+          "distance": 5
+        },
+        {
+          "hebrew": "mymEy",
+          "eva_variant": "qoaglal",
+          "distance": 5
+        },
+        {
+          "hebrew": "yynwy",
+          "eva_variant": "qoadsaa",
+          "distance": 5
+        },
+        {
+          "hebrew": "Xmswy",
+          "eva_variant": "qoad?lh",
+          "distance": 5
+        },
+        {
+          "hebrew": "trywk",
+          "eva_variant": "qochdadt",
+          "distance": 5
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "prXmy",
-        "eva_variant": "qoalhde",
+        "hebrew": "prXwy",
+        "eva_variant": "qoaohoe",
         "distance": 3
       }
     },
@@ -844,61 +652,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "prytrk",
-          "eva_variant": "chokaoe",
-          "distance": 4
-        },
-        {
-          "hebrew": "SrSrqy",
-          "eva_variant": "a?oyoy",
-          "distance": 4
-        },
-        {
-          "hebrew": "Smntrk",
-          "eva_variant": "chotsly",
-          "distance": 4
-        },
-        {
-          "hebrew": "mzgrqy",
-          "eva_variant": "a?om?l",
-          "distance": 4
-        },
-        {
-          "hebrew": "mSXprX",
-          "eva_variant": "hoehyl",
-          "distance": 4
-        },
-        {
-          "hebrew": "prXmzg",
-          "eva_variant": "m?lgoe",
+          "hebrew": "ErbSrS",
+          "eva_variant": "ydy?oh",
           "distance": 5
         },
         {
-          "hebrew": "zrEmSX",
-          "eva_variant": "gylho?",
+          "hebrew": "Xmmyyn",
+          "eva_variant": "saallg",
           "distance": 5
         },
         {
-          "hebrew": "trymzg",
-          "eva_variant": "m?laot",
+          "hebrew": "snnSmn",
+          "eva_variant": "slyssr",
           "distance": 5
         },
         {
-          "hebrew": "rqmSXh",
-          "eva_variant": "rhyl?o",
+          "hebrew": "mddElh",
+          "eva_variant": "rfgnnl",
           "distance": 5
         },
         {
-          "hebrew": "ElhSmr",
-          "eva_variant": "dlyrfh",
+          "hebrew": "JXnSrs",
+          "eva_variant": "?oysgt",
+          "distance": 6
+        },
+        {
+          "hebrew": "bSlmzg",
+          "eva_variant": "m?lfyn",
+          "distance": 6
+        },
+        {
+          "hebrew": "kthElh",
+          "eva_variant": "rfhrkch",
+          "distance": 6
+        },
+        {
+          "hebrew": "SpkSmn",
+          "eva_variant": "slychey",
+          "distance": 6
+        },
+        {
+          "hebrew": "lXSdbs",
+          "eva_variant": "??nyhf",
+          "distance": 6
+        },
+        {
+          "hebrew": "ybsmzg",
+          "eva_variant": "m?l??a",
           "distance": 6
         }
       ],
-      "best_distance": 4,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "prytrk",
-        "eva_variant": "chokaoe",
-        "distance": 4
+        "hebrew": "ErbSrS",
+        "eva_variant": "ydy?oh",
+        "distance": 5
       }
     },
     "23": {
@@ -908,60 +716,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "prytr",
-          "eva_variant": "dkaoe",
+          "hebrew": "Erbwy",
+          "eva_variant": "ao?og",
           "distance": 3
         },
         {
-          "hebrew": "trymz",
-          "eva_variant": "?laot",
-          "distance": 3
-        },
-        {
-          "hebrew": "prXmy",
-          "eva_variant": "algoe",
+          "hebrew": "kthwy",
+          "eva_variant": "aortch",
           "distance": 4
         },
         {
-          "hebrew": "Smntr",
-          "eva_variant": "dtsly",
+          "hebrew": "lXSwy",
+          "eva_variant": "aoyhf",
           "distance": 4
         },
         {
-          "hebrew": "rqmSX",
-          "eva_variant": "gyl?o",
+          "hebrew": "snnwy",
+          "eva_variant": "aossr",
           "distance": 4
         },
         {
-          "hebrew": "mSXpr",
-          "eva_variant": "degyl",
+          "hebrew": "mddwy",
+          "eva_variant": "aonnl",
           "distance": 4
         },
         {
-          "hebrew": "ElhSm",
-          "eva_variant": "lyrfh",
+          "hebrew": "JXnty",
+          "eva_variant": "aksgt",
           "distance": 5
         },
         {
-          "hebrew": "zrEmS",
-          "eva_variant": "qylgo?",
+          "hebrew": "bSlty",
+          "eva_variant": "akfyn",
           "distance": 5
         },
         {
-          "hebrew": "SrSmz",
-          "eva_variant": "?lydy",
+          "hebrew": "Spkwy",
+          "eva_variant": "aochey",
           "distance": 5
         },
         {
-          "hebrew": "mzgrq",
-          "eva_variant": "?om?l",
+          "hebrew": "Xmmty",
+          "eva_variant": "atllg",
+          "distance": 5
+        },
+        {
+          "hebrew": "ybsty",
+          "eva_variant": "at??a",
           "distance": 5
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "prytr",
-        "eva_variant": "dkaoe",
+        "hebrew": "Erbwy",
+        "eva_variant": "ao?og",
         "distance": 3
       }
     },
@@ -975,51 +783,6 @@
           "hebrew": "k",
           "eva_variant": "ch",
           "distance": 0
-        },
-        {
-          "hebrew": "w",
-          "eva_variant": "o",
-          "distance": 2
-        },
-        {
-          "hebrew": "b",
-          "eva_variant": "n",
-          "distance": 2
-        },
-        {
-          "hebrew": "m",
-          "eva_variant": "l",
-          "distance": 2
-        },
-        {
-          "hebrew": "l",
-          "eva_variant": "f",
-          "distance": 2
-        },
-        {
-          "hebrew": "p",
-          "eva_variant": "e",
-          "distance": 2
-        },
-        {
-          "hebrew": "t",
-          "eva_variant": "k",
-          "distance": 2
-        },
-        {
-          "hebrew": "h",
-          "eva_variant": "ii",
-          "distance": 2
-        },
-        {
-          "hebrew": "n",
-          "eva_variant": "qs",
-          "distance": 2
-        },
-        {
-          "hebrew": "r",
-          "eva_variant": "o",
-          "distance": 2
         }
       ],
       "best_distance": 0,
@@ -1036,61 +799,61 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "wJXnn",
-          "eva_variant": "sshtd",
+          "hebrew": "kthEl",
+          "eva_variant": "fhrtch",
+          "distance": 4
+        },
+        {
+          "hebrew": "JXnSr",
+          "eva_variant": "dyshk",
           "distance": 5
         },
         {
-          "hebrew": "Spknn",
-          "eva_variant": "sschey",
+          "hebrew": "SpkSm",
+          "eva_variant": "lychey",
           "distance": 5
         },
         {
-          "hebrew": "JXnnn",
-          "eva_variant": "qsssht",
+          "hebrew": "ErbSr",
+          "eva_variant": "oy?dh",
           "distance": 5
         },
         {
-          "hebrew": "lXSnn",
-          "eva_variant": "qssyhf",
+          "hebrew": "lXSdb",
+          "eva_variant": "?nyhf",
           "distance": 5
         },
         {
-          "hebrew": "kthnn",
-          "eva_variant": "ssrtch",
+          "hebrew": "Xmmyy",
+          "eva_variant": "aallh",
           "distance": 5
         },
         {
-          "hebrew": "Xmmnn",
-          "eva_variant": "ssllh",
+          "hebrew": "mddEl",
+          "eva_variant": "fhnnl",
           "distance": 5
         },
         {
-          "hebrew": "bSlyn",
-          "eva_variant": "qsafyn",
+          "hebrew": "bSlmz",
+          "eva_variant": "?lfyn",
           "distance": 6
         },
         {
-          "hebrew": "mrgwn",
-          "eva_variant": "qsomol",
+          "hebrew": "ybsmz",
+          "eva_variant": "?l??a",
           "distance": 6
         },
         {
-          "hebrew": "ybrnn",
-          "eva_variant": "qsso?a",
-          "distance": 6
-        },
-        {
-          "hebrew": "snnnn",
-          "eva_variant": "qossssr",
+          "hebrew": "snnSm",
+          "eva_variant": "lyssii",
           "distance": 6
         }
       ],
-      "best_distance": 5,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "wJXnn",
-        "eva_variant": "sshtd",
-        "distance": 5
+        "hebrew": "kthEl",
+        "eva_variant": "fhrtch",
+        "distance": 4
       }
     },
     "30": {
@@ -1100,61 +863,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "Smnkr",
-          "eva_variant": "dchsly",
-          "distance": 4
-        },
-        {
-          "hebrew": "JXnwr",
-          "eva_variant": "ddshk",
-          "distance": 4
-        },
-        {
-          "hebrew": "Spkwr",
-          "eva_variant": "ddchey",
-          "distance": 4
-        },
-        {
-          "hebrew": "mrgwt",
-          "eva_variant": "qtomol",
+          "hebrew": "JXnSrs",
+          "eva_variant": "?dysht",
           "distance": 5
         },
         {
-          "hebrew": "rqyXh",
-          "eva_variant": "iiha?o",
+          "hebrew": "ErbSrS",
+          "eva_variant": "ydy?oh",
           "distance": 5
         },
         {
-          "hebrew": "bSlwr",
-          "eva_variant": "ddfyn",
+          "hebrew": "snnSmn",
+          "eva_variant": "qslyssr",
           "distance": 5
         },
         {
-          "hebrew": "lXSwr",
-          "eva_variant": "ddyhf",
+          "hebrew": "mddElh",
+          "eva_variant": "rfhnnl",
           "distance": 5
         },
         {
-          "hebrew": "kthwr",
-          "eva_variant": "ddrkch",
-          "distance": 5
+          "hebrew": "bSlmzg",
+          "eva_variant": "m?lfyn",
+          "distance": 6
         },
         {
-          "hebrew": "ybrwr",
-          "eva_variant": "ddd?a",
-          "distance": 5
+          "hebrew": "kthElh",
+          "eva_variant": "rfhrkch",
+          "distance": 6
         },
         {
-          "hebrew": "Xmmwr",
-          "eva_variant": "ddllh",
-          "distance": 5
+          "hebrew": "SpkSmn",
+          "eva_variant": "qslychey",
+          "distance": 6
+        },
+        {
+          "hebrew": "lXSdbs",
+          "eva_variant": "??nyhf",
+          "distance": 6
+        },
+        {
+          "hebrew": "Xmmyyn",
+          "eva_variant": "qsaallg",
+          "distance": 6
+        },
+        {
+          "hebrew": "ybsmzg",
+          "eva_variant": "m?l??a",
+          "distance": 6
         }
       ],
-      "best_distance": 4,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "Smnkr",
-        "eva_variant": "dchsly",
-        "distance": 4
+        "hebrew": "JXnSrs",
+        "eva_variant": "?dysht",
+        "distance": 5
       }
     },
     "34": {
@@ -1164,61 +927,61 @@
       "length": 8,
       "candidates": [
         {
-          "hebrew": "JXnmrgwt",
-          "eva_variant": "komolsgt",
+          "hebrew": "SmrrgtS",
+          "eva_variant": "ykmodly",
+          "distance": 4
+        },
+        {
+          "hebrew": "SrpgtSm",
+          "eva_variant": "lykmedy",
+          "distance": 5
+        },
+        {
+          "hebrew": "prySmnt",
+          "eva_variant": "kslyaie",
+          "distance": 6
+        },
+        {
+          "hebrew": "trngtSy",
+          "eva_variant": "aykmsot",
+          "distance": 6
+        },
+        {
+          "hebrew": "JrngtSm",
+          "eva_variant": "lykmsok",
+          "distance": 6
+        },
+        {
+          "hebrew": "prygtSm",
+          "eva_variant": "lykmaoe",
+          "distance": 6
+        },
+        {
+          "hebrew": "mzgSmnt",
+          "eva_variant": "kslym?l",
           "distance": 7
         },
         {
-          "hebrew": "ybrSmnwr",
-          "eva_variant": "odslyo?a",
+          "hebrew": "ElbSmnt",
+          "eva_variant": "ksly?fg",
           "distance": 7
         },
         {
-          "hebrew": "XmmrqyXh",
-          "eva_variant": "rha?ollh",
+          "hebrew": "mrgSmnt",
+          "eva_variant": "tslymdl",
           "distance": 7
         },
         {
-          "hebrew": "snnmrgwt",
-          "eva_variant": "komolssii",
+          "hebrew": "SrsSmnt",
+          "eva_variant": "ksly?oy",
           "distance": 7
-        },
-        {
-          "hebrew": "bSlSmnwr",
-          "eva_variant": "doslyfyn",
-          "distance": 8
-        },
-        {
-          "hebrew": "SpkmrgwS",
-          "eva_variant": "ydmolchey",
-          "distance": 8
-        },
-        {
-          "hebrew": "lXSJrykh",
-          "eva_variant": "rchaokyhf",
-          "distance": 8
-        },
-        {
-          "hebrew": "ErbSmnwr",
-          "eva_variant": "ddsly?dh",
-          "distance": 8
-        },
-        {
-          "hebrew": "kthmrgwn",
-          "eva_variant": "qsdmoliitch",
-          "distance": 9
-        },
-        {
-          "hebrew": "rkkJrykh",
-          "eva_variant": "rchaokchchi",
-          "distance": 9
         }
       ],
-      "best_distance": 7,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "JXnmrgwt",
-        "eva_variant": "komolsgt",
-        "distance": 7
+        "hebrew": "SmrrgtS",
+        "eva_variant": "ykmodly",
+        "distance": 4
       }
     },
     "40": {
@@ -1228,124 +991,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "JXnwr",
-          "eva_variant": "dosgt",
+          "hebrew": "Smngr",
+          "eva_variant": "dmsly",
           "distance": 4
         },
         {
-          "hebrew": "bSlwr",
-          "eva_variant": "ddfyn",
+          "hebrew": "prytr",
+          "eva_variant": "dkaoe",
           "distance": 4
         },
         {
-          "hebrew": "lXSwr",
-          "eva_variant": "ddyhf",
+          "hebrew": "SrpSm",
+          "eva_variant": "lyedy",
           "distance": 4
         },
         {
-          "hebrew": "ybrwr",
-          "eva_variant": "ddd?a",
-          "distance": 4
-        },
-        {
-          "hebrew": "Xmmwr",
-          "eva_variant": "ddllh",
-          "distance": 4
-        },
-        {
-          "hebrew": "snnwr",
-          "eva_variant": "ddssr",
-          "distance": 4
-        },
-        {
-          "hebrew": "Erbwr",
-          "eva_variant": "dd?dg",
-          "distance": 4
-        },
-        {
-          "hebrew": "mrgwt",
-          "eva_variant": "tomol",
+          "hebrew": "mrgSm",
+          "eva_variant": "lymol",
           "distance": 5
         },
         {
-          "hebrew": "Spkwr",
-          "eva_variant": "ddchey",
+          "hebrew": "ElbSm",
+          "eva_variant": "ly?fg",
           "distance": 5
         },
         {
-          "hebrew": "kthwr",
-          "eva_variant": "ddrkch",
+          "hebrew": "SrsSm",
+          "eva_variant": "ly?oy",
+          "distance": 5
+        },
+        {
+          "hebrew": "nrdSm",
+          "eva_variant": "lynos",
+          "distance": 5
+        },
+        {
+          "hebrew": "JrnSm",
+          "eva_variant": "lysdt",
+          "distance": 5
+        },
+        {
+          "hebrew": "mzgSm",
+          "eva_variant": "lym?l",
+          "distance": 5
+        },
+        {
+          "hebrew": "trgSm",
+          "eva_variant": "lymot",
           "distance": 5
         }
       ],
       "best_distance": 4,
       "best_candidate": {
-        "hebrew": "JXnwr",
-        "eva_variant": "dosgt",
-        "distance": 4
-      }
-    },
-    "43": {
-      "position": 43,
-      "real_eva": "chkeey",
-      "current_hebrew": "Spptk",
-      "length": 5,
-      "candidates": [
-        {
-          "hebrew": "Spknn",
-          "eva_variant": "sschey",
-          "distance": 4
-        },
-        {
-          "hebrew": "JXnnn",
-          "eva_variant": "qsssgk",
-          "distance": 6
-        },
-        {
-          "hebrew": "bSlyn",
-          "eva_variant": "qosafyn",
-          "distance": 6
-        },
-        {
-          "hebrew": "mrgwn",
-          "eva_variant": "qsomol",
-          "distance": 6
-        },
-        {
-          "hebrew": "lXSnn",
-          "eva_variant": "qssygf",
-          "distance": 6
-        },
-        {
-          "hebrew": "kthnn",
-          "eva_variant": "ssrkch",
-          "distance": 6
-        },
-        {
-          "hebrew": "ybrnn",
-          "eva_variant": "qsso?a",
-          "distance": 6
-        },
-        {
-          "hebrew": "Xmmnn",
-          "eva_variant": "qssllh",
-          "distance": 6
-        },
-        {
-          "hebrew": "snnnn",
-          "eva_variant": "qssssr",
-          "distance": 6
-        },
-        {
-          "hebrew": "Erbnn",
-          "eva_variant": "qss?dh",
-          "distance": 6
-        }
-      ],
-      "best_distance": 4,
-      "best_candidate": {
-        "hebrew": "Spknn",
-        "eva_variant": "sschey",
+        "hebrew": "Smngr",
+        "eva_variant": "dmsly",
         "distance": 4
       }
     },
@@ -1356,61 +1055,125 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "mrgwt",
-          "eva_variant": "qotomol",
-          "distance": 3
-        },
-        {
-          "hebrew": "ybrwr",
-          "eva_variant": "qodo?a",
+          "hebrew": "SmntEr",
+          "eva_variant": "qogtsly",
           "distance": 4
         },
         {
-          "hebrew": "Xmmwr",
-          "eva_variant": "qoddllh",
+          "hebrew": "SrsSrp",
+          "eva_variant": "qoeoy?dy",
           "distance": 4
         },
         {
-          "hebrew": "Erbwr",
-          "eva_variant": "qod?og",
+          "hebrew": "SrpSmr",
+          "eva_variant": "qolyeoy",
           "distance": 4
         },
         {
-          "hebrew": "JXnwr",
-          "eva_variant": "qodsgt",
+          "hebrew": "mrgSmn",
+          "eva_variant": "qoslymol",
           "distance": 5
         },
         {
-          "hebrew": "bSlwr",
-          "eva_variant": "qodfyn",
+          "hebrew": "ElbSmr",
+          "eva_variant": "qoly?fg",
           "distance": 5
         },
         {
-          "hebrew": "Spkwr",
-          "eva_variant": "qodchey",
+          "hebrew": "prySmr",
+          "eva_variant": "qolyade",
           "distance": 5
         },
         {
-          "hebrew": "lXSwr",
-          "eva_variant": "qoooyhf",
+          "hebrew": "nrdSmr",
+          "eva_variant": "qodlynds",
           "distance": 5
         },
         {
-          "hebrew": "kthwr",
-          "eva_variant": "qoortch",
+          "hebrew": "JrnSmr",
+          "eva_variant": "qolysok",
           "distance": 5
         },
         {
-          "hebrew": "snnwr",
-          "eva_variant": "qooossr",
+          "hebrew": "trgSmr",
+          "eva_variant": "qodlymdt",
+          "distance": 5
+        },
+        {
+          "hebrew": "mzgSmr",
+          "eva_variant": "qolym?l",
           "distance": 5
         }
       ],
-      "best_distance": 3,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "mrgwt",
-        "eva_variant": "qotomol",
-        "distance": 3
+        "hebrew": "SmntEr",
+        "eva_variant": "qogtsly",
+        "distance": 4
+      }
+    },
+    "50": {
+      "position": 50,
+      "real_eva": "ota",
+      "current_hebrew": "yJw",
+      "length": 3,
+      "candidates": [
+        {
+          "hebrew": "ybs",
+          "eva_variant": "??a",
+          "distance": 2
+        },
+        {
+          "hebrew": "ntn",
+          "eva_variant": "sts",
+          "distance": 2
+        },
+        {
+          "hebrew": "Srp",
+          "eva_variant": "edy",
+          "distance": 3
+        },
+        {
+          "hebrew": "mzg",
+          "eva_variant": "m?l",
+          "distance": 3
+        },
+        {
+          "hebrew": "nrd",
+          "eva_variant": "nos",
+          "distance": 3
+        },
+        {
+          "hebrew": "Smn",
+          "eva_variant": "sly",
+          "distance": 3
+        },
+        {
+          "hebrew": "mlX",
+          "eva_variant": "gfl",
+          "distance": 3
+        },
+        {
+          "hebrew": "JXn",
+          "eva_variant": "sgt",
+          "distance": 3
+        },
+        {
+          "hebrew": "kth",
+          "eva_variant": "rtch",
+          "distance": 3
+        },
+        {
+          "hebrew": "mSk",
+          "eva_variant": "chyl",
+          "distance": 4
+        }
+      ],
+      "best_distance": 2,
+      "best_candidate": {
+        "hebrew": "ybs",
+        "eva_variant": "??a",
+        "distance": 2
       }
     },
     "52": {
@@ -1420,61 +1183,61 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "rkkJr",
-          "eva_variant": "okchcho",
-          "distance": 3
-        },
-        {
-          "hebrew": "SpkmS",
-          "eva_variant": "ylchey",
-          "distance": 4
-        },
-        {
-          "hebrew": "lXSJr",
-          "eva_variant": "dkyhf",
-          "distance": 4
-        },
-        {
-          "hebrew": "JXnmr",
-          "eva_variant": "dlsht",
+          "hebrew": "SmntE",
+          "eva_variant": "hksly",
           "distance": 5
         },
         {
-          "hebrew": "kthmr",
-          "eva_variant": "dlrkch",
+          "hebrew": "ElbSr",
+          "eva_variant": "oy?fh",
           "distance": 5
         },
         {
-          "hebrew": "Xmmrq",
-          "eva_variant": "?dllh",
+          "hebrew": "SrpSr",
+          "eva_variant": "oyeoy",
           "distance": 5
         },
         {
-          "hebrew": "ErbSm",
-          "eva_variant": "ly?oh",
-          "distance": 5
-        },
-        {
-          "hebrew": "bSlSm",
-          "eva_variant": "lyfyn",
+          "hebrew": "mrgSm",
+          "eva_variant": "lymol",
           "distance": 6
         },
         {
-          "hebrew": "ybrSm",
-          "eva_variant": "lyo?a",
+          "hebrew": "prySr",
+          "eva_variant": "oyaoe",
           "distance": 6
         },
         {
-          "hebrew": "snnmr",
-          "eva_variant": "olssii",
+          "hebrew": "SrsSm",
+          "eva_variant": "ly?oy",
+          "distance": 6
+        },
+        {
+          "hebrew": "nrdSr",
+          "eva_variant": "oynos",
+          "distance": 6
+        },
+        {
+          "hebrew": "JrnSr",
+          "eva_variant": "dysdk",
+          "distance": 6
+        },
+        {
+          "hebrew": "trgSr",
+          "eva_variant": "oymok",
+          "distance": 6
+        },
+        {
+          "hebrew": "mzgSr",
+          "eva_variant": "dym?l",
           "distance": 6
         }
       ],
-      "best_distance": 3,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "rkkJr",
-        "eva_variant": "okchcho",
-        "distance": 3
+        "hebrew": "SmntE",
+        "eva_variant": "hksly",
+        "distance": 5
       }
     },
     "53": {
@@ -1484,60 +1247,124 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "Spkwr",
-          "eva_variant": "ddchey",
+          "hebrew": "SrpmS",
+          "eva_variant": "qyleoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "mSXhS",
+          "eva_variant": "yrhyl",
+          "distance": 5
+        },
+        {
+          "hebrew": "prymS",
+          "eva_variant": "qylaoe",
+          "distance": 5
+        },
+        {
+          "hebrew": "SrsmS",
+          "eva_variant": "qyl?oy",
+          "distance": 5
+        },
+        {
+          "hebrew": "nrdmS",
+          "eva_variant": "qylnos",
+          "distance": 5
+        },
+        {
+          "hebrew": "JrnmS",
+          "eva_variant": "qylsok",
+          "distance": 5
+        },
+        {
+          "hebrew": "trgmS",
+          "eva_variant": "qylmot",
+          "distance": 5
+        },
+        {
+          "hebrew": "SmrgS",
+          "eva_variant": "qoymoly",
+          "distance": 6
+        },
+        {
+          "hebrew": "ElbmS",
+          "eva_variant": "qyl?fh",
+          "distance": 6
+        },
+        {
+          "hebrew": "mzgmS",
+          "eva_variant": "qylm?l",
+          "distance": 6
+        }
+      ],
+      "best_distance": 4,
+      "best_candidate": {
+        "hebrew": "SrpmS",
+        "eva_variant": "qyleoy",
+        "distance": 4
+      }
+    },
+    "58": {
+      "position": 58,
+      "real_eva": "qokeeody",
+      "current_hebrew": "Srwppt",
+      "length": 6,
+      "candidates": [
+        {
+          "hebrew": "SrpmSr",
+          "eva_variant": "qoyleoy",
           "distance": 3
         },
         {
-          "hebrew": "snnwr",
-          "eva_variant": "ddssr",
+          "hebrew": "SmrgSm",
+          "eva_variant": "qolymoly",
           "distance": 4
         },
         {
-          "hebrew": "Erbwr",
-          "eva_variant": "do?og",
+          "hebrew": "SrsmSr",
+          "eva_variant": "qooyl?dy",
           "distance": 4
         },
         {
-          "hebrew": "JXnwr",
-          "eva_variant": "dosgt",
+          "hebrew": "prymSr",
+          "eva_variant": "qooylade",
           "distance": 5
         },
         {
-          "hebrew": "bSlwr",
-          "eva_variant": "ddfyn",
+          "hebrew": "nrdmSr",
+          "eva_variant": "qodylnds",
           "distance": 5
         },
         {
-          "hebrew": "mrgwt",
-          "eva_variant": "qtomol",
+          "hebrew": "JrnmSr",
+          "eva_variant": "qooylsdt",
           "distance": 5
         },
         {
-          "hebrew": "lXSwr",
-          "eva_variant": "ddyhf",
+          "hebrew": "trgmSr",
+          "eva_variant": "qooylmdt",
           "distance": 5
         },
         {
-          "hebrew": "kthwr",
-          "eva_variant": "ddrkch",
-          "distance": 5
+          "hebrew": "mSXhSm",
+          "eva_variant": "qolyiihyl",
+          "distance": 6
         },
         {
-          "hebrew": "ybrwr",
-          "eva_variant": "ddd?a",
-          "distance": 5
+          "hebrew": "ElbmSr",
+          "eva_variant": "qodyl?fh",
+          "distance": 6
         },
         {
-          "hebrew": "Xmmwr",
-          "eva_variant": "ddllh",
-          "distance": 5
+          "hebrew": "mzgmSr",
+          "eva_variant": "qooylm?l",
+          "distance": 6
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "Spkwr",
-        "eva_variant": "ddchey",
+        "hebrew": "SrpmSr",
+        "eva_variant": "qoyleoy",
         "distance": 3
       }
     },
@@ -1548,61 +1375,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "JXnmrg",
-          "eva_variant": "molsht",
+          "hebrew": "SrpSrp",
+          "eva_variant": "eoyeoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "Elbmrg",
+          "eva_variant": "mol?fh",
           "distance": 5
         },
         {
-          "hebrew": "bSlSmn",
-          "eva_variant": "slyfyn",
+          "hebrew": "prySrp",
+          "eva_variant": "eoyade",
           "distance": 5
         },
         {
-          "hebrew": "lXSJry",
-          "eva_variant": "aokyhf",
+          "hebrew": "SrsSrp",
+          "eva_variant": "eoy?oy",
           "distance": 5
         },
         {
-          "hebrew": "kthmrg",
-          "eva_variant": "mdlrkch",
+          "hebrew": "nrdmrg",
+          "eva_variant": "molnos",
           "distance": 5
         },
         {
-          "hebrew": "snnmrg",
-          "eva_variant": "molssr",
+          "hebrew": "JrnSrp",
+          "eva_variant": "eoysdt",
           "distance": 5
         },
         {
-          "hebrew": "SpkmrS",
-          "eva_variant": "ydlchey",
+          "hebrew": "trgSrp",
+          "eva_variant": "eoymot",
+          "distance": 5
+        },
+        {
+          "hebrew": "mzgSrp",
+          "eva_variant": "eoym?l",
+          "distance": 5
+        },
+        {
+          "hebrew": "mrgSmn",
+          "eva_variant": "slymol",
           "distance": 6
         },
         {
-          "hebrew": "ybrSmn",
-          "eva_variant": "slyd?a",
+          "hebrew": "SmntEl",
+          "eva_variant": "fhtsly",
           "distance": 6
-        },
-        {
-          "hebrew": "Xmmrqy",
-          "eva_variant": "a?ollh",
-          "distance": 6
-        },
-        {
-          "hebrew": "ErbSmn",
-          "eva_variant": "sly?oh",
-          "distance": 6
-        },
-        {
-          "hebrew": "rkkJry",
-          "eva_variant": "adtchcho",
-          "distance": 7
         }
       ],
-      "best_distance": 5,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "JXnmrg",
-        "eva_variant": "molsht",
-        "distance": 5
+        "hebrew": "SrpSrp",
+        "eva_variant": "eoyeoy",
+        "distance": 4
       }
     },
     "60": {
@@ -1612,61 +1439,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "lXSJry",
-          "eva_variant": "aokyhf",
+          "hebrew": "nrdmrE",
+          "eva_variant": "golnos",
+          "distance": 4
+        },
+        {
+          "hebrew": "SrpSrE",
+          "eva_variant": "hdyeoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "mrgSmE",
+          "eva_variant": "hlymol",
           "distance": 5
         },
         {
-          "hebrew": "ErbSmn",
-          "eva_variant": "sly?oh",
+          "hebrew": "ElbmtE",
+          "eva_variant": "hkl?fh",
           "distance": 5
         },
         {
-          "hebrew": "JXnmrg",
-          "eva_variant": "mdlsht",
+          "hebrew": "prySrE",
+          "eva_variant": "gdyaoe",
+          "distance": 5
+        },
+        {
+          "hebrew": "SrsSrE",
+          "eva_variant": "hdy?oy",
+          "distance": 5
+        },
+        {
+          "hebrew": "JrnSrE",
+          "eva_variant": "hoysot",
+          "distance": 5
+        },
+        {
+          "hebrew": "trgSrE",
+          "eva_variant": "gdymot",
+          "distance": 5
+        },
+        {
+          "hebrew": "SmntlE",
+          "eva_variant": "hftsly",
           "distance": 6
         },
         {
-          "hebrew": "bSlSmn",
-          "eva_variant": "slyfyn",
-          "distance": 6
-        },
-        {
-          "hebrew": "SpkmrS",
-          "eva_variant": "yolchey",
-          "distance": 6
-        },
-        {
-          "hebrew": "kthmrg",
-          "eva_variant": "molrkch",
-          "distance": 6
-        },
-        {
-          "hebrew": "ybrSmn",
-          "eva_variant": "slyd?a",
-          "distance": 6
-        },
-        {
-          "hebrew": "Xmmrqy",
-          "eva_variant": "a?ollh",
-          "distance": 6
-        },
-        {
-          "hebrew": "snnmrg",
-          "eva_variant": "molssii",
-          "distance": 6
-        },
-        {
-          "hebrew": "rkkJry",
-          "eva_variant": "aokchchd",
+          "hebrew": "mzgSrE",
+          "eva_variant": "goym?l",
           "distance": 6
         }
       ],
-      "best_distance": 5,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "lXSJry",
-        "eva_variant": "aokyhf",
-        "distance": 5
+        "hebrew": "nrdmrE",
+        "eva_variant": "golnos",
+        "distance": 4
       }
     },
     "61": {
@@ -1676,61 +1503,61 @@
       "length": 8,
       "candidates": [
         {
-          "hebrew": "SpkmrgwS",
-          "eva_variant": "ydmolchey",
-          "distance": 5
+          "hebrew": "SmrgSmEl",
+          "eva_variant": "fhlymdly",
+          "distance": 6
         },
         {
-          "hebrew": "JXnmrgwt",
-          "eva_variant": "tdmolshk",
+          "hebrew": "mSXhSmEl",
+          "eva_variant": "fhlyrhyl",
+          "distance": 6
+        },
+        {
+          "hebrew": "ElbmSrEl",
+          "eva_variant": "fhoyl?fg",
+          "distance": 6
+        },
+        {
+          "hebrew": "prySrpEl",
+          "eva_variant": "fheoyade",
+          "distance": 6
+        },
+        {
+          "hebrew": "SrsSrpEl",
+          "eva_variant": "fhedy?oy",
+          "distance": 6
+        },
+        {
+          "hebrew": "SrpSrpEl",
+          "eva_variant": "fheoyeoy",
+          "distance": 6
+        },
+        {
+          "hebrew": "nrdmrgEl",
+          "eva_variant": "fhmolnds",
           "distance": 7
         },
         {
-          "hebrew": "bSlSmnwr",
-          "eva_variant": "doslyfyn",
+          "hebrew": "JrnSrpEl",
+          "eva_variant": "fheoysdt",
           "distance": 7
         },
         {
-          "hebrew": "lXSJrykh",
-          "eva_variant": "rchadkyhf",
+          "hebrew": "trgSrpEl",
+          "eva_variant": "fheoymok",
           "distance": 7
         },
         {
-          "hebrew": "kthmrgwn",
-          "eva_variant": "sdmolrtch",
+          "hebrew": "mzgSrpEl",
+          "eva_variant": "fhedym?l",
           "distance": 7
-        },
-        {
-          "hebrew": "XmmrqyXh",
-          "eva_variant": "rha?ollh",
-          "distance": 7
-        },
-        {
-          "hebrew": "ybrSmnwr",
-          "eva_variant": "odslyo?a",
-          "distance": 8
-        },
-        {
-          "hebrew": "snnmrgwt",
-          "eva_variant": "tdmolssii",
-          "distance": 8
-        },
-        {
-          "hebrew": "ErbSmnwr",
-          "eva_variant": "ddsly?dh",
-          "distance": 8
-        },
-        {
-          "hebrew": "rkkJrykh",
-          "eva_variant": "rchaokchchd",
-          "distance": 8
         }
       ],
-      "best_distance": 5,
+      "best_distance": 6,
       "best_candidate": {
-        "hebrew": "SpkmrgwS",
-        "eva_variant": "ydmolchey",
-        "distance": 5
+        "hebrew": "SmrgSmEl",
+        "eva_variant": "fhlymdly",
+        "distance": 6
       }
     },
     "63": {
@@ -1740,61 +1567,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "SpkmrS",
-          "eva_variant": "yolchey",
-          "distance": 3
-        },
-        {
-          "hebrew": "JXnmrg",
-          "eva_variant": "molsht",
+          "hebrew": "mrgSmS",
+          "eva_variant": "ylymol",
           "distance": 5
         },
         {
-          "hebrew": "ErbSmn",
-          "eva_variant": "sly?oh",
+          "hebrew": "nrdmrS",
+          "eva_variant": "yolnos",
           "distance": 5
         },
         {
-          "hebrew": "rkkJry",
-          "eva_variant": "aokchchd",
+          "hebrew": "SrpSrS",
+          "eva_variant": "qoyoyeoy",
           "distance": 5
         },
         {
-          "hebrew": "bSlSmn",
-          "eva_variant": "slyfyn",
+          "hebrew": "prySrS",
+          "eva_variant": "yoyade",
           "distance": 6
         },
         {
-          "hebrew": "lXSJry",
-          "eva_variant": "aokyhf",
+          "hebrew": "SrsSrS",
+          "eva_variant": "qoyoy?oy",
           "distance": 6
         },
         {
-          "hebrew": "kthmrg",
-          "eva_variant": "moliikch",
+          "hebrew": "JrnSrS",
+          "eva_variant": "qoyoysot",
           "distance": 6
         },
         {
-          "hebrew": "ybrSmn",
-          "eva_variant": "slyd?a",
+          "hebrew": "trgSrS",
+          "eva_variant": "qoyoymot",
           "distance": 6
         },
         {
-          "hebrew": "Xmmrqy",
-          "eva_variant": "a?ollh",
-          "distance": 6
+          "hebrew": "SmntlS",
+          "eva_variant": "qoyfksly",
+          "distance": 7
         },
         {
-          "hebrew": "snnmrg",
-          "eva_variant": "molssii",
-          "distance": 6
+          "hebrew": "ElbmtS",
+          "eva_variant": "qoykl?fg",
+          "distance": 7
+        },
+        {
+          "hebrew": "mzgSrS",
+          "eva_variant": "qoyoym?l",
+          "distance": 7
         }
       ],
-      "best_distance": 3,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "SpkmrS",
-        "eva_variant": "yolchey",
-        "distance": 3
+        "hebrew": "mrgSmS",
+        "eva_variant": "ylymol",
+        "distance": 5
       }
     },
     "64": {
@@ -1804,60 +1631,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "mrgwt",
-          "eva_variant": "tomol",
+          "hebrew": "SmntE",
+          "eva_variant": "hksly",
           "distance": 3
         },
         {
-          "hebrew": "ybrwr",
-          "eva_variant": "odo?a",
+          "hebrew": "nrdmr",
+          "eva_variant": "olnos",
           "distance": 3
         },
         {
-          "hebrew": "Xmmwr",
-          "eva_variant": "oollg",
-          "distance": 3
-        },
-        {
-          "hebrew": "snnwr",
-          "eva_variant": "oossr",
-          "distance": 3
-        },
-        {
-          "hebrew": "JXnwr",
-          "eva_variant": "odsgt",
+          "hebrew": "mrgSm",
+          "eva_variant": "lymol",
           "distance": 4
         },
         {
-          "hebrew": "bSlwr",
-          "eva_variant": "odfyn",
+          "hebrew": "prySr",
+          "eva_variant": "oyaoe",
           "distance": 4
         },
         {
-          "hebrew": "lXSwr",
-          "eva_variant": "ooyhf",
+          "hebrew": "SrsSr",
+          "eva_variant": "oy?oy",
           "distance": 4
         },
         {
-          "hebrew": "Erbwr",
-          "eva_variant": "od?dh",
+          "hebrew": "JrnSr",
+          "eva_variant": "oysot",
           "distance": 4
         },
         {
-          "hebrew": "Spkwr",
-          "eva_variant": "dochey",
-          "distance": 5
+          "hebrew": "trgSr",
+          "eva_variant": "oymok",
+          "distance": 4
         },
         {
-          "hebrew": "kthwr",
-          "eva_variant": "oortch",
+          "hebrew": "mzgSr",
+          "eva_variant": "oym?l",
+          "distance": 4
+        },
+        {
+          "hebrew": "SrpSr",
+          "eva_variant": "oyeoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "ElbmE",
+          "eva_variant": "gl?fg",
           "distance": 5
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "mrgwt",
-        "eva_variant": "tomol",
+        "hebrew": "SmntE",
+        "eva_variant": "hksly",
         "distance": 3
       }
     },
@@ -1868,61 +1695,61 @@
       "length": 8,
       "candidates": [
         {
-          "hebrew": "JXnmrgwt",
-          "eva_variant": "tomdlsht",
+          "hebrew": "SmrgSmEl",
+          "eva_variant": "fglymoly",
+          "distance": 4
+        },
+        {
+          "hebrew": "mSXhSmrg",
+          "eva_variant": "molyiigyl",
           "distance": 6
         },
         {
-          "hebrew": "bSlSmnwr",
-          "eva_variant": "doslyfyn",
+          "hebrew": "SrsSrpmS",
+          "eva_variant": "qoyledy?dy",
           "distance": 6
         },
         {
-          "hebrew": "SpkmrgwS",
-          "eva_variant": "ydmolchey",
+          "hebrew": "SrpSrpmS",
+          "eva_variant": "qoyleoyedy",
           "distance": 6
         },
         {
-          "hebrew": "ybrSmnwr",
-          "eva_variant": "odslyo?a",
-          "distance": 6
-        },
-        {
-          "hebrew": "ErbSmnwr",
-          "eva_variant": "dosly?dh",
-          "distance": 6
-        },
-        {
-          "hebrew": "lXSJrykh",
-          "eva_variant": "qorchadkyhf",
+          "hebrew": "prySrpmS",
+          "eva_variant": "qoyleoyade",
           "distance": 7
         },
         {
-          "hebrew": "snnmrgwt",
-          "eva_variant": "tdmolssii",
+          "hebrew": "nrdmrgmS",
+          "eva_variant": "ylmolnos",
           "distance": 7
         },
         {
-          "hebrew": "kthmrgwn",
-          "eva_variant": "sdmoliitch",
+          "hebrew": "JrnSrpmS",
+          "eva_variant": "yleoysok",
+          "distance": 7
+        },
+        {
+          "hebrew": "trgSrpmS",
+          "eva_variant": "qoyleoymdt",
+          "distance": 7
+        },
+        {
+          "hebrew": "ElbmSrpS",
+          "eva_variant": "yedyl?fh",
           "distance": 8
         },
         {
-          "hebrew": "XmmrqyXh",
-          "eva_variant": "iiha?ollh",
+          "hebrew": "mzgSrpmS",
+          "eva_variant": "qoyleoym?l",
           "distance": 8
-        },
-        {
-          "hebrew": "rkkJrykh",
-          "eva_variant": "rchaokchchd",
-          "distance": 9
         }
       ],
-      "best_distance": 6,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "JXnmrgwt",
-        "eva_variant": "tomdlsht",
-        "distance": 6
+        "hebrew": "SmrgSmEl",
+        "eva_variant": "fglymoly",
+        "distance": 4
       }
     },
     "72": {
@@ -1932,61 +1759,61 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "mwElh",
-          "eva_variant": "rphol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mElbA",
-          "eva_variant": "c?phl",
-          "distance": 2
-        },
-        {
-          "hebrew": "mrkbt",
-          "eva_variant": "k?chol",
+          "hebrew": "mrgSm",
+          "eva_variant": "lymol",
           "distance": 3
         },
         {
-          "hebrew": "mSXht",
-          "eva_variant": "krhyl",
-          "distance": 3
-        },
-        {
-          "hebrew": "mElyt",
-          "eva_variant": "kaphl",
-          "distance": 3
-        },
-        {
-          "hebrew": "mrgwh",
-          "eva_variant": "romol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mzgAl",
-          "eva_variant": "fcm?l",
+          "hebrew": "prySr",
+          "eva_variant": "oyaoe",
           "distance": 4
         },
         {
-          "hebrew": "trkbh",
-          "eva_variant": "r?chok",
+          "hebrew": "SrsSr",
+          "eva_variant": "oy?oy",
           "distance": 4
         },
         {
-          "hebrew": "mSxAk",
-          "eva_variant": "chc?yl",
+          "hebrew": "nrdmr",
+          "eva_variant": "dlnos",
           "distance": 4
         },
         {
-          "hebrew": "mtknt",
-          "eva_variant": "tschkl",
+          "hebrew": "JrnSr",
+          "eva_variant": "oysot",
           "distance": 4
+        },
+        {
+          "hebrew": "trgSr",
+          "eva_variant": "oymok",
+          "distance": 4
+        },
+        {
+          "hebrew": "mzgSr",
+          "eva_variant": "dym?l",
+          "distance": 4
+        },
+        {
+          "hebrew": "SrpSr",
+          "eva_variant": "oyeoy",
+          "distance": 4
+        },
+        {
+          "hebrew": "SmntE",
+          "eva_variant": "gtsly",
+          "distance": 5
+        },
+        {
+          "hebrew": "ElbmE",
+          "eva_variant": "gl?fg",
+          "distance": 5
         }
       ],
-      "best_distance": 1,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "mwElh",
-        "eva_variant": "rphol",
-        "distance": 1
+        "hebrew": "mrgSm",
+        "eva_variant": "lymol",
+        "distance": 3
       }
     },
     "73": {
@@ -1996,61 +1823,61 @@
       "length": 4,
       "candidates": [
         {
-          "hebrew": "nrdt",
-          "eva_variant": "qotnds",
-          "distance": 2
-        },
-        {
-          "hebrew": "nXSt",
-          "eva_variant": "qotygs",
-          "distance": 2
-        },
-        {
-          "hebrew": "nphX",
-          "eva_variant": "qogres",
-          "distance": 2
-        },
-        {
-          "hebrew": "npkh",
-          "eva_variant": "qorches",
+          "hebrew": "nrdm",
+          "eva_variant": "qolnds",
           "distance": 3
         },
         {
-          "hebrew": "ntkt",
-          "eva_variant": "qotchks",
+          "hebrew": "SrpS",
+          "eva_variant": "qoyedy",
           "distance": 3
         },
         {
-          "hebrew": "nJEl",
-          "eva_variant": "qofgts",
-          "distance": 3
+          "hebrew": "mrgS",
+          "eva_variant": "qoymdl",
+          "distance": 4
         },
         {
-          "hebrew": "nkAt",
-          "eva_variant": "qotcchs",
-          "distance": 3
+          "hebrew": "SmtE",
+          "eva_variant": "qhtly",
+          "distance": 4
         },
         {
-          "hebrew": "nbSm",
-          "eva_variant": "qoly?s",
-          "distance": 3
+          "hebrew": "Elbm",
+          "eva_variant": "qol?fg",
+          "distance": 4
         },
         {
-          "hebrew": "nrgA",
-          "eva_variant": "qocmds",
-          "distance": 3
+          "hebrew": "pryS",
+          "eva_variant": "qoyaoe",
+          "distance": 4
         },
         {
-          "hebrew": "nSkh",
-          "eva_variant": "qorchys",
+          "hebrew": "SrsS",
+          "eva_variant": "qoy?dy",
+          "distance": 4
+        },
+        {
+          "hebrew": "JrnS",
+          "eva_variant": "qoysdt",
+          "distance": 4
+        },
+        {
+          "hebrew": "trgS",
+          "eva_variant": "qoymdk",
+          "distance": 4
+        },
+        {
+          "hebrew": "mzgS",
+          "eva_variant": "qoym?l",
           "distance": 4
         }
       ],
-      "best_distance": 2,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "nrdt",
-        "eva_variant": "qotnds",
-        "distance": 2
+        "hebrew": "nrdm",
+        "eva_variant": "qolnds",
+        "distance": 3
       }
     },
     "75": {
@@ -2065,49 +1892,49 @@
           "distance": 1
         },
         {
-          "hebrew": "wSrph",
-          "eva_variant": "qoreoyo",
+          "hebrew": "wnpXt",
+          "eva_variant": "kheso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpSh",
+          "eva_variant": "qoryeso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnprt",
+          "eva_variant": "kdeso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnplt",
+          "eva_variant": "tfeso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpEt",
+          "eva_variant": "kheso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpst",
+          "eva_variant": "k?eso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpJt",
+          "eva_variant": "kkeso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpdt",
+          "eva_variant": "tneso",
+          "distance": 2
+        },
+        {
+          "hebrew": "wnpkt",
+          "eva_variant": "tcheso",
           "distance": 3
-        },
-        {
-          "hebrew": "wkthS",
-          "eva_variant": "yrkcho",
-          "distance": 4
-        },
-        {
-          "hebrew": "wmSXh",
-          "eva_variant": "qorgylo",
-          "distance": 4
-        },
-        {
-          "hebrew": "wlXSh",
-          "eva_variant": "qorygfo",
-          "distance": 4
-        },
-        {
-          "hebrew": "wnkAt",
-          "eva_variant": "tcchso",
-          "distance": 4
-        },
-        {
-          "hebrew": "wJXnt",
-          "eva_variant": "tsgko",
-          "distance": 4
-        },
-        {
-          "hebrew": "wbSlh",
-          "eva_variant": "qorfy?o",
-          "distance": 4
-        },
-        {
-          "hebrew": "wmzgh",
-          "eva_variant": "qorm?lo",
-          "distance": 4
-        },
-        {
-          "hebrew": "wtrkb",
-          "eva_variant": "?choko",
-          "distance": 5
         }
       ],
       "best_distance": 1,
@@ -2124,60 +1951,60 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "SlAmyt",
-          "eva_variant": "talcfy",
+          "hebrew": "SElmyt",
+          "eva_variant": "talfhy",
           "distance": 2
         },
         {
-          "hebrew": "SElbnt",
-          "eva_variant": "ks?fhy",
+          "hebrew": "SElmnt",
+          "eva_variant": "tslfhy",
           "distance": 3
         },
         {
-          "hebrew": "SElknt",
-          "eva_variant": "tschfhy",
+          "hebrew": "SElmrt",
+          "eva_variant": "tolfhy",
           "distance": 3
         },
         {
-          "hebrew": "SmwElt",
-          "eva_variant": "tfgdly",
-          "distance": 5
+          "hebrew": "SElmht",
+          "eva_variant": "trlfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SwkEnt",
-          "eva_variant": "ksgchdy",
-          "distance": 5
+          "hebrew": "SElmpt",
+          "eva_variant": "telfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SrpEnt",
-          "eva_variant": "ksgeoy",
-          "distance": 5
+          "hebrew": "SElmst",
+          "eva_variant": "t?lfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SbEtnt",
-          "eva_variant": "qtsth?y",
-          "distance": 5
+          "hebrew": "SElmdt",
+          "eva_variant": "knlfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SwpEnt",
-          "eva_variant": "ksgeoy",
-          "distance": 5
+          "hebrew": "SElmgt",
+          "eva_variant": "tmlfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SrSEnt",
-          "eva_variant": "ksgyoy",
-          "distance": 5
+          "hebrew": "SElmbt",
+          "eva_variant": "t?lfhy",
+          "distance": 3
         },
         {
-          "hebrew": "SmSEnt",
-          "eva_variant": "tsgyly",
-          "distance": 5
+          "hebrew": "SElmkt",
+          "eva_variant": "qtchlfhy",
+          "distance": 4
         }
       ],
       "best_distance": 2,
       "best_candidate": {
-        "hebrew": "SlAmyt",
-        "eva_variant": "talcfy",
+        "hebrew": "SElmyt",
+        "eva_variant": "talfhy",
         "distance": 2
       }
     },
@@ -2188,60 +2015,60 @@
       "length": 4,
       "candidates": [
         {
-          "hebrew": "bSwm",
-          "eva_variant": "liyn",
+          "hebrew": "bXrt",
+          "eva_variant": "tohn",
           "distance": 3
         },
         {
-          "hebrew": "bJXn",
-          "eva_variant": "sgkn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bSrp",
-          "eva_variant": "eiyn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bnrd",
-          "eva_variant": "nisn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bErb",
-          "eva_variant": "?ihn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bSlh",
-          "eva_variant": "qoiifyn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bkth",
-          "eva_variant": "qoiikchn",
+          "hebrew": "bXnt",
+          "eva_variant": "ksgn",
           "distance": 4
         },
         {
-          "hebrew": "blXS",
-          "eva_variant": "qoygfn",
+          "hebrew": "bXkt",
+          "eva_variant": "kchhn",
           "distance": 4
         },
         {
-          "hebrew": "bmzg",
-          "eva_variant": "m?ln",
+          "hebrew": "bXmt",
+          "eva_variant": "qotlgn",
           "distance": 4
         },
         {
-          "hebrew": "bXms",
-          "eva_variant": "?lhn",
+          "hebrew": "bXlt",
+          "eva_variant": "qotfgn",
+          "distance": 4
+        },
+        {
+          "hebrew": "bXpt",
+          "eva_variant": "kegn",
+          "distance": 4
+        },
+        {
+          "hebrew": "bXst",
+          "eva_variant": "k?gn",
+          "distance": 4
+        },
+        {
+          "hebrew": "bXdt",
+          "eva_variant": "kngn",
+          "distance": 4
+        },
+        {
+          "hebrew": "bXgt",
+          "eva_variant": "kmhn",
+          "distance": 4
+        },
+        {
+          "hebrew": "bXbt",
+          "eva_variant": "qot?gn",
           "distance": 4
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "bSwm",
-        "eva_variant": "liyn",
+        "hebrew": "bXrt",
+        "eva_variant": "tohn",
         "distance": 3
       }
     },
@@ -2252,124 +2079,60 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "mwErb",
-          "eva_variant": "?ohol",
-          "distance": 2
-        },
-        {
-          "hebrew": "mwXmm",
-          "eva_variant": "llhol",
-          "distance": 2
-        },
-        {
-          "hebrew": "mwSXh",
-          "eva_variant": "rgyol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwrgw",
-          "eva_variant": "dmool",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwbSl",
-          "eva_variant": "fy?ol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwJXn",
-          "eva_variant": "sgtol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwkth",
-          "eva_variant": "rtchol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwSrp",
-          "eva_variant": "edyol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwlXS",
-          "eva_variant": "qyhfol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwsnn",
-          "eva_variant": "ss?ol",
-          "distance": 3
-        }
-      ],
-      "best_distance": 2,
-      "best_candidate": {
-        "hebrew": "mwErb",
-        "eva_variant": "?ohol",
-        "distance": 2
-      }
-    },
-    "82": {
-      "position": 82,
-      "real_eva": "qockhol",
-      "current_hebrew": "mwEtA",
-      "length": 5,
-      "candidates": [
-        {
-          "hebrew": "mwEtk",
-          "eva_variant": "qochkhol",
+          "hebrew": "mwElt",
+          "eva_variant": "kphol",
           "distance": 1
         },
         {
-          "hebrew": "mwStk",
-          "eva_variant": "qochkyol",
+          "hebrew": "mwEnt",
+          "eva_variant": "kshol",
           "distance": 2
         },
         {
-          "hebrew": "mwkth",
-          "eva_variant": "qorkchol",
+          "hebrew": "mwErt",
+          "eva_variant": "kdhol",
           "distance": 2
         },
         {
-          "hebrew": "mwErb",
-          "eva_variant": "qo?ohol",
+          "hebrew": "mwEkt",
+          "eva_variant": "tchhol",
           "distance": 2
         },
         {
-          "hebrew": "mwXmm",
-          "eva_variant": "qollhol",
+          "hebrew": "mwEpt",
+          "eva_variant": "kehol",
           "distance": 2
         },
         {
-          "hebrew": "mwlXS",
-          "eva_variant": "qoyhfol",
-          "distance": 3
+          "hebrew": "mwEst",
+          "eva_variant": "k?hol",
+          "distance": 2
         },
         {
-          "hebrew": "mwJXn",
-          "eva_variant": "qosgtol",
-          "distance": 3
+          "hebrew": "mwEdt",
+          "eva_variant": "knhol",
+          "distance": 2
         },
         {
-          "hebrew": "mwSXh",
-          "eva_variant": "qorgyol",
-          "distance": 3
+          "hebrew": "mwEgt",
+          "eva_variant": "tmhol",
+          "distance": 2
         },
         {
-          "hebrew": "mwrgw",
-          "eva_variant": "qodmool",
-          "distance": 3
+          "hebrew": "mwEbt",
+          "eva_variant": "t?hol",
+          "distance": 2
         },
         {
-          "hebrew": "mwbSl",
-          "eva_variant": "qofy?ol",
-          "distance": 3
+          "hebrew": "mwEht",
+          "eva_variant": "trhol",
+          "distance": 2
         }
       ],
       "best_distance": 1,
       "best_candidate": {
-        "hebrew": "mwEtk",
-        "eva_variant": "qochkhol",
+        "hebrew": "mwElt",
+        "eva_variant": "kphol",
         "distance": 1
       }
     },
@@ -2380,60 +2143,60 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "ShExtA",
-          "eva_variant": "ct?hry",
+          "hebrew": "SrpJA",
+          "eva_variant": "ckedy",
           "distance": 3
         },
         {
-          "hebrew": "SmwEtA",
-          "eva_variant": "ckhdly",
+          "hebrew": "SmrJA",
+          "eva_variant": "ckdly",
           "distance": 3
         },
         {
-          "hebrew": "SbEltA",
-          "eva_variant": "ctfh?y",
+          "hebrew": "SbsJA",
+          "eva_variant": "ck??y",
           "distance": 3
         },
         {
-          "hebrew": "SrpEtA",
-          "eva_variant": "ckheoy",
+          "hebrew": "SkrJA",
+          "eva_variant": "ckdchy",
           "distance": 3
         },
         {
-          "hebrew": "SElbtA",
-          "eva_variant": "ck?fhy",
+          "hebrew": "StpJA",
+          "eva_variant": "ckety",
           "distance": 3
         },
         {
-          "hebrew": "SwkEtA",
-          "eva_variant": "ckhchdy",
+          "hebrew": "SlmJA",
+          "eva_variant": "cklfy",
           "distance": 3
         },
         {
-          "hebrew": "SJXntA",
-          "eva_variant": "ctshky",
+          "hebrew": "SprJA",
+          "eva_variant": "ckdey",
           "distance": 3
         },
         {
-          "hebrew": "SmSXtA",
-          "eva_variant": "ckhyly",
+          "hebrew": "SblJA",
+          "eva_variant": "ckf?y",
           "distance": 3
         },
         {
-          "hebrew": "SkwltA",
-          "eva_variant": "ckfdchy",
-          "distance": 4
+          "hebrew": "SkdJA",
+          "eva_variant": "cknchy",
+          "distance": 3
         },
         {
-          "hebrew": "SbSltA",
-          "eva_variant": "ctfy?y",
-          "distance": 4
+          "hebrew": "StrJA",
+          "eva_variant": "ckoky",
+          "distance": 3
         }
       ],
       "best_distance": 3,
       "best_candidate": {
-        "hebrew": "ShExtA",
-        "eva_variant": "ct?hry",
+        "hebrew": "SrpJA",
+        "eva_variant": "ckedy",
         "distance": 3
       }
     },
@@ -2444,60 +2207,60 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "gyplXS",
-          "eva_variant": "yhfeam",
+          "hebrew": "gypSbS",
+          "eva_variant": "y?yeam",
           "distance": 2
         },
         {
-          "hebrew": "gypSwm",
-          "eva_variant": "loyeam",
+          "hebrew": "gypStr",
+          "eva_variant": "dkyeam",
+          "distance": 2
+        },
+        {
+          "hebrew": "gypSrt",
+          "eva_variant": "tdyeam",
           "distance": 3
         },
         {
-          "hebrew": "gypbSl",
-          "eva_variant": "fy?eam",
+          "hebrew": "gypSmn",
+          "eva_variant": "slyeam",
           "distance": 3
         },
         {
-          "hebrew": "gypJXn",
-          "eva_variant": "shteam",
-          "distance": 3
-        },
-        {
-          "hebrew": "gypkth",
-          "eva_variant": "rkcheam",
-          "distance": 3
-        },
-        {
-          "hebrew": "gypErb",
-          "eva_variant": "?ogeam",
-          "distance": 3
-        },
-        {
-          "hebrew": "gypSXh",
-          "eva_variant": "rgyeam",
-          "distance": 3
-        },
-        {
-          "hebrew": "gyprgw",
-          "eva_variant": "omoeam",
-          "distance": 3
-        },
-        {
-          "hebrew": "gypmzg",
-          "eva_variant": "m?leam",
+          "hebrew": "gypSlm",
+          "eva_variant": "lfyeam",
           "distance": 3
         },
         {
           "hebrew": "gypSrp",
-          "eva_variant": "eoyeam",
+          "eva_variant": "edyeam",
           "distance": 3
+        },
+        {
+          "hebrew": "gypSrs",
+          "eva_variant": "?dyeam",
+          "distance": 3
+        },
+        {
+          "hebrew": "gypSbl",
+          "eva_variant": "f?yeam",
+          "distance": 3
+        },
+        {
+          "hebrew": "gypSkr",
+          "eva_variant": "dchyeam",
+          "distance": 4
+        },
+        {
+          "hebrew": "gypSkd",
+          "eva_variant": "nchyeam",
+          "distance": 4
         }
       ],
       "best_distance": 2,
       "best_candidate": {
-        "hebrew": "gyplXS",
-        "eva_variant": "yhfeam",
+        "hebrew": "gypSbS",
+        "eva_variant": "y?yeam",
         "distance": 2
       }
     },
@@ -2508,61 +2271,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "SrwkbA",
-          "eva_variant": "qoc?chody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwmzA",
-          "eva_variant": "qoc?lody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwbSA",
-          "eva_variant": "qocy?ody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwJXA",
-          "eva_variant": "qochkody",
-          "distance": 2
-        },
-        {
-          "hebrew": "Srwkth",
-          "eva_variant": "qorkchody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwErb",
-          "eva_variant": "qo?dhody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwXmm",
-          "eva_variant": "qollhody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwSXh",
-          "eva_variant": "qoiihyody",
+          "hebrew": "SrpJAh",
+          "eva_variant": "qorckeoy",
           "distance": 3
         },
         {
-          "hebrew": "Srwrgw",
-          "eva_variant": "qodmoody",
+          "hebrew": "SmrJAh",
+          "eva_variant": "qorckoly",
           "distance": 3
         },
         {
-          "hebrew": "SrwlXS",
-          "eva_variant": "qoygfody",
+          "hebrew": "SprJAh",
+          "eva_variant": "qorckoey",
           "distance": 3
+        },
+        {
+          "hebrew": "StrJAh",
+          "eva_variant": "qorckoky",
+          "distance": 3
+        },
+        {
+          "hebrew": "SbsJAh",
+          "eva_variant": "qorck??y",
+          "distance": 4
+        },
+        {
+          "hebrew": "SkrJAh",
+          "eva_variant": "qorckochy",
+          "distance": 4
+        },
+        {
+          "hebrew": "StpJAh",
+          "eva_variant": "qorckeky",
+          "distance": 4
+        },
+        {
+          "hebrew": "SlmJAh",
+          "eva_variant": "qorcklfy",
+          "distance": 4
+        },
+        {
+          "hebrew": "SblJAh",
+          "eva_variant": "qorckf?y",
+          "distance": 4
+        },
+        {
+          "hebrew": "SkdJAh",
+          "eva_variant": "qorcknchy",
+          "distance": 4
         }
       ],
-      "best_distance": 2,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "SrwkbA",
-        "eva_variant": "qoc?chody",
-        "distance": 2
+        "hebrew": "SrpJAh",
+        "eva_variant": "qorckeoy",
+        "distance": 3
       }
     },
     "93": {
@@ -2572,61 +2335,61 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "Swprk",
-          "eva_variant": "chdeoy",
-          "distance": 3
+          "hebrew": "SwprX",
+          "eva_variant": "hdeoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwErb",
-          "eva_variant": "?dgoy",
-          "distance": 3
+          "hebrew": "SwprS",
+          "eva_variant": "ydeoy",
+          "distance": 2
         },
         {
-          "hebrew": "Swrgw",
-          "eva_variant": "omooy",
-          "distance": 3
+          "hebrew": "SwprJ",
+          "eva_variant": "tdeoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwbSl",
-          "eva_variant": "fy?oy",
-          "distance": 4
+          "hebrew": "SwprE",
+          "eva_variant": "hdeoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwJXn",
-          "eva_variant": "shkoy",
-          "distance": 4
+          "hebrew": "SwprA",
+          "eva_variant": "cdeoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwSXh",
-          "eva_variant": "rgyoy",
-          "distance": 4
+          "hebrew": "SwprL",
+          "eva_variant": "?deoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwlXS",
-          "eva_variant": "ygfoy",
-          "distance": 4
+          "hebrew": "SwprM",
+          "eva_variant": "?deoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwXmm",
-          "eva_variant": "llhoy",
-          "distance": 4
+          "hebrew": "SwprN",
+          "eva_variant": "?deoy",
+          "distance": 2
         },
         {
-          "hebrew": "Swsnn",
-          "eva_variant": "ss?oy",
-          "distance": 4
+          "hebrew": "SwprK",
+          "eva_variant": "?deoy",
+          "distance": 2
         },
         {
-          "hebrew": "SwkEn",
-          "eva_variant": "sgchoy",
-          "distance": 5
+          "hebrew": "SwprT",
+          "eva_variant": "?deoy",
+          "distance": 2
         }
       ],
-      "best_distance": 3,
+      "best_distance": 2,
       "best_candidate": {
-        "hebrew": "Swprk",
-        "eva_variant": "chdeoy",
-        "distance": 3
+        "hebrew": "SwprX",
+        "eva_variant": "hdeoy",
+        "distance": 2
       }
     },
     "94": {
@@ -2636,61 +2399,125 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "SpptntS",
-          "eva_variant": "yksteey",
-          "distance": 1
+          "hebrew": "SrpJAmX",
+          "eva_variant": "glctedy",
+          "distance": 5
         },
         {
-          "hebrew": "SrpEntS",
-          "eva_variant": "ykshedy",
-          "distance": 1
+          "hebrew": "StpJAmX",
+          "eva_variant": "hlctety",
+          "distance": 5
         },
         {
-          "hebrew": "SbSlntS",
-          "eva_variant": "yksfy?y",
-          "distance": 3
+          "hebrew": "SprJAmX",
+          "eva_variant": "hlctdey",
+          "distance": 5
         },
         {
-          "hebrew": "SJXnntS",
-          "eva_variant": "ykssgky",
-          "distance": 3
+          "hebrew": "SmrJAmX",
+          "eva_variant": "hlctoly",
+          "distance": 6
         },
         {
-          "hebrew": "SErbntS",
-          "eva_variant": "yks?ohy",
-          "distance": 3
+          "hebrew": "SbsJAmX",
+          "eva_variant": "glct??y",
+          "distance": 6
         },
         {
-          "hebrew": "SSXhntS",
-          "eva_variant": "yksrhyy",
-          "distance": 3
+          "hebrew": "SlmJAmX",
+          "eva_variant": "hlcklfy",
+          "distance": 6
         },
         {
-          "hebrew": "SrgwntS",
-          "eva_variant": "yksomoy",
-          "distance": 3
+          "hebrew": "SblJAmX",
+          "eva_variant": "glckf?y",
+          "distance": 6
         },
         {
-          "hebrew": "SlXSntS",
-          "eva_variant": "yksyhfy",
-          "distance": 3
+          "hebrew": "StrJAmX",
+          "eva_variant": "hlckdky",
+          "distance": 6
         },
         {
-          "hebrew": "SXmmntS",
-          "eva_variant": "yksllgy",
-          "distance": 3
+          "hebrew": "SkrJAmX",
+          "eva_variant": "hlckdchy",
+          "distance": 7
         },
         {
-          "hebrew": "SsnnntS",
-          "eva_variant": "yksss?y",
-          "distance": 3
+          "hebrew": "SkdJAmX",
+          "eva_variant": "hlctnchy",
+          "distance": 7
         }
       ],
-      "best_distance": 1,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "SpptntS",
-        "eva_variant": "yksteey",
-        "distance": 1
+        "hebrew": "SrpJAmX",
+        "eva_variant": "glctedy",
+        "distance": 5
+      }
+    },
+    "101": {
+      "position": 101,
+      "real_eva": "qkeeody",
+      "current_hebrew": "Srwppt",
+      "length": 6,
+      "candidates": [
+        {
+          "hebrew": "SrpJAm",
+          "eva_variant": "lckedy",
+          "distance": 4
+        },
+        {
+          "hebrew": "SmrJAm",
+          "eva_variant": "qlckoly",
+          "distance": 4
+        },
+        {
+          "hebrew": "SprJAm",
+          "eva_variant": "qlctoey",
+          "distance": 4
+        },
+        {
+          "hebrew": "StrJAm",
+          "eva_variant": "qlctoty",
+          "distance": 4
+        },
+        {
+          "hebrew": "SbsJAm",
+          "eva_variant": "qlck??y",
+          "distance": 5
+        },
+        {
+          "hebrew": "SkrJAm",
+          "eva_variant": "qlckochy",
+          "distance": 5
+        },
+        {
+          "hebrew": "StpJAm",
+          "eva_variant": "lctety",
+          "distance": 5
+        },
+        {
+          "hebrew": "SlmJAm",
+          "eva_variant": "qlcklfy",
+          "distance": 5
+        },
+        {
+          "hebrew": "SblJAm",
+          "eva_variant": "qlctf?y",
+          "distance": 5
+        },
+        {
+          "hebrew": "SkdJAm",
+          "eva_variant": "lctnchy",
+          "distance": 6
+        }
+      ],
+      "best_distance": 4,
+      "best_candidate": {
+        "hebrew": "SrpJAm",
+        "eva_variant": "lckedy",
+        "distance": 4
       }
     },
     "104": {
@@ -2700,125 +2527,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "mwpErA",
-          "eva_variant": "coheol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mwpXmA",
-          "eva_variant": "clheol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mwpkbA",
-          "eva_variant": "c?cheol",
+          "hebrew": "mwpStp",
+          "eva_variant": "etyeol",
           "distance": 2
         },
         {
-          "hebrew": "mwpSXA",
-          "eva_variant": "chyeol",
+          "hebrew": "mwpStr",
+          "eva_variant": "dtyeol",
           "distance": 2
         },
         {
-          "hebrew": "mwprgA",
-          "eva_variant": "cmoeol",
-          "distance": 2
+          "hebrew": "mwpSrJ",
+          "eva_variant": "qtoyeol",
+          "distance": 3
         },
         {
-          "hebrew": "mwpbSA",
-          "eva_variant": "cy?eol",
-          "distance": 2
+          "hebrew": "mwpSmr",
+          "eva_variant": "dlyeol",
+          "distance": 3
         },
         {
-          "hebrew": "mwpJXA",
-          "eva_variant": "cgkeol",
-          "distance": 2
+          "hebrew": "mwpSbs",
+          "eva_variant": "??yeol",
+          "distance": 3
         },
         {
-          "hebrew": "mwplXA",
-          "eva_variant": "chfeol",
-          "distance": 2
+          "hebrew": "mwpSkr",
+          "eva_variant": "ochyeol",
+          "distance": 3
         },
         {
-          "hebrew": "mwpkth",
-          "eva_variant": "rtcheol",
-          "distance": 2
+          "hebrew": "mwpSlm",
+          "eva_variant": "lfyeol",
+          "distance": 3
         },
         {
-          "hebrew": "mwpsnn",
-          "eva_variant": "ss?eol",
+          "hebrew": "mwpSpr",
+          "eva_variant": "oeyeol",
+          "distance": 3
+        },
+        {
+          "hebrew": "mwpSbl",
+          "eva_variant": "f?yeol",
+          "distance": 3
+        },
+        {
+          "hebrew": "mwpSkd",
+          "eva_variant": "nchyeol",
           "distance": 3
         }
       ],
-      "best_distance": 1,
+      "best_distance": 2,
       "best_candidate": {
-        "hebrew": "mwpErA",
-        "eva_variant": "coheol",
-        "distance": 1
-      }
-    },
-    "105": {
-      "position": 105,
-      "real_eva": "olcheol",
-      "current_hebrew": "mwpkmw",
-      "length": 6,
-      "candidates": [
-        {
-          "hebrew": "mwpkSw",
-          "eva_variant": "oycheol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mwpXmw",
-          "eva_variant": "olheol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mwpktw",
-          "eva_variant": "otcheol",
-          "distance": 1
-        },
-        {
-          "hebrew": "mwpErw",
-          "eva_variant": "ooheol",
-          "distance": 2
-        },
-        {
-          "hebrew": "mwpbSw",
-          "eva_variant": "oy?eol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwpJXw",
-          "eva_variant": "ohkeol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwpSXw",
-          "eva_variant": "ohyeol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwprgw",
-          "eva_variant": "omoeol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwplXw",
-          "eva_variant": "ohfeol",
-          "distance": 3
-        },
-        {
-          "hebrew": "mwpsnw",
-          "eva_variant": "os?eol",
-          "distance": 3
-        }
-      ],
-      "best_distance": 1,
-      "best_candidate": {
-        "hebrew": "mwpkSw",
-        "eva_variant": "oycheol",
-        "distance": 1
+        "hebrew": "mwpStp",
+        "eva_variant": "etyeol",
+        "distance": 2
       }
     },
     "109": {
@@ -2828,125 +2591,61 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "SErbwpk",
-          "eva_variant": "cheo?ohy",
-          "distance": 2
+          "hebrew": "SrpJAmk",
+          "eva_variant": "chlckedy",
+          "distance": 4
         },
         {
-          "hebrew": "SXmmwpk",
-          "eva_variant": "cheollhy",
-          "distance": 2
+          "hebrew": "SmrJAmk",
+          "eva_variant": "chlckdly",
+          "distance": 4
         },
         {
-          "hebrew": "Skthwpk",
-          "eva_variant": "cheorkchy",
-          "distance": 2
+          "hebrew": "SbsJAmk",
+          "eva_variant": "chlck??y",
+          "distance": 4
         },
         {
-          "hebrew": "SbSlwpk",
-          "eva_variant": "cheofy?y",
-          "distance": 3
+          "hebrew": "SkrJAmk",
+          "eva_variant": "chlckdchy",
+          "distance": 4
         },
         {
-          "hebrew": "SJXnwpk",
-          "eva_variant": "cheoshty",
-          "distance": 3
+          "hebrew": "StpJAmk",
+          "eva_variant": "chlckety",
+          "distance": 4
         },
         {
-          "hebrew": "SSXhwpk",
-          "eva_variant": "cheoiihyy",
-          "distance": 3
+          "hebrew": "SlmJAmk",
+          "eva_variant": "chlcklfy",
+          "distance": 4
         },
         {
-          "hebrew": "Srgwwpk",
-          "eva_variant": "cheodmoy",
-          "distance": 3
+          "hebrew": "SprJAmk",
+          "eva_variant": "chlckdey",
+          "distance": 4
         },
         {
-          "hebrew": "SlXSwpk",
-          "eva_variant": "cheoyhfy",
-          "distance": 3
+          "hebrew": "SblJAmk",
+          "eva_variant": "chlckf?y",
+          "distance": 4
         },
         {
-          "hebrew": "Ssnnwpk",
-          "eva_variant": "cheoss?y",
-          "distance": 3
+          "hebrew": "SkdJAmk",
+          "eva_variant": "chlcknchy",
+          "distance": 4
         },
         {
-          "hebrew": "Smzgwpk",
-          "eva_variant": "cheom?ly",
-          "distance": 3
+          "hebrew": "StrJAmk",
+          "eva_variant": "chlckoky",
+          "distance": 4
         }
       ],
-      "best_distance": 2,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "SErbwpk",
-        "eva_variant": "cheo?ohy",
-        "distance": 2
-      }
-    },
-    "111": {
-      "position": 111,
-      "real_eva": "yaiin",
-      "current_hebrew": "bhyS",
-      "length": 4,
-      "candidates": [
-        {
-          "hebrew": "bhyr",
-          "eva_variant": "oaiin",
-          "distance": 1
-        },
-        {
-          "hebrew": "bryS",
-          "eva_variant": "yain",
-          "distance": 1
-        },
-        {
-          "hebrew": "bSyS",
-          "eva_variant": "yayn",
-          "distance": 2
-        },
-        {
-          "hebrew": "bryX",
-          "eva_variant": "hain",
-          "distance": 2
-        },
-        {
-          "hebrew": "bXyr",
-          "eva_variant": "dagn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bJys",
-          "eva_variant": "?atn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bylS",
-          "eva_variant": "yfan",
-          "distance": 3
-        },
-        {
-          "hebrew": "bkys",
-          "eva_variant": "?achn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bSyl",
-          "eva_variant": "fayn",
-          "distance": 3
-        },
-        {
-          "hebrew": "bXys",
-          "eva_variant": "?agn",
-          "distance": 3
-        }
-      ],
-      "best_distance": 1,
-      "best_candidate": {
-        "hebrew": "bhyr",
-        "eva_variant": "oaiin",
-        "distance": 1
+        "hebrew": "SrpJAmk",
+        "eva_variant": "chlckedy",
+        "distance": 4
       }
     },
     "112": {
@@ -2956,61 +2655,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "Srptkh",
-          "eva_variant": "rchkeoy",
+          "hebrew": "SrpJAk",
+          "eva_variant": "chckedy",
+          "distance": 2
+        },
+        {
+          "hebrew": "StpJAk",
+          "eva_variant": "chckeky",
+          "distance": 2
+        },
+        {
+          "hebrew": "SprJAk",
+          "eva_variant": "chckdey",
+          "distance": 2
+        },
+        {
+          "hebrew": "SmrJAk",
+          "eva_variant": "chckoly",
           "distance": 3
         },
         {
-          "hebrew": "SrpJkh",
-          "eva_variant": "rchkeoy",
+          "hebrew": "SbsJAk",
+          "eva_variant": "chck??y",
           "distance": 3
         },
         {
-          "hebrew": "Smptkh",
-          "eva_variant": "rchkely",
+          "hebrew": "SlmJAk",
+          "eva_variant": "chcklfy",
           "distance": 3
         },
         {
-          "hebrew": "SklJpk",
-          "eva_variant": "chekfchy",
+          "hebrew": "SblJAk",
+          "eva_variant": "chckf?y",
           "distance": 3
         },
         {
-          "hebrew": "StrXpk",
-          "eva_variant": "chegdky",
+          "hebrew": "StrJAk",
+          "eva_variant": "chckoty",
           "distance": 3
         },
         {
-          "hebrew": "SmntpL",
-          "eva_variant": "?eksly",
+          "hebrew": "SkrJAk",
+          "eva_variant": "chckochy",
           "distance": 4
         },
         {
-          "hebrew": "Srbtkh",
-          "eva_variant": "rchk?oy",
-          "distance": 4
-        },
-        {
-          "hebrew": "SrXtkh",
-          "eva_variant": "rchkhdy",
-          "distance": 4
-        },
-        {
-          "hebrew": "SklXpk",
-          "eva_variant": "chehfchy",
-          "distance": 4
-        },
-        {
-          "hebrew": "SrpXkh",
-          "eva_variant": "rchgeoy",
+          "hebrew": "SkdJAk",
+          "eva_variant": "chcknchy",
           "distance": 4
         }
       ],
-      "best_distance": 3,
+      "best_distance": 2,
       "best_candidate": {
-        "hebrew": "Srptkh",
-        "eva_variant": "rchkeoy",
-        "distance": 3
+        "hebrew": "SrpJAk",
+        "eva_variant": "chckedy",
+        "distance": 2
       }
     },
     "114": {
@@ -3020,61 +2719,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "Srnmwk",
-          "eva_variant": "cholsdy",
-          "distance": 1
-        },
-        {
-          "hebrew": "Srpmwk",
-          "eva_variant": "choledy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SrSmwk",
-          "eva_variant": "cholydy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SrXmwk",
-          "eva_variant": "cholhdy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SrXmyk",
-          "eva_variant": "chalgdy",
-          "distance": 2
-        },
-        {
-          "hebrew": "Srnmyk",
-          "eva_variant": "chalsdy",
-          "distance": 2
-        },
-        {
-          "hebrew": "Srpmyk",
-          "eva_variant": "chaledy",
-          "distance": 2
-        },
-        {
-          "hebrew": "Sklmwk",
-          "eva_variant": "cholfchy",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrkmwJ",
-          "eva_variant": "qtolchdy",
+          "hebrew": "SmrJAm",
+          "eva_variant": "lckoly",
           "distance": 4
         },
         {
-          "hebrew": "SrXmyS",
-          "eva_variant": "qyalgdy",
-          "distance": 4
+          "hebrew": "SrpJAm",
+          "eva_variant": "lckedy",
+          "distance": 5
+        },
+        {
+          "hebrew": "SkrJAm",
+          "eva_variant": "lckochy",
+          "distance": 5
+        },
+        {
+          "hebrew": "SlmJAm",
+          "eva_variant": "lcklfy",
+          "distance": 5
+        },
+        {
+          "hebrew": "SprJAm",
+          "eva_variant": "qolctdey",
+          "distance": 5
+        },
+        {
+          "hebrew": "StrJAm",
+          "eva_variant": "qolctdky",
+          "distance": 5
+        },
+        {
+          "hebrew": "SbsJAm",
+          "eva_variant": "lck??y",
+          "distance": 6
+        },
+        {
+          "hebrew": "StpJAm",
+          "eva_variant": "lctety",
+          "distance": 6
+        },
+        {
+          "hebrew": "SblJAm",
+          "eva_variant": "lctf?y",
+          "distance": 6
+        },
+        {
+          "hebrew": "SkdJAm",
+          "eva_variant": "lctnchy",
+          "distance": 6
         }
       ],
-      "best_distance": 1,
+      "best_distance": 4,
       "best_candidate": {
-        "hebrew": "Srnmwk",
-        "eva_variant": "cholsdy",
-        "distance": 1
+        "hebrew": "SmrJAm",
+        "eva_variant": "lckoly",
+        "distance": 4
       }
     },
     "116": {
@@ -3084,61 +2783,61 @@
       "length": 5,
       "candidates": [
         {
-          "hebrew": "Srkmw",
-          "eva_variant": "olchoy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SrXmw",
-          "eva_variant": "olhoy",
-          "distance": 2
-        },
-        {
-          "hebrew": "Smkmw",
-          "eva_variant": "olchly",
-          "distance": 2
-        },
-        {
-          "hebrew": "Smkrw",
-          "eva_variant": "oochly",
+          "hebrew": "SwkrJ",
+          "eva_variant": "kdchoy",
           "distance": 3
         },
         {
-          "hebrew": "Sklmw",
-          "eva_variant": "olfchy",
+          "hebrew": "SwkrS",
+          "eva_variant": "ydchoy",
           "distance": 3
         },
         {
-          "hebrew": "Srpmw",
-          "eva_variant": "oleoy",
+          "hebrew": "SwkrE",
+          "eva_variant": "hdchoy",
           "distance": 3
         },
         {
-          "hebrew": "SrSmw",
-          "eva_variant": "olyoy",
+          "hebrew": "SwkrA",
+          "eva_variant": "cochoy",
           "distance": 3
         },
         {
-          "hebrew": "SmXmw",
-          "eva_variant": "olhly",
+          "hebrew": "SwkrL",
+          "eva_variant": "?dchoy",
           "distance": 3
         },
         {
-          "hebrew": "Smpkw",
-          "eva_variant": "ochely",
-          "distance": 4
+          "hebrew": "SwkrM",
+          "eva_variant": "?dchoy",
+          "distance": 3
         },
         {
-          "hebrew": "Sklrw",
-          "eva_variant": "odfchy",
-          "distance": 4
+          "hebrew": "SwkrN",
+          "eva_variant": "?ochoy",
+          "distance": 3
+        },
+        {
+          "hebrew": "SwkrK",
+          "eva_variant": "?dchoy",
+          "distance": 3
+        },
+        {
+          "hebrew": "SwkrT",
+          "eva_variant": "?dchoy",
+          "distance": 3
+        },
+        {
+          "hebrew": "SwkrH",
+          "eva_variant": "?ochoy",
+          "distance": 3
         }
       ],
-      "best_distance": 1,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "Srkmw",
-        "eva_variant": "olchoy",
-        "distance": 1
+        "hebrew": "SwkrJ",
+        "eva_variant": "kdchoy",
+        "distance": 3
       }
     },
     "118": {
@@ -3148,61 +2847,61 @@
       "length": 6,
       "candidates": [
         {
-          "hebrew": "mwSptw",
-          "eva_variant": "okeyol",
-          "distance": 1
+          "hebrew": "mrgwth",
+          "eva_variant": "rkdmol",
+          "distance": 3
         },
         {
-          "hebrew": "mwrptw",
-          "eva_variant": "okedol",
-          "distance": 1
+          "hebrew": "Srpbth",
+          "eva_variant": "rk?eoy",
+          "distance": 3
         },
         {
-          "hebrew": "mwlptw",
-          "eva_variant": "okefol",
-          "distance": 1
+          "hebrew": "mrkbth",
+          "eva_variant": "rk?chol",
+          "distance": 4
         },
         {
-          "hebrew": "mwXptw",
-          "eva_variant": "okegol",
-          "distance": 1
+          "hebrew": "mSXhth",
+          "eva_variant": "rkrgyl",
+          "distance": 4
         },
         {
-          "hebrew": "mwdptw",
-          "eva_variant": "okenol",
-          "distance": 1
+          "hebrew": "mzgwth",
+          "eva_variant": "rkom?l",
+          "distance": 4
         },
         {
-          "hebrew": "mwbptw",
-          "eva_variant": "oke?ol",
-          "distance": 1
+          "hebrew": "mddwth",
+          "eva_variant": "rkonnl",
+          "distance": 4
         },
         {
-          "hebrew": "mwgptw",
-          "eva_variant": "okemol",
-          "distance": 1
+          "hebrew": "rqyXth",
+          "eva_variant": "rkga?d",
+          "distance": 5
         },
         {
-          "hebrew": "mwtptw",
-          "eva_variant": "oketol",
-          "distance": 1
+          "hebrew": "bSlwth",
+          "eva_variant": "rkofyn",
+          "distance": 5
         },
         {
-          "hebrew": "mwnptw",
-          "eva_variant": "okesol",
-          "distance": 1
+          "hebrew": "trkybh",
+          "eva_variant": "r?achot",
+          "distance": 6
         },
         {
-          "hebrew": "mwkptw",
-          "eva_variant": "okechol",
-          "distance": 2
+          "hebrew": "SmntAh",
+          "eva_variant": "iictsly",
+          "distance": 6
         }
       ],
-      "best_distance": 1,
+      "best_distance": 3,
       "best_candidate": {
-        "hebrew": "mwSptw",
-        "eva_variant": "okeyol",
-        "distance": 1
+        "hebrew": "mrgwth",
+        "eva_variant": "rkdmol",
+        "distance": 3
       }
     },
     "125": {
@@ -3212,61 +2911,61 @@
       "length": 8,
       "candidates": [
         {
-          "hebrew": "SrwpEJkh",
-          "eva_variant": "rchkheody",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrwmEtkh",
-          "eva_variant": "rchkhlody",
-          "distance": 3
-        },
-        {
-          "hebrew": "SmrpEJkh",
-          "eva_variant": "rchkheoly",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrXpEJkh",
-          "eva_variant": "rchkhegdy",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrwbEJkh",
-          "eva_variant": "rchkh?ody",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrwdEJkh",
-          "eva_variant": "rchkhnody",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrwgEJkh",
-          "eva_variant": "rchkhmody",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrwnEJkh",
-          "eva_variant": "rchkhsody",
-          "distance": 3
-        },
-        {
-          "hebrew": "SrpXEtkh",
-          "eva_variant": "rchkhhedy",
-          "distance": 4
-        },
-        {
-          "hebrew": "SklpEJkh",
-          "eva_variant": "rchkhefchy",
+          "hebrew": "SrpyEty",
+          "eva_variant": "akhaeoy",
           "distance": 5
+        },
+        {
+          "hebrew": "SmnyEty",
+          "eva_variant": "akhasly",
+          "distance": 6
+        },
+        {
+          "hebrew": "mrgwEty",
+          "eva_variant": "akhomdl",
+          "distance": 6
+        },
+        {
+          "hebrew": "bSlwEty",
+          "eva_variant": "akhofyn",
+          "distance": 6
+        },
+        {
+          "hebrew": "trkybAy",
+          "eva_variant": "ac?achot",
+          "distance": 7
+        },
+        {
+          "hebrew": "mzgwEty",
+          "eva_variant": "akhom?l",
+          "distance": 7
+        },
+        {
+          "hebrew": "rqyXwty",
+          "eva_variant": "akdha?d",
+          "distance": 7
+        },
+        {
+          "hebrew": "XmmwEty",
+          "eva_variant": "akhollh",
+          "distance": 7
+        },
+        {
+          "hebrew": "mrkbwty",
+          "eva_variant": "akd?chol",
+          "distance": 8
+        },
+        {
+          "hebrew": "rkbwEty",
+          "eva_variant": "atho?cho",
+          "distance": 8
         }
       ],
-      "best_distance": 2,
+      "best_distance": 5,
       "best_candidate": {
-        "hebrew": "SrwpEJkh",
-        "eva_variant": "rchkheody",
-        "distance": 2
+        "hebrew": "SrpyEty",
+        "eva_variant": "akhaeoy",
+        "distance": 5
       }
     },
     "126": {
@@ -3276,78 +2975,78 @@
       "length": 7,
       "candidates": [
         {
-          "hebrew": "SpkmwXw",
-          "eva_variant": "oholchey",
-          "distance": 1
-        },
-        {
-          "hebrew": "SdkmwJw",
-          "eva_variant": "otolchny",
-          "distance": 1
-        },
-        {
-          "hebrew": "SbkmwJw",
-          "eva_variant": "otolch?y",
-          "distance": 1
-        },
-        {
-          "hebrew": "SgkmwJw",
-          "eva_variant": "otolchmy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SnkmwJw",
-          "eva_variant": "otolchsy",
-          "distance": 1
-        },
-        {
-          "hebrew": "SkrmwJw",
-          "eva_variant": "otolochy",
+          "hebrew": "SpkwJy",
+          "eva_variant": "atochey",
           "distance": 2
         },
         {
-          "hebrew": "SklmwJw",
-          "eva_variant": "otolfchy",
-          "distance": 2
-        },
-        {
-          "hebrew": "SXrmwJw",
-          "eva_variant": "otoldhy",
-          "distance": 2
-        },
-        {
-          "hebrew": "SrpmwJw",
-          "eva_variant": "otoleoy",
+          "hebrew": "SklwJy",
+          "eva_variant": "atofchy",
           "distance": 3
         },
         {
-          "hebrew": "SmrmwJw",
-          "eva_variant": "otololy",
-          "distance": 3
+          "hebrew": "XmmwJy",
+          "eva_variant": "atollh",
+          "distance": 4
+        },
+        {
+          "hebrew": "ErbwJy",
+          "eva_variant": "ato?dh",
+          "distance": 5
+        },
+        {
+          "hebrew": "JXnwJy",
+          "eva_variant": "atoshk",
+          "distance": 5
+        },
+        {
+          "hebrew": "lXSwJy",
+          "eva_variant": "atoyhf",
+          "distance": 5
+        },
+        {
+          "hebrew": "kthwJy",
+          "eva_variant": "atortch",
+          "distance": 5
+        },
+        {
+          "hebrew": "bSlwJy",
+          "eva_variant": "atofyn",
+          "distance": 6
+        },
+        {
+          "hebrew": "ybSwJy",
+          "eva_variant": "atoy?a",
+          "distance": 6
+        },
+        {
+          "hebrew": "mddwJy",
+          "eva_variant": "atonnl",
+          "distance": 6
         }
       ],
-      "best_distance": 1,
+      "best_distance": 2,
       "best_candidate": {
-        "hebrew": "SpkmwXw",
-        "eva_variant": "oholchey",
-        "distance": 1
+        "hebrew": "SpkwJy",
+        "eva_variant": "atochey",
+        "distance": 2
       }
     }
   },
   "hits": [
+    {
+      "position": 2,
+      "real_eva": "sochorcfhy",
+      "old_hebrew": "SElAhwkwn",
+      "new_hebrew": "SElAhwkwn",
+      "distance": 0
+    },
     {
       "position": 24,
       "real_eva": "ch",
       "old_hebrew": "k",
       "new_hebrew": "k",
       "distance": 0
-    },
-    {
-      "position": 72,
-      "real_eva": "cphol",
-      "old_hebrew": "mwElA",
-      "new_hebrew": "mwElh",
-      "distance": 1
     },
     {
       "position": 75,
@@ -3357,66 +3056,10 @@
       "distance": 1
     },
     {
-      "position": 82,
-      "real_eva": "qockhol",
-      "old_hebrew": "mwEtA",
-      "new_hebrew": "mwEtk",
-      "distance": 1
-    },
-    {
-      "position": 94,
-      "real_eva": "yksheey",
-      "old_hebrew": "SppEntS",
-      "new_hebrew": "SpptntS",
-      "distance": 1
-    },
-    {
-      "position": 104,
-      "real_eva": "ctheol",
-      "old_hebrew": "mwpEJA",
-      "new_hebrew": "mwpErA",
-      "distance": 1
-    },
-    {
-      "position": 105,
-      "real_eva": "olcheol",
-      "old_hebrew": "mwpkmw",
-      "new_hebrew": "mwpkSw",
-      "distance": 1
-    },
-    {
-      "position": 111,
-      "real_eva": "yaiin",
-      "old_hebrew": "bhyS",
-      "new_hebrew": "bhyr",
-      "distance": 1
-    },
-    {
-      "position": 114,
-      "real_eva": "cholody",
-      "old_hebrew": "Srwmwk",
-      "new_hebrew": "Srnmwk",
-      "distance": 1
-    },
-    {
-      "position": 116,
-      "real_eva": "olchor",
-      "old_hebrew": "swkmw",
-      "new_hebrew": "Srkmw",
-      "distance": 1
-    },
-    {
-      "position": 118,
-      "real_eva": "okeeol",
-      "old_hebrew": "mwpptw",
-      "new_hebrew": "mwSptw",
-      "distance": 1
-    },
-    {
-      "position": 126,
-      "real_eva": "otolchey",
-      "old_hebrew": "SpkmwJw",
-      "new_hebrew": "SpkmwXw",
+      "position": 79,
+      "real_eva": "cphol",
+      "old_hebrew": "mwElA",
+      "new_hebrew": "mwElt",
       "distance": 1
     }
   ]

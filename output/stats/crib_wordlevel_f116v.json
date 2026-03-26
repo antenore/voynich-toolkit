@@ -3,7 +3,7 @@
   "model": "claude-sonnet-4-20250514",
   "n_targets": 1,
   "n_exact": 0,
-  "n_near": 1,
+  "n_near": 0,
   "word_results": {
     "0": {
       "position": 0,
@@ -12,71 +12,63 @@
       "length": 4,
       "candidates": [
         {
-          "hebrew": "swpw",
-          "eva_variant": "oeor",
-          "distance": 1
-        },
-        {
-          "hebrew": "swbw",
-          "eva_variant": "o?or",
-          "distance": 1
-        },
-        {
-          "hebrew": "shpw",
-          "eva_variant": "oerr",
+          "hebrew": "SwXw",
+          "eva_variant": "ohoy",
           "distance": 2
         },
         {
-          "hebrew": "spwr",
-          "eva_variant": "ooer",
+          "hebrew": "SwEr",
+          "eva_variant": "ohoy",
           "distance": 2
         },
         {
-          "hebrew": "shwr",
-          "eva_variant": "oorr",
-          "distance": 2
-        },
-        {
-          "hebrew": "swph",
-          "eva_variant": "qoreor",
-          "distance": 2
-        },
-        {
-          "hebrew": "swEh",
-          "eva_variant": "qorgor",
-          "distance": 2
-        },
-        {
-          "hebrew": "swkh",
-          "eva_variant": "qorchor",
+          "hebrew": "SwpE",
+          "eva_variant": "heoy",
           "distance": 3
         },
         {
-          "hebrew": "sbwb",
-          "eva_variant": "?o?r",
+          "hebrew": "SwbE",
+          "eva_variant": "h?oy",
           "distance": 3
         },
         {
-          "hebrew": "shpE",
-          "eva_variant": "herr",
+          "hebrew": "SwbX",
+          "eva_variant": "h?oy",
           "distance": 3
+        },
+        {
+          "hebrew": "SwEt",
+          "eva_variant": "thoy",
+          "distance": 3
+        },
+        {
+          "hebrew": "Swlm",
+          "eva_variant": "lfoy",
+          "distance": 3
+        },
+        {
+          "hebrew": "SwmX",
+          "eva_variant": "hloy",
+          "distance": 3
+        },
+        {
+          "hebrew": "SwmE",
+          "eva_variant": "hloy",
+          "distance": 3
+        },
+        {
+          "hebrew": "Swkl",
+          "eva_variant": "fchoy",
+          "distance": 4
         }
       ],
-      "best_distance": 1,
+      "best_distance": 2,
       "best_candidate": {
-        "hebrew": "swpw",
-        "eva_variant": "oeor",
-        "distance": 1
+        "hebrew": "SwXw",
+        "eva_variant": "ohoy",
+        "distance": 2
       }
     }
   },
-  "hits": [
-    {
-      "position": 0,
-      "real_eva": "oror",
-      "old_hebrew": "swhw",
-      "new_hebrew": "swpw",
-      "distance": 1
-    }
-  ]
+  "hits": []
 }
