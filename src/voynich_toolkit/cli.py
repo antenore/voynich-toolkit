@@ -590,6 +590,15 @@ def hand_structure(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-unknown")
+@click.pass_context
+def hand_unknown(ctx):
+    """Fase 2e: sub-analisi mano ? per sezione — mixing o anomalia intrinseca?"""
+    from .hand_unknown import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
