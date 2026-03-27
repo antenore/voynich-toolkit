@@ -30,6 +30,7 @@ The goal is simple: **take every testable claim about the Voynich and either con
 | Para-coh | Lines within a paragraph share structural properties | **Yes.** +178% vocabulary, +28% bigrams | Lines in the same paragraph use similar characters and word patterns — but never repeat the same word across boundaries. Structured document signature. | [paragraph_coherence](output/stats/paragraph_coherence_test_summary.txt) |
 | M&Z-MI | Words carry section-specific information (Montemurro 2013) | **Confirmed** (z=+40.24) | Total MI = 0.159 bits vs null 0.032. Words like "shedy" are section-specific. The text has thematic structure. | [montemurro_test](output/stats/montemurro_test_summary.txt) |
 | M&Z-links | Sections with similar illustrations share vocabulary | **Not confirmed** | Herbal-Pharma (both have plants) are NOT specially linked (z=+0.26). Astro-Zodiac are LESS similar than random (z=-6.02). | [montemurro_test](output/stats/montemurro_test_summary.txt) |
+| Rugg | A Cardan grille (Rugg 2004) can reproduce all confirmed properties | **No.** 10/16 reproduced, 6 missing. | The grille produces Zipf, slot grammar, section MI, and Currier A/B — but fails on line-level structure ('m' end-markers, gallows paragraph markers, line self-containment) and vocabulary size (181 types vs 8,493). | [rugg_test](output/stats/rugg_test_summary.txt) |
 
 ## What we know for sure
 
@@ -52,7 +53,7 @@ The goal is simple: **take every testable claim about the Voynich and either con
 - What language the text is in (if any)
 - Whether the text has linguistic content at all (could be notation, mnemonic, cipher, or something else)
 - Why the EVA-to-Hebrew mapping produces a signal at 3-4 letters but fails everywhere else
-- Whether a rule-based generator (Rugg 2004) can reproduce all the confirmed structural properties
+- ~~Whether a rule-based generator (Rugg 2004) can reproduce all the confirmed structural properties~~ **Tested: 10/16 reproduced, 6 missing** — the grille fails on line-level structure and vocabulary size
 - What the actual function of split gallows is
 
 ## Installation
@@ -82,6 +83,7 @@ voynich --force currier-line-test        # Phase 7: Currier's 1976 line-boundary
 voynich --force stolfi-paragraph-test   # Phase 7b: validate Stolfi's paragraph markers
 voynich --force paragraph-coherence-test # Phase 7c: intra-paragraph coherence
 voynich --force montemurro-test          # Phase 8: Montemurro & Zanette (2013) verification
+voynich --force rugg-test               # Phase 27.9: Rugg grille falsification test
 
 # Earlier phases (validation, mapping, cross-analysis)
 voynich --force full-decode              # Decode entire corpus

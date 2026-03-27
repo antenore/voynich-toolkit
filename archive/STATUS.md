@@ -17,9 +17,27 @@
 | Length-stratified signal | z=8.14 at 4 letters, **z=0.01 at 2 letters** (pure noise) |
 | 5+ letter match rate | 0.4% (71/16,804) — signal collapses at longer words |
 | Text readability | **Unreadable** — no Hebraist can read any page |
-| Active work | Phase 26: Crib attack — signal confirmed, text unreadable |
+| Active work | Phase 27.9: Rugg grille falsification test |
 
 ## Phase History
+
+### Phase 27.9 — Rugg Grille Falsification Test (2026-03-27)
+**Status: Completed**
+
+Implemented Rugg's (2004) Cardan grille mechanism faithfully (syllable table + grille holes) and tested whether it can reproduce all 16 confirmed structural properties of the Voynich manuscript.
+
+- **Result: 10/16 properties reproduced, 6 missing**
+- Grille reproduces: Zipf, slot grammar, Currier A/B, word-section MI, hand bigram signatures, paragraph coherence, hand ? anomaly, split gallows uniformity, hand 1-2 low Jaccard, Astro-Zodiac anti-correlation
+- Grille FAILS on:
+  - Line self-containment (real 0.2% cross-boundary vs Rugg 2.0%)
+  - 'm' end-marker (real 71% line-final vs Rugg 13%)
+  - Simple gallows paragraph markers (real +8.2% vs Rugg -4.0%)
+  - Entropy (real 10.5 bits vs Rugg 7.0 bits — vocabulary 47x too small)
+  - Vocabulary size (real 8,493 types vs Rugg 181)
+  - Per-hand entropy range (real 2.5 bits vs Rugg 1.3 bits)
+- **Three fundamental gaps**: (1) no line-level structure, (2) vocabulary too small for physical grille, (3) insufficient inter-hand variability
+- Tables: `rugg_test` (16 rows)
+- Module: `rugg_test.py`
 
 ### Phase 26 — Crib Attack / Known-Plaintext (2026-03-25)
 **Status: Active**

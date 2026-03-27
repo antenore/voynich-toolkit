@@ -790,6 +790,15 @@ def veneto_italian_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("rugg-test")
+@click.pass_context
+def rugg_test(ctx):
+    """Phase 27.9: Rugg grille falsification — can a Cardan grille reproduce confirmed properties?"""
+    from .rugg_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
