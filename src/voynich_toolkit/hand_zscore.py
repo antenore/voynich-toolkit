@@ -1,14 +1,14 @@
 """
-Fase 1a — z-score per-mano con permutation test (Ipotesi C).
+Phase 1a — per-hand z-score with permutation test (Hypothesis C).
 
-Ipotesi nulla: il segnale ebraico è uniforme tra le mani Davis.
-Test: permutation test del mapping EVA→ebraico su ogni mano separatamente,
-incluse le mani piccole (< 2000 token) che scribe_analysis.py esclude.
+Null hypothesis: the Hebrew signal is uniform across Davis hands.
+Test: permutation test of the EVA→Hebrew mapping on each hand separately,
+including small hands (< 2000 tokens) that scribe_analysis.py excludes.
 
-Per mani piccole (< 2000 token): n_perms=1000 per abbassare il pavimento p
-da 0.005 a 0.001. Il test è lo stesso — permuta il mapping, non i dati.
+For small hands (< 2000 tokens): n_perms=1000 to lower the p-floor
+from 0.005 to 0.001. The test is the same — permutes the mapping, not the data.
 
-Risponde alla domanda: "il segnale è concentrato in 1-2 mani o distribuito?"
+Answers the question: "is the signal concentrated in 1-2 hands or distributed?"
 
 Output:
   hand_zscore.json
@@ -34,12 +34,12 @@ from .utils import print_header, print_step
 from .word_structure import parse_eva_words
 
 
-# Hands 1 e 2 hanno già 200 perm in scribe_analysis — qui 1000 per tutti
-N_PERMS_LARGE = 1000   # ≥ 2000 token
-N_PERMS_SMALL = 1000   # < 2000 token (stesso test, stessa risoluzione)
+# Hands 1 and 2 already have 200 perms in scribe_analysis — here 1000 for all
+N_PERMS_LARGE = 1000   # >= 2000 tokens
+N_PERMS_SMALL = 1000   # < 2000 tokens (same test, same resolution)
 SEED_BASE = 42
 
-# Mani Davis certificate da escludere dall'analisi "mani anonime"
+# Certified Davis hands to exclude from "anonymous hands" analysis
 DAVIS_HANDS = {"1", "2", "3", "4", "5"}
 
 
@@ -48,7 +48,7 @@ DAVIS_HANDS = {"1", "2", "3", "4", "5"}
 # =====================================================================
 
 def run_all_hands_perm(corpus: dict, full_lex: set, full_map: dict) -> dict:
-    """Permutation test per ogni mano con abbastanza parole.
+    """Permutation test for each hand with enough words.
 
     Returns: dict[hand] → permutation test result dict
     """
@@ -57,13 +57,13 @@ def run_all_hands_perm(corpus: dict, full_lex: set, full_map: dict) -> dict:
         words = corpus[hand]["words"]
         n_decoded = decode_and_match(words, full_lex)["n_decoded"]
         if n_decoded < MIN_WORDS_STATS:
-            click.echo(f"    Mano {hand}: skip (<{MIN_WORDS_STATS} decoded)")
+            click.echo(f"    Hand {hand}: skip (<{MIN_WORDS_STATS} decoded)")
             continue
 
         n_perms = N_PERMS_LARGE if n_decoded >= 2000 else N_PERMS_SMALL
         seed = SEED_BASE + int(hand) if hand.isdigit() else SEED_BASE + ord(hand[0])
 
-        click.echo(f"    Mano {hand} ({n_decoded:,} decoded, {n_perms} perms)...",
+        click.echo(f"    Hand {hand} ({n_decoded:,} decoded, {n_perms} perms)...",
                    nl=False)
         perm = run_permutation(words, full_lex, full_map,
                                n_perms=n_perms, seed=seed)
@@ -77,11 +77,11 @@ def run_all_hands_perm(corpus: dict, full_lex: set, full_map: dict) -> dict:
 
 
 def pairwise_vs_corpus(corpus: dict, full_lex: set) -> dict:
-    """Two-proportion z-test: ogni mano vs tasso pooled del corpus intero.
+    """Two-proportion z-test: each hand vs pooled rate of the entire corpus.
 
-    Null: la mano ha lo stesso match rate del corpus complessivo.
+    Null: the hand has the same match rate as the overall corpus.
     """
-    # Tasso pooled
+    # Pooled rate
     all_words = [w for c in corpus.values() for w in c["words"]]
     total = decode_and_match(all_words, full_lex)
 
@@ -168,18 +168,18 @@ def save_to_db(perm_results: dict, pairwise: dict, db_path: Path) -> None:
 def format_summary(perm_results: dict, pairwise: dict) -> str:
     lines = []
     lines.append("=" * 78)
-    lines.append("  FASE 1a — Z-score per mano (Ipotesi C: segnale uniforme?)")
+    lines.append("  PHASE 1a — Z-score per hand (Hypothesis C: uniform signal?)")
     lines.append("=" * 78)
 
     lines.append(
-        f"\n  Null: ogni mano ha lo stesso match rate del corpus pooled.\n"
-        f"  Test 1: permutation test mapping Ipotesi A (mappa reale vs 1000 random).\n"
-        f"  Test 2: two-proportion z-test vs tasso pooled del corpus.\n"
-        f"  Lessico: origine ebraica (STEPBible+Jastrow+Klein) = benchmark Ipotesi A,\n"
-        f"  NON prova di origine linguistica.\n"
+        f"\n  Null: each hand has the same match rate as the pooled corpus.\n"
+        f"  Test 1: permutation test mapping Hypothesis A (real map vs 1000 random).\n"
+        f"  Test 2: two-proportion z-test vs pooled corpus rate.\n"
+        f"  Lexicon: Hebrew origin (STEPBible+Jastrow+Klein) = Hypothesis A benchmark,\n"
+        f"  NOT proof of linguistic origin.\n"
     )
 
-    # Tabella principale
+    # Main table
     lines.append(
         f"  {'Hand':>5}  {'Name':20}  {'N dec':>6}  {'Rate':>6}  "
         f"{'z_perm':>7}  {'p_perm':>7}  Sig  "
@@ -206,26 +206,26 @@ def format_summary(perm_results: dict, pairwise: dict) -> str:
             f"{rate*100:>5.1f}%  {zp}  {pp}  {sig:3}  {zc}  {note}"
         )
 
-    # Verdetto
+    # Verdict
     n_sig = sum(1 for p in perm_results.values() if p.get("significant_05"))
     n_total = len(perm_results)
     lines.append(f"\n  {'='*60}")
-    lines.append(f"  Mani con segnale significativo (p<0.05): {n_sig}/{n_total}")
+    lines.append(f"  Hands with significant signal (p<0.05): {n_sig}/{n_total}")
     if n_sig == n_total:
         lines.append(
-            "  VERDETTO: segnale DISTRIBUITO — tutte le mani mostrano\n"
-            "  la stessa firma lessicale. Ipotesi C (mani diverse = sistemi\n"
-            "  diversi) non supportata. Mappatura coerente tra tutti gli scribi."
+            "  VERDICT: DISTRIBUTED signal — all hands show\n"
+            "  the same lexical signature. Hypothesis C (different hands = different\n"
+            "  systems) not supported. Mapping consistent across all scribes."
         )
     elif n_sig == 0:
         lines.append(
-            "  VERDETTO: NESSUN segnale — il mapping non funziona per\n"
-            "  nessuna mano individuale (possibile artefatto del corpus aggregato)."
+            "  VERDICT: NO signal — the mapping does not work for\n"
+            "  any individual hand (possible aggregate corpus artifact)."
         )
     else:
         lines.append(
-            f"  VERDETTO: segnale CONCENTRATO — solo {n_sig} mani su {n_total}\n"
-            "  mostrano il segnale. Le altre sono rumore o un sistema diverso."
+            f"  VERDICT: CONCENTRATED signal — only {n_sig} hands out of {n_total}\n"
+            "  show the signal. The others are noise or a different system."
         )
     lines.append(f"  {'='*60}")
 
@@ -237,7 +237,7 @@ def format_summary(perm_results: dict, pairwise: dict) -> str:
 # =====================================================================
 
 def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
-    """Fase 1a: permutation test z-score per ogni mano Davis."""
+    """Phase 1a: permutation test z-score for each Davis hand."""
     report_path = config.stats_dir / "hand_zscore.json"
     summary_path = config.stats_dir / "hand_zscore_summary.txt"
 
@@ -246,57 +246,57 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         return
 
     config.ensure_dirs()
-    print_header("FASE 1a — Z-score per Mano (Ipotesi C)")
+    print_header("PHASE 1a — Z-score per Hand (Hypothesis C)")
 
     # 1. Parse EVA
     print_step("Parsing EVA corpus...")
     eva_file = config.eva_data_dir / "LSI_ivtff_0d.txt"
     eva_data = parse_eva_words(eva_file)
     pages = eva_data["pages"]
-    click.echo(f"    {eva_data['total_words']:,} parole, {len(pages)} pagine")
+    click.echo(f"    {eva_data['total_words']:,} words, {len(pages)} pages")
 
     # 2. Load lexicon
-    print_step("Caricamento lessico honest...")
+    print_step("Loading honest lexicon...")
     honest_lex, _ = load_honest_lexicon(config)
-    click.echo(f"    {len(honest_lex):,} forme")
+    click.echo(f"    {len(honest_lex):,} forms")
 
-    # Nota: usiamo il lexicon FULL (come scribe_analysis) per confrontabilità
+    # Note: using FULL lexicon (as scribe_analysis) for comparability
     enriched_path = config.lexicon_dir / "lexicon_enriched.json"
     with open(enriched_path) as f:
         hlex = json.load(f)
     full_lex = set(hlex["all_consonantal_forms"])
-    click.echo(f"    Full: {len(full_lex):,} forme")
+    click.echo(f"    Full: {len(full_lex):,} forms")
 
     # 3. Split by hand
-    print_step("Split per mano...")
+    print_step("Splitting by hand...")
     corpus = split_corpus_by_hand(pages)
 
     # 4. Build full mapping
     full_map = build_full_mapping(FULL_MAPPING)
 
-    # 5. Permutation test per ogni mano
-    print_step(f"Permutation test ({N_PERMS_LARGE} perms per mano grande, "
-               f"{N_PERMS_SMALL} per mana piccola)...")
+    # 5. Permutation test for each hand
+    print_step(f"Permutation test ({N_PERMS_LARGE} perms for large hand, "
+               f"{N_PERMS_SMALL} for small hand)...")
     perm_results = run_all_hands_perm(corpus, full_lex, full_map)
 
-    # 6. Two-proportion z-test vs corpus pooled
-    print_step("Confronto vs tasso pooled del corpus...")
+    # 6. Two-proportion z-test vs pooled corpus
+    print_step("Comparison vs pooled corpus rate...")
     pairwise = pairwise_vs_corpus(corpus, full_lex)
     for hand, pw in sorted(pairwise.items()):
         click.echo(
-            f"    Mano {hand}: {pw['hand_rate']*100:.1f}% vs corpus "
+            f"    Hand {hand}: {pw['hand_rate']*100:.1f}% vs corpus "
             f"{pw['corpus_rate']*100:.1f}%  z={pw['z_score']:.2f}  "
             f"p={pw['p_value']:.4f}"
         )
 
     # 7. Save JSON
-    print_step("Salvataggio...")
+    print_step("Saving...")
     report = {
         "permutation_tests": perm_results,
         "pairwise_vs_corpus": pairwise,
         "n_perms_large": N_PERMS_LARGE,
         "n_perms_small": N_PERMS_SMALL,
-        "null_hypothesis": "il segnale del mapping (Ipotesi A) è uniforme tra le mani",
+        "null_hypothesis": "the mapping signal (Hypothesis A) is uniform across hands",
     }
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)

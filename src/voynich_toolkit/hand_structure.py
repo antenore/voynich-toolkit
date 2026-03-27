@@ -1,20 +1,20 @@
 """
-Fase 2 — Struttura EVA per mano con null model (Ipotesi D/C).
+Phase 2 — EVA structure per hand with null model (Hypothesis D/C).
 
-Analisi puramente strutturale: zero lessico, zero decoding, solo EVA raw.
+Purely structural analysis: zero lexicon, zero decoding, raw EVA only.
 
-Sotto-analisi:
-  2a — Entropia Shannon con null model (campionamento random N token dal corpus)
-  2b — Slope Zipf con null model
-  2c — Jaccard matrix tra tutte le coppie di mani Davis 1–5
-  2d — Distribuzione bigrammi EVA con chi-square (uniformità tra mani)
+Sub-analyses:
+  2a — Shannon entropy with null model (random sampling of N tokens from corpus)
+  2b — Zipf slope with null model
+  2c — Jaccard matrix across all pairs of Davis hands 1–5
+  2d — EVA bigram distribution with chi-square (uniformity across hands)
 
-Null model (2a, 2b): per ogni mano di dimensione N, campiona 500 volte N token
-dal corpus globale e calcola la distribuzione della statistica. Il z-score della
-mano è (osservato - mean_null) / std_null.
+Null model (2a, 2b): for each hand of size N, sample 500 times N tokens
+from the global corpus and compute the statistic distribution. The hand z-score
+is (observed - mean_null) / std_null.
 
-Caveat (Heaps' law): TTR e slope Zipf sono instabili per mani < 200 tipi.
-Le mani 4, 5, Y (< 1000 token) vengono flaggate ma incluse.
+Caveat (Heaps' law): TTR and Zipf slope are unstable for hands < 200 types.
+Hands 4, 5, Y (< 1000 tokens) are flagged but included.
 
 Output:
   hand_structure.json
@@ -43,26 +43,26 @@ from .word_structure import parse_eva_words
 
 
 # =====================================================================
-# Parametri
+# Parameters
 # =====================================================================
 
-N_NULL_SAMPLES = 500     # campioni per il null model
+N_NULL_SAMPLES = 500     # samples for the null model
 SEED = 42
-MIN_TOKENS_STATS = 200   # sotto questa soglia: flag instabilità
-DAVIS_HANDS = {"1", "2", "3", "4", "5"}   # mani certificate per Jaccard
+MIN_TOKENS_STATS = 200   # below this threshold: flag instability
+DAVIS_HANDS = {"1", "2", "3", "4", "5"}   # certified hands for Jaccard
 
 
 # =====================================================================
-# Fase 2a/2b — Null model: entropia e Zipf
+# Phase 2a/2b — Null model: entropy and Zipf
 # =====================================================================
 
 def null_distribution(all_words: list[str], n: int, n_samples: int = N_NULL_SAMPLES,
                       seed: int = SEED) -> dict:
-    """Campiona n_samples volte N token dal corpus globale.
+    """Sample n_samples times N tokens from the global corpus.
 
-    Returns: dict con:
+    Returns: dict with:
       entropy_mean, entropy_std, zipf_mean, zipf_std
-      (ogni valore è la media/std sul null model)
+      (each value is the mean/std over the null model)
     """
     rng = random.Random(seed)
     entropies = []
@@ -84,14 +84,14 @@ def null_distribution(all_words: list[str], n: int, n_samples: int = N_NULL_SAMP
 
 
 def z_score_vs_null(observed: float, null_mean: float, null_std: float) -> float | None:
-    """z = (obs - mean) / std. Returns None se std ≈ 0."""
+    """z = (obs - mean) / std. Returns None if std ≈ 0."""
     if null_std is None or null_std < 1e-10:
         return None
     return (observed - null_mean) / null_std
 
 
 def entropy_zipf_with_null(corpus: dict, all_words: list[str]) -> dict:
-    """Calcola entropia e Zipf per ogni mano con z-score vs null model.
+    """Compute entropy and Zipf for each hand with z-score vs null model.
 
     Returns: dict[hand] → {entropy, zipf_slope, null_*, z_entropy, z_zipf,
                             n_tokens, unstable_flag}
@@ -103,7 +103,7 @@ def entropy_zipf_with_null(corpus: dict, all_words: list[str]) -> dict:
         if n < 10:
             continue
 
-        click.echo(f"    Mano {hand} ({n:,} token, {N_NULL_SAMPLES} null samples)...",
+        click.echo(f"    Hand {hand} ({n:,} tokens, {N_NULL_SAMPLES} null samples)...",
                    nl=False)
 
         profile = eva_profile(words)
@@ -133,7 +133,7 @@ def entropy_zipf_with_null(corpus: dict, all_words: list[str]) -> dict:
             "unstable_flag":   unstable,
         }
 
-        flag = " [instabile < 1000 token]" if unstable else ""
+        flag = " [unstable < 1000 tokens]" if unstable else ""
         z_str = f"{z_ent:+.2f}" if z_ent is not None else "n/a"
         click.echo(f" H={profile['shannon_entropy']:.3f} z={z_str}{flag}")
 
@@ -141,11 +141,11 @@ def entropy_zipf_with_null(corpus: dict, all_words: list[str]) -> dict:
 
 
 # =====================================================================
-# Fase 2c — Jaccard matrix
+# Phase 2c — Jaccard matrix
 # =====================================================================
 
 def jaccard_coefficient(set_a: set, set_b: set) -> float:
-    """Jaccard = |A∩B| / |A∪B|. Returns 0 se entrambi vuoti."""
+    """Jaccard = |A∩B| / |A∪B|. Returns 0 if both empty."""
     union = set_a | set_b
     if not union:
         return 0.0
@@ -154,16 +154,16 @@ def jaccard_coefficient(set_a: set, set_b: set) -> float:
 
 def jaccard_null(set_a: set, set_b: set, all_words: list[str],
                  n_samples: int = N_NULL_SAMPLES, seed: int = SEED) -> dict:
-    """Null model per Jaccard: campiona due insiemi di taglia |A| e |B| dal corpus.
+    """Null model for Jaccard: sample two sets of size |A| and |B| from corpus.
 
-    La dimensione degli insiemi casuali è pari al numero di TIPI distinti
-    (non token) delle mani reali, per preservare la comparabilità.
+    The size of the random sets equals the number of distinct TYPES
+    (not tokens) of the real hands, to preserve comparability.
     """
     rng = random.Random(seed)
-    # Usiamo i tipi distinti — campionare unique words dal pool globale
+    # Use distinct types — sample unique words from the global pool
     all_types = list(set(all_words))
     na, nb = len(set_a), len(set_b)
-    # Cap a dimensione del pool
+    # Cap to pool size
     na = min(na, len(all_types))
     nb = min(nb, len(all_types))
 
@@ -181,11 +181,11 @@ def jaccard_null(set_a: set, set_b: set, all_words: list[str],
 
 def jaccard_matrix(corpus: dict, all_words: list[str],
                    hands: set[str] = DAVIS_HANDS) -> dict:
-    """Calcola matrice Jaccard per tutte le coppie di mani Davis 1–5.
+    """Compute Jaccard matrix for all pairs of Davis hands 1–5.
 
-    Returns: dict con coppie "H1-H2" → {jaccard, null_mean, null_std, z_jaccard}
+    Returns: dict with pairs "H1-H2" → {jaccard, null_mean, null_std, z_jaccard}
     """
-    # Vocabolari per mano (tipi distinti EVA)
+    # Vocabularies per hand (distinct EVA types)
     vocabs = {}
     for hand in sorted(corpus.keys()):
         if hand not in hands:
@@ -222,11 +222,11 @@ def jaccard_matrix(corpus: dict, all_words: list[str],
 
 
 # =====================================================================
-# Fase 2d — Chi-square bigrammi tra mani
+# Phase 2d — Chi-square bigrams across hands
 # =====================================================================
 
 def bigram_freq(words: list[str]) -> Counter:
-    """Conta bigrammi EVA in una lista di parole."""
+    """Count EVA bigrams in a word list."""
     bg = Counter()
     for w in words:
         for i in range(len(w) - 1):
@@ -235,14 +235,14 @@ def bigram_freq(words: list[str]) -> Counter:
 
 
 def bigram_chisquare(corpus: dict, all_words: list[str]) -> dict:
-    """Chi-square: la distribuzione dei bigrammi di ogni mano coincide con il corpus?
+    """Chi-square: does the bigram distribution of each hand match the corpus?
 
-    H0: bigrammi mano X ~ corpus globale.
-    Usa solo i top-50 bigrammi del corpus per stabilità.
+    H0: bigrams of hand X ~ global corpus.
+    Uses only the top-50 corpus bigrams for stability.
 
     Returns: dict[hand] → {chi2, df, p_value, significant_05, n_bigrams}
     """
-    # Distribuzione globale
+    # Global distribution
     global_bg = bigram_freq(all_words)
     top50 = [bg for bg, _ in global_bg.most_common(50)]
     global_total = sum(global_bg[bg] for bg in top50)
@@ -259,12 +259,12 @@ def bigram_chisquare(corpus: dict, all_words: list[str]) -> dict:
         if hand_total == 0:
             continue
 
-        # Frequenze osservate per i top-50 bigrammi
+        # Observed frequencies for the top-50 bigrams
         observed = np.array([hand_bg.get(bg, 0) for bg in top50], dtype=float)
-        # Frequenze attese: distribuzione globale scalata alla taglia della mano
+        # Expected frequencies: global distribution scaled to hand size
         expected = global_freq * hand_total
 
-        # Rimuovi celle con expected < 5 per validità chi-square
+        # Remove cells with expected < 5 for chi-square validity
         mask = expected >= 5
         obs_filt = observed[mask]
         exp_filt = expected[mask]
@@ -290,7 +290,7 @@ def bigram_chisquare(corpus: dict, all_words: list[str]) -> dict:
         sig = ("***" if p_value < 0.001 else
                "**"  if p_value < 0.01 else
                "*"   if p_value < 0.05 else "ns")
-        click.echo(f"    Mano {hand}: chi2={chi2_stat:.1f}  df={df}  "
+        click.echo(f"    Hand {hand}: chi2={chi2_stat:.1f}  df={df}  "
                    f"p={p_value:.6f}  {sig}")
 
     return results
@@ -302,11 +302,11 @@ def bigram_chisquare(corpus: dict, all_words: list[str]) -> dict:
 
 def save_to_db(entropy_zipf: dict, jaccard: dict, bigrams: dict,
                db_path: Path) -> None:
-    """Scrive i risultati nelle tabelle DB hand_structure_*."""
+    """Write results to DB tables hand_structure_*."""
     conn = sqlite3.connect(str(db_path))
     cur = conn.cursor()
 
-    # Tabella 2a/2b — entropia + Zipf
+    # Table 2a/2b — entropy + Zipf
     cur.execute("DROP TABLE IF EXISTS hand_structure_entropy")
     cur.execute("""
         CREATE TABLE hand_structure_entropy (
@@ -335,7 +335,7 @@ def save_to_db(entropy_zipf: dict, jaccard: dict, bigrams: dict,
             int(d["unstable_flag"]),
         ))
 
-    # Tabella 2c — Jaccard
+    # Table 2c — Jaccard
     cur.execute("DROP TABLE IF EXISTS hand_structure_jaccard")
     cur.execute("""
         CREATE TABLE hand_structure_jaccard (
@@ -360,7 +360,7 @@ def save_to_db(entropy_zipf: dict, jaccard: dict, bigrams: dict,
             d["z_jaccard"],
         ))
 
-    # Tabella 2d — bigrams chi-square
+    # Table 2d — bigrams chi-square
     cur.execute("DROP TABLE IF EXISTS hand_structure_bigrams")
     cur.execute("""
         CREATE TABLE hand_structure_bigrams (
@@ -396,11 +396,11 @@ def save_to_db(entropy_zipf: dict, jaccard: dict, bigrams: dict,
 def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
     lines: list[str] = []
     lines.append("=" * 80)
-    lines.append("  FASE 2 — Struttura EVA per mano con null model")
+    lines.append("  PHASE 2 — EVA structure per hand with null model")
     lines.append("=" * 80)
 
-    # 2a/2b — Entropia + Zipf
-    lines.append("\n── Fase 2a/2b — Entropia Shannon e Slope Zipf (vs null model) ──")
+    # 2a/2b — Entropy + Zipf
+    lines.append("\n── Phase 2a/2b — Shannon Entropy and Zipf Slope (vs null model) ──")
     lines.append(
         f"  {'Hand':>5}  {'N':>7}  {'H_obs':>7}  {'H_null':>7}  {'z_H':>6}  "
         f"{'Zipf_obs':>8}  {'Zipf_null':>9}  {'z_Zipf':>7}  Flag"
@@ -412,7 +412,7 @@ def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
         z_z = f"{d['z_zipf']:+.2f}" if d["z_zipf"] is not None else "  n/a"
         zipf_o = f"{d['zipf_obs']:.3f}" if d["zipf_obs"] is not None else "  n/a"
         zipf_n = f"{d['zipf_null_mean']:.3f}" if d["zipf_null_mean"] else "  n/a"
-        flag = "⚠ instabile" if d["unstable_flag"] else ""
+        flag = "⚠ unstable" if d["unstable_flag"] else ""
         lines.append(
             f"  {hand:>5}  {d['n_tokens']:>7,}  {d['entropy_obs']:>7.4f}  "
             f"{d['entropy_null_mean']:>7.4f}  {z_h:>6}  {zipf_o:>8}  "
@@ -420,7 +420,7 @@ def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
         )
 
     # 2c — Jaccard
-    lines.append("\n── Fase 2c — Jaccard matrix (vocabolario EVA tra mani Davis 1–5) ──")
+    lines.append("\n── Phase 2c — Jaccard matrix (EVA vocabulary across Davis hands 1–5) ──")
     lines.append(
         f"  {'Pair':>6}  {'TypA':>5}  {'TypB':>5}  {'J_obs':>7}  "
         f"{'J_null':>7}  {'z_J':>6}"
@@ -434,8 +434,8 @@ def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
             f"{d['jaccard_obs']:>7.4f}  {d['null_mean']:>7.4f}  {z_j:>6}"
         )
 
-    # 2d — Chi-square bigrammi
-    lines.append("\n── Fase 2d — Chi-square bigrammi EVA (top-50, mano vs corpus) ──")
+    # 2d — Chi-square bigrams
+    lines.append("\n── Phase 2d — Chi-square EVA bigrams (top-50, hand vs corpus) ──")
     lines.append(
         f"  {'Hand':>5}  {'N_bg':>7}  {'chi2':>7}  {'df':>4}  "
         f"{'p':>9}  {'sig':>5}"
@@ -453,10 +453,10 @@ def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
             f"{d['df']:>4}  {d['p_value']:>9.6f}  {sig:>5}"
         )
 
-    lines.append("\n── Nota: null model = 500 campioni random di taglia N dal corpus ──")
-    lines.append("   z > +2: entropia/Jaccard/slope significativamente superiore al random")
-    lines.append("   z < -2: entropia/slope significativamente inferiore al random")
-    lines.append("   chi2 ***: distribuzione bigrammi mano ≠ corpus (p < 0.001)")
+    lines.append("\n── Note: null model = 500 random samples of size N from corpus ──")
+    lines.append("   z > +2: entropy/Jaccard/slope significantly above random")
+    lines.append("   z < -2: entropy/slope significantly below random")
+    lines.append("   chi2 ***: hand bigram distribution != corpus (p < 0.001)")
     lines.append("\n" + "=" * 80)
     return "\n".join(lines) + "\n"
 
@@ -466,7 +466,7 @@ def format_summary(entropy_zipf: dict, jaccard: dict, bigrams: dict) -> str:
 # =====================================================================
 
 def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
-    """Fase 2: struttura EVA per mano con null model (entropia, Zipf, Jaccard, bigrammi)."""
+    """Phase 2: EVA structure per hand with null model (entropy, Zipf, Jaccard, bigrams)."""
     report_path = config.stats_dir / "hand_structure.json"
     summary_path = config.stats_dir / "hand_structure_summary.txt"
 
@@ -475,7 +475,7 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         return
 
     config.ensure_dirs()
-    print_header("FASE 2 — Struttura EVA per Mano (null model)")
+    print_header("PHASE 2 — EVA Structure per Hand (null model)")
 
     # 1. Parse EVA corpus
     print_step("Parsing EVA corpus...")
@@ -484,34 +484,34 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         raise click.ClickException(f"EVA file not found: {eva_file}")
     eva_data = parse_eva_words(eva_file)
     pages = eva_data["pages"]
-    click.echo(f"    {eva_data['total_words']:,} parole, {len(pages)} pagine")
+    click.echo(f"    {eva_data['total_words']:,} words, {len(pages)} pages")
 
     # 2. Split by hand
-    print_step("Suddivisione per mano...")
+    print_step("Splitting by hand...")
     corpus = split_corpus_by_hand(pages)
     for hand in sorted(corpus.keys()):
         c = corpus[hand]
-        click.echo(f"    Mano {hand}: {c['n_pages']} pagine, "
-                   f"{len(c['words']):,} parole")
+        click.echo(f"    Hand {hand}: {c['n_pages']} pages, "
+                   f"{len(c['words']):,} words")
 
-    # Corpus globale (flat list) per il null model
+    # Global corpus (flat list) for the null model
     all_words = [w for p in pages for w in p["words"]]
-    click.echo(f"    Corpus globale: {len(all_words):,} parole")
+    click.echo(f"    Global corpus: {len(all_words):,} words")
 
-    # 3. Fase 2a/2b — Entropia + Zipf con null model
-    print_step("Fase 2a/2b — Entropia Shannon + Zipf slope (500 null samples per mano)...")
+    # 3. Phase 2a/2b — Entropy + Zipf with null model
+    print_step("Phase 2a/2b — Shannon entropy + Zipf slope (500 null samples per hand)...")
     entropy_zipf = entropy_zipf_with_null(corpus, all_words)
 
-    # 4. Fase 2c — Jaccard matrix (solo mani Davis 1–5)
-    print_step("Fase 2c — Jaccard matrix coppie Davis 1–5...")
+    # 4. Phase 2c — Jaccard matrix (Davis hands 1–5 only)
+    print_step("Phase 2c — Jaccard matrix pairs Davis 1–5...")
     jaccard = jaccard_matrix(corpus, all_words)
 
-    # 5. Fase 2d — Chi-square bigrammi
-    print_step("Fase 2d — Chi-square bigrammi EVA (top-50)...")
+    # 5. Phase 2d — Chi-square bigrams
+    print_step("Phase 2d — Chi-square EVA bigrams (top-50)...")
     bigrams = bigram_chisquare(corpus, all_words)
 
     # 6. Save JSON
-    print_step("Salvataggio JSON...")
+    print_step("Saving JSON...")
     report = {
         "entropy_zipf": entropy_zipf,
         "jaccard":      jaccard,
@@ -528,12 +528,12 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
     click.echo(f"    {summary_path}")
 
     # 8. Save to DB
-    print_step("Scrittura DB tables hand_structure_*...")
+    print_step("Writing DB tables hand_structure_*...")
     db_path = config.output_dir.parent / "voynich.db"
     if db_path.exists():
         save_to_db(entropy_zipf, jaccard, bigrams, db_path)
         click.echo(f"    {db_path} ✓")
     else:
-        click.echo(f"    WARN: DB non trovato a {db_path} — skip DB write")
+        click.echo(f"    WARN: DB not found at {db_path} — skip DB write")
 
     click.echo(f"\n{summary}")

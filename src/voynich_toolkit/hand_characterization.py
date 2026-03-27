@@ -1,17 +1,17 @@
 """
-Fase 0 — caratterizzazione fisica per mano (Davis 5 scribi).
+Phase 0 — physical characterization per hand (Davis 5 scribes).
 
-Calcola per ogni mano (1–5, X, Y, ?):
+Computes for each hand (1–5, X, Y, ?):
   - n_pages, n_tokens (EVA raw), n_unique_types (EVA), n_hapax, TTR
-  - distribuzione sezioni e lingue Currier
-  - lunghezza media parola (EVA)
-  - top-5 bigrammi EVA
-  - entropia Shannon (distribuzione frequenze EVA)
-  - slope Zipf (regressione log-log)
+  - section and Currier language distribution
+  - mean word length (EVA)
+  - top-5 EVA bigrams
+  - Shannon entropy (EVA frequency distribution)
+  - Zipf slope (log-log regression)
 
-NOTA METODOLOGICA: nel file IVTFF il campo $H è assegnato a livello di folio
-(riga di intestazione), non di linea. Non esistono "pagine con più mani"
-rilevabili da questo dataset — limitazione strutturale dei dati da documentare.
+METHODOLOGICAL NOTE: in the IVTFF file the $H field is assigned at folio level
+(header line), not at line level. There are no "pages with multiple hands"
+detectable from this dataset — a structural data limitation to be documented.
 
 Output:
   hand_characterization.json
@@ -194,7 +194,7 @@ def save_to_db(report: dict, db_path: Path) -> None:
 def format_summary(report: dict) -> str:
     lines: list[str] = []
     lines.append("=" * 80)
-    lines.append("  FASE 0 — Caratterizzazione fisica per mano (Davis 5 scribi)")
+    lines.append("  PHASE 0 — Physical characterization per hand (Davis 5 scribes)")
     lines.append("=" * 80)
 
     lines.append("\n── Corpus Overview ──")
@@ -218,10 +218,10 @@ def format_summary(report: dict) -> str:
             f"{d['avg_word_length']:6.2f}  {langs:12}  {secs}"
         )
 
-    lines.append("\n── Entropia Shannon e Slope Zipf ──")
+    lines.append("\n── Shannon Entropy and Zipf Slope ──")
     lines.append(
         f"  {'Hand':>5}  {'Name':20}  {'H(word)':>8}  {'Zipf slope':>10}  "
-        f"  Top-3 bigrammi EVA"
+        f"  Top-3 EVA bigrams"
     )
     lines.append("  " + "-" * 70)
     for hand in sorted(report.keys()):
@@ -236,11 +236,11 @@ def format_summary(report: dict) -> str:
             f"{zslope:>10}    {bgs}"
         )
 
-    lines.append("\n── Nota metodologica ──")
+    lines.append("\n── Methodological note ──")
     lines.append(
-        "  Il campo $H nel file IVTFF è assegnato a livello di folio (riga di\n"
-        "  intestazione), non di linea. Non esistono quindi 'pagine con più\n"
-        "  mani' rilevabili da questo dataset. Hands X, Y, ? = non attribuiti."
+        "  The $H field in the IVTFF file is assigned at folio level (header\n"
+        "  line), not at line level. There are therefore no 'pages with multiple\n"
+        "  hands' detectable from this dataset. Hands X, Y, ? = unattributed."
     )
 
     lines.append("\n" + "=" * 80)
@@ -252,7 +252,7 @@ def format_summary(report: dict) -> str:
 # =====================================================================
 
 def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
-    """Fase 0: caratterizzazione fisica per mano — hapax, TTR, entropia, Zipf."""
+    """Phase 0: physical characterization per hand — hapax, TTR, entropy, Zipf."""
     report_path = config.stats_dir / "hand_characterization.json"
     summary_path = config.stats_dir / "hand_characterization_summary.txt"
 
@@ -261,7 +261,7 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         return
 
     config.ensure_dirs()
-    print_header("FASE 0 — Caratterizzazione Fisica per Mano")
+    print_header("PHASE 0 — Physical Characterization per Hand")
 
     # 1. Parse EVA corpus
     print_step("Parsing EVA corpus...")
@@ -270,33 +270,33 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         raise click.ClickException(f"EVA file not found: {eva_file}")
     eva_data = parse_eva_words(eva_file)
     pages = eva_data["pages"]
-    click.echo(f"    {eva_data['total_words']:,} parole, {len(pages)} pagine")
+    click.echo(f"    {eva_data['total_words']:,} words, {len(pages)} pages")
 
     # 2. Split by hand
-    print_step("Suddivisione per mano...")
+    print_step("Splitting by hand...")
     corpus = split_corpus_by_hand(pages)
     for hand in sorted(corpus.keys()):
         c = corpus[hand]
         click.echo(
-            f"    Mano {hand:>2} ({HAND_NAMES.get(hand,'?')}): "
-            f"{c['n_pages']} pagine, {len(c['words']):,} parole  "
+            f"    Hand {hand:>2} ({HAND_NAMES.get(hand,'?')}): "
+            f"{c['n_pages']} pages, {len(c['words']):,} words  "
             f"langs={dict(c['languages'])}  secs={dict(c['sections'])}"
         )
 
     # 3. Compute EVA profiles
-    print_step("Calcolo profili EVA (hapax, TTR, entropia, Zipf, bigrammi)...")
+    print_step("Computing EVA profiles (hapax, TTR, entropy, Zipf, bigrams)...")
     report = build_report(corpus)
     for hand in sorted(report.keys()):
         d = report[hand]
         click.echo(
-            f"    Mano {hand}: tokens={d['n_tokens']:,}  "
+            f"    Hand {hand}: tokens={d['n_tokens']:,}  "
             f"types={d['n_unique']:,}  hapax={d['n_hapax']:,}  "
             f"TTR={d['ttr']:.3f}  H={d['shannon_entropy']:.3f}bits  "
             f"Zipf={d['zipf_slope']}"
         )
 
     # 4. Save JSON
-    print_step("Salvataggio JSON...")
+    print_step("Saving JSON...")
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     click.echo(f"    {report_path}")
@@ -308,12 +308,12 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
     click.echo(f"    {summary_path}")
 
     # 6. Save to DB
-    print_step("Scrittura DB table hand_characterization...")
+    print_step("Writing DB table hand_characterization...")
     db_path = config.output_dir.parent / "voynich.db"
     if db_path.exists():
         save_to_db(report, db_path)
         click.echo(f"    {db_path} ✓")
     else:
-        click.echo(f"    WARN: DB non trovato a {db_path} — skip DB write")
+        click.echo(f"    WARN: DB not found at {db_path} — skip DB write")
 
     click.echo(f"\n{summary}")

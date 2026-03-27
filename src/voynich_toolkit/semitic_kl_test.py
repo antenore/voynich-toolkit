@@ -1,28 +1,28 @@
 """
-Fase 1b — KL-divergence: il mapping Ipotesi A assomiglia a qualche lingua semitica?
+Phase 1b — KL-divergence: does the Hypothesis A mapping resemble any Semitic language?
 
-Confronta la distribuzione di frequenza dei consonanti INIZIALI prodotti dal
-mapping Ipotesi A con le distribuzioni attese di 4 lingue semitiche note +
-una baseline casuale uniforme.
+Compares the frequency distribution of INITIAL consonants produced by the
+Hypothesis A mapping against expected distributions from 4 known Semitic languages +
+a uniform random baseline.
 
-Ipotesi nulla: la distribuzione osservata è compatibile con almeno una lingua
-semitica nota.
+Null hypothesis: the observed distribution is compatible with at least one known
+Semitic language.
 
-Metrica: KL-divergence (Kullback-Leibler) e Jensen-Shannon divergence (simmetrica).
+Metric: KL-divergence (Kullback-Leibler) and Jensen-Shannon divergence (symmetric).
 KL(P || Q) = sum_i P_i * log2(P_i / Q_i)
-  - P = distribuzione osservata (Ipotesi A)
-  - Q = distribuzione attesa (lingua di riferimento)
-  - Più alto = più diverso
-  - 0 = identico
+  - P = observed distribution (Hypothesis A)
+  - Q = expected distribution (reference language)
+  - Higher = more different
+  - 0 = identical
 
-Fonti frequenze di riferimento:
-  - Ebraico biblico: stima da Ornan (2003), BHS word-initial frequency analysis
-  - Arabo MSA: stima da Holes (2004), Modern Arabic corpus
-  - Aramaico biblico: stima da Rosenthal (1997), Ezra/Daniel
-  - Siriaco classico: stima da Nöldeke (1904), Peshitta
-  - Uniforme/random: 1/22 per ogni consonante (22 consonanti semitiche standard)
-  Nota: tutte le frequenze sono approssimazioni dalla letteratura, non da
-  un corpus computazionale diretto. L'incertezza è ~±2pp per voce.
+Reference frequency sources:
+  - Biblical Hebrew: estimate from Ornan (2003), BHS word-initial frequency analysis
+  - Modern Standard Arabic: estimate from Holes (2004), Modern Arabic corpus
+  - Biblical Aramaic: estimate from Rosenthal (1997), Ezra/Daniel
+  - Classical Syriac: estimate from Noldeke (1904), Peshitta
+  - Uniform/random: 1/22 per consonant (22 standard Semitic consonants)
+  Note: all frequencies are approximations from the literature, not from
+  a direct computational corpus. Uncertainty is ~±2pp per entry.
 
 Output:
   semitic_kl_test.json
@@ -50,18 +50,18 @@ from .utils import print_header, print_step
 #   p=pe C=tsade q=qof r=resh S=shin t=tav
 # =====================================================================
 
-# Ebraico biblico — word-initial frequency (% approssimativa, fonte: BHS corpus)
+# Biblical Hebrew — word-initial frequency (% approximate, source: BHS corpus)
 HEBREW_INITIAL = {
-    'A': 13.5,  # aleph — molto comune in radici verbali e nomi
+    'A': 13.5,  # aleph — very common in verb roots and nouns
     'b':  6.5,  # bet
     'g':  2.5,  # gimel
     'd':  4.5,  # dalet
-    'h':  9.0,  # he — comune in articolo (ha-) e pronomi
-    'w':  4.5,  # vav — comune in forme verbali e-prefissate
+    'h':  9.0,  # he — common in article (ha-) and pronouns
+    'w':  4.5,  # vav — common in vav-prefixed verb forms
     'z':  1.5,  # zayin
     'X':  1.5,  # khet
     'J':  0.8,  # tet
-    'y':  9.0,  # yod — comune in yiqtol (imperfetto)
+    'y':  9.0,  # yod — common in yiqtol (imperfect)
     'k':  5.0,  # kaf
     'l':  7.5,  # lamed
     'm':  8.5,  # mem
@@ -76,8 +76,8 @@ HEBREW_INITIAL = {
     't':  5.5,  # tav
 }
 
-# Aramaico biblico — stima da Ezra cap. 4–7 e Daniele
-# Simile all'ebraico ma con shift: aleph + mem + yod più frequenti
+# Biblical Aramaic — estimate from Ezra ch. 4–7 and Daniel
+# Similar to Hebrew but shifted: aleph + mem + yod more frequent
 ARAMAIC_INITIAL = {
     'A': 12.0,
     'b':  6.0,
@@ -103,7 +103,7 @@ ARAMAIC_INITIAL = {
     't':  6.0,
 }
 
-# Siriaco classico — stima dalla Peshitta (NT)
+# Classical Syriac — estimate from the Peshitta (NT)
 SYRIAC_INITIAL = {
     'A': 10.0,
     'b':  7.5,
@@ -129,13 +129,13 @@ SYRIAC_INITIAL = {
     't':  6.0,
 }
 
-# Arabo MSA — stima da corpus Arabic Treebank (22 consonanti omologhe)
-# Nota: l'arabo ha 28 fonemi; mappiamo sulle 22 consonanti semitiche
-# trattando le varianti come fusioni (th→t, dh→d, ecc.)
+# Modern Standard Arabic — estimate from Arabic Treebank corpus (22 homologous consonants)
+# Note: Arabic has 28 phonemes; we map onto the 22 Semitic consonants
+# treating variants as mergers (th→t, dh→d, etc.)
 ARABIC_INITIAL = {
-    'A': 20.0,  # alif — molto alto per articolo al- e hamza iniziale
+    'A': 20.0,  # alif — very high due to article al- and initial hamza
     'b':  4.5,
-    'g':  2.0,  # j/g — raro in iniziale
+    'g':  2.0,  # j/g — rare in initial position
     'd':  4.0,
     'h':  4.5,
     'w':  2.0,
@@ -157,7 +157,7 @@ ARABIC_INITIAL = {
     't':  3.5,
 }
 
-# Uniforme/random — 1/22 per ogni consonante
+# Uniform/random — 1/22 per consonant
 UNIFORM = {c: 100.0 / 22 for c in HEBREW_INITIAL}
 
 REFERENCES = {
@@ -169,11 +169,11 @@ REFERENCES = {
 }
 
 REFERENCE_LABELS = {
-    'hebrew':  'Ebraico biblico (BHS)',
-    'aramaic': 'Aramaico biblico (Ezra/Daniel)',
-    'syriac':  'Siriaco classico (Peshitta)',
-    'arabic':  'Arabo MSA (Treebank)',
-    'uniform': 'Uniforme/random (1/22)',
+    'hebrew':  'Biblical Hebrew (BHS)',
+    'aramaic': 'Biblical Aramaic (Ezra/Daniel)',
+    'syriac':  'Classical Syriac (Peshitta)',
+    'arabic':  'Modern Standard Arabic (Treebank)',
+    'uniform': 'Uniform/random (1/22)',
 }
 
 
@@ -181,20 +181,20 @@ REFERENCE_LABELS = {
 # KL divergence
 # =====================================================================
 
-EPSILON = 1e-9  # per evitare log(0)
+EPSILON = 1e-9  # to avoid log(0)
 
 
 def normalize(freq_dict: dict[str, float]) -> dict[str, float]:
-    """Normalizza a distribuzione di probabilità (somma=1)."""
+    """Normalize to a probability distribution (sum=1)."""
     total = sum(freq_dict.values())
     return {k: v / total for k, v in freq_dict.items()}
 
 
 def kl_divergence(p: dict[str, float], q: dict[str, float]) -> float:
-    """KL(P || Q) — quanto P diverge da Q.
+    """KL(P || Q) — how much P diverges from Q.
 
-    Interpretazione: 0=identici, alto=molto diversi.
-    Nota: non simmetrico. P=osservato, Q=riferimento.
+    Interpretation: 0=identical, high=very different.
+    Note: not symmetric. P=observed, Q=reference.
     """
     all_keys = set(p) | set(q)
     kl = 0.0
@@ -207,10 +207,10 @@ def kl_divergence(p: dict[str, float], q: dict[str, float]) -> float:
 
 
 def jensen_shannon(p: dict[str, float], q: dict[str, float]) -> float:
-    """Jensen-Shannon divergence (simmetrica, [0,1]).
+    """Jensen-Shannon divergence (symmetric, [0,1]).
 
-    JSD(P,Q) = 0.5*KL(P||M) + 0.5*KL(Q||M) dove M=(P+Q)/2
-    Più intuitivo di KL: 0=identici, 1=massimamente diversi.
+    JSD(P,Q) = 0.5*KL(P||M) + 0.5*KL(Q||M) where M=(P+Q)/2
+    More intuitive than KL: 0=identical, 1=maximally different.
     """
     all_keys = set(p) | set(q)
     m = {k: 0.5 * (p.get(k, EPSILON) + q.get(k, EPSILON)) for k in all_keys}
@@ -223,9 +223,9 @@ def jensen_shannon(p: dict[str, float], q: dict[str, float]) -> float:
 # =====================================================================
 
 def load_observed(db_path: Path) -> dict[str, float]:
-    """Carica honesty_initial_distribution dal DB.
+    """Load honesty_initial_distribution from DB.
 
-    Returns: dict consonante → proporzione (somma=1)
+    Returns: dict consonant → proportion (sum=1)
     """
     conn = sqlite3.connect(str(db_path))
     cur = conn.cursor()
@@ -243,7 +243,7 @@ def load_observed(db_path: Path) -> dict[str, float]:
 # =====================================================================
 
 def run_kl_analysis(observed: dict[str, float]) -> dict:
-    """Calcola KL e JSD tra osservato e ogni lingua di riferimento."""
+    """Compute KL and JSD between observed and each reference language."""
     results = {}
     for lang_key, ref_raw in REFERENCES.items():
         ref = normalize(ref_raw)
@@ -254,11 +254,11 @@ def run_kl_analysis(observed: dict[str, float]) -> dict:
             'label': REFERENCE_LABELS[lang_key],
             'kl_obs_ref': round(kl_obs_ref, 4),   # KL(observed || ref)
             'kl_ref_obs': round(kl_ref_obs, 4),   # KL(ref || observed)
-            'jsd': round(jsd, 4),                  # Jensen-Shannon (simmetrico)
+            'jsd': round(jsd, 4),                  # Jensen-Shannon (symmetric)
             'jsd_pct': round(jsd * 100, 1),
         }
 
-    # Rank per JSD (più basso = più simile)
+    # Rank by JSD (lower = more similar)
     ranked = sorted(results.items(), key=lambda x: x[1]['jsd'])
     for rank, (lang, r) in enumerate(ranked, 1):
         results[lang]['rank'] = rank
@@ -310,24 +310,24 @@ def save_to_db(results: dict, observed: dict, db_path: Path) -> None:
 def format_summary(results: dict, observed: dict) -> str:
     lines = []
     lines.append("=" * 72)
-    lines.append("  FASE 1b — KL-divergence: Ipotesi A vs lingue semitiche")
+    lines.append("  PHASE 1b — KL-divergence: Hypothesis A vs Semitic languages")
     lines.append("=" * 72)
     lines.append(
-        "\n  Domanda: il mapping Ipotesi A produce una distribuzione consonantale\n"
-        "  iniziale compatibile con qualche lingua semitica nota?\n"
-        "\n  JSD (Jensen-Shannon) = 0 identico, 1 massimamente diverso.\n"
-        "  KL(obs||ref) = quanto l'osservato diverge dal riferimento.\n"
+        "\n  Question: does the Hypothesis A mapping produce an initial consonant\n"
+        "  distribution compatible with any known Semitic language?\n"
+        "\n  JSD (Jensen-Shannon) = 0 identical, 1 maximally different.\n"
+        "  KL(obs||ref) = how much the observed diverges from the reference.\n"
     )
 
-    # Distribuzione osservata (top 6)
-    lines.append("  Distribuzione osservata Ipotesi A (top 6 iniziali):")
+    # Observed distribution (top 6)
+    lines.append("  Observed Hypothesis A distribution (top 6 initials):")
     top6 = sorted(observed.items(), key=lambda x: -x[1])[:6]
     for c, p in top6:
         bar = '█' * int(p * 40)
         lines.append(f"    {c:>2}: {p*100:5.1f}%  {bar}")
     lines.append("")
 
-    # Tabella confronto
+    # Comparison table
     lines.append(
         f"  {'Lingua':35}  {'JSD':>6}  {'KL(obs||ref)':>12}  {'Rank':>4}"
     )
@@ -340,16 +340,16 @@ def format_summary(results: dict, observed: dict) -> str:
             f"{r['kl_obs_ref']:>12.4f}  {r['rank']:>4}"
         )
 
-    # Nota metodologica
+    # Methodological note
     lines.append("\n  " + "─" * 60)
     lines.append(
-        "  Nota: frequenze di riferimento = stime dalla letteratura (±2pp).\n"
-        "  Il test è qualitativo: l'incertezza non cambia le conclusioni\n"
-        "  se i valori JSD sono tutti alti (>0.3) o se nessuna lingua\n"
-        "  si avvicina significativamente al valore JSD del random."
+        "  Note: reference frequencies = estimates from the literature (±2pp).\n"
+        "  The test is qualitative: uncertainty does not change conclusions\n"
+        "  if all JSD values are high (>0.3) or if no language\n"
+        "  approaches the random JSD value significantly."
     )
 
-    # Verdetto
+    # Verdict
     lines.append("\n  " + "=" * 60)
     uniform_jsd = results['uniform']['jsd']
     best_lang = ranked[0][0]
@@ -357,22 +357,22 @@ def format_summary(results: dict, observed: dict) -> str:
 
     if best_jsd > 0.5:
         lines.append(
-            "  VERDETTO: distribuzione INCOMPATIBILE con tutte le lingue\n"
-            "  testate. Il mapping Ipotesi A non produce una firma\n"
-            "  consonantale riconducibile a nessuna lingua semitica nota."
+            "  VERDICT: distribution INCOMPATIBLE with all tested languages.\n"
+            "  The Hypothesis A mapping does not produce a consonantal\n"
+            "  signature attributable to any known Semitic language."
         )
     elif best_jsd < uniform_jsd * 0.8:
         lines.append(
-            f"  VERDETTO: la lingua più vicina è {REFERENCE_LABELS[best_lang]}\n"
+            f"  VERDICT: closest language is {REFERENCE_LABELS[best_lang]}\n"
             f"  (JSD={best_jsd:.4f} vs uniform={uniform_jsd:.4f}).\n"
-            f"  ATTENZIONE: anche il 'più vicino' è molto lontano."
+            f"  WARNING: even the 'closest' is very far."
         )
     else:
         lines.append(
-            "  VERDETTO: nessuna lingua semitica è sistematicamente più\n"
-            f"  vicina del random (best JSD={best_jsd:.4f}, "
+            "  VERDICT: no Semitic language is systematically closer\n"
+            f"  than random (best JSD={best_jsd:.4f}, "
             f"uniform={uniform_jsd:.4f}).\n"
-            "  La distribuzione non è specifica per alcuna lingua testata."
+            "  The distribution is not specific to any tested language."
         )
     lines.append("  " + "=" * 60)
 
@@ -384,7 +384,7 @@ def format_summary(results: dict, observed: dict) -> str:
 # =====================================================================
 
 def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
-    """Fase 1b: KL-divergence Ipotesi A vs lingue semitiche."""
+    """Phase 1b: KL-divergence Hypothesis A vs Semitic languages."""
     report_path = config.stats_dir / "semitic_kl_test.json"
     summary_path = config.stats_dir / "semitic_kl_test_summary.txt"
 
@@ -393,22 +393,22 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         return
 
     config.ensure_dirs()
-    print_header("FASE 1b — KL-divergence: Ipotesi A vs lingue semitiche")
+    print_header("PHASE 1b — KL-divergence: Hypothesis A vs Semitic languages")
 
     db_path = config.output_dir.parent / "voynich.db"
     if not db_path.exists():
-        raise click.ClickException(f"DB non trovato: {db_path}")
+        raise click.ClickException(f"DB not found: {db_path}")
 
-    # 1. Carica distribuzione osservata
-    print_step("Caricamento distribuzione osservata da DB...")
+    # 1. Load observed distribution
+    print_step("Loading observed distribution from DB...")
     observed = load_observed(db_path)
-    click.echo(f"    {len(observed)} consonanti, top-3: " + ", ".join(
+    click.echo(f"    {len(observed)} consonants, top-3: " + ", ".join(
         f"{c}={p*100:.1f}%" for c, p in
         sorted(observed.items(), key=lambda x: -x[1])[:3]
     ))
 
-    # 2. Calcola KL e JSD
-    print_step("Calcolo KL-divergence e Jensen-Shannon...")
+    # 2. Compute KL and JSD
+    print_step("Computing KL-divergence and Jensen-Shannon...")
     results = run_kl_analysis(observed)
     for lang_key, r in sorted(results.items(), key=lambda x: x[1]['jsd']):
         click.echo(
@@ -416,16 +416,16 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
             f"KL(obs||ref)={r['kl_obs_ref']:.4f}"
         )
 
-    # 3. Salva
-    print_step("Salvataggio...")
+    # 3. Save
+    print_step("Saving...")
     report = {
         'observed': {k: round(v, 6) for k, v in observed.items()},
         'results': results,
         'note': (
-            'Frequenze di riferimento = stime dalla letteratura (±2pp). '
-            'JSD: 0=identico, 1=massimamente diverso. '
-            'Test qualitativo: verifica se il mapping Ipotesi A è '
-            'specifico per una lingua semitica o generico/casuale.'
+            'Reference frequencies = estimates from the literature (±2pp). '
+            'JSD: 0=identical, 1=maximally different. '
+            'Qualitative test: checks whether the Hypothesis A mapping is '
+            'specific to a Semitic language or generic/random.'
         ),
     }
     with open(report_path, 'w', encoding='utf-8') as f:

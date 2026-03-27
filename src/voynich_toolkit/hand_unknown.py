@@ -1,26 +1,26 @@
 """
-Fase 2e — Sub-analisi mano ? per sezione.
+Phase 2e — Sub-analysis of hand ? by section.
 
-La mano ? ha entropia +12.25σ sopra il null (Fase 2) ed è l'unica che copre
-TUTTE le sezioni e tutte le lingue Currier. Questo è coerente con un aggregato
-di più scribi non identificati da Davis.
+Hand ? has entropy +12.25σ above the null (Phase 2) and is the only hand covering
+ALL sections and all Currier languages. This is consistent with an aggregate
+of multiple scribes not identified by Davis.
 
-Questo modulo testa se l'anomalia è artefatto del mixing o proprietà intrinseca:
+This module tests whether the anomaly is a mixing artifact or intrinsic property:
 
-  H_mixing: ogni sotto-corpus ?-per-sezione ha entropia normale (z≈0).
-            L'anomalia è interamente dovuta all'unire stili diversi.
-  H_intrinsic: anche dentro una singola sezione l'entropia rimane alta.
-               La mano ? è strutturalmente diversa dalle altre.
+  H_mixing: each sub-corpus ?-per-section has normal entropy (z≈0).
+            The anomaly is entirely due to combining different styles.
+  H_intrinsic: even within a single section entropy remains high.
+               Hand ? is structurally different from the others.
 
-Per ogni sezione presente in ?:
-  - Entropia Shannon + z-score vs null model (N = taglia del sotto-corpus)
-  - Slope Zipf + z-score
-  - Chi-square bigrammi vs corpus globale
-  - Confronto con la stessa sezione nelle mani Davis 1–5
+For each section present in ?:
+  - Shannon entropy + z-score vs null model (N = sub-corpus size)
+  - Zipf slope + z-score
+  - Chi-square bigrams vs global corpus
+  - Comparison with the same section in Davis hands 1–5
 
-Decisione post-analisi (documentata nel report):
-  - Se mixing confermato → trattare ?-per-sezione nelle Fasi 4 e 5
-  - Se anomalia intrinseca → includere ? come caso speciale
+Post-analysis decision (documented in report):
+  - If mixing confirmed → treat ?-per-section in Phases 4 and 5
+  - If intrinsic anomaly → include ? as a special case
 
 Output:
   hand_unknown.json
@@ -59,7 +59,7 @@ from .word_structure import parse_eva_words
 # =====================================================================
 
 def split_unknown_by_section(corpus: dict) -> dict:
-    """Suddivide le pagine della mano ? per sezione.
+    """Split pages of hand ? by section.
 
     Returns: dict[section_code] → list of words
     """
@@ -75,9 +75,9 @@ def split_unknown_by_section(corpus: dict) -> dict:
 
 def section_entropy_vs_null(words: list[str], all_words: list[str],
                              section: str, seed_offset: int = 0) -> dict:
-    """Calcola entropia + Zipf con null model per un sotto-corpus.
+    """Compute entropy + Zipf with null model for a sub-corpus.
 
-    Returns: dict con metriche osservate + z-score vs null
+    Returns: dict with observed metrics + z-score vs null
     """
     n = len(words)
     if n < 10:
@@ -109,7 +109,7 @@ def section_entropy_vs_null(words: list[str], all_words: list[str],
 
 
 def bigram_chisquare_section(words: list[str], all_words: list[str]) -> dict:
-    """Chi-square bigrammi per un sotto-corpus vs corpus globale (top-50)."""
+    """Chi-square bigrams for a sub-corpus vs global corpus (top-50)."""
     global_bg = bigram_freq(all_words)
     top50 = [bg for bg, _ in global_bg.most_common(50)]
     global_total = sum(global_bg[bg] for bg in top50)
@@ -147,10 +147,10 @@ def bigram_chisquare_section(words: list[str], all_words: list[str]) -> dict:
 
 def section_profile_for_davis_hands(corpus: dict, section: str,
                                      all_words: list[str]) -> dict:
-    """Calcola entropia media della stessa sezione nelle mani Davis 1–5.
+    """Compute mean entropy of the same section in Davis hands 1–5.
 
-    Usato come benchmark: se ? in sezione X ha z simile alle mani Davis nella
-    stessa sezione X, allora ? non è anomala rispetto al contesto sezionale.
+    Used as benchmark: if ? in section X has z similar to Davis hands in
+    the same section X, then ? is not anomalous relative to the section context.
     """
     davis = {"1", "2", "3", "4", "5"}
     results = {}
@@ -174,11 +174,11 @@ def section_profile_for_davis_hands(corpus: dict, section: str,
 # =====================================================================
 
 def compute_verdict(by_section_results: dict) -> dict:
-    """Determina se l'anomalia è mixing o intrinseca.
+    """Determine whether the anomaly is mixing or intrinsic.
 
-    Criteri:
-    - mixing_confirmed: tutte le sezioni con > 200 token hanno |z_entropy| < 2
-    - intrinsic_anomaly: almeno una sezione con > 200 token ha |z_entropy| > 3
+    Criteria:
+    - mixing_confirmed: all sections with > 200 tokens have |z_entropy| < 2
+    - intrinsic_anomaly: at least one section with > 200 tokens has |z_entropy| > 3
     """
     large_sections = {
         sec: d for sec, d in by_section_results.items()
@@ -201,22 +201,22 @@ def compute_verdict(by_section_results: dict) -> dict:
     if n_anomalous == 0:
         verdict = "MIXING_CONFIRMED"
         explanation = (
-            "Tutte le sezioni di ? hanno entropia normale vs null. "
-            "L'anomalia complessiva è un artefatto del mixing di stili diversi. "
-            "Raccomandazione: nelle Fasi 4 e 5, usare ?-per-sezione o escludere ?."
+            "All sections of ? have normal entropy vs null. "
+            "The overall anomaly is an artifact of combining different styles. "
+            "Recommendation: in Phases 4 and 5, use ?-per-section or exclude ?."
         )
     elif n_anomalous >= 2:
         verdict = "INTRINSIC_ANOMALY"
         explanation = (
-            f"{n_anomalous} sezioni con |z| > 2. "
-            "La mano ? ha struttura anomala anche dentro singole sezioni. "
-            "Raccomandazione: includere ? come caso speciale nelle analisi comparative."
+            f"{n_anomalous} sections with |z| > 2. "
+            "Hand ? has anomalous structure even within individual sections. "
+            "Recommendation: include ? as a special case in comparative analyses."
         )
     else:
         verdict = "MIXED_EVIDENCE"
         explanation = (
-            f"1 sezione anomala su {len(large_sections)}. "
-            "Evidenza inconcludente — potrebbe essere una sezione con poche pagine."
+            f"1 anomalous section out of {len(large_sections)}. "
+            "Inconclusive evidence — could be a section with few pages."
         )
 
     return {
@@ -293,13 +293,13 @@ def save_to_db(by_section: dict, verdict: dict, db_path: Path) -> None:
 def format_summary(by_section: dict, davis_comparison: dict, verdict: dict) -> str:
     lines: list[str] = []
     lines.append("=" * 80)
-    lines.append("  FASE 2e — Sub-analisi mano ? per sezione")
+    lines.append("  PHASE 2e — Sub-analysis of hand ? by section")
     lines.append("=" * 80)
     lines.append("")
-    lines.append("  Domanda: l'anomalia entropia +12σ della mano ? è artefatto del")
-    lines.append("  mixing di stili diversi, o proprietà intrinseca dello scribe?")
+    lines.append("  Question: is the +12σ entropy anomaly of hand ? an artifact of")
+    lines.append("  mixing different styles, or an intrinsic property of the scribe?")
 
-    lines.append("\n── Entropia per sezione (mano ?) vs null model ──")
+    lines.append("\n── Entropy by section (hand ?) vs null model ──")
     lines.append(
         f"  {'Sec':>4}  {'Name':>16}  {'N':>6}  {'H_obs':>7}  "
         f"{'H_null':>7}  {'z_H':>6}  {'z_Zipf':>7}  chi2   Flag"
@@ -315,7 +315,7 @@ def format_summary(by_section: dict, davis_comparison: dict, verdict: dict) -> s
         z_z = f"{d['z_zipf']:+.2f}" if d.get("z_zipf") is not None else "  n/a"
         bg = d.get("bigrams", {})
         chi2_str = f"{bg['chi2']:6.0f}" if not bg.get("skipped") and bg.get("chi2") else "   n/a"
-        flag = "⚠ instab." if d["unstable_flag"] else ""
+        flag = "⚠ unstab." if d["unstable_flag"] else ""
         sec_name = SECTION_NAMES.get(sec, sec)[:16]
         lines.append(
             f"  {sec:>4}  {sec_name:>16}  {d['n_tokens']:>6,}  "
@@ -323,8 +323,8 @@ def format_summary(by_section: dict, davis_comparison: dict, verdict: dict) -> s
             f"{z_h:>6}  {z_z:>7}  {chi2_str}  {flag}"
         )
 
-    # Confronto con mani Davis nella stessa sezione
-    lines.append("\n── Confronto entropia stessa sezione: mano ? vs mani Davis ──")
+    # Comparison with Davis hands in the same section
+    lines.append("\n── Entropy comparison same section: hand ? vs Davis hands ──")
     for sec in sorted(davis_comparison.keys()):
         davis = davis_comparison[sec]
         if not davis:
@@ -335,15 +335,15 @@ def format_summary(by_section: dict, davis_comparison: dict, verdict: dict) -> s
             f"H{h}={v['entropy']:.4f}(n={v['n_tokens']})"
             for h, v in sorted(davis.items())
         )
-        lines.append(f"  Sezione {sec}: ?={q_str}  |  {davis_str}")
+        lines.append(f"  Section {sec}: ?={q_str}  |  {davis_str}")
 
     # Verdict
-    lines.append(f"\n── Verdetto ──")
+    lines.append(f"\n── Verdict ──")
     lines.append(f"  {verdict['verdict']}")
     lines.append(f"  {verdict.get('explanation', '')}")
     if "z_scores" in verdict:
         z_str = "  ".join(f"{sec}:{z:+.2f}" for sec, z in sorted(verdict["z_scores"].items()))
-        lines.append(f"  z per sezione: {z_str}")
+        lines.append(f"  z per section: {z_str}")
 
     lines.append("\n" + "=" * 80)
     return "\n".join(lines) + "\n"
@@ -354,7 +354,7 @@ def format_summary(by_section: dict, davis_comparison: dict, verdict: dict) -> s
 # =====================================================================
 
 def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
-    """Fase 2e: sub-analisi mano ? per sezione — mixing o anomalia intrinseca?"""
+    """Phase 2e: sub-analysis of hand ? by section — mixing or intrinsic anomaly?"""
     report_path = config.stats_dir / "hand_unknown.json"
     summary_path = config.stats_dir / "hand_unknown_summary.txt"
 
@@ -363,7 +363,7 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         return
 
     config.ensure_dirs()
-    print_header("FASE 2e — Sub-analisi Mano ? per Sezione")
+    print_header("PHASE 2e — Sub-analysis of Hand ? by Section")
 
     # 1. Parse EVA corpus
     print_step("Parsing EVA corpus...")
@@ -373,22 +373,22 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
     eva_data = parse_eva_words(eva_file)
     pages = eva_data["pages"]
     all_words = [w for p in pages for w in p["words"]]
-    click.echo(f"    {len(all_words):,} parole totali")
+    click.echo(f"    {len(all_words):,} total words")
 
     # 2. Split by hand
-    print_step("Suddivisione per mano e per sezione...")
+    print_step("Splitting by hand and by section...")
     corpus = split_corpus_by_hand(pages)
     unknown_by_section = split_unknown_by_section(corpus)
-    click.echo(f"    Mano ?: {len(unknown_by_section)} sezioni — "
+    click.echo(f"    Hand ?: {len(unknown_by_section)} sections — "
                + ", ".join(f"{sec}({len(w)})" for sec, w in
                            sorted(unknown_by_section.items())))
 
-    # 3. Analisi per sezione
-    print_step("Entropia + Zipf per sezione di ? (500 null samples each)...")
+    # 3. Analysis per section
+    print_step("Entropy + Zipf per section of ? (500 null samples each)...")
     by_section: dict[str, dict] = {}
     for i, (sec, words) in enumerate(sorted(unknown_by_section.items())):
-        click.echo(f"    Sezione {sec} ({SECTION_NAMES.get(sec, sec)},"
-                   f" {len(words)} token)...", nl=False)
+        click.echo(f"    Section {sec} ({SECTION_NAMES.get(sec, sec)},"
+                   f" {len(words)} tokens)...", nl=False)
         result = section_entropy_vs_null(words, all_words, sec, seed_offset=i * 100)
         result["bigrams"] = bigram_chisquare_section(words, all_words)
         by_section[sec] = result
@@ -396,28 +396,28 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
             click.echo(f" skip ({result.get('reason')})")
         else:
             z_h = f"{result['z_entropy']:+.2f}" if result["z_entropy"] is not None else "n/a"
-            flag = " ⚠ instabile" if result["unstable_flag"] else ""
+            flag = " ⚠ unstable" if result["unstable_flag"] else ""
             click.echo(f" H={result['entropy_obs']:.4f} z={z_h}{flag}")
 
-    # 4. Confronto con mani Davis nella stessa sezione
-    print_step("Confronto con mani Davis nella stessa sezione...")
+    # 4. Comparison with Davis hands in the same section
+    print_step("Comparison with Davis hands in the same section...")
     davis_comparison: dict[str, dict] = {}
     for sec in sorted(unknown_by_section.keys()):
         davis_profiles = section_profile_for_davis_hands(corpus, sec, all_words)
         if davis_profiles:
             davis_comparison[sec] = davis_profiles
             for hand, v in sorted(davis_profiles.items()):
-                click.echo(f"    Sezione {sec} Hand {hand}: "
+                click.echo(f"    Section {sec} Hand {hand}: "
                            f"n={v['n_tokens']} H={v['entropy']:.4f}")
 
-    # 5. Verdetto
-    print_step("Calcolo verdetto...")
+    # 5. Verdict
+    print_step("Computing verdict...")
     verdict = compute_verdict(by_section)
-    click.echo(f"    VERDETTO: {verdict['verdict']}")
+    click.echo(f"    VERDICT: {verdict['verdict']}")
     click.echo(f"    {verdict.get('explanation', '')}")
 
     # 6. Save JSON
-    print_step("Salvataggio JSON...")
+    print_step("Saving JSON...")
     report = {
         "by_section":       by_section,
         "davis_comparison": davis_comparison,
@@ -434,12 +434,12 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
     click.echo(f"    {summary_path}")
 
     # 8. Save to DB
-    print_step("Scrittura DB table hand_unknown_sections...")
+    print_step("Writing DB table hand_unknown_sections...")
     db_path = config.output_dir.parent / "voynich.db"
     if db_path.exists():
         save_to_db(by_section, verdict, db_path)
         click.echo(f"    {db_path} ✓")
     else:
-        click.echo(f"    WARN: DB non trovato a {db_path} — skip DB write")
+        click.echo(f"    WARN: DB not found at {db_path} — skip DB write")
 
     click.echo(f"\n{summary}")
