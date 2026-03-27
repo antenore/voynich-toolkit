@@ -635,6 +635,15 @@ def currier_line_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("stolfi-paragraph-test")
+@click.pass_context
+def stolfi_paragraph_test(ctx):
+    """Phase 7b: validate Stolfi paragraph markers (@P/+P/=P) against structural properties."""
+    from .stolfi_paragraph_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand-register")
 @click.pass_context
 def hand_register(ctx):
