@@ -599,6 +599,15 @@ def hand_unknown(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-positional")
+@click.pass_context
+def hand_positional(ctx):
+    """Fase 4: pattern posizionali EVA per mano (~12 unità, ? spezzata per sezione)."""
+    from .hand_positional import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
