@@ -25,23 +25,35 @@ The goal is simple: **take every testable claim about the Voynich and either con
 | Currier-7c | Split gallows appear only at paragraph start | **Not confirmed** | 87% of split gallows are on continuation lines, not paragraph starts. Currier's observation doesn't hold. | [currier_line_test](output/stats/currier_line_test_summary.txt) |
 | ?-hand | Hand ? (unattributed pages) is a single scribe | **Probably not** | Hand ? covers all sections, all Currier languages, and has entropy +12 standard deviations above expected. Split by section, different parts behave in opposite ways. | [hand_unknown](output/stats/hand_unknown_summary.txt) |
 | ?C=H3 | Some unattributed pages were actually written by Hand 3 | **Clustering says yes** | Section C pages of Hand ? cluster with Hand 3 at k=3 and k=4. Their entropy is nearly identical (8.62 vs 8.64). | [hand_clustering](output/stats/hand_clustering_summary.txt) |
+| Stolfi | Stolfi's paragraph markers reflect real boundaries | **Yes.** Validated. | Character frequencies, line lengths, vocabulary, and simple gallows all differ significantly between @P, +P, and =P lines. | [stolfi_paragraph_test](output/stats/stolfi_paragraph_test_summary.txt) |
+| Stolfi-gal | Simple gallows are paragraph-start markers | **Yes** (z=+10.73) | t, k, p, f appear 18% more often on first lines of paragraphs. They work like capital letters. Split gallows (cth, ckh, cph, cfh) do NOT. | [stolfi_paragraph_test](output/stats/stolfi_paragraph_test_summary.txt) |
+| Para-coh | Lines within a paragraph share structural properties | **Yes.** +178% vocabulary, +28% bigrams | Lines in the same paragraph use similar characters and word patterns — but never repeat the same word across boundaries. Structured document signature. | [paragraph_coherence](output/stats/paragraph_coherence_test_summary.txt) |
+| M&Z-MI | Words carry section-specific information (Montemurro 2013) | **Confirmed** (z=+40.24) | Total MI = 0.159 bits vs null 0.032. Words like "shedy" are section-specific. The text has thematic structure. | [montemurro_test](output/stats/montemurro_test_summary.txt) |
+| M&Z-links | Sections with similar illustrations share vocabulary | **Not confirmed** | Herbal-Pharma (both have plants) are NOT specially linked (z=+0.26). Astro-Zodiac are LESS similar than random (z=-6.02). | [montemurro_test](output/stats/montemurro_test_summary.txt) |
 
 ## What we know for sure
 
 - The manuscript was written by at least 5 different people ([Davis 2020](https://muse.jhu.edu/article/754633))
 - All of them used the same writing system (Hypothesis C = closed)
 - None of them was just drawing — every scribe produces structured, non-trivial text
-- Each line is a self-contained unit (line boundaries are meaningful)
-- The character 'm' works as a line-end marker
+- Each line is a self-contained unit — words never cross line boundaries (Currier 1976, confirmed)
+- The character 'm' works as a line-end marker (z=+55.5)
+- Simple gallows (t, k, p, f) mark the start of paragraphs — like capital letters (z=+10.73)
+- Split gallows (cth, ckh, cph, cfh) are NOT paragraph markers — they have a different function
+- Paragraphs group thematically similar lines (+178% shared vocabulary within paragraphs)
+- But lines within a paragraph never share exact words across boundaries — each line is a unique entry
+- Words are section-specific: the text has thematic structure (MI z=+40.24, Montemurro confirmed)
+- Sections with similar illustrations do NOT share more vocabulary (Montemurro's specific prediction wrong)
 - The unattributed pages (Hand ?) are probably a mix of multiple scribes
-- Some sections have statistical properties consistent with lists or registers — but we can't prove it yet
+- Some sections have statistical properties consistent with structured documents (registers, catalogues, formularies) — but we can't prove it yet
 
 ## What we don't know
 
 - What language the text is in (if any)
 - Whether the text has linguistic content at all (could be notation, mnemonic, cipher, or something else)
 - Why the EVA-to-Hebrew mapping produces a signal at 3-4 letters but fails everywhere else
-- What "register structure" actually means for these sections
+- Whether a rule-based generator (Rugg 2004) can reproduce all the confirmed structural properties
+- What the actual function of split gallows is
 
 ## Installation
 
@@ -67,6 +79,9 @@ voynich --force hand-clustering          # Phase 5: do hands cluster by scribe, 
 voynich --force register-test            # Phase 6: do some sections look like inventories?
 voynich --force hand-register            # Phase 6b: do different hands play different roles?
 voynich --force currier-line-test        # Phase 7: Currier's 1976 line-boundary observations
+voynich --force stolfi-paragraph-test   # Phase 7b: validate Stolfi's paragraph markers
+voynich --force paragraph-coherence-test # Phase 7c: intra-paragraph coherence
+voynich --force montemurro-test          # Phase 8: Montemurro & Zanette (2013) verification
 
 # Earlier phases (validation, mapping, cross-analysis)
 voynich --force full-decode              # Decode entire corpus
