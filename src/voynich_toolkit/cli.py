@@ -626,6 +626,15 @@ def register_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-register")
+@click.pass_context
+def hand_register(ctx):
+    """Phase 6b: per-hand register role analysis (label vs tally tokens)."""
+    from .hand_register import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
