@@ -62,8 +62,14 @@ def preprocess_eva(word):
     return prefix, w
 
 
-def decode_to_hebrew(eva_word):
-    """Decode EVA word to Hebrew consonantal string."""
+def decode_consonants(eva_word):
+    """Decode EVA word to consonantal string (Ipotesi A mapping).
+
+    Returns a consonantal string using the Ipotesi A EVA→consonant mapping,
+    or None if the word contains unmapped characters.
+    Note: the output uses consonant labels historically called 'Hebrew'
+    but this function makes no claim about the underlying language.
+    """
     _, processed = preprocess_eva(eva_word)
     chars = list(reversed(processed)) if DIRECTION == 'rtl' else list(processed)
 
@@ -89,6 +95,11 @@ def decode_to_hebrew(eva_word):
         parts[0] = INITIAL_H_HEBREW
 
     return ''.join(parts)
+
+
+def decode_to_hebrew(eva_word):
+    """Alias per compatibilità — usa decode_consonants()."""
+    return decode_consonants(eva_word)
 
 
 # =====================================================================
@@ -228,17 +239,17 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     eva_data = parse_eva_words(eva_file)
     click.echo(f"    {eva_data['total_words']} words")
 
-    # 2. Decode all words to Hebrew
-    print_step("Decoding all words to Hebrew consonants...")
+    # 2. Decode all words via Ipotesi A mapping
+    print_step("Decoding all words via Ipotesi A consonantal mapping...")
     decoded_words = []
     for page in eva_data["pages"]:
         for word in page["words"]:
-            heb = decode_to_hebrew(word)
+            heb = decode_consonants(word)
             if heb:
                 decoded_words.append(heb)
     click.echo(f"    {len(decoded_words)} words decoded")
 
-    # 3. Load Hebrew lexicon (enriched if available, else base)
+    # 3. Load reference lexicon (Ipotesi A — sourced from Hebrew dictionaries)
     print_step("Loading lexicons...")
     enriched_path = config.lexicon_dir / "lexicon_enriched.json"
     base_path = config.lexicon_dir / "lexicon.json"
@@ -246,12 +257,12 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     if enriched_path.exists():
         with open(enriched_path) as f:
             hlex = json.load(f)
-        click.echo(f"    Hebrew (enriched): "
+        click.echo(f"    Ref. lexicon Ipotesi A (enriched): "
                    f"{len(hlex['all_consonantal_forms'])} forms")
     elif base_path.exists():
         with open(base_path) as f:
             hlex = json.load(f)
-        click.echo(f"    Hebrew (base): "
+        click.echo(f"    Ref. lexicon Ipotesi A (base): "
                    f"{len(hlex['all_consonantal_forms'])} forms")
     else:
         raise click.ClickException(
@@ -358,17 +369,17 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     z_aram = heb_vs_aram.get("z_score", 0)
 
     if z_rand > 5:
-        click.echo("  VERDICT: Hebrew STRONGLY exceeds random baseline "
+        click.echo("  VERDICT: Mapping Ipotesi A STRONGLY exceeds random baseline "
                    f"(z={z_rand:.1f})")
     elif z_rand > 2:
-        click.echo("  VERDICT: Hebrew significantly exceeds random "
+        click.echo("  VERDICT: Mapping Ipotesi A significantly exceeds random "
                    f"(z={z_rand:.1f})")
     else:
-        click.echo("  VERDICT: Hebrew does not clearly exceed random "
+        click.echo("  VERDICT: Mapping Ipotesi A does not clearly exceed random "
                    f"(z={z_rand:.1f})")
 
     if aramaic_set and z_aram > 5:
-        click.echo(f"  Hebrew STRONGLY exceeds Aramaic (z={z_aram:.1f})")
+        click.echo(f"  Ipotesi A ref. STRONGLY exceeds Aramaic ref. (z={z_aram:.1f})")
     elif aramaic_set and z_aram > 2:
-        click.echo(f"  Hebrew significantly exceeds Aramaic (z={z_aram:.1f})")
+        click.echo(f"  Ipotesi A ref. significantly exceeds Aramaic ref. (z={z_aram:.1f})")
     click.echo(f"  {'=' * 40}")

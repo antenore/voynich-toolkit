@@ -173,8 +173,10 @@ def format_summary(perm_results: dict, pairwise: dict) -> str:
 
     lines.append(
         f"\n  Null: ogni mano ha lo stesso match rate del corpus pooled.\n"
-        f"  Test 1: permutation test del mapping (mappa reale vs 1000 mappe random).\n"
+        f"  Test 1: permutation test mapping Ipotesi A (mappa reale vs 1000 random).\n"
         f"  Test 2: two-proportion z-test vs tasso pooled del corpus.\n"
+        f"  Lessico: origine ebraica (STEPBible+Jastrow+Klein) = benchmark Ipotesi A,\n"
+        f"  NON prova di origine linguistica.\n"
     )
 
     # Tabella principale
@@ -294,7 +296,7 @@ def run(config: ToolkitConfig, force: bool = False, **kwargs) -> None:
         "pairwise_vs_corpus": pairwise,
         "n_perms_large": N_PERMS_LARGE,
         "n_perms_small": N_PERMS_SMALL,
-        "null_hypothesis": "il segnale ebraico è uniforme tra le mani",
+        "null_hypothesis": "il segnale del mapping (Ipotesi A) è uniforme tra le mani",
     }
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)

@@ -178,8 +178,13 @@ def format_summary(corpus_by_hand, match_full, match_honest,
                    astro_by_hand, section_by_hand_full) -> str:
     lines = []
     lines.append("=" * 68)
-    lines.append("  SCRIBE ANALYSIS — Per-hand Hebrew Match Rate")
+    lines.append("  SCRIBE ANALYSIS — Per-hand Match Rate (Ipotesi A ref. lexicon)")
     lines.append("=" * 68)
+    lines.append(
+        "  Nota: il lessico di riferimento è di origine ebraica (STEPBible+Jastrow+Klein).\n"
+        "  Alta corrispondenza = coerenza interna del mapping Ipotesi A,\n"
+        "  NON conferma dell'origine linguistica del testo."
+    )
 
     # ── Corpus overview ──
     lines.append("\n── Corpus Overview ──")

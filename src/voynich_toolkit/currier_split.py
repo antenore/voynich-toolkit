@@ -1,5 +1,5 @@
 """
-Currier A/B split analysis: test Hebrew mapping on each language separately.
+Currier A/B split analysis: test mapping consistency (Ipotesi A) on each language separately.
 
 Phase 12: The Voynich MS has two statistical "languages" (Currier 1976),
 correlating with different scribes (Davis 2020). If the mapping captures
@@ -327,7 +327,7 @@ def run(config: ToolkitConfig, force=False, **kwargs):
     with open(enriched_path) as f:
         hlex = json.load(f)
     hebrew_set = set(hlex["all_consonantal_forms"])
-    click.echo(f"    Hebrew: {len(hebrew_set):,} consonantal forms")
+    click.echo(f"    Ref. lexicon (Ipotesi A): {len(hebrew_set):,} forms")
 
     # 3b. Load Aramaic lexicon
     aramaic_path = config.lexicon_dir / "aramaic_lexicon.json"

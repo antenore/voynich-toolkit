@@ -258,7 +258,7 @@ def run(config: ToolkitConfig, force=False, **kwargs):
         return
 
     config.ensure_dirs()
-    print_header("FULL DECODE — Complete Mapping (19 Hebrew letters)")
+    print_header("FULL DECODE — Consonantal Mapping (Ipotesi A, 19 chars)")
 
     # 1. Show mapping
     print_step("Using complete mapping (17 chars + ch + ii/i + q + positional split)...")
