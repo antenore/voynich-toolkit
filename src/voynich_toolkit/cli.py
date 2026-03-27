@@ -581,6 +581,15 @@ def semitic_kl_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-structure")
+@click.pass_context
+def hand_structure(ctx):
+    """Fase 2: struttura EVA per mano con null model (entropia, Zipf, Jaccard, bigrammi)."""
+    from .hand_structure import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
