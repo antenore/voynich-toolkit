@@ -554,6 +554,15 @@ def scribe_analysis(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-characterization")
+@click.pass_context
+def hand_characterization(ctx):
+    """Fase 0: caratterizzazione fisica per mano — hapax, TTR, entropia, Zipf."""
+    from .hand_characterization import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
