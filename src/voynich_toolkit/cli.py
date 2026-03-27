@@ -566,8 +566,17 @@ def hand_characterization(ctx):
 @cli.command("hand-zscore")
 @click.pass_context
 def hand_zscore(ctx):
-    """Fase 1a: z-score per-mano — il segnale ebraico è uniforme? (Ipotesi C)"""
+    """Fase 1a: z-score per-mano — il segnale mapping è uniforme? (Ipotesi C)"""
     from .hand_zscore import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("semitic-kl-test")
+@click.pass_context
+def semitic_kl_test(ctx):
+    """Fase 1b: KL-divergence Ipotesi A vs lingue semitiche (ebraico/aramaico/siriaco/arabo)."""
+    from .semitic_kl_test import run
 
     run(ctx.obj["config"], force=ctx.obj["force"])
 
