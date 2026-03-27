@@ -626,6 +626,15 @@ def register_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("currier-line-test")
+@click.pass_context
+def currier_line_test(ctx):
+    """Phase 7: Currier line-boundary tests (cross-boundary, final-char bias, split gallows)."""
+    from .currier_line_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand-register")
 @click.pass_context
 def hand_register(ctx):
