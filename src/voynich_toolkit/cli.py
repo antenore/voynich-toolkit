@@ -644,6 +644,15 @@ def stolfi_paragraph_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("paragraph-coherence-test")
+@click.pass_context
+def paragraph_coherence_test(ctx):
+    """Phase 7c: test internal coherence of paragraphs (vocabulary, chars, bigrams)."""
+    from .paragraph_coherence_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand-register")
 @click.pass_context
 def hand_register(ctx):
