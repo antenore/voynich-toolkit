@@ -563,6 +563,15 @@ def hand_characterization(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("hand-zscore")
+@click.pass_context
+def hand_zscore(ctx):
+    """Fase 1a: z-score per-mano — il segnale ebraico è uniforme? (Ipotesi C)"""
+    from .hand_zscore import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
