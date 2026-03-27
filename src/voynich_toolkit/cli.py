@@ -790,6 +790,15 @@ def veneto_italian_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("schinner-test")
+@click.pass_context
+def schinner_test(ctx):
+    """Phase 9: Schinner quasi-random test — is the text stochastic?"""
+    from .schinner_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("rugg-test")
 @click.pass_context
 def rugg_test(ctx):
