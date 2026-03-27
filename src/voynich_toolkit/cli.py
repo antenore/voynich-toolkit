@@ -602,8 +602,17 @@ def hand_unknown(ctx):
 @cli.command("hand-positional")
 @click.pass_context
 def hand_positional(ctx):
-    """Fase 4: pattern posizionali EVA per mano (~12 unità, ? spezzata per sezione)."""
+    """Phase 4: positional EVA patterns per hand (~14 units, hand ? split by section)."""
     from .hand_positional import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("hand-clustering")
+@click.pass_context
+def hand_clustering(ctx):
+    """Phase 5: clustering across ~14 units (KL-divergence, bigrams, hierarchical)."""
+    from .hand_clustering import run
 
     run(ctx.obj["config"], force=ctx.obj["force"])
 
