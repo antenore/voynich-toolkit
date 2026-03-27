@@ -799,6 +799,15 @@ def schinner_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("split-gallows-test")
+@click.pass_context
+def split_gallows_test(ctx):
+    """Phase 7d: split gallows role analysis — position, complementary dist, folio, lexical."""
+    from .split_gallows_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("rugg-test")
 @click.pass_context
 def rugg_test(ctx):

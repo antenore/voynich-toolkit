@@ -48,6 +48,20 @@ The goal is simple: **take every testable claim about the Voynich and either con
 - The unattributed pages (Hand ?) are probably a mix of multiple scribes
 - Some sections have statistical properties consistent with structured documents (registers, catalogues, formularies) — but we can't prove it yet
 
+## Where we disagree with published studies
+
+Some of our numbers contradict things that have been repeated in the literature for decades. Not opinions: permutation tests with z-scores.
+
+**Currier (1976)** said split gallows only show up at the start of paragraphs. We counted: 87% of them (1,869 out of 2,149) sit on continuation lines, not paragraph starts. z=+0.36, not even close to significant. What actually marks paragraph starts is simple gallows (t, k, p, f) at z=+10.73. Currier lumped them together, and the field has been repeating it for 50 years. His line-boundary observations are solid, though: 'm' as line-end marker (z=+55.5) and self-contained lines (z=-3.60) both check out.
+
+**Montemurro & Zanette (2013)** predicted that sections with similar illustrations would share vocabulary. Turns out it's the opposite for the most obvious pair: Astronomical and Zodiac sections are LESS similar than random (z=-6.02). Herbal and Pharmaceutical, both full of plant drawings, show no special link either (z=+0.26). Their core insight is right: words ARE section-specific (MI z=+40.24). But the illustrations don't predict which sections talk about similar things. The sections are isolated, not linked.
+
+**Davis (2020)** identified 5 scribes, and we confirm they all use the same system. But Hand ? (the unattributed pages) is probably not one person: z=+12.25, with opposite statistical signs depending on which section you look at. Also, Hand 1 drives 48.5% of the signal while Hand 4 (same Language A) only hits 21.7% match rate. If they were using the same cipher key, those numbers should be close. They're not.
+
+**Stolfi (1998)** paragraph markers are real: chi²=1583.7, no question. But his system doesn't capture whatever split gallows are doing. They follow a different logic entirely.
+
+Nobody knows what split gallows do. Not paragraph markers, not section markers, not language markers. 2,149 of them in the manuscript, no positional bias. That's one of the big open questions.
+
 ## What we don't know
 
 - What language the text is in (if any)
