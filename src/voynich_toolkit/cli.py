@@ -644,6 +644,15 @@ def stolfi_paragraph_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("montemurro-test")
+@click.pass_context
+def montemurro_test(ctx):
+    """Phase 8: Montemurro & Zanette (2013) verification — MI + section Jaccard."""
+    from .montemurro_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("paragraph-coherence-test")
 @click.pass_context
 def paragraph_coherence_test(ctx):
