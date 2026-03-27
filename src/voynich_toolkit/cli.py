@@ -617,6 +617,15 @@ def hand_clustering(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("register-test")
+@click.pass_context
+def register_test(ctx):
+    """Phase 6: register/inventory structure test (line-initial, concentration, repetition)."""
+    from .register_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("hand1-dive")
 @click.pass_context
 def hand1_dive(ctx):
