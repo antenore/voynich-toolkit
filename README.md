@@ -27,26 +27,28 @@ The goal is simple: **take every testable claim about the Voynich and either con
 | ?C=H3 | Some unattributed pages were actually written by Hand 3 | **Clustering says yes** | Section C pages of Hand ? cluster with Hand 3 at k=3 and k=4. Their entropy is nearly identical (8.62 vs 8.64). | [hand_clustering](output/stats/hand_clustering_summary.txt) |
 | Stolfi | Stolfi's paragraph markers reflect real boundaries | **Yes.** Validated. | Character frequencies, line lengths, vocabulary, and simple gallows all differ significantly between @P, +P, and =P lines. | [stolfi_paragraph_test](output/stats/stolfi_paragraph_test_summary.txt) |
 | Stolfi-gal | Simple gallows are paragraph-start markers | **Yes** (z=+10.73) | t, k, p, f appear 18% more often on first lines of paragraphs. They work like capital letters. Split gallows (cth, ckh, cph, cfh) do NOT. | [stolfi_paragraph_test](output/stats/stolfi_paragraph_test_summary.txt) |
-| Para-coh | Lines within a paragraph share structural properties | **Yes.** +178% vocabulary, +28% bigrams | Lines in the same paragraph use similar characters and word patterns — but never repeat the same word across boundaries. Structured document signature. | [paragraph_coherence](output/stats/paragraph_coherence_test_summary.txt) |
+| Para-coh | Lines within a paragraph share structural properties | **Yes.** +178% vocabulary, +28% bigrams | Lines in the same paragraph use similar characters and word patterns — but never repeat the same word across boundaries. Compatible with structured documents, but other explanations possible. | [paragraph_coherence](output/stats/paragraph_coherence_test_summary.txt) |
 | M&Z-MI | Words carry section-specific information (Montemurro 2013) | **Confirmed** (z=+40.24) | Total MI = 0.159 bits vs null 0.032. Words like "shedy" are section-specific. The text has thematic structure. | [montemurro_test](output/stats/montemurro_test_summary.txt) |
 | M&Z-links | Sections with similar illustrations share vocabulary | **Not confirmed** | Herbal-Pharma (both have plants) are NOT specially linked (z=+0.26). Astro-Zodiac are LESS similar than random (z=-6.02). | [montemurro_test](output/stats/montemurro_test_summary.txt) |
 | Rugg | A Cardan grille (Rugg 2004) can reproduce all confirmed properties | **No.** 10/16 reproduced, 6 missing. | The grille produces Zipf, slot grammar, section MI, and Currier A/B — but fails on line-level structure ('m' end-markers, gallows paragraph markers, line self-containment) and vocabulary size (181 types vs 8,493). | [rugg_test](output/stats/rugg_test_summary.txt) |
 
-## What we know for sure
+## What the data show
+
+Structural findings (hypothesis-independent, all with permutation tests):
 
 - The manuscript was written by at least 5 different people ([Davis 2020](https://muse.jhu.edu/article/754633))
 - All of them used the same writing system (Hypothesis C = closed)
 - None of them was just drawing — every scribe produces structured, non-trivial text
-- Each line is a self-contained unit — words never cross line boundaries (Currier 1976, confirmed)
-- The character 'm' works as a line-end marker (z=+55.5)
-- Simple gallows (t, k, p, f) mark the start of paragraphs — like capital letters (z=+10.73)
-- Split gallows (cth, ckh, cph, cfh) are NOT paragraph markers — they have a different function
-- Paragraphs group thematically similar lines (+178% shared vocabulary within paragraphs)
-- But lines within a paragraph never share exact words across boundaries — each line is a unique entry
+- Words rarely cross line boundaries (z=-3.60, 11 out of 4,499) — lines behave as self-contained units
+- The character 'm' appears at line-end 71% of the time (z=+55.5) — consistent with a line-end marker
+- Simple gallows (t, k, p, f) appear more often at paragraph starts (z=+10.73)
+- Split gallows (cth, ckh, cph, cfh) are NOT paragraph markers — their function is unknown
+- Paragraphs group lines with similar character and vocabulary profiles (+178% Jaccard within paragraphs)
+- But lines within a paragraph almost never share exact words across boundaries
 - Words are section-specific: the text has thematic structure (MI z=+40.24, Montemurro confirmed)
 - Sections with similar illustrations do NOT share more vocabulary (Montemurro's specific prediction wrong)
 - The unattributed pages (Hand ?) are probably a mix of multiple scribes
-- Some sections have statistical properties consistent with structured documents (registers, catalogues, formularies) — but we can't prove it yet
+- Some sections have statistical properties consistent with structured documents (registers, catalogues, formularies) — but this is a compatible hypothesis, not a conclusion
 
 ## Where we disagree with published studies
 
@@ -60,7 +62,7 @@ Some of our numbers contradict things that have been repeated in the literature 
 
 **Stolfi (1998)** paragraph markers are real: chi²=1583.7, no question. But his system doesn't capture whatever split gallows are doing. They follow a different logic entirely.
 
-Nobody knows what split gallows do. Not paragraph markers, not section markers, not language markers. 2,149 of them in the manuscript, no positional bias. That's one of the big open questions.
+Nobody knows what split gallows do. Not paragraph markers, not section markers, not language markers. 2,149 of them in the manuscript, concentrated in the herbal section. They tend to avoid line-initial position (z=-13.39) and cph/cth/cfh tend toward word-start — but ckh behaves differently. That's one of the big open questions.
 
 ## What we don't know
 
