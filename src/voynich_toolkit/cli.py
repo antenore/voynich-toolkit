@@ -817,6 +817,15 @@ def ckh_allograph_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("timm-test")
+@click.pass_context
+def timm_test(ctx):
+    """Phase 10: Timm (2014) self-citation test — proximity, decay, page-local, structural."""
+    from .timm_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("rugg-test")
 @click.pass_context
 def rugg_test(ctx):
