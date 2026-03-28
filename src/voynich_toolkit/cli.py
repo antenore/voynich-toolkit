@@ -808,6 +808,15 @@ def split_gallows_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("ckh-allograph-test")
+@click.pass_context
+def ckh_allograph_test(ctx):
+    """Phase 7e: is ckh an allograph of k? Folio dist, context, para position, substitution."""
+    from .ckh_allograph_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("rugg-test")
 @click.pass_context
 def rugg_test(ctx):
