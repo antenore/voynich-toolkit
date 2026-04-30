@@ -916,6 +916,15 @@ def matrix_overlay_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("line-template-test")
+@click.pass_context
+def line_template_test(ctx):
+    """Phase 18d: Map the full line-position template — word classes per position, section/hand consistency."""
+    from .line_template_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
