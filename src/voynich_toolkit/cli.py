@@ -925,6 +925,15 @@ def line_template_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("labelese-crib-test")
+@click.pass_context
+def labelese_crib_test(ctx):
+    """Phase 19: Labelese cross-section crib test — do labels in one section reappear in another's paragraphs?"""
+    from .labelese_crib_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
