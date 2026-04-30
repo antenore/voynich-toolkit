@@ -898,6 +898,24 @@ def firth_vb101(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("lull-machine-test")
+@click.pass_context
+def lull_machine_test(ctx):
+    """Phase 17: Lullian combinatoric machine — can rotating-disk generation reproduce VMS structure?"""
+    from .lull_machine_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("matrix-overlay-test")
+@click.pass_context
+def matrix_overlay_test(ctx):
+    """Phase 18: Matrix/Overlay hypothesis — position-locked words, page-pair completion, Hand ? anomaly."""
+    from .matrix_overlay_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
