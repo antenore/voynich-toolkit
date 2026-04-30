@@ -503,8 +503,44 @@ def currier_split(ctx):
 @cli.command("naibbe-test")
 @click.pass_context
 def naibbe_test(ctx):
-    """Test Naibbe-style verbose homophonic cipher hypothesis."""
+    """Phase 11: Naibbe cipher (Greshko 2025) — test against 16 confirmed properties."""
     from .naibbe_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("m-marker-test")
+@click.pass_context
+def m_marker_test(ctx):
+    """Phase 12: 'm' line-end concentration analysis (section/hand/positional)."""
+    from .m_marker_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("split-gallows-semantic-test")
+@click.pass_context
+def split_gallows_semantic_test(ctx):
+    """Phase 13: Split gallows semantic function (context, density, co-occurrence)."""
+    from .split_gallows_semantic_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("writing-system-test")
+@click.pass_context
+def writing_system_test(ctx):
+    """Phase 14: Writing system minimal specification (dependencies, mechanisms, Matlach, per-hand)."""
+    from .writing_system_test import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("confounder-audit")
+@click.pass_context
+def confounder_audit(ctx):
+    """Phase 15: Confounder audit — retest findings controlling for confounders."""
+    from .confounder_audit import run
 
     run(ctx.obj["config"], force=ctx.obj["force"])
 

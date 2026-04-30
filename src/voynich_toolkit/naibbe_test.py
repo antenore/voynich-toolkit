@@ -1,612 +1,619 @@
 """
-Test Naibbe-style verbose homophonic cipher hypothesis.
+Naibbe Cipher Test — Phase 11.
 
-The Naibbe cipher (Greshko 2025, Cryptologia) is a verbose homophonic
-substitution that encrypts Latin/Italian into Voynich-like ciphertext.
-If the VMS uses this cipher, our Hebrew signal (z=4.0) should be spurious.
+Tests whether Greshko's (2025) verbose homophonic substitution cipher can
+reproduce the 16 confirmed structural properties of the Voynich Manuscript.
 
-This module tests that hypothesis with:
-1. Diagnostic statistics (IC, entropy, Gini) vs mono/homo expected ranges
-2. Monte Carlo simulation: encrypt Italian with verbose cipher → apply
-   Hebrew mapping → measure match rate
-3. Aggregated scorecard with verdict
+The Naibbe cipher encrypts Latin/Italian by:
+  1. Segmenting plaintext into unigrams and bigrams (dice roll)
+  2. Encoding each segment via one of 6 tables (playing card selection)
+  3. Each table maps plaintext segments to EVA-like character sequences
+  4. Ciphertext words = concatenation of encoded segments
+
+This is the same framework as rugg_test.py (Phase 27.9): generate synthetic
+corpus matching the real manuscript's page/line/section structure, measure
+all 16 properties, compare. If Naibbe reproduces more properties than Rugg,
+the cipher hypothesis gains credibility.
+
+Key difference from Rugg: Naibbe is a REAL cipher (reversible, meaningful
+plaintext). If it passes, it's evidence the VMS could contain real language.
+
+References:
+  Greshko, M.A. (2025). The Naibbe cipher: a substitution cipher that
+  encrypts Latin and Italian as Voynich Manuscript-like ciphertext.
+  Cryptologia. DOI: 10.1080/01611194.2025.2566408
 """
 
+from __future__ import annotations
+
 import json
+import math
 import random
+import sqlite3
 import string
-import time
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
+import click
 import numpy as np
+from scipy.stats import chi2_contingency
 
 from .config import ToolkitConfig
-from .cross_language_baseline import decode_to_hebrew
+from .rugg_test import (
+    compare_properties,
+    format_summary,
+    measure_all_properties,
+    _serialise,
+    _compact_dict,
+)
 from .utils import print_header, print_step
 from .word_structure import parse_eva_words
 
+# ── Constants ────────────────────────────────────────────────────
 
-# =====================================================================
-# Expected ranges from literature (mono vs homophonic)
-# =====================================================================
+SEED = 42
+N_TABLES = 6          # Naibbe uses 6 encoding tables (playing card suits × 2?)
+N_RUNS = 3            # average over multiple cipher instantiations
 
-DIAGNOSTIC_RANGES = {
-    "IC": {
-        "mono": (0.060, 0.085),
-        "homo": (0.035, 0.050),
-    },
-    "Gini": {
-        "mono": (0.30, 0.55),
-        "homo": (0.05, 0.20),
-    },
-    "H1/H0": {
-        "mono": (0.50, 0.75),
-        "homo": (0.80, 0.98),
-    },
-    "hapax_ratio": {
-        "mono": (0.45, 0.65),
-        "homo": (0.60, 0.85),
-    },
+# 19 EVA characters used in the manuscript
+EVA_CHARS = list("acdefghiklmnopqrsty")
+
+# Italian letter frequencies (approximate, for weighted plaintext generation)
+ITALIAN_FREQ = {
+    'a': 0.1174, 'b': 0.0092, 'c': 0.0450, 'd': 0.0337, 'e': 0.1179,
+    'f': 0.0095, 'g': 0.0164, 'h': 0.0154, 'i': 0.1128, 'l': 0.0651,
+    'm': 0.0251, 'n': 0.0688, 'o': 0.0983, 'p': 0.0305, 'q': 0.0051,
+    'r': 0.0637, 's': 0.0498, 't': 0.0562, 'u': 0.0301, 'v': 0.0210,
+    'w': 0.0003, 'x': 0.0003, 'y': 0.0002, 'z': 0.0049,
 }
 
-# EVA characters that are mappable (17 single chars, excluding q/i digraphs)
-MAPPABLE_EVA = list("acdefghklmnoprsty")
+# Common Italian words for generating realistic-ish plaintext
+# (We don't need perfect Italian — just plausible letter distribution)
+ITALIAN_SYLLABLES = [
+    "la", "il", "di", "che", "non", "con", "per", "una", "del", "le",
+    "da", "in", "lo", "si", "al", "se", "mi", "ne", "ci", "su",
+    "ma", "no", "li", "tu", "te", "re", "me", "va", "fa", "ha",
+    "sono", "come", "questo", "quello", "dove", "quando", "tutto",
+    "bene", "male", "cosa", "tempo", "mondo", "parte", "nome",
+    "acqua", "terra", "fuoco", "aria", "sole", "luna", "stella",
+    "erba", "fiore", "foglia", "radice", "seme", "pianta", "frutto",
+    "corpo", "mano", "piede", "testa", "occhio", "bocca", "cuore",
+    "pietra", "ferro", "oro", "argento", "sale", "olio", "vino",
+    "pane", "carne", "pesce", "latte", "miele", "sangue", "spirito",
+    "virtute", "medicina", "herba", "compositione", "recepte",
+    "polvere", "unguento", "sciroppo", "decoctione", "infusione",
+]
 
 
 # =====================================================================
-# Load existing diagnostics from JSON
+# Step 1: Build Naibbe encoding tables
 # =====================================================================
 
-def load_existing_diagnostics(config: ToolkitConfig) -> dict:
-    """Load pre-computed statistics from existing JSON output files."""
-    stats_dir = config.stats_dir
-    diag = {}
+def build_naibbe_tables(
+    n_tables: int,
+    eva_chars: list[str],
+    rng: random.Random,
+) -> list[dict]:
+    """Build N encoding tables for the Naibbe cipher.
 
-    # cipher_hypothesis.json → IC, Gini, H1/H0
-    path = stats_dir / "cipher_hypothesis.json"
-    if path.exists():
-        data = json.loads(path.read_text(encoding="utf-8"))
-        diag["IC"] = data.get("ioc")
-        ad = data.get("alphabet_diagnostics", {})
-        diag["Gini"] = ad.get("gini")
-        diag["effective_alphabet"] = ad.get("effective_95")
-        ent = data.get("entropy", {})
-        diag["H1/H0"] = ent.get("h1h0_ratio")
+    Each table maps:
+      - 26 unigrams (a-z) → EVA sequences of length 2-5
+      - ~676 bigrams (aa-zz) → EVA sequences of length 3-7
 
-    # word_structure.json → hapax_ratio, zipf_slope, avg_word_length
-    path = stats_dir / "word_structure.json"
-    if path.exists():
-        data = json.loads(path.read_text(encoding="utf-8"))
-        wf = data.get("word_frequencies", {})
-        hapax = wf.get("hapax_count", 0)
-        unique = wf.get("unique_words", 1)
-        diag["hapax_ratio"] = hapax / unique if unique else 0
-        diag["zipf_slope"] = wf.get("zipf_slope")
-        wl = data.get("word_length", {})
-        diag["avg_word_length"] = wl.get("avg_word_length")
-        diag["total_chars"] = data.get("total_chars")
-        # word length distribution for segmentation
-        diag["word_length_dist"] = {
-            int(d["length"]): d["count"]
-            for d in wl.get("distribution", [])
-            if isinstance(d, dict) and "length" in d and "count" in d
-        }
-
-    # currier_split.json → permutation z-scores
-    path = stats_dir / "currier_split.json"
-    if path.exists():
-        data = json.loads(path.read_text(encoding="utf-8"))
-        pt = data.get("permutation_tests", {})
-        diag["currier_A_z"] = pt.get("A", {}).get("z_score")
-        diag["currier_B_z"] = pt.get("B", {}).get("z_score")
-
-    # semantic_coherence.json → permutation z-scores
-    path = stats_dir / "semantic_coherence.json"
-    if path.exists():
-        data = json.loads(path.read_text(encoding="utf-8"))
-        pt = data.get("permutation_test", {})
-        diag["semantic_max_consec_z"] = (
-            pt.get("max_consecutive", {}).get("z_score")
-        )
-        diag["semantic_n_high_z"] = (
-            pt.get("n_high_lines", {}).get("z_score")
-        )
-
-    # cross_language_report.json → real match rate
-    path = stats_dir / "cross_language_report.json"
-    if path.exists():
-        data = json.loads(path.read_text(encoding="utf-8"))
-        heb = data.get("lexicons", {}).get("hebrew", {})
-        diag["real_match_rate"] = heb.get("match_rate")
-        diag["real_n_total"] = heb.get("n_total")
-
-    return diag
-
-
-# =====================================================================
-# Classification
-# =====================================================================
-
-def classify_statistic(value, mono_range, homo_range):
-    """Classify a value vs expected monoalphabetic / homophonic ranges.
-
-    Returns 'mono', 'homo', or 'ambiguous'.
+    The tables differ from each other (homophonic variation).
+    Sequence lengths are drawn from a distribution that matches
+    the observed EVA word-length distribution (~5 chars mean).
     """
-    if value is None:
-        return "unknown"
-    mono_lo, mono_hi = mono_range
-    homo_lo, homo_hi = homo_range
-    in_mono = mono_lo <= value <= mono_hi
-    in_homo = homo_lo <= value <= homo_hi
-    if in_mono and not in_homo:
-        return "mono"
-    if in_homo and not in_mono:
-        return "homo"
-    if in_mono and in_homo:
-        return "ambiguous"
-    # Outside both ranges — classify by distance to nearest range
-    d_mono = min(abs(value - mono_lo), abs(value - mono_hi))
-    d_homo = min(abs(value - homo_lo), abs(value - homo_hi))
-    return "mono" if d_mono < d_homo else "homo"
+    tables = []
+    for _ in range(n_tables):
+        table = {}
+
+        # Unigram mappings: each letter → 2-5 EVA chars
+        for letter in string.ascii_lowercase:
+            seq_len = rng.choices([2, 3, 4, 5], weights=[15, 40, 30, 15], k=1)[0]
+            table[letter] = _random_eva_seq(seq_len, eva_chars, rng)
+
+        # Bigram mappings: common bigrams → 3-7 EVA chars
+        for c1 in string.ascii_lowercase:
+            for c2 in string.ascii_lowercase:
+                bigram = c1 + c2
+                seq_len = rng.choices([3, 4, 5, 6, 7], weights=[10, 25, 35, 20, 10], k=1)[0]
+                table[bigram] = _random_eva_seq(seq_len, eva_chars, rng)
+
+        tables.append(table)
+
+    return tables
 
 
-# =====================================================================
-# Verbose cipher simulation
-# =====================================================================
+def _random_eva_seq(length: int, eva_chars: list[str], rng: random.Random) -> str:
+    """Generate a random EVA character sequence with positional tendencies.
 
-def generate_verbose_table(eva_chars, rng, n_homo=(2, 4), seq_len=(1, 2)):
-    """Generate a random verbose homophonic table.
-
-    Maps 26 Italian lowercase letters to 2-4 EVA sequences each,
-    where each sequence is 1-2 EVA chars long.
+    Mimics EVA slot grammar:
+      - Position 0: favor q, d, c, s, o (common word-starters)
+      - Middle: favor o, a, e, ch combinations
+      - Final: favor y, n, m, l (common word-enders)
     """
-    table = {}
-    for letter in string.ascii_lowercase:
-        n = rng.randint(*n_homo)
-        seqs = []
-        for _ in range(n):
-            slen = rng.randint(*seq_len)
-            seq = "".join(rng.choices(eva_chars, k=slen))
-            seqs.append(seq)
-        table[letter] = seqs
-    return table
+    if length <= 0:
+        return "o"
+
+    chars = []
+    for i in range(length):
+        if i == 0:
+            # Word-start favored characters
+            ch = rng.choices(
+                eva_chars,
+                weights=[3, 1, 4, 5, 2, 1, 1, 1, 1, 3, 1, 1, 1, 5, 1, 4, 1, 1, 2],
+                k=1,
+            )[0]
+        elif i == length - 1:
+            # Word-end favored characters
+            ch = rng.choices(
+                eva_chars,
+                weights=[3, 1, 1, 2, 2, 1, 1, 1, 1, 3, 1, 3, 4, 3, 1, 1, 1, 1, 8],
+                k=1,
+            )[0]
+        else:
+            # Middle: favor o, a, e, ch
+            ch = rng.choices(
+                eva_chars,
+                weights=[4, 1, 2, 2, 4, 1, 1, 2, 1, 2, 1, 1, 1, 5, 1, 1, 1, 1, 1],
+                k=1,
+            )[0]
+        chars.append(ch)
+
+    return "".join(chars)
 
 
-def generate_italian_text(italian_forms, target_len, rng):
-    """Sample Italian words, concatenate characters up to target length.
+# =====================================================================
+# Step 2: Encrypt plaintext using Naibbe cipher
+# =====================================================================
 
-    Returns a string of lowercase Italian letters (a-z only).
+def generate_italian_stream(n_chars: int, rng: random.Random) -> str:
+    """Generate a stream of Italian-like text (lowercase letters only).
+
+    Uses syllable concatenation for realistic letter distribution.
     """
     chars = []
-    total = 0
-    while total < target_len:
-        word = rng.choice(italian_forms)
-        # Keep only a-z chars
+    while len(chars) < n_chars:
+        word = rng.choice(ITALIAN_SYLLABLES)
         clean = "".join(c for c in word.lower() if c in string.ascii_lowercase)
-        if clean:
-            chars.append(clean)
-            total += len(clean)
-    return "".join(chars)[:target_len]
+        chars.extend(clean)
+    return "".join(chars[:n_chars])
 
 
-def verbose_encrypt(text_chars, table, rng):
-    """Encrypt text character-by-character using the verbose table.
+def naibbe_encrypt_word(
+    plaintext_chars: str,
+    tables: list[dict],
+    rng: random.Random,
+) -> str:
+    """Encrypt a chunk of plaintext into one EVA 'word' using Naibbe cipher.
 
-    For each character, randomly choose one of its EVA sequences.
-    Returns concatenated EVA string.
+    1. Segment into unigrams and bigrams (dice: 50/50)
+    2. For each segment, pick a random table and look up the EVA sequence
+    3. Concatenate all sequences
     """
+    pos = 0
     parts = []
-    for ch in text_chars:
-        if ch in table:
-            seq = rng.choice(table[ch])
+    n = len(plaintext_chars)
+
+    while pos < n:
+        # Pick a random table for this segment
+        table = rng.choice(tables)
+
+        # Dice roll: bigram (if possible) or unigram
+        if pos + 1 < n and rng.random() < 0.5:
+            # Bigram
+            bigram = plaintext_chars[pos:pos + 2]
+            seq = table.get(bigram, table.get(bigram[0], "o"))
             parts.append(seq)
-        # Skip characters not in table (non-alphabetic)
+            pos += 2
+        else:
+            # Unigram
+            ch = plaintext_chars[pos]
+            seq = table.get(ch, "o")
+            parts.append(seq)
+            pos += 1
+
     return "".join(parts)
 
 
-def segment_into_words(eva_stream, length_dist, rng):
-    """Segment an EVA stream into words following a length distribution.
-
-    length_dist: dict {length: count} — used as weights for sampling.
-    Returns list of EVA words.
-    """
-    lengths = list(length_dist.keys())
-    weights = [length_dist[l] for l in lengths]
-    total_w = sum(weights)
-    probs = [w / total_w for w in weights]
-
-    words = []
-    pos = 0
-    stream_len = len(eva_stream)
-    while pos < stream_len:
-        wlen = rng.choices(lengths, weights=probs, k=1)[0]
-        if pos + wlen > stream_len:
-            wlen = stream_len - pos
-        if wlen > 0:
-            words.append(eva_stream[pos:pos + wlen])
-        pos += wlen
-    return words
-
-
-def run_naibbe_simulation(italian_forms, length_dist, hebrew_set,
-                          real_rate, n_sims=200, seed=42):
-    """Monte Carlo simulation of Naibbe-style encryption + Hebrew decode.
-
-    For each simulation:
-    1. Generate Italian text (~191K chars)
-    2. Generate a random verbose table
-    3. Encrypt the text
-    4. Segment into words
-    5. Decode each word to Hebrew
-    6. Check match rate vs Hebrew lexicon
-
-    Returns dict with simulation results.
-    """
-    rng = random.Random(seed)
-    target_len = 191_000  # approximate EVA corpus character count
-
-    sim_rates = []
-    t0 = time.time()
-
-    for i in range(n_sims):
-        if (i + 1) % 50 == 0:
-            elapsed = time.time() - t0
-            print(f"      sim {i + 1}/{n_sims}  ({elapsed:.1f}s)")
-
-        # 1. Generate Italian text
-        text = generate_italian_text(italian_forms, target_len, rng)
-
-        # 2. Generate verbose table
-        table = generate_verbose_table(MAPPABLE_EVA, rng)
-
-        # 3. Encrypt
-        eva_stream = verbose_encrypt(text, table, rng)
-
-        # 4. Segment into words
-        words = segment_into_words(eva_stream, length_dist, rng)
-
-        # 5-6. Decode and match
-        n_decoded = 0
-        n_matched = 0
-        for w in words:
-            heb = decode_to_hebrew(w)
-            if heb and all(c is not None for c in heb):
-                n_decoded += 1
-                if heb in hebrew_set:
-                    n_matched += 1
-
-        rate = n_matched / n_decoded if n_decoded else 0
-        sim_rates.append(rate)
-
-    sim_rates = np.array(sim_rates)
-    sim_mean = float(np.mean(sim_rates))
-    sim_std = float(np.std(sim_rates))
-    z_score = (real_rate - sim_mean) / sim_std if sim_std > 0 else float("inf")
-
-    # One-sided p-value: how often does simulation exceed real rate?
-    n_above = int(np.sum(sim_rates >= real_rate))
-    p_value = (n_above + 1) / (n_sims + 1)
-
-    return {
-        "n_sims": n_sims,
-        "sim_mean": sim_mean,
-        "sim_std": sim_std,
-        "sim_min": float(np.min(sim_rates)),
-        "sim_max": float(np.max(sim_rates)),
-        "sim_median": float(np.median(sim_rates)),
-        "real_rate": real_rate,
-        "z_score": z_score,
-        "p_value": p_value,
-        "n_above_real": n_above,
-        "elapsed_s": time.time() - t0,
-    }
-
-
 # =====================================================================
-# Scorecard
+# Step 3: Generate synthetic Naibbe corpus
 # =====================================================================
 
-def build_scorecard(diagnostics, sim_results):
-    """Build aggregated scorecard: each piece of evidence classified."""
-    rows = []
+def generate_naibbe_corpus(
+    real_pages: list[dict],
+    tables: list[dict],
+    rng: random.Random,
+    section_texts: dict[str, str] | None = None,
+) -> list[dict]:
+    """Generate a Naibbe-encrypted corpus matching real manuscript structure.
 
-    # Diagnostic statistics
-    for stat_name in ("IC", "Gini", "H1/H0", "hapax_ratio"):
-        val = diagnostics.get(stat_name)
-        ranges = DIAGNOSTIC_RANGES.get(stat_name, {})
-        verdict = classify_statistic(
-            val,
-            ranges.get("mono", (0, 0)),
-            ranges.get("homo", (0, 0)),
-        )
-        rows.append({
-            "metric": stat_name,
-            "value": f"{val:.4f}" if val is not None else "N/A",
-            "mono_range": f"{ranges.get('mono', ('?','?'))}",
-            "homo_range": f"{ranges.get('homo', ('?','?'))}",
-            "verdict": verdict,
+    For each real page: same number of lines, same words-per-line.
+    Different sections get different plaintext to test section differentiation.
+
+    If section_texts is provided, each section encrypts from its own text stream.
+    Otherwise, all sections share the same stream (worst case for section MI).
+    """
+    # Generate per-section plaintext streams
+    if section_texts is None:
+        section_texts = {}
+
+    sections_seen = set(p["section"] for p in real_pages)
+    for sec in sections_seen:
+        if sec not in section_texts:
+            # Each section gets its own Italian text (different topic mix)
+            section_texts[sec] = generate_italian_stream(200_000, rng)
+
+    # Track position in each section's plaintext
+    section_pos: dict[str, int] = {s: 0 for s in section_texts}
+
+    synthetic_pages = []
+    for page in real_pages:
+        section = page["section"]
+        text = section_texts.get(section, "")
+
+        syn_line_words = []
+        syn_words = []
+
+        for line in page.get("line_words", []):
+            n_words = len(line)
+            syn_line = []
+
+            for real_word in line:
+                # Determine how many plaintext chars to consume
+                # (proportional to real word length, scaled down for verbose expansion)
+                pt_chars = max(1, len(real_word) // 3 + 1)
+
+                # Get plaintext chunk
+                pos = section_pos.get(section, 0)
+                if pos + pt_chars > len(text):
+                    # Wrap around
+                    pos = 0
+                chunk = text[pos:pos + pt_chars]
+                section_pos[section] = pos + pt_chars
+
+                # Encrypt
+                eva_word = naibbe_encrypt_word(chunk, tables, rng)
+
+                # Trim to reasonable length (match real word length ± 2)
+                target_len = len(real_word)
+                if len(eva_word) > target_len + 2:
+                    eva_word = eva_word[:target_len + 2]
+                elif len(eva_word) < max(1, target_len - 2):
+                    # Pad with common EVA chars
+                    pad_chars = "oaey"
+                    while len(eva_word) < target_len - 2:
+                        eva_word += rng.choice(pad_chars)
+
+                if not eva_word:
+                    eva_word = "o"
+
+                syn_line.append(eva_word)
+
+            syn_line_words.append(syn_line)
+            syn_words.extend(syn_line)
+
+        synthetic_pages.append({
+            "folio": page["folio"],
+            "section": page["section"],
+            "language": page["language"],
+            "hand": page.get("hand", "?"),
+            "words": syn_words,
+            "line_words": syn_line_words,
         })
 
-    # Simulation: does Naibbe explain the Hebrew match rate?
-    z = sim_results.get("z_score", 0)
-    p = sim_results.get("p_value", 1)
-    if z > 2.0 and p < 0.05:
-        sim_verdict = "mono"  # real rate exceeds Naibbe → signal is real
-    elif z < 1.0:
-        sim_verdict = "homo"  # Naibbe explains the rate
-    else:
-        sim_verdict = "ambiguous"
-
-    rows.append({
-        "metric": "naibbe_simulation",
-        "value": f"z={z:.2f}, p={p:.4f}",
-        "mono_range": "z>2.0",
-        "homo_range": "z<1.0",
-        "verdict": sim_verdict,
-    })
-
-    # Permutation z-scores: high z → mapping carries real structure
-    for key, label in [
-        ("currier_A_z", "currier_A_perm"),
-        ("currier_B_z", "currier_B_perm"),
-        ("semantic_max_consec_z", "semantic_max_consec"),
-        ("semantic_n_high_z", "semantic_n_high"),
-    ]:
-        z_val = diagnostics.get(key)
-        if z_val is not None:
-            # z>2 suggests real structure beyond noise
-            v = "mono" if z_val > 3.0 else ("ambiguous" if z_val > 2.0 else "homo")
-            rows.append({
-                "metric": label,
-                "value": f"z={z_val:.2f}",
-                "mono_range": "z>3.0",
-                "homo_range": "z<2.0",
-                "verdict": v,
-            })
-
-    return rows
-
-
-def final_verdict(scorecard):
-    """Determine overall verdict from scorecard."""
-    counts = Counter(r["verdict"] for r in scorecard)
-    n_mono = counts.get("mono", 0)
-    n_homo = counts.get("homo", 0)
-    n_amb = counts.get("ambiguous", 0)
-    total = len(scorecard)
-
-    if n_mono >= total * 0.6:
-        verdict = "MONOALPHABETIC FAVORED"
-        detail = (f"The Voynich text behaves like a monoalphabetic cipher "
-                  f"({n_mono}/{total} indicators favor mono). The Naibbe "
-                  f"verbose cipher hypothesis is not supported.")
-    elif n_homo >= total * 0.6:
-        verdict = "HOMOPHONIC FAVORED"
-        detail = (f"The Voynich text is consistent with verbose homophonic "
-                  f"encryption ({n_homo}/{total} indicators favor homo). "
-                  f"The Hebrew signal may be a Naibbe artifact.")
-    else:
-        verdict = "INCONCLUSIVE"
-        detail = (f"Mixed evidence: {n_mono} mono, {n_homo} homo, "
-                  f"{n_amb} ambiguous out of {total}. Neither hypothesis "
-                  f"is clearly favored.")
-
-    return {
-        "verdict": verdict,
-        "detail": detail,
-        "n_mono": n_mono,
-        "n_homo": n_homo,
-        "n_ambiguous": n_amb,
-        "n_total": total,
-    }
+    return synthetic_pages
 
 
 # =====================================================================
-# Output formatting
+# Step 4: Multi-run averaging
 # =====================================================================
 
-def format_summary(diagnostics, sim_results, scorecard, verdict_info):
-    """Format human-readable summary."""
+def run_naibbe_multi(
+    real_pages: list[dict],
+    n_runs: int = N_RUNS,
+    seed: int = SEED,
+) -> tuple[dict, list[dict]]:
+    """Run Naibbe cipher generation N times, return averaged properties.
+
+    Returns (averaged_props, list_of_all_run_props).
+    """
+    all_props = []
+
+    for i in range(n_runs):
+        rng = random.Random(seed + i)
+
+        # Build fresh tables each run (different cipher instantiation)
+        tables = build_naibbe_tables(N_TABLES, EVA_CHARS, rng)
+
+        # Generate corpus
+        naibbe_pages = generate_naibbe_corpus(real_pages, tables, rng)
+
+        # Measure properties
+        props = measure_all_properties(naibbe_pages)
+        all_props.append(props)
+
+        click.echo(f"    Run {i + 1}/{n_runs}: "
+                   f"entropy={props['entropy']['entropy_bits']:.2f}, "
+                   f"TTR={props['vocabulary']['ttr']:.4f}, "
+                   f"m_final={props['m_end_marker']['line_final_rate']:.3f}")
+
+    # Average numeric properties across runs
+    averaged = _average_properties(all_props)
+    return averaged, all_props
+
+
+def _average_properties(all_props: list[dict]) -> dict:
+    """Average measurement dicts across multiple runs.
+
+    For each property, averages all numeric values.
+    Non-numeric values taken from first run.
+    """
+    if not all_props:
+        return {}
+    if len(all_props) == 1:
+        return all_props[0]
+
+    averaged = {}
+    for key in all_props[0]:
+        vals = [p[key] for p in all_props]
+        if isinstance(vals[0], dict):
+            avg_dict = {}
+            for subkey in vals[0]:
+                subvals = [v.get(subkey) for v in vals]
+                if all(isinstance(sv, (int, float)) for sv in subvals if sv is not None):
+                    numeric = [sv for sv in subvals if sv is not None]
+                    avg_dict[subkey] = round(sum(numeric) / len(numeric), 6) if numeric else 0
+                else:
+                    avg_dict[subkey] = subvals[0]
+            averaged[key] = avg_dict
+        else:
+            averaged[key] = vals[0]
+
+    return averaged
+
+
+# =====================================================================
+# Step 5: Save to SQLite
+# =====================================================================
+
+def save_to_db(config: ToolkitConfig, comparisons: list[dict]):
+    """Save comparison results to SQLite database."""
+    db_path = config.output_dir.parent / "voynich.db"
+    if not db_path.exists():
+        click.echo(f"  WARNING: DB not found at {db_path}, skipping DB save")
+        return
+
+    conn = sqlite3.connect(str(db_path))
+    cur = conn.cursor()
+
+    cur.execute("DROP TABLE IF EXISTS naibbe_test")
+    cur.execute("""
+        CREATE TABLE naibbe_test (
+            property TEXT PRIMARY KEY,
+            description TEXT,
+            real_value REAL,
+            naibbe_value REAL,
+            reproduced INTEGER,
+            direction TEXT,
+            threshold REAL
+        )
+    """)
+
+    for c in comparisons:
+        rv = float(c["real_value"]) if isinstance(c["real_value"], (int, float)) else 0
+        nv = float(c["rugg_value"]) if isinstance(c["rugg_value"], (int, float)) else 0
+        cur.execute(
+            "INSERT INTO naibbe_test VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (c["property"], c["description"], rv, nv,
+             1 if c["reproduced"] else 0, c["direction"], c["threshold"]),
+        )
+
+    conn.commit()
+    conn.close()
+
+
+# =====================================================================
+# Step 6: Naibbe-specific summary formatting
+# =====================================================================
+
+def format_naibbe_summary(
+    real_props: dict,
+    naibbe_props: dict,
+    comparisons: list[dict],
+    n_runs: int,
+) -> str:
+    """Format human-readable summary for Naibbe test."""
     lines = []
-    lines.append("=" * 65)
-    lines.append("  NAIBBE VERBOSE CIPHER HYPOTHESIS TEST")
-    lines.append("=" * 65)
+    lines.append("=" * 72)
+    lines.append("NAIBBE CIPHER TEST — Phase 11")
+    lines.append("Can Greshko's (2025) verbose homophonic cipher reproduce")
+    lines.append("the confirmed structural properties of the Voynich Manuscript?")
+    lines.append("=" * 72)
 
-    lines.append("\n  1. DIAGNOSTIC STATISTICS")
-    lines.append("  " + "-" * 61)
-    lines.append(f"  {'Metric':<20} {'Value':>10} {'Mono range':>16} "
-                 f"{'Homo range':>16} {'Verdict':>10}")
-    lines.append("  " + "-" * 61)
-    for r in scorecard:
-        if r["metric"] in ("IC", "Gini", "H1/H0", "hapax_ratio"):
-            lines.append(f"  {r['metric']:<20} {r['value']:>10} "
-                         f"{r['mono_range']:>16} {r['homo_range']:>16} "
-                         f"{r['verdict']:>10}")
+    n_repro = sum(1 for c in comparisons if c["reproduced"])
+    n_total = len(comparisons)
 
-    lines.append(f"\n  Additional: avg_word_length = "
-                 f"{diagnostics.get('avg_word_length', 'N/A')}, "
-                 f"zipf_slope = {diagnostics.get('zipf_slope', 'N/A')}")
+    lines.append(f"\nResult: {n_repro}/{n_total} properties reproduced by Naibbe cipher")
+    lines.append(f"(averaged over {n_runs} cipher instantiations)")
+    lines.append("")
 
-    lines.append("\n  2. NAIBBE MONTE CARLO SIMULATION")
-    lines.append("  " + "-" * 61)
-    sr = sim_results
-    lines.append(f"  Simulations:    {sr['n_sims']}")
-    lines.append(f"  Sim match rate: {sr['sim_mean']:.4f} "
-                 f"+/- {sr['sim_std']:.4f} "
-                 f"(range {sr['sim_min']:.4f} - {sr['sim_max']:.4f})")
-    lines.append(f"  Real match rate: {sr['real_rate']:.4f}")
-    lines.append(f"  z-score:        {sr['z_score']:.2f}")
-    lines.append(f"  p-value:        {sr['p_value']:.4f}")
-    lines.append(f"  Elapsed:        {sr['elapsed_s']:.1f}s")
+    # Comparison with Rugg
+    lines.append("Note: Rugg grille reproduced 10/16 properties.")
+    lines.append(f"      Naibbe cipher reproduced {n_repro}/16 properties.")
+    lines.append("")
 
-    sim_entry = next((r for r in scorecard if r["metric"] == "naibbe_simulation"), None)
-    if sim_entry:
-        lines.append(f"  Verdict:        {sim_entry['verdict'].upper()}")
+    # Table
+    lines.append(f"{'Property':<30s} {'Real':>10s} {'Naibbe':>10s} {'Reproduced':>12s}")
+    lines.append("-" * 72)
 
-    lines.append("\n  3. PERMUTATION EVIDENCE")
-    lines.append("  " + "-" * 61)
-    for r in scorecard:
-        if r["metric"] not in ("IC", "Gini", "H1/H0", "hapax_ratio",
-                                "naibbe_simulation"):
-            lines.append(f"  {r['metric']:<30} {r['value']:>10}  → "
-                         f"{r['verdict']}")
+    for c in comparisons:
+        rv = c["real_value"]
+        nv = c["rugg_value"]  # reuses rugg_value field from compare_properties
 
-    lines.append("\n  4. AGGREGATE VERDICT")
-    lines.append("  " + "=" * 61)
-    vi = verdict_info
-    lines.append(f"  {vi['verdict']}")
-    lines.append(f"  Score: {vi['n_mono']} mono / {vi['n_homo']} homo / "
-                 f"{vi['n_ambiguous']} ambiguous (of {vi['n_total']})")
-    lines.append(f"\n  {vi['detail']}")
-    lines.append("  " + "=" * 61)
+        rv_str = f"{rv:.4f}" if isinstance(rv, float) else str(rv)
+        nv_str = f"{nv:.4f}" if isinstance(nv, float) else str(nv)
+        verdict = "YES" if c["reproduced"] else "** NO **"
 
-    return "\n".join(lines)
+        lines.append(f"  {c['property']:<28s} {rv_str:>10s} {nv_str:>10s} {verdict:>12s}")
 
+    lines.append("-" * 72)
 
-# =====================================================================
-# Load Italian lexicon
-# =====================================================================
+    # Verdict
+    lines.append("")
+    if n_repro == n_total:
+        lines.append("VERDICT: NAIBBE CIPHER SUFFICIENT")
+        lines.append("  The Naibbe cipher reproduces ALL confirmed properties.")
+        lines.append("  This is strong evidence that the VMS could contain")
+        lines.append("  encrypted meaningful text (Latin or Italian).")
+    elif n_repro > 10:
+        missed = [c for c in comparisons if not c["reproduced"]]
+        lines.append(f"VERDICT: NAIBBE CIPHER MOSTLY SUFFICIENT ({n_repro}/{n_total})")
+        lines.append("  The cipher reproduces most properties but misses:")
+        for m in missed:
+            lines.append(f"    - {m['description']}")
+            lines.append(f"      (real={m['real_value']}, naibbe={m['rugg_value']})")
+        lines.append("")
+        lines.append("  Better than Rugg (10/16) — verbose homophonic cipher")
+        lines.append("  is a more plausible generation mechanism than a Cardan grille.")
+    else:
+        missed = [c for c in comparisons if not c["reproduced"]]
+        lines.append(f"VERDICT: NAIBBE CIPHER INSUFFICIENT ({n_total - n_repro} properties missing)")
+        lines.append("  The cipher CANNOT reproduce these properties:")
+        for m in missed:
+            lines.append(f"    - {m['description']}")
+            lines.append(f"      (real={m['real_value']}, naibbe={m['rugg_value']})")
+        lines.append("")
+        if n_repro > 10:
+            lines.append("  Better than Rugg grille but still incomplete.")
+        else:
+            lines.append("  These properties require something BEYOND a verbose cipher.")
 
-def load_italian_forms(config: ToolkitConfig):
-    """Load Italian word forms from the Italian lexicon."""
-    path = config.lexicon_dir / "italian_lexicon.json"
-    if not path.exists():
-        return []
-    data = json.loads(path.read_text(encoding="utf-8"))
-    forms = set()
-    by_domain = data.get("by_domain", data)
-    for domain, entries in by_domain.items():
-        if not isinstance(entries, list):
-            continue
-        for entry in entries:
-            word = entry.get("word", "")
-            if word:
-                forms.add(word.lower())
-    return list(forms)
+    lines.append("")
 
+    # Detail section
+    lines.append("=" * 72)
+    lines.append("DETAILED MEASUREMENTS")
+    lines.append("=" * 72)
 
-def load_hebrew_set(config: ToolkitConfig):
-    """Load Hebrew lexicon as a set of consonantal forms."""
-    path = config.hebrew_lexicon_path
-    if not path.exists():
-        return set()
-    data = json.loads(path.read_text(encoding="utf-8"))
-    forms = set()
-    by_domain = data.get("by_domain", data)
-    for domain, entries in by_domain.items():
-        if not isinstance(entries, list):
-            continue
-        for entry in entries:
-            c = entry.get("consonants", "")
-            if c:
-                forms.add(c)
-    return forms
+    for label, props in [("REAL VOYNICH", real_props), ("NAIBBE CIPHER", naibbe_props)]:
+        lines.append(f"\n--- {label} ---")
+        for key, val in props.items():
+            if isinstance(val, dict):
+                summary_val = {k: v for k, v in val.items() if k != "note"}
+                lines.append(f"  {key}: {_compact_dict(summary_val)}")
+            else:
+                lines.append(f"  {key}: {val}")
+
+    lines.append("")
+    return "\n".join(lines) + "\n"
 
 
 # =====================================================================
-# Main entry point
+# Entry point
 # =====================================================================
 
-def run(config: ToolkitConfig, force=False):
-    """Run Naibbe verbose cipher hypothesis test."""
-    out_json = config.stats_dir / "naibbe_test.json"
-    out_txt = config.stats_dir / "naibbe_test_summary.txt"
+def run(config: ToolkitConfig, force: bool = False, **kwargs):
+    """Naibbe Cipher Test — Phase 11.
 
-    if not force and out_json.exists():
-        print(f"  Output exists: {out_json.name} (use --force to re-run)")
+    Tests whether Greshko's (2025) verbose homophonic substitution cipher
+    can reproduce the 16 confirmed structural properties of the Voynich
+    Manuscript. Same framework as rugg_test.py (Phase 27.9).
+    """
+    report_path = config.stats_dir / "naibbe_test.json"
+    summary_path = config.stats_dir / "naibbe_test_summary.txt"
+
+    if report_path.exists() and not force:
+        click.echo("  Naibbe test report exists. Use --force to re-run.")
         return
 
     config.ensure_dirs()
-    print_header("NAIBBE VERBOSE CIPHER HYPOTHESIS TEST")
+    print_header("PHASE 11 — Naibbe Cipher Test (Greshko 2025)")
 
-    # 1. Load existing diagnostics
-    print_step("Loading existing diagnostics from JSON files...")
-    diagnostics = load_existing_diagnostics(config)
-    for key in ("IC", "Gini", "H1/H0", "hapax_ratio", "real_match_rate"):
-        val = diagnostics.get(key)
-        print(f"      {key}: {val}")
+    # 1. Parse real EVA corpus
+    print_step("Parsing real EVA corpus...")
+    eva_file = config.eva_data_dir / "LSI_ivtff_0d.txt"
+    if not eva_file.exists():
+        raise click.ClickException(f"EVA file not found: {eva_file}")
+    eva_data = parse_eva_words(eva_file)
+    real_pages = eva_data["pages"]
+    click.echo(f"    {eva_data['total_words']:,} words, {len(real_pages)} pages")
 
-    # 2. Parse EVA for word length distribution
-    print_step("Parsing EVA corpus for word length distribution...")
-    eva_path = config.eva_data_dir / "LSI_ivtff_0d.txt"
-    parsed = parse_eva_words(eva_path)
-    if not diagnostics.get("word_length_dist"):
-        wlens = Counter(len(w) for w in parsed["words"])
-        diagnostics["word_length_dist"] = dict(wlens)
-    length_dist = diagnostics["word_length_dist"]
-    print(f"      Word lengths: {len(length_dist)} distinct values, "
-          f"corpus {parsed['total_words']} words")
+    # 2. Measure real properties
+    print_step("Measuring 16 properties on REAL corpus...")
+    real_props = measure_all_properties(real_pages)
+    for key, val in real_props.items():
+        if isinstance(val, dict):
+            summary_val = {k: v for k, v in val.items() if k != "note"}
+            click.echo(f"    {key}: {_compact_dict(summary_val)}")
 
-    # 3. Load Italian lexicon
-    print_step("Loading Italian lexicon...")
-    italian_forms = load_italian_forms(config)
-    print(f"      {len(italian_forms)} Italian forms")
-    if len(italian_forms) < 100:
-        print("      WARNING: Italian lexicon too small, using synthetic fallback")
-        # Generate simple Italian-like words as fallback
-        rng = random.Random(42)
-        vowels = "aeiou"
-        consonants = "bcdfglmnprstvz"
-        italian_forms = []
-        for _ in range(10000):
-            wlen = rng.randint(3, 8)
-            w = ""
-            for j in range(wlen):
-                if j % 2 == 0:
-                    w += rng.choice(consonants)
-                else:
-                    w += rng.choice(vowels)
-            italian_forms.append(w)
-
-    # 4. Load Hebrew lexicon
-    print_step("Loading Hebrew lexicon...")
-    hebrew_set = load_hebrew_set(config)
-    print(f"      {len(hebrew_set)} Hebrew consonantal forms")
-
-    # 5. Get real match rate
-    real_rate = diagnostics.get("real_match_rate", 0.4033)
-    print(f"\n      Real Hebrew match rate: {real_rate:.4f}")
-
-    # 6. Run Naibbe simulation
-    print_step("Running Naibbe Monte Carlo simulation (200 iterations)...")
-    sim_results = run_naibbe_simulation(
-        italian_forms=italian_forms,
-        length_dist=length_dist,
-        hebrew_set=hebrew_set,
-        real_rate=real_rate,
-        n_sims=200,
-        seed=42,
+    # 3. Generate and measure Naibbe corpus (multi-run)
+    print_step(f"Generating Naibbe cipher corpora ({N_RUNS} runs, "
+               f"{N_TABLES} tables each)...")
+    naibbe_props, all_run_props = run_naibbe_multi(
+        real_pages, n_runs=N_RUNS, seed=SEED,
     )
-    print(f"      Sim mean: {sim_results['sim_mean']:.4f} "
-          f"+/- {sim_results['sim_std']:.4f}")
-    print(f"      z-score: {sim_results['z_score']:.2f}, "
-          f"p-value: {sim_results['p_value']:.4f}")
 
-    # 7. Build scorecard
-    print_step("Building scorecard...")
-    scorecard = build_scorecard(diagnostics, sim_results)
-    verdict_info = final_verdict(scorecard)
-    print(f"      Verdict: {verdict_info['verdict']}")
+    click.echo(f"\n    Averaged Naibbe properties:")
+    for key, val in naibbe_props.items():
+        if isinstance(val, dict):
+            summary_val = {k: v for k, v in val.items() if k != "note"}
+            click.echo(f"    {key}: {_compact_dict(summary_val)}")
 
-    # 8. Format and save
-    summary_txt = format_summary(diagnostics, sim_results, scorecard,
-                                 verdict_info)
-    print(f"\n{summary_txt}")
+    # 4. Compare
+    print_step("Comparing real vs Naibbe...")
+    comparisons = compare_properties(real_props, naibbe_props)
 
-    # Save JSON
-    output = {
-        "diagnostics": {k: v for k, v in diagnostics.items()
-                        if k != "word_length_dist"},
-        "word_length_dist": diagnostics.get("word_length_dist", {}),
-        "simulation": sim_results,
-        "scorecard": [r for r in scorecard],
-        "verdict": verdict_info,
+    n_repro = sum(1 for c in comparisons if c["reproduced"])
+    n_total = len(comparisons)
+    click.echo(f"\n    RESULT: {n_repro}/{n_total} properties reproduced")
+
+    for c in comparisons:
+        icon = "OK" if c["reproduced"] else "MISS"
+        click.echo(f"    [{icon:>4s}] {c['property']:<28s} "
+                   f"real={c['real_value']:<10} naibbe={c['rugg_value']:<10}")
+
+    # 5. Save results
+    print_step("Saving results...")
+
+    report = {
+        "real_properties": _serialise(real_props),
+        "naibbe_properties": _serialise(naibbe_props),
+        "comparisons": comparisons,
+        "summary": {
+            "reproduced": n_repro,
+            "total": n_total,
+            "verdict": "SUFFICIENT" if n_repro == n_total else "INSUFFICIENT",
+            "missed": [c["property"] for c in comparisons if not c["reproduced"]],
+        },
+        "parameters": {
+            "n_tables": N_TABLES,
+            "n_runs": N_RUNS,
+            "seed": SEED,
+            "eva_chars": "".join(EVA_CHARS),
+        },
+        "rugg_comparison": {
+            "rugg_reproduced": 10,
+            "rugg_total": 16,
+            "naibbe_reproduced": n_repro,
+            "naibbe_total": n_total,
+            "naibbe_better": n_repro > 10,
+        },
     }
-    out_json.write_text(json.dumps(output, indent=2, ensure_ascii=False),
-                        encoding="utf-8")
-    print(f"\n  Saved: {out_json.name}")
 
-    # Save TXT
-    out_txt.write_text(summary_txt, encoding="utf-8")
-    print(f"  Saved: {out_txt.name}")
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, ensure_ascii=False, indent=2, default=str)
+    click.echo(f"    JSON: {report_path}")
+
+    summary = format_naibbe_summary(real_props, naibbe_props, comparisons, N_RUNS)
+    with open(summary_path, "w", encoding="utf-8") as f:
+        f.write(summary)
+    click.echo(f"    TXT:  {summary_path}")
+
+    # Save to DB
+    save_to_db(config, comparisons)
+    click.echo(f"    DB:   naibbe_test table")
+
+    # Print summary
+    click.echo(f"\n{summary}")

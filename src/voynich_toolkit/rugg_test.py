@@ -288,7 +288,7 @@ def measure_all_properties(pages: list[dict]) -> dict:
     # --- Property 1: Line self-containment ---
     results["line_self_containment"] = _measure_line_containment(all_line_words)
 
-    # --- Property 2: 'm' as line-end marker ---
+    # --- Property 2: 'm' line-end concentration ---
     results["m_end_marker"] = _measure_end_marker(all_line_words, "m")
 
     # --- Property 3: Simple gallows at paragraph start ---
@@ -849,10 +849,10 @@ def compare_properties(real: dict, rugg: dict) -> list[dict]:
         threshold=0.01,
     ))
 
-    # 2. 'm' end marker
+    # 2. 'm' line-end concentration
     comparisons.append(_compare(
         "m_end_marker",
-        "'m' concentrates at line-final position",
+        "'m' concentrates at line-final position (word-final char with line-end preference)",
         real["m_end_marker"]["line_final_rate"],
         rugg["m_end_marker"]["line_final_rate"],
         direction="high_is_good",

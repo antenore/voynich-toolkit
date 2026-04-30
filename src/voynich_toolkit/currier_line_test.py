@@ -239,7 +239,7 @@ def line_final_char_bias(lines: list[dict]) -> dict:
     """For each character, compute what fraction of its total occurrences
     are at the final position of the last word of a line.
 
-    Characters with high line-final fraction are "line-end markers."
+    Characters with high line-final fraction show line-end concentration.
     """
     # Count total occurrences of each char in the entire corpus
     total_char: Counter = Counter()
