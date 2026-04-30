@@ -871,6 +871,33 @@ def rugg_test(ctx):
     run(ctx.obj["config"], force=ctx.obj["force"])
 
 
+@cli.command("firth-abjad-null")
+@click.pass_context
+def firth_abjad_null(ctx):
+    """Phase 16a: Firth abjad null — random EVA->Hebrew mappings vs top-10 Voynich words."""
+    from .firth_abjad_null import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("firth-sorting-cipher")
+@click.pass_context
+def firth_sorting_cipher(ctx):
+    """Phase 16b: Firth sorting cipher — does intra-word alphabetical sort reproduce VMS structure?"""
+    from .firth_sorting_cipher import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
+@cli.command("firth-vb101")
+@click.pass_context
+def firth_vb101(ctx):
+    """Phase 16c: Firth vb101 family — does bigram-replacement transliteration change structural results?"""
+    from .firth_vb101 import run
+
+    run(ctx.obj["config"], force=ctx.obj["force"])
+
+
 @cli.command("run-all")
 @click.pass_context
 def run_all(ctx):
